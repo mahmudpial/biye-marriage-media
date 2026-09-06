@@ -33,10 +33,9 @@
                             <i class="bi bi-telephone-fill fs-5"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1">Priority Contact Numbers</h6>
+                            <h6 class="fw-bold mb-1">Priority Contact Number</h6>
                             <div class="d-flex flex-column gap-1">
-                                <a href="tel:+8801577711210" class="text-maroon fs-5 fw-bold text-decoration-none">+880 1577-711210</a>
-                                <a href="tel:+8801577733404" class="text-maroon fs-5 fw-bold text-decoration-none">+880 1577-733404</a>
+                                <a href="tel:+8801577723404" class="text-maroon fs-5 fw-bold text-decoration-none">+880 1577-723404</a>
                             </div>
                             <p class="small text-muted mb-0 mt-1">Saturday to Friday, 9:00 AM - 10:00 PM BST</p>
                         </div>
@@ -49,7 +48,7 @@
                         </div>
                         <div>
                             <h6 class="fw-bold mb-1">WhatsApp VIP Concierge</h6>
-                            <a href="https://wa.me/8801577711210" target="_blank" class="text-success fs-6 fw-bold text-decoration-none">Chat Directly on WhatsApp (+880 1577-711210)</a>
+                            <a href="https://wa.me/8801577723404" target="_blank" class="text-success fs-6 fw-bold text-decoration-none">Chat Directly on WhatsApp (+880 1577-723404)</a>
                             <p class="small text-muted mb-0">Instant, discrete family coordination</p>
                         </div>
                     </div>
@@ -138,7 +137,7 @@
                                 <label class="form-label small fw-semibold text-dark">Contact Number <span class="text-danger">*</span></label>
                                 <div class="input-group elite-input-group">
                                     <span class="input-group-text bg-light">+880</span>
-                                    <input type="tel" class="form-control" name="phone" placeholder="01577711210" required>
+                                    <input type="tel" class="form-control" name="phone" placeholder="01577723404" required>
                                 </div>
                             </div>
 
@@ -203,7 +202,7 @@
                     <div class="p-4 bg-white rounded-4 border border-warning-subtle shadow-sm h-100">
                         <h5 class="font-serif fw-bold text-maroon mb-1">Dhaka Head Office</h5>
                         <p class="small text-muted mb-2">Ka-57/3, Second Floor, Kuril Chowrasta, Vatara, Dhaka-1212</p>
-                        <p class="small text-secondary mb-0"><i class="bi bi-telephone text-gold me-1"></i> +880 1577-711210</p>
+                        <p class="small text-secondary mb-0"><i class="bi bi-telephone text-gold me-1"></i> +880 1577-723404</p>
                     </div>
                 </div>
 

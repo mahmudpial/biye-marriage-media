@@ -163,10 +163,10 @@
             <button type="button" class="btn btn-elite-gold px-4 py-2" data-bs-toggle="modal" data-bs-target="#consultationModal">
                 <i class="bi bi-calendar2-check me-1"></i> Schedule Private Family Consultation
             </button>
-            <a href="tel:+8801577711210" class="btn btn-elite-outline-gold px-4 py-2">
-                <i class="bi bi-telephone-fill me-1"></i> +880 1577-711210
+            <a href="tel:+8801577723404" class="btn btn-elite-outline-gold px-4 py-2">
+                <i class="bi bi-telephone-fill me-1"></i> +880 1577-723404
             </a>
-            <a href="https://wa.me/8801577711210" target="_blank" class="btn btn-outline-light px-4 py-2">
+            <a href="https://wa.me/8801577723404" target="_blank" class="btn btn-outline-light px-4 py-2">
                 <i class="bi bi-whatsapp text-success me-1"></i> WhatsApp
             </a>
         </div>

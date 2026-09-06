@@ -57,7 +57,7 @@
                             <label class="form-label small fw-semibold text-dark">Mobile / WhatsApp Number <span class="text-danger">*</span></label>
                             <div class="input-group elite-input-group">
                                 <span class="input-group-text bg-light">+880</span>
-                                <input type="tel" class="form-control" name="phone" placeholder="01577-711210" required>
+                                <input type="tel" class="form-control" name="phone" placeholder="01577-723404" required>
                             </div>
                         </div>
 

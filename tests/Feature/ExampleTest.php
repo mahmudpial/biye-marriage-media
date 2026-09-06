@@ -58,8 +58,9 @@ class ExampleTest extends TestCase
         $response = $this->get('/contact');
         $response->assertStatus(200);
         $response->assertSee('Contact Biye Marriage Media');
-        $response->assertSee('+880 1577-711210');
-        $response->assertSee('+880 1577-733404');
+        $response->assertSee('+880 1577-723404');
+        $response->assertDontSee('+880 1577-711210');
+        $response->assertDontSee('+880 1577-733404');
         $response->assertSee('biyemarriagemedia@gmail.com');
         $response->assertSee('Kuril Chowrasta');
         $response->assertSee('www.biyemarriagemedia.com');
@@ -131,14 +132,16 @@ class ExampleTest extends TestCase
         $response->assertSee('footer-social-row');
         $response->assertSee('footer-social-icon');
         $response->assertSee('footer-social-fb');
+        $response->assertSee('https://www.facebook.com/biyemarriagemedia');
         $response->assertSee('footer-social-insta');
         $response->assertSee('footer-social-wa');
 
-        // Kuril Chowrasta head office and dual helplines
+        // Kuril Chowrasta head office and helpline
         $response->assertSee('Kuril Chowrasta Office:');
         $response->assertSee('www.biyemarriagemedia.com');
-        $response->assertSee('+880 1577-711210');
-        $response->assertSee('+880 1577-733404');
+        $response->assertSee('+880 1577-723404');
+        $response->assertDontSee('+880 1577-711210');
+        $response->assertDontSee('+880 1577-733404');
         $response->assertSee('biyemarriagemedia@gmail.com');
 
         // Right-side trust badge
@@ -148,7 +151,7 @@ class ExampleTest extends TestCase
         // Final CTA buttons present with responsive wrapper
         $response->assertSee('vip-cta-actions d-flex flex-column flex-md-row', false);
         $response->assertSee('Request VIP Callback');
-        $response->assertSee('Call +880 1577-711210');
+        $response->assertSee('Call +880 1577-723404');
         $response->assertSee('WhatsApp Concierge');
     }
 }

@@ -16,13 +16,13 @@
                     Professional bride and groom matching in Bangladesh and overseas. We prioritize Islamic values and family compatibility to help you find your ideal life partner with 100% confidentiality.
                 </p>
                 <div class="footer-social-row mt-3">
-                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-social-fb" aria-label="Facebook Page">
+                    <a href="https://www.facebook.com/biyemarriagemedia" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-social-fb" aria-label="Facebook Page">
                         <i class="bi bi-facebook"></i>
                     </a>
                     <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-social-insta" aria-label="Instagram Profile">
                         <i class="bi bi-instagram"></i>
                     </a>
-                    <a href="https://wa.me/8801577711210" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-social-wa" aria-label="WhatsApp Concierge">
+                    <a href="https://wa.me/8801577723404" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-social-wa" aria-label="WhatsApp Concierge">
                         <i class="bi bi-whatsapp"></i>
                     </a>
                 </div>
@@ -62,17 +62,13 @@
                 <h5 class="footer-heading">Contact & Helpline</h5>
                 <p class="small mb-2" style="color: #b3b8c4;">Speak directly with our matrimonial consultants:</p>
                 <div class="mb-2">
-                    <a href="tel:+8801577711210" class="footer-contact-link d-flex align-items-center gap-2 text-gold fw-semibold fs-6 text-decoration-none">
+                    <a href="tel:+8801577723404" class="footer-contact-link d-flex align-items-center gap-2 text-gold fw-semibold fs-6 text-decoration-none">
                         <i class="bi bi-telephone-outbound-fill"></i>
-                        <span>+880 1577-711210</span>
-                    </a>
-                    <a href="tel:+8801577733404" class="footer-contact-link d-flex align-items-center gap-2 text-gold fw-semibold fs-6 text-decoration-none mt-1">
-                        <i class="bi bi-telephone-fill"></i>
-                        <span>+880 1577-733404</span>
+                        <span>+880 1577-723404</span>
                     </a>
                 </div>
                 <div class="mb-2">
-                    <a href="https://wa.me/8801577711210" target="_blank" class="footer-contact-link d-flex align-items-center gap-2 text-success fw-medium text-decoration-none small">
+                    <a href="https://wa.me/8801577723404" target="_blank" class="footer-contact-link d-flex align-items-center gap-2 text-success fw-medium text-decoration-none small">
                         <i class="bi bi-whatsapp"></i>
                         <span>WhatsApp Concierge</span>
                     </a>

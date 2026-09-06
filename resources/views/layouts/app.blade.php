@@ -45,11 +45,9 @@
                 <span class="d-none d-md-inline text-gold fw-medium"><i class="bi bi-heart-fill me-1"></i> বিশ্বাসের বন্ধনে, সুন্দর আগামী</span>
             </div>
             <div class="d-flex align-items-center gap-3">
-                <a href="tel:+8801577711210"><i class="bi bi-telephone-fill text-gold me-1"></i> +880 1577-711210</a>
-                <span class="topbar-divider d-none d-lg-inline">|</span>
-                <a href="tel:+8801577733404" class="d-none d-lg-inline">+880 1577-733404</a>
+                <a href="tel:+8801577723404"><i class="bi bi-telephone-fill text-gold me-1"></i> +880 1577-723404</a>
                 <span class="topbar-divider">|</span>
-                <a href="https://wa.me/8801577711210" target="_blank"><i class="bi bi-whatsapp text-success me-1"></i> VIP WhatsApp</a>
+                <a href="https://wa.me/8801577723404" target="_blank"><i class="bi bi-whatsapp text-success me-1"></i> VIP WhatsApp</a>
             </div>
         </div>
     </div>
