@@ -1,67 +1,48 @@
-# Stage 1: Build frontend assets using Node.js
-FROM node:20-alpine AS frontend
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+FROM php:8.3-fpm-alpine AS base
 
-# Stage 2: Production PHP 8.4 Apache environment
-FROM php:8.4-apache
-
-WORKDIR /var/www/html
-
-# Install system dependencies & required PHP extensions
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    libonig-dev \
-    libxml2-dev \
+# System deps
+RUN apk add --no-cache \
+    nginx \
+    supervisor \
+    postgresql-dev \
     libzip-dev \
     zip \
     unzip \
-    sqlite3 \
-    libsqlite3-dev \
-    libpq-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_mysql pdo_pgsql pgsql pdo_sqlite mbstring exif pcntl bcmath gd zip \
-    && docker-php-ext-enable opcache \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    git \
+    nodejs \
+    npm \
+    curl \
+    oniguruma-dev
 
-# Install Composer
+# PHP extensions
+RUN docker-php-ext-install pdo pdo_pgsql mbstring zip exif pcntl bcmath opcache
+
+# Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Configure Apache DocumentRoot and enable mod_rewrite
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
-    && echo '<Directory /var/www/html/public>\n\
-    Options -Indexes +FollowSymLinks\n\
-    AllowOverride All\n\
-    Require all granted\n\
-</Directory>' > /etc/apache2/conf-available/laravel.conf \
-    && a2enconf laravel \
-    && a2enmod rewrite
+WORKDIR /var/www/html
 
-# Copy composer dependencies first for Docker layer caching
+# Install PHP deps first (cache layer)
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --no-interaction
+RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
 
-# Copy application source
+# Copy app
 COPY . .
 
-# Copy compiled frontend assets from frontend stage
-COPY --from=frontend /app/public/build /var/www/html/public/build
+RUN composer dump-autoload --optimize
 
-# Generate optimized autoloader
-RUN composer dump-autoload --optimize --no-dev --no-scripts
+# Frontend build (Vue 3 / Inertia via Vite)
+RUN npm install && npm run build
 
-# Setup startup entrypoint script
-COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+# Permissions
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-EXPOSE 80
+# Nginx + Supervisor config
+COPY docker/nginx.conf /etc/nginx/http.d/default.conf
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/start.sh /start.sh
+RUN chmod +x /start.sh
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+EXPOSE 10000
+
+CMD ["/start.sh"]
