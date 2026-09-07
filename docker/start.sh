@@ -71,13 +71,26 @@ if [ -z "$LOG_CHANNEL" ]; then
     sed -i "s|^LOG_CHANNEL=.*|LOG_CHANNEL=stderr|" /var/www/html/.env
 fi
 
-# Switch session & cache drivers to file to avoid database locking/bootstrapping bottlenecks
+# Force file session & cache drivers, sync queues, and stderr logging in container environment
+export SESSION_DRIVER=file
+export CACHE_STORE=file
+export CACHE_DRIVER=file
+export QUEUE_CONNECTION=sync
+export LOG_CHANNEL=stderr
+
 sed -i "s|^SESSION_DRIVER=.*|SESSION_DRIVER=file|" /var/www/html/.env
 sed -i "s|^CACHE_STORE=.*|CACHE_STORE=file|" /var/www/html/.env
+sed -i "s|^CACHE_DRIVER=.*|CACHE_DRIVER=file|" /var/www/html/.env 2>/dev/null || echo "CACHE_DRIVER=file" >> /var/www/html/.env
+sed -i "s|^LOG_CHANNEL=.*|LOG_CHANNEL=stderr|" /var/www/html/.env
+sed -i "s|^QUEUE_CONNECTION=.*|QUEUE_CONNECTION=sync|" /var/www/html/.env
+
+# Prevent Laravel URL parser from breaking on special characters like '#' and '@' in DATABASE_URL
+unset DATABASE_URL
+unset DB_URL
 
 # 3. Handle Database Configuration (PostgreSQL / Supabase / SQLite)
 if [ -z "$DB_CONNECTION" ]; then
-    case "$DATABASE_URL$DB_HOST" in
+    case "$DB_HOST" in
         *postgres*|*supabase*)
             export DB_CONNECTION=pgsql
             ;;

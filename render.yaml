@@ -32,10 +32,10 @@ services:
         value: require
 
       - key: LOG_CHANNEL
-        value: stack
+        value: stderr
       - key: SESSION_DRIVER
-        value: database
+        value: file
       - key: CACHE_DRIVER
-        value: database
+        value: file
       - key: QUEUE_CONNECTION
-        value: database
+        value: sync
