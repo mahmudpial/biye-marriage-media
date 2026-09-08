@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MembershipPackage;
 use App\Models\User;
 use Illuminate\View\View;
 
@@ -13,11 +14,20 @@ class DashboardController extends Controller
      */
     public function index(): View
     {
+        $activePackages = 3;
+        try {
+            if (class_exists(MembershipPackage::class)) {
+                $activePackages = MembershipPackage::active()->count();
+            }
+        } catch (\Throwable) {
+            // fallback
+        }
+
         $stats = [
             'total_users' => User::count(),
             'verified_profiles' => 1250,
             'pending_leads' => 14,
-            'active_packages' => 3,
+            'active_packages' => $activePackages,
             'monthly_matches' => 88,
         ];
 

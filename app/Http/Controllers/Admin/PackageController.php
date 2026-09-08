@@ -7,6 +7,7 @@ use App\Models\MembershipPackage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class PackageController extends Controller
@@ -190,12 +191,18 @@ class PackageController extends Controller
         $lines = explode("\n", str_replace("\r", '', $validated['benefits_text']));
         $benefits = array_values(array_filter(array_map('trim', $lines), fn ($line) => $line !== ''));
 
+        if (empty($benefits)) {
+            throw ValidationException::withMessages([
+                'benefits_text' => 'Please provide at least one included matchmaking privilege or benefit.',
+            ]);
+        }
+
         $validated['benefits'] = $benefits;
         unset($validated['benefits_text']);
 
         $validated['sort_order'] = (int) ($validated['sort_order'] ?? 0);
         $validated['featured'] = $request->boolean('featured');
-        $validated['is_active'] = $request->boolean('is_active', true);
+        $validated['is_active'] = $request->boolean('is_active');
 
         return $validated;
     }

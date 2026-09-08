@@ -1,131 +1,257 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Membership Packages & Pricing')
-@section('page-title', 'Membership Packages & Pricing CMS')
+@section('page-title', 'Membership Packages CMS')
 
 @push('styles')
 <style>
+    /* Clean layout wrapper */
+    .packages-wrapper {
+        width: 100%;
+    }
+
+    /* Stat Pills */
     .stat-pill {
-        background: #1e0510;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: #18030c;
+        border: 1px solid rgba(212, 175, 55, 0.3);
         border-radius: 14px;
         padding: 1rem 1.25rem;
         transition: transform 0.2s ease, border-color 0.2s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     }
     .stat-pill:hover {
-        border-color: rgba(212, 175, 55, 0.4);
+        border-color: rgba(212, 175, 55, 0.55);
         transform: translateY(-2px);
     }
     .stat-pill .num {
-        font-size: 1.6rem;
+        font-size: 1.65rem;
         font-weight: 700;
         color: #fff;
     }
     .stat-pill .label {
-        font-size: 0.78rem;
-        color: var(--text-muted-custom);
+        font-size: 0.76rem;
+        color: #94a3b8;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        font-weight: 600;
     }
 
+    /* Filter Card */
     .filter-card {
-        background: #1b040e;
-        border: 1px solid rgba(212, 175, 55, 0.22);
-        border-radius: 16px;
-        padding: 1.25rem;
+        background: #18030c;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 14px;
+        padding: 1.15rem 1.35rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    }
+    .filter-label {
+        color: #fde68a;
+        font-size: 0.76rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.35rem;
+    }
+    .filter-input, .filter-select {
+        background: #0f0207 !important;
+        border: 1px solid rgba(212, 175, 55, 0.35) !important;
+        color: #ffffff !important;
+        font-size: 0.88rem;
+        border-radius: 9px;
+        padding: 0.55rem 0.85rem;
+    }
+    .filter-input:focus, .filter-select:focus {
+        border-color: #f5d061 !important;
+        box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25) !important;
+    }
+    .filter-input::placeholder {
+        color: rgba(255, 255, 255, 0.45) !important;
     }
 
-    .table-packages th {
-        background: rgba(0, 0, 0, 0.45) !important;
-        color: #fce7a1 !important;
+    /* Table Container */
+    .table-container {
+        background: #17040d;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+    .table-packages {
+        min-width: 1050px;
+        width: 100%;
+        margin-bottom: 0;
+        border-collapse: collapse;
+    }
+    .table-packages thead th {
+        background: #240614 !important;
+        color: #fef08a !important;
         font-size: 0.78rem;
+        font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.6px;
-        padding: 1rem 0.85rem;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
+        padding: 1rem 0.95rem;
+        border-bottom: 2px solid rgba(212, 175, 55, 0.35) !important;
+        vertical-align: middle;
         white-space: nowrap;
     }
-    .table-packages td {
-        padding: 1rem 0.85rem;
+    .table-packages tbody td {
+        padding: 0.95rem 0.95rem;
         vertical-align: middle;
         background: transparent !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .table-packages tr:hover td {
-        background: rgba(212, 175, 55, 0.05) !important;
+    .table-packages tbody tr:hover td {
+        background: rgba(212, 175, 55, 0.06) !important;
     }
-
-    .btn-action-icon {
-        width: 32px;
-        height: 32px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 8px;
-        color: #e5e7eb;
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        transition: all 0.2s ease;
-        text-decoration: none;
-    }
-    .btn-action-icon:hover {
-        background: rgba(212, 175, 55, 0.2);
-        border-color: rgba(212, 175, 55, 0.4);
-        color: #fce7a1;
-    }
-    .btn-action-icon.btn-danger-custom:hover {
-        background: rgba(220, 53, 69, 0.25);
-        border-color: rgba(220, 53, 69, 0.5);
-        color: #f87171;
+    .table-packages tbody tr:last-child td {
+        border-bottom: none;
     }
 
+    /* Icon Box */
     .package-icon-box {
         width: 44px;
         height: 44px;
-        border-radius: 12px;
+        border-radius: 11px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(117, 20, 35, 0.4) 100%);
-        border: 1px solid rgba(212, 175, 55, 0.35);
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.22) 0%, rgba(117, 20, 35, 0.5) 100%);
+        border: 1px solid rgba(212, 175, 55, 0.4);
         color: var(--gold-light);
-        font-size: 1.3rem;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+    }
+
+    /* Badges */
+    .badge-tier {
+        background: rgba(212, 175, 55, 0.18);
+        color: #fef08a;
+        border: 1px solid rgba(212, 175, 55, 0.4);
+        font-weight: 600;
+        font-size: 0.76rem;
+        padding: 0.28rem 0.6rem;
+        border-radius: 6px;
+        display: inline-block;
+    }
+
+    /* Status Toggle: Bright Green Active vs Bright Red Inactive */
+    .btn-status-toggle {
+        border-radius: 20px;
+        padding: 0.38rem 0.85rem;
+        font-size: 0.8rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+    }
+    .btn-status-toggle.active {
+        background: #16a34a !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 10px rgba(22, 163, 74, 0.4);
+    }
+    .btn-status-toggle.active:hover {
+        background: #22c55e !important;
+        transform: scale(1.03);
+    }
+    .btn-status-toggle.inactive {
+        background: #dc2626 !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 10px rgba(220, 38, 38, 0.4);
+    }
+    .btn-status-toggle.inactive:hover {
+        background: #ef4444 !important;
+        transform: scale(1.03);
+    }
+
+    /* Featured Toggle */
+    .btn-featured-toggle {
+        border-radius: 20px;
+        padding: 0.32rem 0.75rem;
+        font-size: 0.76rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .btn-featured-toggle.featured {
+        background: rgba(212, 175, 55, 0.25);
+        border: 1px solid #f5d061;
+        color: #fef08a;
+    }
+    .btn-featured-toggle.featured:hover {
+        background: #f5d061;
+        color: #000000;
+        transform: scale(1.03);
+    }
+    .btn-featured-toggle.standard {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        color: #94a3b8;
+    }
+    .btn-featured-toggle.standard:hover {
+        border-color: rgba(212, 175, 55, 0.4);
+        color: #ffffff;
+        transform: scale(1.03);
+    }
+
+    /* Action Icon Buttons: 36px square Edit & Delete */
+    .btn-action-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 9px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+    }
+    .btn-action-icon.edit {
+        background: #d4af37;
+        color: #0d0206 !important;
+        border: 1px solid #f5d061;
+        box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+    }
+    .btn-action-icon.edit:hover {
+        background: #f5d061;
+        color: #000000 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(212, 175, 55, 0.55);
+    }
+    .btn-action-icon.delete {
+        background: rgba(220, 38, 38, 0.2);
+        border: 1px solid rgba(239, 68, 68, 0.55) !important;
+        color: #fca5a5 !important;
+    }
+    .btn-action-icon.delete:hover {
+        background: #dc2626;
+        color: #ffffff !important;
+        border-color: #ef4444 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(220, 38, 38, 0.55);
+    }
+
+    /* Colors */
+    .text-silver {
+        color: #cbd5e1 !important;
+    }
+    .text-gold-bright {
+        color: #fde68a !important;
     }
 </style>
 @endpush
 
 @section('content')
-<div class="container-fluid px-0">
-
-    <!-- Flash Notifications -->
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show border-0 py-2.5 px-3 mb-4 text-white" style="background: rgba(25, 135, 84, 0.35); border-left: 4px solid #22c55e !important;" role="alert">
-            <i class="bi bi-check-circle-fill me-2 text-success"></i>
-            {{ session('success') }}
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
-    <!-- Header Actions & Portfolio Stats -->
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-        <div>
-            <h4 class="text-white fw-bold mb-1">
-                <i class="bi bi-gem text-gold me-2"></i> Membership Packages Management
-            </h4>
-            <p class="text-muted-custom small mb-0">
-                Configure bespoke membership tiers, fee structures, and elite matchmaking privileges displayed across the portal.
-            </p>
-        </div>
-
-        <div class="d-flex gap-2">
-            <a href="{{ route('packages') }}" target="_blank" class="btn btn-outline-warning btn-sm px-3 py-2 text-gold">
-                <i class="bi bi-box-arrow-up-right me-1"></i> Preview Public Pricing
-            </a>
-            <a href="{{ route('admin.packages.create') }}" class="btn btn-admin-primary btn-sm px-3 py-2 fw-semibold">
-                <i class="bi bi-plus-circle-fill me-1"></i> Create New Package
-            </a>
-        </div>
-    </div>
+<div class="container-fluid px-0 packages-wrapper">
 
     <!-- Quick Stats Metric Cards -->
     <div class="row g-3 mb-4">
@@ -175,48 +301,52 @@
         </div>
     </div>
 
-    <!-- Filter & Search Card -->
+    <!-- Filter & Search Toolbar -->
     <div class="filter-card mb-4">
-        <form method="GET" action="{{ route('admin.packages.index') }}" class="row g-3 align-items-end">
-            <div class="col-md-5">
-                <label class="form-label small text-muted-custom mb-1">Search Packages</label>
-                <div class="input-group input-group-sm">
+        <form method="GET" action="{{ route('admin.packages.index') }}" class="row g-2 align-items-end">
+            <!-- Search Text -->
+            <div class="col-lg-5 col-md-6">
+                <label class="filter-label">Search Packages</label>
+                <div class="input-group">
                     <span class="input-group-text bg-transparent border-secondary border-opacity-50 text-gold">
                         <i class="bi bi-search"></i>
                     </span>
                     <input 
                         type="text" 
                         name="search" 
-                        class="form-control" 
-                        placeholder="Search by package name, target audience, or badge..." 
+                        class="form-control filter-input" 
+                        placeholder="Search tier name, badge or persona..." 
                         value="{{ request('search') }}"
                     >
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <label class="form-label small text-muted-custom mb-1">Publish Status</label>
-                <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+            <!-- Publish Status -->
+            <div class="col-lg-3 col-md-3 col-6">
+                <label class="filter-label">Publish Status</label>
+                <select name="status" class="form-select filter-select" onchange="this.form.submit()">
                     <option value="">All Statuses</option>
                     <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active Only</option>
                     <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Inactive Only</option>
                 </select>
             </div>
 
-            <div class="col-md-2">
-                <label class="form-label small text-muted-custom mb-1">Highlight Tier</label>
-                <select name="featured" class="form-select form-select-sm" onchange="this.form.submit()">
+            <!-- Highlight Tier -->
+            <div class="col-lg-2 col-md-3 col-6">
+                <label class="filter-label">Highlight Tier</label>
+                <select name="featured" class="form-select filter-select" onchange="this.form.submit()">
                     <option value="">All Tiers</option>
                     <option value="1" {{ request('featured') === '1' ? 'selected' : '' }}>Most Preferred Only</option>
                 </select>
             </div>
 
-            <div class="col-md-2 d-flex gap-2">
-                <button type="submit" class="btn btn-admin-primary btn-sm flex-grow-1 py-1.5">
-                    <i class="bi bi-funnel me-1"></i> Filter
+            <!-- Filter Buttons -->
+            <div class="col-lg-2 col-md-12 d-flex gap-2">
+                <button type="submit" class="btn btn-admin-primary flex-grow-1 py-2 fw-bold text-dark">
+                    <i class="bi bi-funnel-fill me-1"></i> Filter
                 </button>
                 @if(request()->anyFilled(['search', 'status', 'featured']))
-                    <a href="{{ route('admin.packages.index') }}" class="btn btn-outline-secondary btn-sm py-1.5" title="Reset Filters">
+                    <a href="{{ route('admin.packages.index') }}" class="btn btn-outline-secondary py-2 px-3" title="Reset Filters">
                         <i class="bi bi-arrow-counterclockwise"></i>
                     </a>
                 @endif
@@ -224,33 +354,54 @@
         </form>
     </div>
 
-    <!-- Packages Data Table -->
-    <div class="card bg-transparent border-0">
-        <div class="table-responsive rounded-4 border border-secondary border-opacity-25" style="background: #18030c;">
-            <table class="table table-packages mb-0 align-middle">
+    <!-- Packages Table Card -->
+    <div class="table-container shadow-lg">
+        <!-- Table Card Header -->
+        <div class="p-3 px-4 border-bottom border-secondary border-opacity-25 d-flex flex-wrap justify-content-between align-items-center gap-3" style="background: rgba(0, 0, 0, 0.25);">
+            <div class="d-flex align-items-center gap-2">
+                <h5 class="text-white fw-bold mb-0">
+                    <i class="bi bi-gem text-gold me-1"></i> Packages List
+                </h5>
+                <span class="badge rounded-pill bg-dark border border-warning-subtle text-gold px-2.5 py-1">
+                    {{ $packages->total() }} Tiers
+                </span>
+            </div>
+
+            <div class="d-flex gap-2">
+                <a href="{{ route('packages') }}" target="_blank" class="btn btn-outline-warning btn-sm px-3 py-1.5 text-gold fw-semibold">
+                    <i class="bi bi-globe2 me-1"></i> Preview Public Pricing
+                </a>
+                <a href="{{ route('admin.packages.create') }}" class="btn btn-admin-primary btn-sm px-3.5 py-1.5 fw-bold text-dark">
+                    <i class="bi bi-plus-circle-fill me-1"></i> + Add New Package
+                </a>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-packages align-middle">
                 <thead>
                     <tr>
-                        <th style="width: 50px;">Order</th>
-                        <th>Package Tier</th>
-                        <th>Badge &amp; Category</th>
-                        <th>Pricing / Fee</th>
+                        <th style="width: 70px;" class="text-center">Order</th>
+                        <th style="width: 250px;">Package Tier</th>
+                        <th style="width: 220px;">Badge &amp; Category</th>
+                        <th style="width: 170px;">Pricing / Fee</th>
                         <th>Privileges Included</th>
-                        <th class="text-center">Most Preferred</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-end" style="min-width: 140px;">Actions</th>
+                        <th class="text-center" style="width: 140px;">Most Preferred</th>
+                        <th class="text-center" style="width: 120px;">Status</th>
+                        <th class="text-end" style="width: 120px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($packages as $pkg)
                     <tr>
-                        <!-- Sort Order -->
-                        <td>
-                            <span class="badge rounded-pill bg-dark border border-secondary border-opacity-50 text-gold fw-bold px-2 py-1">
+                        <!-- 1. Order -->
+                        <td class="text-center">
+                            <span class="badge rounded-pill bg-dark border border-secondary border-opacity-50 text-gold fw-bold px-2.5 py-1">
                                 #{{ $pkg->sort_order }}
                             </span>
                         </td>
 
-                        <!-- Package Tier -->
+                        <!-- 2. Package Tier -->
                         <td>
                             <div class="d-flex align-items-center gap-3">
                                 <div class="package-icon-box">
@@ -258,15 +409,15 @@
                                 </div>
                                 <div>
                                     <div class="text-white fw-bold fs-6">{{ $pkg->name }}</div>
-                                    <div class="text-muted-custom small font-monospace">slug: {{ $pkg->slug }}</div>
+                                    <div class="text-silver small font-monospace">slug: {{ $pkg->slug }}</div>
                                 </div>
                             </div>
                         </td>
 
-                        <!-- Badge / Subtitle -->
+                        <!-- 3. Badge & Category -->
                         <td>
                             @if($pkg->badge)
-                                <span class="badge" style="background: rgba(212, 175, 55, 0.15); color: #fce7a1; border: 1px solid rgba(212, 175, 55, 0.35); font-size: 0.78rem;">
+                                <span class="badge-tier">
                                     <i class="bi bi-tag-fill me-1 text-gold"></i>{{ $pkg->badge }}
                                 </span>
                             @else
@@ -274,114 +425,119 @@
                             @endif
                         </td>
 
-                        <!-- Price / Fee -->
+                        <!-- 4. Price / Fee -->
                         <td>
                             @if($pkg->price)
-                                <span class="fw-semibold text-white">
+                                <span class="fw-bold text-gold-bright fs-6">
                                     {{ $pkg->price }}
                                 </span>
                             @else
-                                <span class="text-muted-custom small">Consultation Quote</span>
+                                <span class="text-silver small italic">Consultation Quote</span>
                             @endif
                         </td>
 
-                        <!-- Privileges Count -->
+                        <!-- 5. Privileges Included -->
                         <td>
                             <div class="d-flex align-items-center gap-2">
-                                <span class="badge rounded-pill bg-secondary bg-opacity-25 text-white border border-secondary border-opacity-50 px-2 py-1 small">
-                                    {{ is_array($pkg->benefits) ? count($pkg->benefits) : 0 }} Benefits
+                                <span class="badge rounded-pill bg-dark text-white border border-secondary border-opacity-50 px-2.5 py-1 small">
+                                    <i class="bi bi-check2-circle text-gold me-1"></i>{{ is_array($pkg->benefits) ? count($pkg->benefits) : 0 }} Benefits
                                 </span>
                             </div>
                             @if(is_array($pkg->benefits) && count($pkg->benefits) > 0)
-                                <div class="text-muted-custom small text-truncate mt-1" style="max-width: 260px;" title="{{ implode(' • ', $pkg->benefits) }}">
+                                <div class="text-silver small text-truncate mt-1" style="max-width: 280px;" title="{{ implode(' • ', $pkg->benefits) }}">
                                     {{ $pkg->benefits[0] }}
                                 </div>
                             @endif
                         </td>
 
-                        <!-- Most Preferred Badge Toggle -->
+                        <!-- 6. Most Preferred Toggle -->
                         <td class="text-center">
                             <form action="{{ route('admin.packages.toggle-featured', $pkg) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('PATCH')
-                                <button type="submit" class="btn btn-sm border-0 bg-transparent p-0" title="Click to toggle featured ribbon">
+                                <button 
+                                    type="submit" 
+                                    class="btn-featured-toggle {{ $pkg->featured ? 'featured' : 'standard' }}"
+                                    title="Click to toggle most preferred ribbon"
+                                >
                                     @if($pkg->featured)
-                                        <span class="badge bg-warning text-dark border border-warning fw-bold px-2 py-1">
-                                            <i class="bi bi-star-fill me-1"></i> Featured
-                                        </span>
+                                        <i class="bi bi-star-fill text-gold"></i> Featured
                                     @else
-                                        <span class="badge bg-dark text-muted-custom border border-secondary border-opacity-25 px-2 py-1">
-                                            <i class="bi bi-star me-1"></i> Standard
-                                        </span>
+                                        <i class="bi bi-star"></i> Standard
                                     @endif
                                 </button>
                             </form>
                         </td>
 
-                        <!-- Active Toggle -->
+                        <!-- 7. Status Toggle (Active bright green vs Inactive red) -->
                         <td class="text-center">
                             <form action="{{ route('admin.packages.toggle-active', $pkg) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('PATCH')
-                                <button type="submit" class="btn btn-sm border-0 bg-transparent p-0" title="Click to toggle active status">
+                                <button 
+                                    type="submit" 
+                                    class="btn-status-toggle {{ $pkg->is_active ? 'active' : 'inactive' }}"
+                                    title="Click to toggle active / inactive status"
+                                >
                                     @if($pkg->is_active)
-                                        <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-50 px-2 py-1">
-                                            <i class="bi bi-check-circle-fill me-1"></i> Active
-                                        </span>
+                                        <i class="bi bi-check-circle-fill"></i> Active
                                     @else
-                                        <span class="badge bg-danger bg-opacity-25 text-danger border border-danger border-opacity-50 px-2 py-1">
-                                            <i class="bi bi-x-circle-fill me-1"></i> Inactive
-                                        </span>
+                                        <i class="bi bi-x-circle-fill"></i> Inactive
                                     @endif
                                 </button>
                             </form>
                         </td>
 
-                        <!-- Actions -->
+                        <!-- 8. Actions: Edit & Delete Icon Buttons -->
                         <td class="text-end">
-                            <div class="d-inline-flex gap-1">
+                            <div class="d-inline-flex gap-2 align-items-center justify-content-end">
+                                <!-- Edit Icon Button -->
                                 <a 
                                     href="{{ route('admin.packages.edit', $pkg) }}" 
-                                    class="btn-action-icon" 
+                                    class="btn-action-icon edit" 
                                     title="Edit Package"
                                 >
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
 
+                                <!-- Delete Icon Button -->
                                 <button 
                                     type="button" 
-                                    class="btn-action-icon btn-danger-custom border-0" 
+                                    class="btn-action-icon delete" 
                                     data-bs-toggle="modal" 
                                     data-bs-target="#deletePackageModal{{ $pkg->id }}"
                                     title="Delete Package"
                                 >
-                                    <i class="bi bi-trash3"></i>
+                                    <i class="bi bi-trash3-fill"></i>
                                 </button>
                             </div>
 
                             <!-- Delete Modal -->
                             <div class="modal fade text-start" id="deletePackageModal{{ $pkg->id }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content text-white" style="background: #1f0511; border: 1px solid rgba(220, 53, 69, 0.4);">
-                                        <div class="modal-header border-bottom border-secondary border-opacity-25">
-                                            <h5 class="modal-title fw-bold text-danger">
-                                                <i class="bi bi-exclamation-triangle-fill me-2"></i> Delete Membership Package
+                                    <div class="modal-content text-white" style="background: #1c0510; border: 1px solid rgba(220, 53, 69, 0.45); border-radius: 14px;">
+                                        <div class="modal-header border-bottom border-secondary border-opacity-25 py-3">
+                                            <h5 class="modal-title fw-bold text-danger d-flex align-items-center gap-2">
+                                                <i class="bi bi-exclamation-triangle-fill"></i>
+                                                Delete Membership Package
                                             </h5>
                                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body py-4">
-                                            <p class="mb-2">Are you sure you want to delete the package <strong class="text-gold">{{ $pkg->name }}</strong>?</p>
-                                            <p class="small text-muted-custom mb-0">
-                                                This will permanently remove this tier from the public pricing and comparison matrix.
+                                            <p class="mb-2 fs-6">
+                                                Are you sure you want to delete <strong class="text-gold">{{ $pkg->name }}</strong>?
+                                            </p>
+                                            <p class="small text-silver mb-0">
+                                                This will permanently remove this tier from the public pricing matrix and lead intake forms.
                                             </p>
                                         </div>
-                                        <div class="modal-footer border-top border-secondary border-opacity-25">
-                                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                                        <div class="modal-footer border-top border-secondary border-opacity-25 py-2.5">
+                                            <button type="button" class="btn btn-outline-secondary btn-sm px-3" data-bs-dismiss="modal">Cancel</button>
                                             <form action="{{ route('admin.packages.destroy', $pkg) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm px-3">
-                                                    <i class="bi bi-trash3-fill me-1"></i> Delete Package
+                                                <button type="submit" class="btn btn-danger btn-sm px-3 fw-bold">
+                                                    <i class="bi bi-trash3-fill me-1"></i> Yes, Delete Package
                                                 </button>
                                             </form>
                                         </div>
@@ -392,12 +548,12 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8" class="text-center py-5 text-muted-custom">
-                            <i class="bi bi-gem display-5 d-block mb-3 opacity-25"></i>
-                            <h5 class="text-white">No membership packages found</h5>
-                            <p class="small mb-3">Adjust your search filters or create a new package tier.</p>
-                            <a href="{{ route('admin.packages.create') }}" class="btn btn-admin-primary btn-sm">
-                                <i class="bi bi-plus-circle me-1"></i> Add First Package
+                        <td colspan="8" class="text-center py-5 text-silver">
+                            <i class="bi bi-gem display-4 d-block mb-3 opacity-25 text-gold"></i>
+                            <h5 class="text-white fw-bold">No membership packages found</h5>
+                            <p class="small text-silver mb-3">Adjust your search query or reset the filters.</p>
+                            <a href="{{ route('admin.packages.create') }}" class="btn btn-admin-primary btn-sm px-3.5 py-2 fw-bold text-dark">
+                                <i class="bi bi-plus-circle-fill me-1"></i> + Add New Package
                             </a>
                         </td>
                     </tr>
@@ -408,8 +564,8 @@
 
         <!-- Pagination -->
         @if($packages->hasPages())
-            <div class="d-flex justify-content-between align-items-center mt-3 px-2">
-                <div class="text-muted-custom small">
+            <div class="d-flex justify-content-between align-items-center p-3 px-4 border-top border-secondary border-opacity-25">
+                <div class="text-silver small">
                     Showing {{ $packages->firstItem() }} to {{ $packages->lastItem() }} of {{ $packages->total() }} packages
                 </div>
                 <div>

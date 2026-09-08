@@ -38,7 +38,7 @@ class AdminPackageTest extends TestCase
         $response = $this->actingAs($admin)->get(route('admin.packages.index'));
 
         $response->assertStatus(200);
-        $response->assertSee('Membership Packages Management');
+        $response->assertSee('Packages List');
         $response->assertSee('Diplomat Tier');
         $response->assertSee('Embassy &amp; Foreign Service', false);
     }
@@ -50,7 +50,7 @@ class AdminPackageTest extends TestCase
         $response = $this->actingAs($admin)->get(route('admin.packages.create'));
 
         $response->assertStatus(200);
-        $response->assertSee('Create New Membership Tier');
+        $response->assertSee('Package Identity &amp; Positioning', false);
         $response->assertSee('Create &amp; Publish Package', false);
     }
 
@@ -100,8 +100,40 @@ class AdminPackageTest extends TestCase
         $response = $this->actingAs($admin)->get(route('admin.packages.edit', $package));
 
         $response->assertStatus(200);
-        $response->assertSee('Edit Membership Tier: Global NRB Concierge');
+        $response->assertSee('Tier: Global NRB Concierge');
         $response->assertSee('Save Package Changes');
+    }
+
+    public function test_admin_can_deactivate_package_via_edit_form(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $package = MembershipPackage::factory()->create([
+            'name' => 'Active Tier',
+            'is_active' => true,
+        ]);
+
+        // When is_active is unchecked, the browser sends no is_active key
+        $response = $this->actingAs($admin)->put(route('admin.packages.update', $package), [
+            'name' => 'Active Tier',
+            'benefits_text' => 'Benefit A',
+            // no is_active sent
+        ]);
+
+        $response->assertRedirect(route('admin.packages.index'));
+        $package->refresh();
+        $this->assertFalse($package->is_active);
+    }
+
+    public function test_package_requires_at_least_one_valid_benefit(): void
+    {
+        $admin = User::factory()->admin()->create();
+
+        $response = $this->actingAs($admin)->post(route('admin.packages.store'), [
+            'name' => 'Invalid Tier',
+            'benefits_text' => "   \n  \n  ",
+        ]);
+
+        $response->assertSessionHasErrors('benefits_text');
     }
 
     public function test_admin_can_update_package(): void
