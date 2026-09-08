@@ -2,10 +2,13 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_home_page_renders_successfully(): void
     {
         $response = $this->get('/');
@@ -77,7 +80,7 @@ class ExampleTest extends TestCase
             'city' => 'Gulshan-2, Dhaka',
             'desher_bari' => 'Sylhet',
             'annual_income' => '৳75 Lakh - ৳2 Crore',
-            'preferred_package' => 'Elite Business'
+            'preferred_package' => 'Elite Business',
         ]);
 
         $response->assertSessionHas('success_modal', true);
@@ -155,4 +158,3 @@ class ExampleTest extends TestCase
         $response->assertSee('WhatsApp Concierge');
     }
 }
-

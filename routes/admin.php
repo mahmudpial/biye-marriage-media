@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +30,9 @@ Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    // Matrimonial Candidate Profiles Management
+    Route::resource('profiles', ProfileController::class)->except(['show']);
+    Route::patch('/profiles/{profile}/toggle-active', [ProfileController::class, 'toggleActive'])->name('profiles.toggle-active');
+    Route::patch('/profiles/{profile}/toggle-featured', [ProfileController::class, 'toggleFeatured'])->name('profiles.toggle-featured');
 });

@@ -219,6 +219,12 @@ php artisan migrate --force --no-interaction || echo "Warning: Migration failed,
 echo "Seeding default admin user..."
 php artisan db:seed --class=AdminUserSeeder --force --no-interaction || echo "Warning: Admin seeder failed, continuing boot..."
 
+echo "Seeding candidate profiles..."
+php artisan db:seed --class=CandidateProfileSeeder --force --no-interaction || echo "Warning: Candidate profile seeder failed, continuing boot..."
+
+echo "Ensuring storage symlink exists..."
+php artisan storage:link --force --no-interaction || true
+
 echo "Optimizing Laravel configuration..."
 php artisan package:discover --ansi --no-interaction || true
 php artisan optimize:clear || true

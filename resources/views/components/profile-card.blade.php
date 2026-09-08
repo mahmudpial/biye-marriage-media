@@ -7,7 +7,7 @@
             <i class="bi bi-star-fill text-gold me-1"></i>{{ $profile['category'] }}
         </span>
 
-        <img src="{{ $profile['image'] }}" alt="Elite Bangladeshi Profile" class="profile-img {{ $profile['discreet'] ? 'discreet-blur' : '' }}">
+        <img src="{{ $profile['resolved_image'] ?? $profile['image'] }}" alt="Elite Bangladeshi Profile" class="profile-img {{ $profile['discreet'] ? 'discreet-blur' : '' }}">
 
         @if($profile['discreet'])
         <div class="profile-privacy-overlay">
@@ -23,7 +23,7 @@
     <!-- Profile Information Body -->
     <div class="profile-body">
         <div class="d-flex justify-content-between align-items-center mb-1">
-            <span class="profile-id-code">{{ $profile['id'] }}</span>
+            <span class="profile-id-code">{{ $profile['profile_code'] ?? $profile['id'] }}</span>
             <span class="badge bg-gold-subtle text-dark border border-warning-subtle small fw-medium">
                 <i class="bi bi-patch-check-fill text-gold me-1"></i>NID & HNI Verified
             </span>
