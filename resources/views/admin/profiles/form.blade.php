@@ -72,12 +72,68 @@
         object-fit: cover;
     }
 
+    /* Polished Privacy & Publishing Switch Cards */
     .switch-card {
-        background: #14030a;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        padding: 1rem 1.25rem;
-        margin-bottom: 1rem;
+        background: #17040d;
+        border: 1px solid rgba(212, 175, 55, 0.25);
+        border-radius: 14px;
+        padding: 1.15rem 1.25rem;
+        margin-bottom: 1.15rem;
+        transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .switch-card:hover {
+        border-color: rgba(212, 175, 55, 0.55);
+        background: #1f0511;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    }
+    .switch-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.25rem;
+    }
+    .switch-card-info {
+        flex: 1;
+    }
+    .switch-card-title {
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 0.95rem;
+        margin-bottom: 0.35rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+    }
+    .switch-card-title i {
+        color: #d4af37;
+        font-size: 1.15rem;
+    }
+    .switch-card-desc {
+        color: #cbd5e1 !important;
+        font-size: 0.82rem;
+        line-height: 1.45;
+        margin-bottom: 0;
+    }
+    .custom-switch-control {
+        flex-shrink: 0;
+    }
+    .custom-switch-control .form-check-input {
+        width: 3rem;
+        height: 1.65rem;
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: background-position 0.2s ease-in-out, background-color 0.2s ease, border-color 0.2s ease;
+    }
+    .custom-switch-control .form-check-input:focus {
+        border-color: #f5d061;
+        box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+    }
+    .custom-switch-control .form-check-input:checked {
+        background-color: #22c55e;
+        border-color: #22c55e;
+        box-shadow: 0 0 12px rgba(34, 197, 94, 0.5);
     }
 </style>
 @endpush
@@ -365,64 +421,79 @@
 
                     <!-- Discreet Privacy Toggle -->
                     <div class="switch-card">
-                        <div class="form-check form-switch mb-0">
-                            <input 
-                                class="form-check-input" 
-                                type="checkbox" 
-                                role="switch" 
-                                id="is_discreet" 
-                                name="is_discreet" 
-                                value="1" 
-                                {{ old('is_discreet', $profile->is_discreet) ? 'checked' : '' }}
-                            >
-                            <label class="form-check-label text-white fw-medium ms-2" for="is_discreet">
-                                Confidential Discreet Mode
-                            </label>
-                        </div>
-                        <div class="small text-muted-custom mt-1 ms-4">
-                            Photo is blurred with privacy overlay until family requests unlock.
+                        <div class="switch-card-header">
+                            <div class="switch-card-info">
+                                <label class="switch-card-title" for="is_discreet">
+                                    <i class="bi bi-shield-lock-fill"></i>
+                                    <span>Confidential Discreet Mode</span>
+                                </label>
+                                <p class="switch-card-desc">
+                                    Photo is blurred with privacy overlay until family requests unlock.
+                                </p>
+                            </div>
+                            <div class="form-check form-switch custom-switch-control mb-0">
+                                <input 
+                                    class="form-check-input" 
+                                    type="checkbox" 
+                                    role="switch" 
+                                    id="is_discreet" 
+                                    name="is_discreet" 
+                                    value="1" 
+                                    {{ old('is_discreet', $profile->is_discreet) ? 'checked' : '' }}
+                                >
+                            </div>
                         </div>
                     </div>
 
                     <!-- Featured on Homepage Toggle -->
                     <div class="switch-card">
-                        <div class="form-check form-switch mb-0">
-                            <input 
-                                class="form-check-input" 
-                                type="checkbox" 
-                                role="switch" 
-                                id="is_featured" 
-                                name="is_featured" 
-                                value="1" 
-                                {{ old('is_featured', $profile->is_featured) ? 'checked' : '' }}
-                            >
-                            <label class="form-check-label text-white fw-medium ms-2" for="is_featured">
-                                Feature on Homepage
-                            </label>
-                        </div>
-                        <div class="small text-muted-custom mt-1 ms-4">
-                            Displays this profile in the 4 VIP featured spots on the homepage.
+                        <div class="switch-card-header">
+                            <div class="switch-card-info">
+                                <label class="switch-card-title" for="is_featured">
+                                    <i class="bi bi-star-fill"></i>
+                                    <span>Feature on Homepage</span>
+                                </label>
+                                <p class="switch-card-desc">
+                                    Displays this profile in the 4 VIP featured spots on the homepage.
+                                </p>
+                            </div>
+                            <div class="form-check form-switch custom-switch-control mb-0">
+                                <input 
+                                    class="form-check-input" 
+                                    type="checkbox" 
+                                    role="switch" 
+                                    id="is_featured" 
+                                    name="is_featured" 
+                                    value="1" 
+                                    {{ old('is_featured', $profile->is_featured) ? 'checked' : '' }}
+                                >
+                            </div>
                         </div>
                     </div>
 
                     <!-- Active Publishing Toggle -->
                     <div class="switch-card">
-                        <div class="form-check form-switch mb-0">
-                            <input 
-                                class="form-check-input" 
-                                type="checkbox" 
-                                role="switch" 
-                                id="is_active" 
-                                name="is_active" 
-                                value="1" 
-                                {{ old('is_active', $profile->is_active) ? 'checked' : '' }}
-                            >
-                            <label class="form-check-label text-white fw-medium ms-2" for="is_active">
-                                Publish to Public Gallery
-                            </label>
-                        </div>
-                        <div class="small text-muted-custom mt-1 ms-4">
-                            If disabled, profile will be hidden from public view.
+                        <div class="switch-card-header">
+                            <div class="switch-card-info">
+                                <label class="switch-card-title" for="is_active">
+                                    <i class="bi bi-globe2"></i>
+                                    <span>Publish to Public Gallery</span>
+                                </label>
+                                <p class="switch-card-desc">
+                                    If disabled, profile will be hidden from public view.
+                                </p>
+                            </div>
+                            <div class="form-check form-switch custom-switch-control mb-0">
+                                <input 
+                                    class="form-check-input" 
+                                    type="checkbox" 
+                                    role="switch" 
+                                    id="is_active" 
+                                    name="is_active" 
+                                    value="1" 
+                                    {{ old('is_active', $profile->is_active) ? 'checked' : '' }}
+                                >
+                            </div>
                         </div>
                     </div>
                 </div>
