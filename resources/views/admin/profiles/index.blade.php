@@ -225,28 +225,6 @@
 @section('content')
 <div class="container-fluid px-0 profiles-wrapper">
 
-    <!-- Top Action Bar with + Add New Candidate -->
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-        <div>
-            <h4 class="text-white fw-bold mb-1 d-flex align-items-center gap-2">
-                <i class="bi bi-person-lines-fill text-gold fs-3"></i>
-                <span>Candidate Profiles Management</span>
-            </h4>
-            <p class="text-silver small mb-0">
-                Total <strong>{{ $profiles->total() }}</strong> registered candidates &bull; Active in public matrimonial gallery.
-            </p>
-        </div>
-
-        <div class="d-flex gap-2">
-            <a href="{{ route('profiles') }}" target="_blank" class="btn btn-outline-warning btn-sm px-3 py-2 text-gold fw-semibold">
-                <i class="bi bi-globe2 me-1"></i> View Live Gallery
-            </a>
-            <a href="{{ route('admin.profiles.create') }}" class="btn btn-admin-primary px-3.5 py-2 fw-bold shadow-sm">
-                <i class="bi bi-plus-circle-fill me-1 fs-6"></i> + Add New Candidate
-            </a>
-        </div>
-    </div>
-
     <!-- Filter & Search Toolbar -->
     <div class="filter-card mb-4">
         <form method="GET" action="{{ route('admin.profiles.index') }}" class="row g-2 align-items-end">
@@ -325,7 +303,10 @@
                 </span>
             </div>
 
-            <div>
+            <div class="d-flex gap-2">
+                <a href="{{ route('profiles') }}" target="_blank" class="btn btn-outline-warning btn-sm px-3 py-1.5 text-gold fw-semibold">
+                    <i class="bi bi-globe2 me-1"></i> View Live Gallery
+                </a>
                 <a href="{{ route('admin.profiles.create') }}" class="btn btn-admin-primary btn-sm px-3 py-1.5 fw-bold">
                     <i class="bi bi-plus-circle-fill me-1"></i> + Add New Candidate
                 </a>

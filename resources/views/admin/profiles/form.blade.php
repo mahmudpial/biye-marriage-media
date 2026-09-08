@@ -141,18 +141,13 @@
 @section('content')
 <div class="container-fluid px-0">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <a href="{{ route('admin.profiles.index') }}" class="btn btn-sm btn-outline-secondary mb-2">
-                <i class="bi bi-arrow-left me-1"></i> Back to Profiles List
-            </a>
-            <h3 class="font-playfair text-white fw-bold mb-0">
-                {{ $isEdit ? "Edit Candidate #{$profile->profile_code}" : 'Create Candidate Profile' }}
-            </h3>
-        </div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="{{ route('admin.profiles.index') }}" class="btn btn-sm btn-outline-secondary px-3 py-1.5 text-silver" style="border-radius: 8px;">
+            <i class="bi bi-arrow-left me-1"></i> Back to Candidates List
+        </a>
         @if($isEdit)
-            <span class="badge" style="background: rgba(212, 175, 55, 0.2); color: #fde68a; border: 1px solid rgba(212, 175, 55, 0.4); font-size: 0.85rem; padding: 0.5rem 0.85rem;">
-                <i class="bi bi-fingerprint me-1"></i> ID: {{ $profile->profile_code }}
+            <span class="badge" style="background: rgba(212, 175, 55, 0.18); color: #fde68a; border: 1px solid rgba(212, 175, 55, 0.4); font-size: 0.82rem; padding: 0.4rem 0.8rem; border-radius: 8px;">
+                <i class="bi bi-fingerprint me-1 text-gold"></i> ID: {{ $profile->profile_code }}
             </span>
         @endif
     </div>
