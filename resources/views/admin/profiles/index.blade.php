@@ -337,82 +337,72 @@
             <table class="table table-profiles align-middle">
                 <thead>
                     <tr>
-                        <th style="width: 170px;">Candidate</th>
-                        <th style="width: 140px;">Demographics</th>
-                        <th>Profession &amp; Education</th>
-                        <th>Location &amp; District</th>
-                        <th style="width: 150px;">Category &amp; Income</th>
-                        <th class="text-center" style="width: 110px;">Status</th>
-                        <th class="text-end" style="width: 120px;">Actions</th>
+                        <th style="width: 290px;">Candidate Biodata</th>
+                        <th>Career &amp; Education</th>
+                        <th style="width: 190px;">Location &amp; Origin</th>
+                        <th style="width: 170px;">Tier &amp; Income</th>
+                        <th class="text-center" style="width: 120px;">Status</th>
+                        <th class="text-end" style="width: 130px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($profiles as $profile)
                     <tr>
-                        <!-- Candidate Code & Photo -->
+                        <!-- 1. Candidate Biodata (Photo + Code + Gender + Age/Height + Religion) -->
                         <td>
                             <div class="d-flex align-items-center gap-2.5">
-                                <img src="{{ $profile->resolved_image }}" alt="{{ $profile->profile_code }}" class="profile-thumb {{ $profile->is_discreet ? 'is-discreet' : '' }}">
-                                <div>
-                                    <div class="fw-bold text-gold-bright font-monospace fs-6">
-                                        {{ $profile->profile_code }}
-                                    </div>
+                                <div class="position-relative flex-shrink-0">
+                                    <img src="{{ $profile->resolved_image }}" alt="{{ $profile->profile_code }}" class="profile-thumb {{ $profile->is_discreet ? 'is-discreet' : '' }}">
                                     @if($profile->is_discreet)
-                                        <span class="badge badge-discreet mt-1">
-                                            <i class="bi bi-shield-lock-fill me-1"></i>Discreet
-                                        </span>
-                                    @else
-                                        <span class="badge bg-secondary bg-opacity-25 text-silver mt-1" style="font-size: 0.68rem; border: 1px solid rgba(255,255,255,0.15);">
-                                            <i class="bi bi-eye-fill me-1 text-success"></i>Public
+                                        <span class="position-absolute bottom-0 end-0 bg-dark border border-warning rounded-circle p-1 d-flex align-items-center justify-content-center" style="width: 18px; height: 18px; transform: translate(20%, 20%);" title="Confidential Photo">
+                                            <i class="bi bi-shield-lock-fill text-warning" style="font-size: 9px;"></i>
                                         </span>
                                     @endif
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="d-flex align-items-center gap-1.5 flex-wrap">
+                                        <span class="fw-bold text-gold-bright font-monospace fs-6">{{ $profile->profile_code }}</span>
+                                        @if($profile->gender === 'female')
+                                            <span class="badge badge-bride"><i class="bi bi-gender-female"></i> Bride</span>
+                                        @else
+                                            <span class="badge badge-groom"><i class="bi bi-gender-male"></i> Groom</span>
+                                        @endif
+                                        @if($profile->is_discreet)
+                                            <span class="badge badge-discreet" title="Confidential Discreet Profile"><i class="bi bi-shield-lock-fill"></i> Discreet</span>
+                                        @endif
+                                    </div>
+                                    <div class="text-silver small mt-0.5">
+                                        <span>{{ $profile->age }} Yrs, {{ $profile->height }}</span>
+                                        <span class="text-white-50 mx-1">&bull;</span>
+                                        <span>{{ $profile->religion }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </td>
 
-                        <!-- Demographics: Bride/Groom, Age, Religion -->
+                        <!-- 2. Career & Education -->
                         <td>
-                            <div>
-                                @if($profile->gender === 'female')
-                                    <span class="badge badge-bride">
-                                        <i class="bi bi-gender-female me-1"></i>Bride
-                                    </span>
-                                @else
-                                    <span class="badge badge-groom">
-                                        <i class="bi bi-gender-male me-1"></i>Groom
-                                    </span>
-                                @endif
-                            </div>
-                            <div class="text-white fw-bold mt-1 fs-7">
-                                {{ $profile->age }} Yrs &bull; {{ $profile->height }}
-                            </div>
-                            <div class="small text-silver mt-0.5">
-                                {{ $profile->religion }}
-                            </div>
-                        </td>
-
-                        <!-- Profession & Education -->
-                        <td>
-                            <div class="text-white fw-bold fs-6">
+                            <div class="text-white fw-bold fs-6 text-truncate" style="max-width: 280px;" title="{{ $profile->profession }}">
                                 {{ $profile->profession }}
                             </div>
-                            <div class="small text-silver mt-1 d-flex align-items-center gap-1">
+                            <div class="small text-silver mt-0.5 d-flex align-items-center gap-1 text-truncate" style="max-width: 280px;" title="{{ $profile->education }}">
                                 <i class="bi bi-mortarboard-fill text-gold flex-shrink-0"></i>
                                 <span>{{ $profile->education }}</span>
                             </div>
                         </td>
 
-                        <!-- Location & Ancestral District -->
+                        <!-- 3. Location & Origin -->
                         <td>
-                            <div class="text-white fw-medium">
-                                <i class="bi bi-geo-alt-fill text-danger me-1"></i>{{ $profile->location }}
+                            <div class="text-white fw-medium d-flex align-items-center gap-1 text-truncate" style="max-width: 190px;" title="{{ $profile->location }}">
+                                <i class="bi bi-geo-alt-fill text-danger flex-shrink-0"></i>
+                                <span>{{ $profile->location }}</span>
                             </div>
-                            <div class="small text-silver mt-1">
+                            <div class="small text-silver mt-0.5 text-truncate" style="max-width: 190px;" title="Origin: {{ $profile->desher_bari }}">
                                 Origin: <strong class="text-white">{{ $profile->desher_bari }}</strong>
                             </div>
                         </td>
 
-                        <!-- Category & Income -->
+                        <!-- 4. Tier & Income -->
                         <td>
                             <div>
                                 <span class="badge badge-tier">
@@ -424,7 +414,7 @@
                             </div>
                         </td>
 
-                        <!-- Status Toggle: Active in bright green vs Inactive in red -->
+                        <!-- 5. Status Toggle: Active in bright green vs Inactive in red -->
                         <td class="text-center">
                             <form action="{{ route('admin.profiles.toggle-active', $profile) }}" method="POST" class="d-inline">
                                 @csrf
@@ -445,7 +435,7 @@
                             </form>
                         </td>
 
-                        <!-- Action Buttons: Edit & Delete -->
+                        <!-- 6. Actions: Edit & Delete -->
                         <td class="text-end">
                             <div class="d-inline-flex gap-1.5 align-items-center">
                                 <!-- Edit Button -->
@@ -514,12 +504,12 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="text-center py-5 text-silver">
+                        <td colspan="6" class="text-center py-5 text-silver">
                             <i class="bi bi-people display-4 d-block mb-3 opacity-25 text-gold"></i>
                             <h5 class="text-white fw-bold">No candidate profiles found</h5>
                             <p class="small text-silver mb-3">Try adjusting your search query or reset the filters.</p>
                             <a href="{{ route('admin.profiles.create') }}" class="btn btn-admin-primary btn-sm px-3 py-2 fw-bold text-dark">
-                                <i class="bi bi-person-plus-fill me-1"></i> + Add New Candidate
+                                <i class="bi bi-plus-circle-fill me-1"></i> + Add New Candidate
                             </a>
                         </td>
                     </tr>
