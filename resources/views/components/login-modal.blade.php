@@ -74,6 +74,11 @@
                     <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#consultationModal">
                         Apply for Elite Membership
                     </button>
+                    <div class="mt-3">
+                        <a href="{{ route('admin.login') }}" class="small text-muted text-decoration-none">
+                            <i class="bi bi-shield-lock me-1 text-gold"></i> Administrative Staff? <strong>Login to Admin Portal</strong>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

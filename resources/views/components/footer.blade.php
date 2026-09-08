@@ -98,6 +98,8 @@
                 <a href="{{ route('about') }}" class="text-white-50 text-decoration-none">NID Verification Standard</a>
                 <span>•</span>
                 <a href="{{ route('contact') }}" class="text-white-50 text-decoration-none">Terms of Confidentiality</a>
+                <span>•</span>
+                <a href="{{ route('admin.login') }}" class="text-gold text-decoration-none fw-medium"><i class="bi bi-shield-lock-fill me-1"></i>Admin Portal</a>
             </div>
         </div>
     </div>
