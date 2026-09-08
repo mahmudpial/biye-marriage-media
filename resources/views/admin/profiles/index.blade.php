@@ -42,7 +42,7 @@
         color: rgba(255, 255, 255, 0.45) !important;
     }
 
-    /* Table Container - Fits 100% without horizontal scroll */
+    /* Table Container - Smooth horizontal scroll on smaller viewports */
     .table-container {
         background: #17040d;
         border: 1px solid rgba(212, 175, 55, 0.3);
@@ -51,6 +51,7 @@
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
     }
     .table-profiles {
+        min-width: 1400px;
         width: 100%;
         margin-bottom: 0;
         border-collapse: collapse;
@@ -62,13 +63,13 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.6px;
-        padding: 1rem 0.85rem;
+        padding: 1rem 0.95rem;
         border-bottom: 2px solid rgba(212, 175, 55, 0.35) !important;
         vertical-align: middle;
         white-space: nowrap;
     }
     .table-profiles tbody td {
-        padding: 0.95rem 0.85rem;
+        padding: 0.95rem 0.95rem;
         vertical-align: middle;
         background: transparent !important;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -102,6 +103,9 @@
         font-size: 0.72rem;
         padding: 0.25rem 0.55rem;
         border-radius: 6px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
     }
     .badge-groom {
         background: rgba(14, 165, 233, 0.22);
@@ -111,6 +115,9 @@
         font-size: 0.72rem;
         padding: 0.25rem 0.55rem;
         border-radius: 6px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
     }
     .badge-tier {
         background: rgba(212, 175, 55, 0.18);
@@ -126,8 +133,11 @@
         color: #e9d5ff;
         border: 1px solid rgba(147, 51, 234, 0.4);
         font-size: 0.68rem;
-        padding: 0.15rem 0.45rem;
+        padding: 0.18rem 0.48rem;
         border-radius: 5px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
     }
 
     /* Status Toggle Pills - Bright Green vs Bright Red */
@@ -163,45 +173,43 @@
         transform: scale(1.03);
     }
 
-    /* Action Buttons: Edit & Delete */
-    .btn-action-edit {
-        background: #d4af37;
-        color: #14020a !important;
-        border: 1px solid #d4af37;
-        padding: 0.4rem 0.75rem;
-        border-radius: 8px;
-        font-size: 0.82rem;
-        font-weight: 700;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        transition: all 0.2s ease;
-        text-decoration: none;
-    }
-    .btn-action-edit:hover {
-        background: #f5d061;
-        color: #000000 !important;
-        border-color: #f5d061;
-        transform: translateY(-1px);
-    }
-    .btn-action-delete {
-        background: rgba(239, 68, 68, 0.2);
-        border: 1px solid rgba(239, 68, 68, 0.5);
-        color: #fca5a5 !important;
-        padding: 0.4rem 0.65rem;
-        border-radius: 8px;
-        font-size: 0.85rem;
+    /* Action Icon Buttons: Edit & Delete */
+    .btn-action-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 9px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        font-size: 0.95rem;
         transition: all 0.2s ease;
+        text-decoration: none;
         cursor: pointer;
+        border: none;
     }
-    .btn-action-delete:hover {
-        background: #ef4444;
+    .btn-action-icon.edit {
+        background: #d4af37;
+        color: #0d0206 !important;
+        border: 1px solid #f5d061;
+        box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+    }
+    .btn-action-icon.edit:hover {
+        background: #f5d061;
+        color: #000000 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(212, 175, 55, 0.55);
+    }
+    .btn-action-icon.delete {
+        background: rgba(220, 38, 38, 0.2);
+        border: 1px solid rgba(239, 68, 68, 0.55) !important;
+        color: #fca5a5 !important;
+    }
+    .btn-action-icon.delete:hover {
+        background: #dc2626;
         color: #ffffff !important;
-        border-color: #ef4444;
-        transform: translateY(-1px);
+        border-color: #ef4444 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(220, 38, 38, 0.55);
     }
 
     /* High contrast text utilities */
@@ -242,7 +250,7 @@
             <a href="{{ route('profiles') }}" target="_blank" class="btn btn-outline-warning btn-sm px-3 py-2 text-gold fw-semibold">
                 <i class="bi bi-globe2 me-1"></i> View Live Gallery
             </a>
-            <a href="{{ route('admin.profiles.create') }}" class="btn btn-admin-primary px-3.5 py-2 fw-bold text-dark shadow-sm">
+            <a href="{{ route('admin.profiles.create') }}" class="btn btn-admin-primary px-3.5 py-2 fw-bold shadow-sm">
                 <i class="bi bi-plus-circle-fill me-1 fs-6"></i> + Add New Candidate
             </a>
         </div>
@@ -301,7 +309,7 @@
 
             <!-- Filter Buttons -->
             <div class="col-6 col-lg-2 col-md-8 d-flex gap-2">
-                <button type="submit" class="btn btn-admin-primary flex-grow-1 py-2 fw-bold text-dark">
+                <button type="submit" class="btn btn-admin-primary flex-grow-1 py-2 fw-bold">
                     <i class="bi bi-funnel-fill me-1"></i> Filter
                 </button>
                 @if(request()->anyFilled(['q', 'gender', 'category', 'status']))
@@ -327,7 +335,7 @@
             </div>
 
             <div>
-                <a href="{{ route('admin.profiles.create') }}" class="btn btn-admin-primary btn-sm px-3 py-1.5 fw-bold text-dark">
+                <a href="{{ route('admin.profiles.create') }}" class="btn btn-admin-primary btn-sm px-3 py-1.5 fw-bold">
                     <i class="bi bi-plus-circle-fill me-1"></i> + Add New Candidate
                 </a>
             </div>
@@ -337,72 +345,94 @@
             <table class="table table-profiles align-middle">
                 <thead>
                     <tr>
-                        <th style="width: 290px;">Candidate Biodata</th>
-                        <th>Career &amp; Education</th>
-                        <th style="width: 190px;">Location &amp; Origin</th>
+                        <th style="width: 170px;">Candidate</th>
+                        <th style="width: 160px;">Demographics</th>
+                        <th style="min-width: 230px;">Profession</th>
+                        <th style="min-width: 220px;">Education</th>
+                        <th style="min-width: 190px;">Present Location</th>
+                        <th style="min-width: 170px;">Ancestral Origin</th>
                         <th style="width: 170px;">Tier &amp; Income</th>
-                        <th class="text-center" style="width: 120px;">Status</th>
-                        <th class="text-end" style="width: 130px;">Actions</th>
+                        <th class="text-center" style="width: 110px;">Status</th>
+                        <th class="text-end" style="width: 110px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($profiles as $profile)
                     <tr>
-                        <!-- 1. Candidate Biodata (Photo + Code + Gender + Age/Height + Religion) -->
+                        <!-- 1. Candidate Photo & Code -->
                         <td>
                             <div class="d-flex align-items-center gap-2.5">
-                                <div class="position-relative flex-shrink-0">
-                                    <img src="{{ $profile->resolved_image }}" alt="{{ $profile->profile_code }}" class="profile-thumb {{ $profile->is_discreet ? 'is-discreet' : '' }}">
+                                <img src="{{ $profile->resolved_image }}" alt="{{ $profile->profile_code }}" class="profile-thumb {{ $profile->is_discreet ? 'is-discreet' : '' }}">
+                                <div>
+                                    <div class="fw-bold text-gold-bright font-monospace fs-6">
+                                        {{ $profile->profile_code }}
+                                    </div>
                                     @if($profile->is_discreet)
-                                        <span class="position-absolute bottom-0 end-0 bg-dark border border-warning rounded-circle p-1 d-flex align-items-center justify-content-center" style="width: 18px; height: 18px; transform: translate(20%, 20%);" title="Confidential Photo">
-                                            <i class="bi bi-shield-lock-fill text-warning" style="font-size: 9px;"></i>
+                                        <span class="badge badge-discreet mt-1">
+                                            <i class="bi bi-shield-lock-fill"></i> Discreet
+                                        </span>
+                                    @else
+                                        <span class="badge bg-dark border border-secondary border-opacity-50 text-silver mt-1" style="font-size: 0.68rem;">
+                                            <i class="bi bi-eye-fill text-success me-0.5"></i> Public
                                         </span>
                                     @endif
                                 </div>
-                                <div class="min-w-0">
-                                    <div class="d-flex align-items-center gap-1.5 flex-wrap">
-                                        <span class="fw-bold text-gold-bright font-monospace fs-6">{{ $profile->profile_code }}</span>
-                                        @if($profile->gender === 'female')
-                                            <span class="badge badge-bride"><i class="bi bi-gender-female"></i> Bride</span>
-                                        @else
-                                            <span class="badge badge-groom"><i class="bi bi-gender-male"></i> Groom</span>
-                                        @endif
-                                        @if($profile->is_discreet)
-                                            <span class="badge badge-discreet" title="Confidential Discreet Profile"><i class="bi bi-shield-lock-fill"></i> Discreet</span>
-                                        @endif
-                                    </div>
-                                    <div class="text-silver small mt-0.5">
-                                        <span>{{ $profile->age }} Yrs, {{ $profile->height }}</span>
-                                        <span class="text-white-50 mx-1">&bull;</span>
-                                        <span>{{ $profile->religion }}</span>
-                                    </div>
-                                </div>
                             </div>
                         </td>
 
-                        <!-- 2. Career & Education -->
+                        <!-- 2. Demographics -->
                         <td>
-                            <div class="text-white fw-bold fs-6 text-truncate" style="max-width: 280px;" title="{{ $profile->profession }}">
+                            <div>
+                                @if($profile->gender === 'female')
+                                    <span class="badge badge-bride">
+                                        <i class="bi bi-gender-female"></i> Bride
+                                    </span>
+                                @else
+                                    <span class="badge badge-groom">
+                                        <i class="bi bi-gender-male"></i> Groom
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="text-white fw-bold mt-1 fs-7">
+                                {{ $profile->age }} Yrs &bull; {{ $profile->height }}
+                            </div>
+                            <div class="small text-silver mt-0.5">
+                                {{ $profile->religion }}
+                            </div>
+                        </td>
+
+                        <!-- 3. Profession -->
+                        <td>
+                            <div class="text-white fw-bold fs-6">
                                 {{ $profile->profession }}
                             </div>
-                            <div class="small text-silver mt-0.5 d-flex align-items-center gap-1 text-truncate" style="max-width: 280px;" title="{{ $profile->education }}">
-                                <i class="bi bi-mortarboard-fill text-gold flex-shrink-0"></i>
-                                <span>{{ $profile->education }}</span>
+                        </td>
+
+                        <!-- 4. Education -->
+                        <td>
+                            <div class="text-silver d-flex align-items-center gap-1.5">
+                                <i class="bi bi-mortarboard-fill text-gold flex-shrink-0 fs-6"></i>
+                                <span class="text-white fw-medium">{{ $profile->education }}</span>
                             </div>
                         </td>
 
-                        <!-- 3. Location & Origin -->
+                        <!-- 5. Present Location -->
                         <td>
-                            <div class="text-white fw-medium d-flex align-items-center gap-1 text-truncate" style="max-width: 190px;" title="{{ $profile->location }}">
+                            <div class="text-white fw-medium d-flex align-items-center gap-1.5">
                                 <i class="bi bi-geo-alt-fill text-danger flex-shrink-0"></i>
                                 <span>{{ $profile->location }}</span>
                             </div>
-                            <div class="small text-silver mt-0.5 text-truncate" style="max-width: 190px;" title="Origin: {{ $profile->desher_bari }}">
-                                Origin: <strong class="text-white">{{ $profile->desher_bari }}</strong>
+                        </td>
+
+                        <!-- 6. Ancestral Origin (Desher Bari) -->
+                        <td>
+                            <div class="text-silver d-flex align-items-center gap-1.5">
+                                <i class="bi bi-house-door-fill text-gold flex-shrink-0"></i>
+                                <strong class="text-white">{{ $profile->desher_bari }}</strong>
                             </div>
                         </td>
 
-                        <!-- 4. Tier & Income -->
+                        <!-- 7. Tier & Income -->
                         <td>
                             <div>
                                 <span class="badge badge-tier">
@@ -414,7 +444,7 @@
                             </div>
                         </td>
 
-                        <!-- 5. Status Toggle: Active in bright green vs Inactive in red -->
+                        <!-- 8. Status Toggle: Active in bright green vs Inactive in red -->
                         <td class="text-center">
                             <form action="{{ route('admin.profiles.toggle-active', $profile) }}" method="POST" class="d-inline">
                                 @csrf
@@ -435,23 +465,22 @@
                             </form>
                         </td>
 
-                        <!-- 6. Actions: Edit & Delete -->
+                        <!-- 9. Actions: Edit & Delete Icon Buttons -->
                         <td class="text-end">
-                            <div class="d-inline-flex gap-1.5 align-items-center">
-                                <!-- Edit Button -->
+                            <div class="d-inline-flex gap-2 align-items-center justify-content-end">
+                                <!-- Edit Icon Button -->
                                 <a 
                                     href="{{ route('admin.profiles.edit', $profile) }}" 
-                                    class="btn-action-edit" 
+                                    class="btn-action-icon edit" 
                                     title="Edit Candidate"
                                 >
                                     <i class="bi bi-pencil-square"></i>
-                                    <span>Edit</span>
                                 </a>
 
-                                <!-- Delete Button -->
+                                <!-- Delete Icon Button -->
                                 <button 
                                     type="button" 
-                                    class="btn-action-delete" 
+                                    class="btn-action-icon delete" 
                                     data-bs-toggle="modal" 
                                     data-bs-target="#deleteProfileModal{{ $profile->id }}"
                                     title="Delete Candidate"
@@ -504,11 +533,11 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="text-center py-5 text-silver">
+                        <td colspan="9" class="text-center py-5 text-silver">
                             <i class="bi bi-people display-4 d-block mb-3 opacity-25 text-gold"></i>
                             <h5 class="text-white fw-bold">No candidate profiles found</h5>
                             <p class="small text-silver mb-3">Try adjusting your search query or reset the filters.</p>
-                            <a href="{{ route('admin.profiles.create') }}" class="btn btn-admin-primary btn-sm px-3 py-2 fw-bold text-dark">
+                            <a href="{{ route('admin.profiles.create') }}" class="btn btn-admin-primary btn-sm px-3.5 py-2 fw-bold">
                                 <i class="bi bi-plus-circle-fill me-1"></i> + Add New Candidate
                             </a>
                         </td>

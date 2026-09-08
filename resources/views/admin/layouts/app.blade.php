@@ -373,6 +373,94 @@
             color: var(--gold-light) !important;
         }
 
+        /* ================= EXECUTIVE ADMIN BUTTONS ================= */
+        .btn-admin-primary {
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%) !important;
+            color: #0b0106 !important;
+            border: 1px solid #fde68a !important;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-admin-primary:hover {
+            background: linear-gradient(135deg, #fde68a 0%, #d4af37 100%) !important;
+            color: #000000 !important;
+            border-color: #ffffff !important;
+            transform: translateY(-1.5px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+        }
+        .btn-admin-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-admin-cancel {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important;
+            color: #ffffff !important;
+            border: 1px solid #ef4444 !important;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-admin-cancel:hover {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+            color: #ffffff !important;
+            border-color: #fca5a5 !important;
+            transform: translateY(-1.5px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
+        }
+        .btn-admin-cancel:active {
+            transform: translateY(0);
+        }
+
+        /* Action Icon Buttons: Edit & Delete */
+        .btn-action-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-action-icon.edit {
+            background: #d4af37;
+            color: #0d0206 !important;
+            border: 1px solid #f5d061;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+        }
+        .btn-action-icon.edit:hover {
+            background: #f5d061;
+            color: #000000 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(212, 175, 55, 0.55);
+        }
+        .btn-action-icon.delete {
+            background: rgba(220, 38, 38, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.55) !important;
+            color: #fca5a5 !important;
+        }
+        .btn-action-icon.delete:hover {
+            background: #dc2626;
+            color: #ffffff !important;
+            border-color: #ef4444 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(220, 38, 38, 0.55);
+        }
+
         /* Responsive Breakpoints */
         @media (max-width: 991.98px) {
             .admin-sidebar {

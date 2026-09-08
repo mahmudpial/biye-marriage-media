@@ -500,11 +500,11 @@
 
                 <!-- Submit & Cancel Actions -->
                 <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-admin-primary py-2 fw-bold">
-                        <i class="bi bi-check2-circle me-1"></i> {{ $isEdit ? 'Save Profile Changes' : 'Create & Publish Profile' }}
+                    <button type="submit" class="btn btn-admin-primary py-2.5 fw-bold fs-6">
+                        <i class="bi bi-check2-circle me-1 fs-5"></i> {{ $isEdit ? 'Save Profile Changes' : 'Create & Publish Profile' }}
                     </button>
-                    <a href="{{ route('admin.profiles.index') }}" class="btn btn-outline-secondary py-2">
-                        Cancel
+                    <a href="{{ route('admin.profiles.index') }}" class="btn btn-admin-cancel py-2.5 fw-bold fs-6">
+                        <i class="bi bi-x-circle me-1 fs-5"></i> Cancel &amp; Back
                     </a>
                 </div>
             </div>
