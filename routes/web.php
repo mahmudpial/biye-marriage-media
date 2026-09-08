@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontController;
+use Illuminate\Support\Facades\Route;
 
 // Public Matrimony Portal Routes
 Route::get('/', [FrontController::class, 'home'])->name('home');
@@ -17,4 +17,3 @@ Route::get('/login', function () {
 
 // VIP Consultation Form Submission
 Route::post('/consultation', [FrontController::class, 'submitConsultation'])->name('consultation.submit');
-
