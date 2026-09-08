@@ -171,6 +171,9 @@ fi
 echo "Running database migrations..."
 php artisan migrate --force --no-interaction || echo "Warning: Migration failed, continuing boot..."
 
+echo "Seeding default admin user..."
+php artisan db:seed --class=AdminUserSeeder --force --no-interaction || echo "Warning: Admin seeder failed, continuing boot..."
+
 echo "Optimizing Laravel configuration..."
 php artisan package:discover --ansi --no-interaction || true
 php artisan optimize:clear || true
