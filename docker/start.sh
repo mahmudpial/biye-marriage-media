@@ -84,48 +84,65 @@ sed -i "s|^CACHE_DRIVER=.*|CACHE_DRIVER=file|" /var/www/html/.env 2>/dev/null ||
 sed -i "s|^LOG_CHANNEL=.*|LOG_CHANNEL=stderr|" /var/www/html/.env
 sed -i "s|^QUEUE_CONNECTION=.*|QUEUE_CONNECTION=sync|" /var/www/html/.env
 
+# 3. Handle Database Configuration (PostgreSQL / Supabase / SQLite)
+# If DATABASE_URL is provided, safely parse it into individual connection variables
+if [ -n "$DATABASE_URL" ] && [ -z "$DB_HOST" ]; then
+    echo "Notice: Extracting connection parameters from DATABASE_URL..."
+    eval $(php -r '
+        $url = parse_url(getenv("DATABASE_URL"));
+        if ($url) {
+            if (isset($url["host"])) echo "export DB_HOST=" . escapeshellarg($url["host"]) . "\n";
+            if (isset($url["port"])) echo "export DB_PORT=" . escapeshellarg($url["port"]) . "\n";
+            if (isset($url["user"])) echo "export DB_USERNAME=" . escapeshellarg(urldecode($url["user"])) . "\n";
+            if (isset($url["pass"])) echo "export DB_PASSWORD=" . escapeshellarg(urldecode($url["pass"])) . "\n";
+            if (isset($url["path"])) echo "export DB_DATABASE=" . escapeshellarg(ltrim($url["path"], "/")) . "\n";
+            echo "export DB_CONNECTION=pgsql\n";
+        }
+    ')
+fi
+
 # Prevent Laravel URL parser from breaking on special characters like '#' and '@' in DATABASE_URL
 unset DATABASE_URL
 unset DB_URL
 
-# 3. Handle Database Configuration (PostgreSQL / Supabase / SQLite)
+# Determine connection: if pgsql is set but DB_HOST is missing or localhost, fallback to sqlite
+if [ "$DB_CONNECTION" = "pgsql" ]; then
+    if [ -z "$DB_HOST" ] || [ "$DB_HOST" = "127.0.0.1" ] || [ "$DB_HOST" = "localhost" ]; then
+        echo "Notice: PostgreSQL host is not set. Falling back to SQLite..."
+        export DB_CONNECTION=sqlite
+    fi
+fi
+
 if [ -z "$DB_CONNECTION" ]; then
-    case "$DB_HOST" in
-        *postgres*|*supabase*)
-            export DB_CONNECTION=pgsql
-            ;;
-        *)
-            export DB_CONNECTION=sqlite
-            ;;
-    esac
+    export DB_CONNECTION=sqlite
 fi
 
-if grep -q "^DB_CONNECTION=" /var/www/html/.env 2>/dev/null; then
-    sed -i "s|^DB_CONNECTION=.*|DB_CONNECTION=${DB_CONNECTION}|" /var/www/html/.env
-else
-    echo "DB_CONNECTION=${DB_CONNECTION}" >> /var/www/html/.env
-fi
-
-# Write explicit database parameters if present
-if [ -n "$DB_HOST" ]; then
-    DB_HOST=$(strip_quotes "$DB_HOST")
-    grep -q "^DB_HOST=" /var/www/html/.env && sed -i "s|^DB_HOST=.*|DB_HOST=${DB_HOST}|" /var/www/html/.env || echo "DB_HOST=${DB_HOST}" >> /var/www/html/.env
-fi
-if [ -n "$DB_PORT" ]; then
-    DB_PORT=$(strip_quotes "$DB_PORT")
-    grep -q "^DB_PORT=" /var/www/html/.env && sed -i "s|^DB_PORT=.*|DB_PORT=${DB_PORT}|" /var/www/html/.env || echo "DB_PORT=${DB_PORT}" >> /var/www/html/.env
-fi
-if [ -n "$DB_DATABASE" ]; then
-    DB_DATABASE=$(strip_quotes "$DB_DATABASE")
-    grep -q "^DB_DATABASE=" /var/www/html/.env && sed -i "s|^DB_DATABASE=.*|DB_DATABASE=${DB_DATABASE}|" /var/www/html/.env || echo "DB_DATABASE=${DB_DATABASE}" >> /var/www/html/.env
-fi
-if [ -n "$DB_USERNAME" ]; then
-    DB_USERNAME=$(strip_quotes "$DB_USERNAME")
-    grep -q "^DB_USERNAME=" /var/www/html/.env && sed -i "s|^DB_USERNAME=.*|DB_USERNAME=${DB_USERNAME}|" /var/www/html/.env || echo "DB_USERNAME=${DB_USERNAME}" >> /var/www/html/.env
-fi
-if [ -n "$DB_PASSWORD" ]; then
-    grep -q "^DB_PASSWORD=" /var/www/html/.env && sed -i "s|^DB_PASSWORD=.*|DB_PASSWORD=\"${DB_PASSWORD}\"|" /var/www/html/.env || echo "DB_PASSWORD=\"${DB_PASSWORD}\"" >> /var/www/html/.env
-fi
+# Safely write database configuration into .env using PHP (handles all special characters cleanly)
+php -r '
+    $envFile = "/var/www/html/.env";
+    $content = file_exists($envFile) ? file_get_contents($envFile) : "";
+    $vars = [
+        "DB_CONNECTION" => getenv("DB_CONNECTION"),
+        "DB_HOST" => getenv("DB_HOST"),
+        "DB_PORT" => getenv("DB_PORT"),
+        "DB_DATABASE" => getenv("DB_DATABASE"),
+        "DB_USERNAME" => getenv("DB_USERNAME"),
+        "DB_PASSWORD" => getenv("DB_PASSWORD"),
+        "DB_SSLMODE" => getenv("DB_SSLMODE") ?: "require",
+    ];
+    foreach ($vars as $key => $val) {
+        if ($val !== false && $val !== null && $val !== "") {
+            $pattern = "/^" . preg_quote($key, "/") . "=.*/m";
+            $line = $key . "=\"" . addcslashes($val, "\"\\\$") . "\"";
+            if (preg_match($pattern, $content)) {
+                $content = preg_replace($pattern, $line, $content);
+            } else {
+                $content .= "\n" . $line;
+            }
+        }
+    }
+    file_put_contents($envFile, $content);
+'
 
 # 4. Ensure a valid, non-empty APP_KEY is set
 if [ -n "$APP_KEY" ]; then
@@ -160,15 +177,43 @@ mkdir -p /var/www/html/storage/framework/sessions \
          /var/www/html/bootstrap/cache \
          /var/www/html/database
 
-# 6. SQLite fallback file
-if [ "$DB_CONNECTION" = "sqlite" ]; then
-    if [ ! -f /var/www/html/database/database.sqlite ]; then
-        touch /var/www/html/database/database.sqlite
+# 6. Database Verification & SQLite fallback
+if [ "$DB_CONNECTION" = "pgsql" ]; then
+    echo "Verifying PostgreSQL connection to ${DB_HOST}..."
+    if ! php -r '
+        require "/var/www/html/vendor/autoload.php";
+        $app = require_once "/var/www/html/bootstrap/app.php";
+        $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+        $kernel->bootstrap();
+        try {
+            Illuminate\Support\Facades\DB::connection()->getPdo();
+            echo "PostgreSQL connection verified successfully.\n";
+            exit(0);
+        } catch (\Throwable $e) {
+            echo "PostgreSQL connection error: " . $e->getMessage() . "\n";
+            exit(1);
+        }
+    '; then
+        echo "Warning: PostgreSQL database unreachable. Falling back to SQLite to guarantee application availability..."
+        export DB_CONNECTION=sqlite
+        php -r '
+            $file = "/var/www/html/.env";
+            $c = preg_replace("/^DB_CONNECTION=.*/m", "DB_CONNECTION=sqlite", file_get_contents($file));
+            file_put_contents($file, $c);
+        '
     fi
 fi
 
-# 7. Database migrations and optimizations (failsafe with || true)
-echo "Running database migrations..."
+if [ "$DB_CONNECTION" = "sqlite" ]; then
+    mkdir -p /var/www/html/database
+    if [ ! -f /var/www/html/database/database.sqlite ]; then
+        touch /var/www/html/database/database.sqlite
+    fi
+    chmod 664 /var/www/html/database/database.sqlite
+fi
+
+# 7. Database migrations and optimizations
+echo "Running database migrations on ${DB_CONNECTION}..."
 php artisan migrate --force --no-interaction || echo "Warning: Migration failed, continuing boot..."
 
 echo "Seeding default admin user..."
