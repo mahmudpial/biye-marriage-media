@@ -225,15 +225,6 @@
 @section('content')
 <div class="container-fluid px-0 profiles-wrapper">
 
-    <!-- Flash Notifications -->
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show border-0 py-2.5 px-3 mb-4 text-white d-flex align-items-center" style="background: rgba(34, 197, 94, 0.25); border-left: 5px solid #22c55e !important;" role="alert">
-            <i class="bi bi-check-circle-fill me-2 fs-5 text-success"></i>
-            <div>{{ session('success') }}</div>
-            <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
     <!-- Top Action Bar with + Add New Candidate -->
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
         <div>

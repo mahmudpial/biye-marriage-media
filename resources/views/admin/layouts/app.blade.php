@@ -461,6 +461,135 @@
             box-shadow: 0 4px 14px rgba(220, 38, 38, 0.55);
         }
 
+        /* ================= EXECUTIVE TOAST NOTIFICATIONS ================= */
+        .admin-toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            pointer-events: none;
+        }
+        .admin-toast {
+            pointer-events: auto;
+            background: #17040d;
+            border-radius: 14px;
+            min-width: 320px;
+            max-width: 440px;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+            animation: toastSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .admin-toast.toast-success {
+            border: 1px solid rgba(34, 197, 94, 0.5);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(34, 197, 94, 0.25);
+        }
+        .admin-toast.toast-error {
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(239, 68, 68, 0.25);
+        }
+        .admin-toast.toast-info {
+            border: 1px solid rgba(14, 165, 233, 0.5);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(14, 165, 233, 0.25);
+        }
+        .admin-toast-body {
+            display: flex;
+            align-items: center;
+            padding: 0.95rem 1.15rem;
+            gap: 0.85rem;
+        }
+        .admin-toast-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+        .toast-success .admin-toast-icon {
+            background: rgba(34, 197, 94, 0.18);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.35);
+        }
+        .toast-error .admin-toast-icon {
+            background: rgba(239, 68, 68, 0.18);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.35);
+        }
+        .toast-info .admin-toast-icon {
+            background: rgba(14, 165, 233, 0.18);
+            color: #0ea5e9;
+            border: 1px solid rgba(14, 165, 233, 0.35);
+        }
+        .admin-toast-content {
+            flex-grow: 1;
+        }
+        .admin-toast-title {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.15rem;
+        }
+        .admin-toast-message {
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+            margin-bottom: 0;
+        }
+        .admin-toast-close {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s ease;
+        }
+        .admin-toast-close:hover {
+            color: #ffffff;
+        }
+        .toast-progress-track {
+            height: 3px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .toast-progress-bar {
+            height: 100%;
+            width: 100%;
+            animation: toastCountdown 5s linear forwards;
+        }
+        .toast-success .toast-progress-bar {
+            background: #22c55e;
+        }
+        .toast-error .toast-progress-bar {
+            background: #ef4444;
+        }
+        .toast-info .toast-progress-bar {
+            background: #0ea5e9;
+        }
+        @keyframes toastCountdown {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+        @keyframes toastSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
         /* Responsive Breakpoints */
         @media (max-width: 991.98px) {
             .admin-sidebar {
@@ -613,19 +742,65 @@
             </div>
         </header>
 
-        <!-- Flash Alerts -->
-        <div class="container-fluid px-4 pt-3">
+        <!-- Floating Executive Toast Notifications -->
+        <div class="admin-toast-container" id="adminToastContainer">
             @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show border-0 py-2 px-3 mb-3" style="background: rgba(25, 135, 84, 0.25); color: #86efac; border-left: 3px solid #22c55e !important;" role="alert">
-                    <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="admin-toast toast-success" role="alert" aria-live="polite">
+                    <div class="admin-toast-body">
+                        <div class="admin-toast-icon">
+                            <i class="bi bi-check2-circle"></i>
+                        </div>
+                        <div class="admin-toast-content">
+                            <div class="admin-toast-title">Success</div>
+                            <p class="admin-toast-message">{{ session('success') }}</p>
+                        </div>
+                        <button type="button" class="admin-toast-close" data-dismiss="admin-toast" aria-label="Close">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                    <div class="toast-progress-track">
+                        <div class="toast-progress-bar"></div>
+                    </div>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="admin-toast toast-error" role="alert" aria-live="polite">
+                    <div class="admin-toast-body">
+                        <div class="admin-toast-icon">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                        </div>
+                        <div class="admin-toast-content">
+                            <div class="admin-toast-title">Notice</div>
+                            <p class="admin-toast-message">{{ session('error') }}</p>
+                        </div>
+                        <button type="button" class="admin-toast-close" data-dismiss="admin-toast" aria-label="Close">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                    <div class="toast-progress-track">
+                        <div class="toast-progress-bar"></div>
+                    </div>
                 </div>
             @endif
 
             @if (session('info'))
-                <div class="alert alert-info alert-dismissible fade show border-0 py-2 px-3 mb-3" style="background: rgba(13, 202, 240, 0.2); color: #7dd3fc; border-left: 3px solid #0ea5e9 !important;" role="alert">
-                    <i class="bi bi-info-circle-fill me-2"></i> {{ session('info') }}
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="admin-toast toast-info" role="alert" aria-live="polite">
+                    <div class="admin-toast-body">
+                        <div class="admin-toast-icon">
+                            <i class="bi bi-info-circle-fill"></i>
+                        </div>
+                        <div class="admin-toast-content">
+                            <div class="admin-toast-title">Information</div>
+                            <p class="admin-toast-message">{{ session('info') }}</p>
+                        </div>
+                        <button type="button" class="admin-toast-close" data-dismiss="admin-toast" aria-label="Close">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                    <div class="toast-progress-track">
+                        <div class="toast-progress-bar"></div>
+                    </div>
                 </div>
             @endif
         </div>
@@ -664,6 +839,37 @@
         // Initialize Bootstrap tooltips
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+        // Auto-dismiss Executive Toast Notifications after exactly 5 seconds
+        document.addEventListener('DOMContentLoaded', function () {
+            const toastElements = document.querySelectorAll('.admin-toast');
+            toastElements.forEach(function (toastEl) {
+                setTimeout(function () {
+                    dismissToast(toastEl);
+                }, 5000);
+            });
+
+            document.addEventListener('click', function (e) {
+                const closeBtn = e.target.closest('[data-dismiss="admin-toast"]');
+                if (closeBtn) {
+                    const toastEl = closeBtn.closest('.admin-toast');
+                    if (toastEl) {
+                        dismissToast(toastEl);
+                    }
+                }
+            });
+
+            function dismissToast(el) {
+                if (!el || el.dataset.dismissed) return;
+                el.dataset.dismissed = 'true';
+                el.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+                el.style.opacity = '0';
+                el.style.transform = 'translateX(30px) scale(0.95)';
+                setTimeout(function () {
+                    el.remove();
+                }, 350);
+            }
+        });
     </script>
     @stack('scripts')
 </body>
