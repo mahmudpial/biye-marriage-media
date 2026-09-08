@@ -222,6 +222,9 @@ php artisan db:seed --class=AdminUserSeeder --force --no-interaction || echo "Wa
 echo "Seeding candidate profiles..."
 php artisan db:seed --class=CandidateProfileSeeder --force --no-interaction || echo "Warning: Candidate profile seeder failed, continuing boot..."
 
+echo "Seeding membership packages..."
+php artisan db:seed --class=MembershipPackageSeeder --force --no-interaction || echo "Warning: Membership package seeder failed, continuing boot..."
+
 echo "Ensuring storage symlink exists..."
 php artisan storage:link --force --no-interaction || true
 
