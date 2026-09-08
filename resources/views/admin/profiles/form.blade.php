@@ -17,37 +17,41 @@
         font-family: 'Playfair Display', serif;
         font-size: 1.15rem;
         font-weight: 700;
-        color: #fff;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        color: #fef08a;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.3);
         padding-bottom: 0.65rem;
         margin-bottom: 1.5rem;
         display: flex;
         align-items: center;
     }
     .form-section-title i {
-        color: var(--accent-gold);
+        color: #d4af37;
         margin-right: 0.6rem;
     }
 
     .form-label {
-        font-size: 0.84rem;
-        font-weight: 600;
-        color: #f1e6eb;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #fde68a;
         margin-bottom: 0.4rem;
+        letter-spacing: 0.3px;
     }
 
     .form-control, .form-select {
-        background: #120208 !important;
-        border: 1px solid rgba(255, 255, 255, 0.16) !important;
-        color: #fff !important;
+        background: #0f0207 !important;
+        border: 1px solid rgba(212, 175, 55, 0.35) !important;
+        color: #ffffff !important;
         border-radius: 10px;
         padding: 0.65rem 0.9rem;
         font-size: 0.9rem;
         transition: all 0.2s ease;
     }
     .form-control:focus, .form-select:focus {
-        border-color: var(--accent-gold) !important;
-        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2) !important;
+        border-color: #f5d061 !important;
+        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25) !important;
+    }
+    .form-text, .text-muted-custom {
+        color: #cbd5e1 !important;
     }
 
     .photo-preview-box {
@@ -87,7 +91,7 @@
                 <i class="bi bi-arrow-left me-1"></i> Back to Profiles List
             </a>
             <h3 class="font-playfair text-white fw-bold mb-0">
-                {{ $isEdit ? "Edit Profile #{$profile->profile_code}" : 'Register New Candidate Biodata' }}
+                {{ $isEdit ? "Edit Candidate #{$profile->profile_code}" : 'Create Candidate Profile' }}
             </h3>
         </div>
         @if($isEdit)
