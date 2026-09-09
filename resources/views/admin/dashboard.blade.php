@@ -442,6 +442,14 @@
                     <i class="bi bi-chevron-right text-gold small"></i>
                 </a>
 
+                <a href="{{ route('admin.faqs.index') }}" class="action-btn-link">
+                    <span class="d-flex align-items-center gap-2">
+                        <i class="bi bi-question-diamond-fill icon-prefix"></i>
+                        <span>Manage FAQs &amp; Knowledgebase</span>
+                    </span>
+                    <i class="bi bi-chevron-right text-gold small"></i>
+                </a>
+
                 <a href="{{ route('contact') }}" target="_blank" class="action-btn-link">
                     <span class="d-flex align-items-center gap-2">
                         <i class="bi bi-headset icon-prefix"></i>

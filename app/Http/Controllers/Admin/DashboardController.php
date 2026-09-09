@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\CandidateProfile;
 use App\Models\ConsultationInquiry;
+use App\Models\Faq;
 use App\Models\MembershipPackage;
+use App\Models\SuccessStory;
 use App\Models\User;
 use Illuminate\View\View;
 
@@ -19,6 +21,8 @@ class DashboardController extends Controller
         $activePackages = 3;
         $pendingLeads = 4;
         $verifiedProfiles = 1250;
+        $totalStories = 4;
+        $totalFaqs = 6;
         $recentInquiries = collect();
 
         try {
@@ -35,6 +39,12 @@ class DashboardController extends Controller
                 $pendingLeads = ConsultationInquiry::where('status', 'Pending Review')->count();
                 $recentInquiries = ConsultationInquiry::latest('id')->take(5)->get();
             }
+            if (class_exists(SuccessStory::class)) {
+                $totalStories = SuccessStory::count();
+            }
+            if (class_exists(Faq::class)) {
+                $totalFaqs = Faq::count();
+            }
         } catch (\Throwable) {
             // fallback
         }
@@ -48,6 +58,8 @@ class DashboardController extends Controller
             'verified_profiles' => $verifiedProfiles,
             'pending_leads' => $pendingLeads,
             'active_packages' => $activePackages,
+            'total_stories' => $totalStories,
+            'total_faqs' => $totalFaqs,
             'monthly_matches' => 88,
         ];
 

@@ -233,6 +233,9 @@ php artisan db:seed --class=SuccessStorySeeder --force --no-interaction || echo 
 echo "Seeding consultation inquiries..."
 php artisan db:seed --class=ConsultationInquirySeeder --force --no-interaction || echo "Warning: Consultation inquiry seeder failed, continuing boot..."
 
+echo "Seeding FAQs and knowledgebase..."
+php artisan db:seed --class=FaqSeeder --force --no-interaction || echo "Warning: Faq seeder failed, continuing boot..."
+
 echo "Ensuring storage symlink exists..."
 php artisan storage:link --force --no-interaction || true
 

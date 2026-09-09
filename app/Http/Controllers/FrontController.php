@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CandidateProfile;
 use App\Models\ConsultationInquiry;
+use App\Models\Faq;
 use App\Models\MembershipPackage;
 use App\Models\SuccessStory;
 use Illuminate\Http\Request;
@@ -236,6 +237,20 @@ class FrontController extends Controller
     }
 
     private function getFaqs()
+    {
+        try {
+            $faqs = Faq::active()->ordered()->get();
+            if ($faqs->isNotEmpty()) {
+                return $faqs;
+            }
+        } catch (\Throwable $e) {
+            // Fallback to static sample if database is unreachable
+        }
+
+        return $this->getStaticFaqs();
+    }
+
+    private function getStaticFaqs()
     {
         return [
             [

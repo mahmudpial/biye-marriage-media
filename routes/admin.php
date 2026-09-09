@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Models\CandidateProfile;
+use App\Models\Faq;
 use App\Models\MembershipPackage;
 use App\Models\SuccessStory;
 use Illuminate\Support\Facades\Route;
@@ -74,4 +76,13 @@ Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
     Route::resource('inquiries', InquiryController::class)->only(['index', 'show', 'update', 'destroy']);
     Route::post('/inquiries/{inquiry}', [InquiryController::class, 'update'])->name('inquiries.update.post');
     Route::match(['POST', 'PATCH'], '/inquiries/{inquiry}/status', [InquiryController::class, 'updateStatus'])->name('inquiries.update-status');
+
+    // FAQs & Knowledgebase CMS
+    Route::resource('faqs', FaqController::class);
+    Route::get('/faqs/{faq}', function (Faq $faq) {
+        return redirect()->route('admin.faqs.edit', $faq);
+    })->name('faqs.show');
+    Route::post('/faqs/{faq}', [FaqController::class, 'update'])->name('faqs.update.post');
+    Route::match(['POST', 'PATCH'], '/faqs/{faq}/toggle-active', [FaqController::class, 'toggleActive'])->name('faqs.toggle-active');
+    Route::get('/faqs/{faq}/toggle-active', fn () => redirect()->route('admin.faqs.index'));
 });

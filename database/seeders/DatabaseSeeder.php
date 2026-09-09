@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             CandidateProfileSeeder::class,
             MembershipPackageSeeder::class,
+            SuccessStorySeeder::class,
+            ConsultationInquirySeeder::class,
+            FaqSeeder::class,
         ]);
     }
 }
