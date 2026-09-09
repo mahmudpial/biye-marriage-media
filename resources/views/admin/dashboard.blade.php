@@ -313,9 +313,14 @@
                     </h5>
                     <div class="small" style="color: #d1c5ca;">Latest submissions from website consultation form (Single-line overview)</div>
                 </div>
-                <span class="badge px-3 py-2 fw-semibold" style="background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.4);">
-                    4 New Inquiries
-                </span>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge px-3 py-2 fw-semibold" style="background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.4);">
+                        {{ $stats['pending_leads'] ?? 0 }} Pending Review
+                    </span>
+                    <a href="{{ route('admin.inquiries.index') }}" class="btn btn-outline-warning btn-sm text-gold py-1.5 px-3">
+                        <i class="bi bi-arrow-right-circle me-1"></i> View Pipeline
+                    </a>
+                </div>
             </div>
 
             <div class="table-responsive-custom">
@@ -337,13 +342,13 @@
                                 <!-- ID -->
                                 <td>
                                     <span class="badge px-2 py-1 fw-bold text-nowrap" style="background: rgba(0, 0, 0, 0.5); color: #fce7a1; border: 1px solid rgba(212, 175, 55, 0.35); font-family: monospace; font-size: 0.82rem;">
-                                        {{ $inq['id'] }}
+                                        {{ $inq['inquiry_code'] ?? $inq['id'] }}
                                     </span>
                                 </td>
 
                                 <!-- Applicant Name -->
                                 <td>
-                                    <span class="fw-bold text-white text-nowrap" style="font-size: 0.92rem;">{{ $inq['name'] }}</span>
+                                    <span class="fw-bold text-white text-nowrap" style="font-size: 0.92rem;">{{ $inq['full_name'] ?? $inq['name'] }}</span>
                                 </td>
 
                                 <!-- Phone -->
@@ -363,7 +368,7 @@
                                 <!-- Location & Desher Bari -->
                                 <td>
                                     <span class="text-nowrap text-white fw-medium" style="font-size: 0.86rem;">
-                                        <i class="bi bi-geo-alt-fill text-danger me-1"></i>{{ $inq['location'] }}
+                                        <i class="bi bi-geo-alt-fill text-danger me-1"></i>{{ $inq['city'] ?? $inq['location'] }}
                                     </span>
                                     <span class="text-nowrap small ms-1" style="color: #cbd5e1;">(Home: {{ $inq['desher_bari'] }})</span>
                                 </td>
@@ -371,7 +376,7 @@
                                 <!-- Package -->
                                 <td>
                                     <span class="badge fw-semibold text-nowrap" style="background: rgba(212, 175, 55, 0.16); color: #fde68a; border: 1px solid rgba(212, 175, 55, 0.35); font-size: 0.78rem;">
-                                        {{ $inq['package'] }}
+                                        {{ $inq['preferred_package'] ?? $inq['package'] }}
                                     </span>
                                 </td>
 

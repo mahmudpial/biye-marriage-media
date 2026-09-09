@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CandidateProfile;
+use App\Models\ConsultationInquiry;
 use App\Models\MembershipPackage;
 use App\Models\User;
 use Illuminate\View\View;
@@ -15,23 +17,54 @@ class DashboardController extends Controller
     public function index(): View
     {
         $activePackages = 3;
+        $pendingLeads = 4;
+        $verifiedProfiles = 1250;
+        $recentInquiries = collect();
+
         try {
             if (class_exists(MembershipPackage::class)) {
                 $activePackages = MembershipPackage::active()->count();
+            }
+            if (class_exists(CandidateProfile::class)) {
+                $profCount = CandidateProfile::count();
+                if ($profCount > 0) {
+                    $verifiedProfiles = $profCount;
+                }
+            }
+            if (class_exists(ConsultationInquiry::class)) {
+                $pendingLeads = ConsultationInquiry::where('status', 'Pending Review')->count();
+                $recentInquiries = ConsultationInquiry::latest('id')->take(5)->get();
             }
         } catch (\Throwable) {
             // fallback
         }
 
+        if ($recentInquiries->isEmpty()) {
+            $recentInquiries = $this->getStaticInquiries();
+        }
+
         $stats = [
             'total_users' => User::count(),
-            'verified_profiles' => 1250,
-            'pending_leads' => 14,
+            'verified_profiles' => $verifiedProfiles,
+            'pending_leads' => $pendingLeads,
             'active_packages' => $activePackages,
             'monthly_matches' => 88,
         ];
 
-        $recentInquiries = [
+        return view('admin.dashboard', [
+            'stats' => $stats,
+            'recentInquiries' => $recentInquiries,
+        ]);
+    }
+
+    /**
+     * Fallback static inquiries if database is not available.
+     *
+     * @return array<int, array<string, string>>
+     */
+    private function getStaticInquiries(): array
+    {
+        return [
             [
                 'id' => 'INQ-901',
                 'name' => 'Brigadier Gen. (Retd.) Faruq Ahmed',
@@ -77,10 +110,5 @@ class DashboardController extends Controller
                 'date' => '07 Sep 2026',
             ],
         ];
-
-        return view('admin.dashboard', [
-            'stats' => $stats,
-            'recentInquiries' => $recentInquiries,
-        ]);
     }
 }

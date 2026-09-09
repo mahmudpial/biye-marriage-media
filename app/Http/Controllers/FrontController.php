@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\CandidateProfile;
+use App\Models\ConsultationInquiry;
 use App\Models\MembershipPackage;
 use App\Models\SuccessStory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class FrontController extends Controller
 {
@@ -357,7 +359,18 @@ class FrontController extends Controller
             'desher_bari' => 'nullable|string|max:100',
             'annual_income' => 'nullable|string',
             'preferred_package' => 'nullable|string',
+            'message' => 'nullable|string|max:2000',
         ]);
+
+        try {
+            $validated['inquiry_code'] = ConsultationInquiry::generateUniqueCode();
+            $validated['status'] = 'Pending Review';
+            ConsultationInquiry::create($validated);
+        } catch (\Throwable $e) {
+            Log::error('Failed saving consultation inquiry: '.$e->getMessage(), [
+                'exception' => $e,
+            ]);
+        }
 
         return back()->with('success_modal', true)->with('consultation_name', $validated['full_name']);
     }
