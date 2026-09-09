@@ -62,7 +62,7 @@
                     <a href="https://www.biyemarriagemedia.com" target="_blank" class="text-gold text-decoration-none">www.biyemarriagemedia.com</a>
                 </div>
                 <div class="mt-2 small text-light-50">
-                    Services: Bangladesh & Overseas Matchmaking
+                    {!! site_setting('footer_presence_note', 'Services: Bangladesh & Overseas Matchmaking') !!}
                 </div>
             </div>
 
@@ -89,8 +89,8 @@
                     </a>
                 </div>
                 <div class="p-2 px-3 rounded" style="background: rgba(201, 151, 56, 0.1); border: 1px dashed rgba(201, 151, 56, 0.35);">
-                    <div class="small text-gold fw-semibold"><i class="bi bi-check-circle-fill me-1"></i> 100% Confidential</div>
-                    <span class="small" style="color: #cbd2df; font-size: 0.8rem;">Islamic Values & Verified Matchmaking</span>
+                    <div class="small text-gold fw-semibold"><i class="bi bi-check-circle-fill me-1"></i> {!! site_setting('footer_trust_title', '100% Confidential') !!}</div>
+                    <span class="small" style="color: #cbd2df; font-size: 0.8rem;">{!! site_setting('footer_trust_subtitle', 'Islamic Values & Verified Matchmaking') !!}</span>
                 </div>
             </div>
         </div>
@@ -99,7 +99,7 @@
 
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 pt-2 text-white-50 small">
             <div>
-                © {{ date('Y') }} Biye Marriage Media. All rights reserved. Private family matchmaking services.
+                {{ site_setting('footer_copyright_text', '© ' . date('Y') . ' Biye Marriage Media. All rights reserved. Private family matchmaking services.') }}
             </div>
             <div class="d-flex gap-3">
                 <a href="{{ route('about') }}" class="text-white-50 text-decoration-none">Privacy & Purdah Pledge</a>

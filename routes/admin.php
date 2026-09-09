@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\ContentSectionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\InquiryController;
@@ -101,4 +102,8 @@ Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
     // Site Settings & Contact Configuration CMS
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
+
+    // Page Content & Sections CMS Studio
+    Route::get('/sections', [ContentSectionController::class, 'index'])->name('sections.index');
+    Route::post('/sections', [ContentSectionController::class, 'update'])->name('sections.update');
 });

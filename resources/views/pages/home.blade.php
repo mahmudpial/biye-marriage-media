@@ -11,70 +11,41 @@
             <!-- Left Hero Content -->
             <div class="col-lg-7">
                 <h1 class="hero-title">
-                    Find Your Perfect Life Partner with <span class="text-gold font-serif fst-italic">Trust & Confidentiality</span>
+                    {!! site_setting('hero_title', 'Find Your Perfect Life Partner with <span class="text-gold font-serif fst-italic">Trust & Confidentiality</span>') !!}
                 </h1>
 
                 <p class="hero-subtitle">
-                    Professional bride and groom matching in Bangladesh and overseas. We prioritize Islamic values and family compatibility to help you find your ideal match.
+                    {{ site_setting('hero_subtitle', 'Professional bride and groom matching in Bangladesh and overseas. We prioritize Islamic values and family compatibility to help you find your ideal match.') }}
                 </p>
 
                 <!-- Value Highlights Grid -->
                 <div class="row g-3 mb-4">
+                    @foreach(site_setting_json('hero_features', [
+                        ['icon' => 'bi-shield-lock-fill', 'title' => '100% Confidential Service', 'desc' => 'Your privacy & identity always protected'],
+                        ['icon' => 'bi-patch-check-fill', 'title' => 'Verified Profiles', 'desc' => 'Genuine & authentic matches'],
+                        ['icon' => 'bi-moon-stars-fill', 'title' => 'Islamic Matchmaking', 'desc' => 'Focus on shared Islamic values'],
+                        ['icon' => 'bi-globe-americas', 'title' => 'Bangladesh & Overseas', 'desc' => 'Connecting families locally & globally'],
+                    ]) as $feature)
                     <div class="col-sm-6">
                         <div class="hero-feature-box">
                             <div class="hero-feature-icon">
-                                <i class="bi bi-shield-lock-fill fs-5"></i>
+                                <i class="bi {{ $feature['icon'] ?? 'bi-check-circle-fill' }} fs-5"></i>
                             </div>
                             <div>
-                                <h6 class="hero-feature-title">100% Confidential Service</h6>
-                                <span class="hero-feature-desc">Your privacy & identity always protected</span>
+                                <h6 class="hero-feature-title">{{ $feature['title'] ?? '' }}</h6>
+                                <span class="hero-feature-desc">{{ $feature['desc'] ?? '' }}</span>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-sm-6">
-                        <div class="hero-feature-box">
-                            <div class="hero-feature-icon">
-                                <i class="bi bi-patch-check-fill fs-5"></i>
-                            </div>
-                            <div>
-                                <h6 class="hero-feature-title">Verified Profiles</h6>
-                                <span class="hero-feature-desc">Genuine & authentic matches</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="hero-feature-box">
-                            <div class="hero-feature-icon">
-                                <i class="bi bi-moon-stars-fill fs-5"></i>
-                            </div>
-                            <div>
-                                <h6 class="hero-feature-title">Islamic Matchmaking</h6>
-                                <span class="hero-feature-desc">Focus on shared Islamic values</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="hero-feature-box">
-                            <div class="hero-feature-icon">
-                                <i class="bi bi-globe-americas fs-5"></i>
-                            </div>
-                            <div>
-                                <h6 class="hero-feature-title">Bangladesh & Overseas</h6>
-                                <span class="hero-feature-desc">Connecting families locally & globally</span>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
 
                 <div class="d-flex align-items-center gap-3 flex-wrap">
                     <button type="button" class="btn btn-elite-gold px-4 py-2" data-bs-toggle="modal" data-bs-target="#consultationModal">
-                        <i class="bi bi-person-plus-fill me-1"></i> Register Profile
+                        <i class="bi bi-person-plus-fill me-1"></i> {{ site_setting('hero_cta_primary_text', 'Register Profile') }}
                     </button>
                     <a href="{{ route('contact') }}" class="btn btn-elite-outline-gold px-4 py-2">
-                        <i class="bi bi-envelope-fill me-1"></i> Contact Us
+                        <i class="bi bi-envelope-fill me-1"></i> {{ site_setting('hero_cta_secondary_text', 'Contact Us') }}
                     </a>
                 </div>
             </div>
@@ -219,91 +190,27 @@
 <section class="section-padding bg-soft">
     <div class="container">
         <div class="section-header text-center">
-            <span class="section-tag">Our Specialties</span>
-            <h2 class="section-title">Professional Matchmaking Services Tailored For You</h2>
+            <span class="section-tag">{{ site_setting('specialties_tag', 'Our Specialties') }}</span>
+            <h2 class="section-title">{{ site_setting('specialties_title', 'Professional Matchmaking Services Tailored For You') }}</h2>
             <p class="section-desc">
-                Built on trust, Islamic values, and deep family compatibility for clients in Bangladesh and overseas.
+                {{ site_setting('specialties_desc', 'Built on trust, Islamic values, and deep family compatibility for clients in Bangladesh and overseas.') }}
             </p>
         </div>
 
         <div class="row g-4 justify-content-center">
-            <!-- Specialty 1: 100% Confidential Service -->
+            @foreach(site_setting_json('specialties_items') as $item)
             <div class="col-lg-4 col-md-6 d-flex">
                 <div class="pillar-card w-100">
                     <div class="pillar-icon-box mb-3">
-                        <i class="bi bi-shield-lock-fill"></i>
+                        <i class="bi {{ $item['icon'] ?? 'bi-star-fill' }}"></i>
                     </div>
-                    <h4 class="pillar-title font-serif">100% Confidential Service</h4>
+                    <h4 class="pillar-title font-serif">{{ $item['title'] ?? '' }}</h4>
                     <p class="pillar-desc text-muted mb-0">
-                        Your privacy and identity are always protected with strict non-disclosure protocols and private profile sharing.
+                        {{ $item['desc'] ?? '' }}
                     </p>
                 </div>
             </div>
-
-            <!-- Specialty 2: Bride & Groom Matching -->
-            <div class="col-lg-4 col-md-6 d-flex">
-                <div class="pillar-card w-100">
-                    <div class="pillar-icon-box mb-3">
-                        <i class="bi bi-heart-pulse-fill"></i>
-                    </div>
-                    <h4 class="pillar-title font-serif">Bride & Groom Matching</h4>
-                    <p class="pillar-desc text-muted mb-0">
-                        Dedicated specialized services for finding the right groom (Patro) or bride (Patri) with complete peace of mind.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Specialty 3: Personalized Matchmaking -->
-            <div class="col-lg-4 col-md-6 d-flex">
-                <div class="pillar-card w-100">
-                    <div class="pillar-icon-box mb-3">
-                        <i class="bi bi-sliders"></i>
-                    </div>
-                    <h4 class="pillar-title font-serif">Personalized Matchmaking</h4>
-                    <p class="pillar-desc text-muted mb-0">
-                        Tailored searches based on your specific lifestyle, cultural preferences, district roots (Desher Bari), and expectations.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Specialty 4: Islamic Matchmaking -->
-            <div class="col-lg-4 col-md-6 d-flex">
-                <div class="pillar-card w-100">
-                    <div class="pillar-icon-box mb-3">
-                        <i class="bi bi-moon-stars-fill"></i>
-                    </div>
-                    <h4 class="pillar-title font-serif">Islamic Matchmaking</h4>
-                    <p class="pillar-desc text-muted mb-0">
-                        A core focus on shared Islamic values, Deen-conscious lifestyles, family guardian (Wali) coordination, and noble traditions.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Specialty 5: Professional Marriage Consultancy -->
-            <div class="col-lg-4 col-md-6 d-flex">
-                <div class="pillar-card w-100">
-                    <div class="pillar-icon-box mb-3">
-                        <i class="bi bi-person-check-fill"></i>
-                    </div>
-                    <h4 class="pillar-title font-serif">Professional Marriage Consultancy</h4>
-                    <p class="pillar-desc text-muted mb-0">
-                        Expert guidance throughout your partner search with dedicated, experienced marriage consultants and advisors.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Specialty 6: Bangladesh & Overseas Matchmaking -->
-            <div class="col-lg-4 col-md-6 d-flex">
-                <div class="pillar-card w-100">
-                    <div class="pillar-icon-box mb-3">
-                        <i class="bi bi-globe-americas"></i>
-                    </div>
-                    <h4 class="pillar-title font-serif">Bangladesh & Overseas Matchmaking</h4>
-                    <p class="pillar-desc text-muted mb-0">
-                        Connecting families locally across Bangladesh and globally across the UK, USA, Canada, UAE, Australia, and European diaspora.
-                    </p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -312,10 +219,10 @@
 <section class="section-padding bg-white">
     <div class="container">
         <div class="section-header">
-            <span class="section-tag">Seamless Process</span>
-            <h2 class="section-title">How Our Private Matchmaking Works</h2>
+            <span class="section-tag">{{ site_setting('process_tag', 'Seamless Process') }}</span>
+            <h2 class="section-title">{{ site_setting('process_title', 'How Our Private Matchmaking Works') }}</h2>
             <p class="section-desc">
-                From initial confidential consultation to alliance celebrations, experience personalized attention at every step.
+                {{ site_setting('process_desc', 'From initial confidential consultation to alliance celebrations, experience personalized attention at every step.') }}
             </p>
         </div>
 
@@ -324,44 +231,23 @@
             <div class="process-connecting-line d-none d-md-block" aria-hidden="true"></div>
 
             <div class="row gx-4 gy-5 gy-md-4 align-items-stretch position-relative" style="z-index: 2;">
-                <!-- Step 1 -->
+                @foreach(site_setting_json('process_steps') as $step)
                 <div class="col-md-4 d-flex">
                     <div class="step-card w-100">
-                        <div class="step-number">01</div>
-                        <h4 class="step-title font-serif">Understanding Family Expectations</h4>
+                        <div class="step-number">{{ $step['step'] ?? sprintf('%02d', $loop->iteration) }}</div>
+                        <h4 class="step-title font-serif">{{ $step['title'] ?? '' }}</h4>
                         <p class="step-desc">
-                            Your Relationship Manager hosts an in-depth private consultation at your residence or club to understand your family values, district preference (Desher Bari), and partner requirements.
+                            {{ $step['desc'] ?? '' }}
                         </p>
                     </div>
                 </div>
-
-                <!-- Step 2 -->
-                <div class="col-md-4 d-flex">
-                    <div class="step-card w-100">
-                        <div class="step-number">02</div>
-                        <h4 class="step-title font-serif">Handpicking Verified Recommendations</h4>
-                        <p class="step-desc">
-                            Your Relationship Manager rigorously filters verified high-caliber profiles from our private registry and presents curated executive briefs directly to family guardians.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="col-md-4 d-flex">
-                    <div class="step-card w-100">
-                        <div class="step-number">03</div>
-                        <h4 class="step-title font-serif">Facilitating High-Level Introductions</h4>
-                        <p class="step-desc">
-                            Upon mutual interest, your Relationship Manager coordinates confidential family meetings at premier 5-star venues (Radisson, Westin, InterContinental) or private family lounges.
-                        </p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
 
         <div class="d-flex justify-content-center mt-5 pt-2">
             <button type="button" class="btn btn-elite-primary btn-process-cta" data-bs-toggle="modal" data-bs-target="#consultationModal">
-                <i class="bi bi-calendar-check me-2"></i>Schedule Your Family Consultation
+                <i class="bi bi-calendar-check me-2"></i>{{ site_setting('process_cta_text', 'Schedule Your Family Consultation') }}
             </button>
         </div>
     </div>
@@ -678,17 +564,17 @@
 <!-- Bottom VIP CTA Banner -->
 <section class="py-5" style="background: linear-gradient(135deg, var(--elite-maroon-dark), var(--elite-maroon-deep)); border-top: 2px solid var(--elite-gold-primary);">
     <div class="container text-center text-white py-4">
-        <span class="hero-crest-badge mb-3">Begin Your Exclusive Journey</span>
+        <span class="hero-crest-badge mb-3">{{ site_setting('final_cta_badge', 'Begin Your Exclusive Journey') }}</span>
         <h2 class="display-6 font-serif fw-bold text-white mb-3">
-            Ready to Find the Ideal Match for Your Family?
+            {{ site_setting('final_cta_title', 'Ready to Find the Ideal Match for Your Family?') }}
         </h2>
         <p class="text-white-50 mx-auto mb-4 fs-5" style="max-width: 680px;">
-            Speak directly with an Executive Matchmaker who will handle your family preferences with absolute privacy, cultural respect, and dedicated care.
+            {{ site_setting('final_cta_subtitle', 'Speak directly with an Executive Matchmaker who will handle your family preferences with absolute privacy, cultural respect, and dedicated care.') }}
         </p>
         <div class="vip-cta-actions d-flex flex-column flex-md-row justify-content-center align-items-stretch align-items-md-center gap-3">
             <button type="button" class="btn btn-elite-gold vip-action-btn" data-bs-toggle="modal" data-bs-target="#consultationModal">
                 <i class="bi bi-telephone-inbound"></i>
-                <span>Request VIP Callback</span>
+                <span>{{ site_setting('final_cta_button_text', 'Request VIP Callback') }}</span>
             </button>
             <a href="tel:{{ preg_replace('/[^0-9+]/', '', site_setting('contact_phone', '+8801577723404')) }}" class="btn btn-elite-outline-gold vip-action-btn">
                 <i class="bi bi-headset"></i>
