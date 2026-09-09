@@ -429,6 +429,14 @@
                     <i class="bi bi-chevron-right text-gold small"></i>
                 </a>
 
+                <a href="{{ route('admin.stories.index') }}" class="action-btn-link">
+                    <span class="d-flex align-items-center gap-2">
+                        <i class="bi bi-heart-pulse-fill icon-prefix"></i>
+                        <span>Manage Success Stories</span>
+                    </span>
+                    <i class="bi bi-chevron-right text-gold small"></i>
+                </a>
+
                 <a href="{{ route('contact') }}" target="_blank" class="action-btn-link">
                     <span class="d-flex align-items-center gap-2">
                         <i class="bi bi-headset icon-prefix"></i>

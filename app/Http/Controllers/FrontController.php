@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CandidateProfile;
 use App\Models\MembershipPackage;
+use App\Models\SuccessStory;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -79,6 +80,20 @@ class FrontController extends Controller
     }
 
     private function getStories()
+    {
+        try {
+            $stories = SuccessStory::active()->ordered()->get();
+            if ($stories->isNotEmpty()) {
+                return $stories;
+            }
+        } catch (\Throwable $e) {
+            // Fallback to static sample if database is unreachable
+        }
+
+        return $this->getStaticStories();
+    }
+
+    private function getStaticStories()
     {
         return [
             [

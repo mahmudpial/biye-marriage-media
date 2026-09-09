@@ -175,6 +175,7 @@ mkdir -p /var/www/html/storage/framework/sessions \
          /var/www/html/storage/framework/cache \
          /var/www/html/storage/logs \
          /var/www/html/storage/app/public/profiles \
+         /var/www/html/storage/app/public/stories \
          /var/www/html/bootstrap/cache \
          /var/www/html/database
 
@@ -225,6 +226,9 @@ php artisan db:seed --class=CandidateProfileSeeder --force --no-interaction || e
 
 echo "Seeding membership packages..."
 php artisan db:seed --class=MembershipPackageSeeder --force --no-interaction || echo "Warning: Membership package seeder failed, continuing boot..."
+
+echo "Seeding success stories..."
+php artisan db:seed --class=SuccessStorySeeder --force --no-interaction || echo "Warning: Success story seeder failed, continuing boot..."
 
 echo "Ensuring storage symlink exists..."
 php artisan storage:link --force --no-interaction || true

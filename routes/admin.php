@@ -4,9 +4,11 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\StoryController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Models\CandidateProfile;
 use App\Models\MembershipPackage;
+use App\Models\SuccessStory;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,4 +57,15 @@ Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
     Route::match(['POST', 'PATCH'], '/packages/{package}/toggle-featured', [PackageController::class, 'toggleFeatured'])->name('packages.toggle-featured');
     Route::get('/packages/{package}/toggle-active', fn () => redirect()->route('admin.packages.index'));
     Route::get('/packages/{package}/toggle-featured', fn () => redirect()->route('admin.packages.index'));
+
+    // Matrimonial Success Stories CMS
+    Route::resource('stories', StoryController::class);
+    Route::get('/stories/{story}', function (SuccessStory $story) {
+        return redirect()->route('admin.stories.edit', $story);
+    })->name('stories.show');
+    Route::post('/stories/{story}', [StoryController::class, 'update'])->name('stories.update.post');
+    Route::match(['POST', 'PATCH'], '/stories/{story}/toggle-active', [StoryController::class, 'toggleActive'])->name('stories.toggle-active');
+    Route::match(['POST', 'PATCH'], '/stories/{story}/toggle-featured', [StoryController::class, 'toggleFeatured'])->name('stories.toggle-featured');
+    Route::get('/stories/{story}/toggle-active', fn () => redirect()->route('admin.stories.index'));
+    Route::get('/stories/{story}/toggle-featured', fn () => redirect()->route('admin.stories.index'));
 });

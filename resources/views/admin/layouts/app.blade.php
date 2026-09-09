@@ -638,9 +638,10 @@
                 <span>Packages &amp; Membership</span>
                 <span class="badge rounded-pill ms-auto" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 0.68rem; border: 1px solid var(--border-gold);">CMS</span>
             </a>
-            <a href="{{ route('stories') }}" target="_blank" class="sidebar-link">
+            <a href="{{ route('admin.stories.index') }}" class="sidebar-link {{ request()->routeIs('admin.stories.*') ? 'active' : '' }}">
                 <i class="bi bi-heart-pulse-fill"></i>
                 <span>Success Stories</span>
+                <span class="badge rounded-pill ms-auto" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 0.68rem; border: 1px solid var(--border-gold);">CMS</span>
             </a>
 
             <div class="nav-category">Access &amp; Support</div>
