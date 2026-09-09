@@ -660,6 +660,11 @@
                 <span>Staff &amp; Matchmakers</span>
                 <span class="badge rounded-pill ms-auto" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 0.68rem; border: 1px solid var(--border-gold);">CMS</span>
             </a>
+            <a href="{{ route('admin.settings.index') }}" class="sidebar-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+                <i class="bi bi-sliders"></i>
+                <span>Site Settings</span>
+                <span class="badge rounded-pill ms-auto" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 0.68rem; border: 1px solid var(--border-gold);">CMS</span>
+            </a>
 
             <div class="nav-category">Access &amp; Support</div>
             <a href="{{ route('home') }}" target="_blank" class="sidebar-link">
@@ -750,6 +755,12 @@
                             <a class="dropdown-item" href="{{ route('admin.users.index') }}">
                                 <i class="bi bi-person-gear text-gold"></i>
                                 <span>Staff &amp; Matchmakers</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('admin.settings.index') }}">
+                                <i class="bi bi-sliders text-gold"></i>
+                                <span>Site Settings</span>
                             </a>
                         </li>
                         <li><hr class="dropdown-divider"></li>

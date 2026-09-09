@@ -690,11 +690,11 @@
                 <i class="bi bi-telephone-inbound"></i>
                 <span>Request VIP Callback</span>
             </button>
-            <a href="tel:+8801577723404" class="btn btn-elite-outline-gold vip-action-btn">
+            <a href="tel:{{ preg_replace('/[^0-9+]/', '', site_setting('contact_phone', '+8801577723404')) }}" class="btn btn-elite-outline-gold vip-action-btn">
                 <i class="bi bi-headset"></i>
-                <span>Call +880 1577-723404</span>
+                <span>Call {{ site_setting('contact_phone', '+880 1577-723404') }}</span>
             </a>
-            <a href="https://wa.me/8801577723404" target="_blank" class="btn btn-outline-light vip-action-btn">
+            <a href="https://wa.me/{{ site_setting('whatsapp_number', '8801577723404') }}" target="_blank" class="btn btn-outline-light vip-action-btn">
                 <i class="bi bi-whatsapp text-success"></i>
                 <span>WhatsApp Concierge</span>
             </a>

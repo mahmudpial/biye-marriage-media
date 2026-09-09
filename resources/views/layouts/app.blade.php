@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title', 'Biye Marriage Media - Find Your Perfect Life Partner with Trust & Confidentiality')</title>
-    <meta name="description" content="Biye Marriage Media provides 100% confidential and professional matchmaking services in Bangladesh and overseas. Discover verified profiles and find your perfect life partner based on Islamic values and family compatibility.">
+    <title>@yield('title', site_setting('meta_title_suffix', 'Biye Marriage Media - Find Your Perfect Life Partner with Trust & Confidentiality'))</title>
+    <meta name="description" content="{{ site_setting('meta_description', 'Biye Marriage Media provides 100% confidential and professional matchmaking services in Bangladesh and overseas. Discover verified profiles and find your perfect life partner based on Islamic values and family compatibility.') }}">
 
     <!-- Favicon / Site Icon -->
     <link rel="icon" type="image/jpeg" href="{{ asset('site-logo/marriage-logo.jpeg') }}">
@@ -13,8 +13,8 @@
     <link rel="apple-touch-icon" href="{{ asset('site-logo/marriage-logo.jpeg') }}">
 
     <!-- OpenGraph -->
-    <meta property="og:title" content="Biye Marriage Media - Find Your Perfect Life Partner with Trust & Confidentiality">
-    <meta property="og:description" content="Biye Marriage Media provides 100% confidential and professional matchmaking services in Bangladesh and overseas. Discover verified profiles and find your perfect life partner based on Islamic values and family compatibility.">
+    <meta property="og:title" content="{{ site_setting('meta_title_suffix', 'Biye Marriage Media - Find Your Perfect Life Partner with Trust & Confidentiality') }}">
+    <meta property="og:description" content="{{ site_setting('meta_description', 'Biye Marriage Media provides 100% confidential and professional matchmaking services in Bangladesh and overseas.') }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ asset('site-logo/marriage-logo.jpeg') }}">
 
@@ -36,18 +36,33 @@
 </head>
 <body>
 
+    <!-- Optional Announcement Marquee Bar -->
+    @if(site_setting('announcement_enabled') == '1' && !empty(site_setting('announcement_text')))
+    <div class="announcement-marquee-bar py-2" style="background: linear-gradient(90deg, #d4af37 0%, #fef08a 50%, #d4af37 100%); color: #18030c; font-size: 0.85rem; font-weight: 600;">
+        <div class="container d-flex justify-content-center align-items-center text-center flex-wrap gap-2">
+            <i class="bi bi-stars"></i>
+            <span>{{ site_setting('announcement_text') }}</span>
+            @if(!empty(site_setting('announcement_link')))
+                <a href="{{ site_setting('announcement_link') }}" class="btn btn-sm btn-dark ms-2 px-2.5 py-0.5" style="font-size: 0.75rem; border-radius: 20px; font-weight: 600;">
+                    Details <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            @endif
+        </div>
+    </div>
+    @endif
+
     <!-- Top Priority VIP Helpdesk Bar (Bangladesh) -->
     <div class="elite-topbar">
         <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div class="d-flex align-items-center gap-3">
                 <span><i class="bi bi-shield-check text-gold me-1"></i> 100% Confidential Service</span>
                 <span class="d-none d-md-inline topbar-divider">|</span>
-                <span class="d-none d-md-inline text-gold fw-medium"><i class="bi bi-heart-fill me-1"></i> বিশ্বাসের বন্ধনে, সুন্দর আগামী</span>
+                <span class="d-none d-md-inline text-gold fw-medium"><i class="bi bi-heart-fill me-1"></i> {{ site_setting('site_tagline', 'বিশ্বাসের বন্ধনে, সুন্দর আগামী') }}</span>
             </div>
             <div class="d-flex align-items-center gap-3">
-                <a href="tel:+8801577723404"><i class="bi bi-telephone-fill text-gold me-1"></i> +880 1577-723404</a>
+                <a href="tel:{{ preg_replace('/[^0-9+]/', '', site_setting('contact_phone', '+8801577723404')) }}"><i class="bi bi-telephone-fill text-gold me-1"></i> {{ site_setting('contact_phone', '+880 1577-723404') }}</a>
                 <span class="topbar-divider">|</span>
-                <a href="https://wa.me/8801577723404" target="_blank"><i class="bi bi-whatsapp text-success me-1"></i> VIP WhatsApp</a>
+                <a href="https://wa.me/{{ site_setting('whatsapp_number', '8801577723404') }}" target="_blank"><i class="bi bi-whatsapp text-success me-1"></i> VIP WhatsApp</a>
             </div>
         </div>
     </div>

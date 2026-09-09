@@ -35,9 +35,9 @@
                         <div>
                             <h6 class="fw-bold mb-1">Priority Contact Number</h6>
                             <div class="d-flex flex-column gap-1">
-                                <a href="tel:+8801577723404" class="text-maroon fs-5 fw-bold text-decoration-none">+880 1577-723404</a>
+                                <a href="tel:{{ preg_replace('/[^0-9+]/', '', site_setting('contact_phone', '+8801577723404')) }}" class="text-maroon fs-5 fw-bold text-decoration-none">{{ site_setting('contact_phone', '+880 1577-723404') }}</a>
                             </div>
-                            <p class="small text-muted mb-0 mt-1">Saturday to Friday, 9:00 AM - 10:00 PM BST</p>
+                            <p class="small text-muted mb-0 mt-1">{{ site_setting('office_hours', 'Saturday to Friday, 9:00 AM - 10:00 PM BST') }}</p>
                         </div>
                     </div>
 
@@ -48,7 +48,7 @@
                         </div>
                         <div>
                             <h6 class="fw-bold mb-1">WhatsApp VIP Concierge</h6>
-                            <a href="https://wa.me/8801577723404" target="_blank" class="text-success fs-6 fw-bold text-decoration-none">Chat Directly on WhatsApp (+880 1577-723404)</a>
+                            <a href="https://wa.me/{{ site_setting('whatsapp_number', '8801577723404') }}" target="_blank" class="text-success fs-6 fw-bold text-decoration-none">Chat Directly on WhatsApp (+{{ site_setting('whatsapp_number', '8801577723404') }})</a>
                             <p class="small text-muted mb-0">Instant, discrete family coordination</p>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                         </div>
                         <div>
                             <h6 class="fw-bold mb-1">Email & Official Website</h6>
-                            <a href="mailto:biyemarriagemedia@gmail.com" class="text-maroon fw-semibold text-decoration-none d-block">biyemarriagemedia@gmail.com</a>
+                            <a href="mailto:{{ site_setting('contact_email', 'biyemarriagemedia@gmail.com') }}" class="text-maroon fw-semibold text-decoration-none d-block">{{ site_setting('contact_email', 'biyemarriagemedia@gmail.com') }}</a>
                             <a href="https://www.biyemarriagemedia.com" target="_blank" class="text-secondary small text-decoration-none d-block mt-1">
                                 <i class="bi bi-globe me-1 text-gold"></i> www.biyemarriagemedia.com
                             </a>
@@ -75,7 +75,7 @@
                         <div>
                             <h6 class="fw-bold mb-1">Head Office Address</h6>
                             <p class="text-secondary small mb-0 leading-relaxed">
-                                Ka-57/3, Second Floor, Kuril Chowrasta, Vatara, Dhaka, Bangladesh, 1212
+                                {!! nl2br(e(site_setting('office_address', 'Ka-57/3, Second Floor, Kuril Chowrasta, Vatara, Dhaka, Bangladesh, 1212'))) !!}
                             </p>
                         </div>
                     </div>

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\SiteSetting;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -12,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        require_once app_path('helpers.php');
     }
 
     /**
@@ -23,5 +25,9 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('production') || request()->header('X-Forwarded-Proto') === 'https') {
             URL::forceScheme('https');
         }
+
+        View::composer('*', function ($view): void {
+            $view->with('siteSettings', SiteSetting::allAsArray());
+        });
     }
 }

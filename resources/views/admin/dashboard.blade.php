@@ -458,6 +458,14 @@
                     <i class="bi bi-chevron-right text-gold small"></i>
                 </a>
 
+                <a href="{{ route('admin.settings.index') }}" class="action-btn-link">
+                    <span class="d-flex align-items-center gap-2">
+                        <i class="bi bi-sliders icon-prefix"></i>
+                        <span>Configure Site Settings &amp; Helplines</span>
+                    </span>
+                    <i class="bi bi-chevron-right text-gold small"></i>
+                </a>
+
                 <a href="{{ route('contact') }}" target="_blank" class="action-btn-link">
                     <span class="d-flex align-items-center gap-2">
                         <i class="bi bi-headset icon-prefix"></i>

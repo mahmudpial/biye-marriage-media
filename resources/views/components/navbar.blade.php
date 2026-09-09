@@ -8,8 +8,8 @@
                     <img src="{{ asset('site-logo/marriage-logo.jpeg') }}" alt="Biye Marriage Media Logo">
                 </div>
                 <div class="elite-brand-text">
-                    <span class="elite-brand-title">Biye Marriage Media</span>
-                    <span class="elite-brand-subtitle text-gold fw-semibold">বিশ্বাসের বন্ধনে, সুন্দর আগামী</span>
+                    <span class="elite-brand-title">{{ site_setting('site_name', 'Biye Marriage Media') }}</span>
+                    <span class="elite-brand-subtitle text-gold fw-semibold">{{ site_setting('site_tagline', 'বিশ্বাসের বন্ধনে, সুন্দর আগামী') }}</span>
                 </div>
             </div>
         </a>
@@ -41,7 +41,7 @@
 
             <!-- Right Actions -->
             <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
-                <a href="https://wa.me/8801577723404" target="_blank" class="btn btn-outline-success btn-sm rounded-pill px-3 py-2 fw-medium d-none d-xl-inline-flex align-items-center gap-1">
+                <a href="https://wa.me/{{ site_setting('whatsapp_number', '8801577723404') }}" target="_blank" class="btn btn-outline-success btn-sm rounded-pill px-3 py-2 fw-medium d-none d-xl-inline-flex align-items-center gap-1">
                     <i class="bi bi-whatsapp"></i> WhatsApp
                 </a>
                 <button type="button" class="btn btn-outline-secondary btn-login-nav btn-sm rounded-pill px-3 py-2 fw-medium text-dark border-1" data-bs-toggle="modal" data-bs-target="#memberLoginModal">

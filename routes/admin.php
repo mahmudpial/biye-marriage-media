@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Middleware\EnsureUserIsAdmin;
@@ -96,4 +97,8 @@ Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
     Route::post('/users/{user}', [UserController::class, 'update'])->name('users.update.post');
     Route::match(['POST', 'PATCH'], '/users/{user}/toggle-active', [UserController::class, 'toggleActive'])->name('users.toggle-active');
     Route::get('/users/{user}/toggle-active', fn () => redirect()->route('admin.users.index'));
+
+    // Site Settings & Contact Configuration CMS
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
 });

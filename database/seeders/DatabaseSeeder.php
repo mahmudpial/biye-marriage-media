@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             SuccessStorySeeder::class,
             ConsultationInquirySeeder::class,
             FaqSeeder::class,
+            SiteSettingSeeder::class,
         ]);
     }
 }

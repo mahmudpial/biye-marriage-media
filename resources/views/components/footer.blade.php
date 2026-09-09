@@ -8,23 +8,32 @@
                         <img src="{{ asset('site-logo/marriage-logo.jpeg') }}" alt="Biye Marriage Media Logo">
                     </div>
                     <div>
-                        <span class="footer-brand-title d-block">Biye Marriage Media</span>
-                        <small class="text-gold" style="font-size: 0.8rem; letter-spacing: 0.5px;">বিশ্বাসের বন্ধনে, সুন্দর আগামী</small>
+                        <span class="footer-brand-title d-block">{{ site_setting('site_name', 'Biye Marriage Media') }}</span>
+                        <small class="text-gold" style="font-size: 0.8rem; letter-spacing: 0.5px;">{{ site_setting('site_tagline', 'বিশ্বাসের বন্ধনে, সুন্দর আগামী') }}</small>
                     </div>
                 </div>
                 <p class="text-light-50 mb-3" style="font-size: 0.92rem; color: #b3b8c4;">
-                    Professional bride and groom matching in Bangladesh and overseas. We prioritize Islamic values and family compatibility to help you find your ideal life partner with 100% confidentiality.
+                    {{ site_setting('about_summary', 'Professional bride and groom matching in Bangladesh and overseas. We prioritize Islamic values and family compatibility to help you find your ideal life partner with 100% confidentiality.') }}
                 </p>
                 <div class="footer-social-row mt-3">
-                    <a href="https://www.facebook.com/biyemarriagemedia" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-social-fb" aria-label="Facebook Page">
+                    @if(site_setting('facebook_url'))
+                    <a href="{{ site_setting('facebook_url') }}" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-social-fb" aria-label="Facebook Page">
                         <i class="bi bi-facebook"></i>
                     </a>
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-social-insta" aria-label="Instagram Profile">
+                    @endif
+                    @if(site_setting('instagram_url'))
+                    <a href="{{ site_setting('instagram_url') }}" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-social-insta" aria-label="Instagram Profile">
                         <i class="bi bi-instagram"></i>
                     </a>
-                    <a href="https://wa.me/8801577723404" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-social-wa" aria-label="WhatsApp Concierge">
+                    @endif
+                    <a href="https://wa.me/{{ site_setting('whatsapp_number', '8801577723404') }}" target="_blank" rel="noopener noreferrer" class="footer-social-icon footer-social-wa" aria-label="WhatsApp Concierge">
                         <i class="bi bi-whatsapp"></i>
                     </a>
+                    @if(site_setting('youtube_url'))
+                    <a href="{{ site_setting('youtube_url') }}" target="_blank" rel="noopener noreferrer" class="footer-social-icon" style="background: rgba(239, 68, 68, 0.15); color: #ef4444;" aria-label="YouTube Channel">
+                        <i class="bi bi-youtube"></i>
+                    </a>
+                    @endif
                 </div>
             </div>
 
@@ -46,7 +55,7 @@
                 <div class="small mb-3" style="color: #cbd2df; line-height: 1.6;">
                     <i class="bi bi-geo-alt-fill text-gold me-1"></i>
                     <strong>Kuril Chowrasta Office:</strong><br>
-                    Ka-57/3, Second Floor, Kuril Chowrasta, Vatara, Dhaka, Bangladesh, 1212
+                    {!! nl2br(e(site_setting('office_address', 'Ka-57/3, Second Floor, Kuril Chowrasta, Vatara, Dhaka, Bangladesh, 1212'))) !!}
                 </div>
                 <div class="small" style="color: #b3b8c4;">
                     <i class="bi bi-globe text-gold me-1"></i>
@@ -62,21 +71,21 @@
                 <h5 class="footer-heading">Contact & Helpline</h5>
                 <p class="small mb-2" style="color: #b3b8c4;">Speak directly with our matrimonial consultants:</p>
                 <div class="mb-2">
-                    <a href="tel:+8801577723404" class="footer-contact-link d-flex align-items-center gap-2 text-gold fw-semibold fs-6 text-decoration-none">
+                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', site_setting('contact_phone', '+8801577723404')) }}" class="footer-contact-link d-flex align-items-center gap-2 text-gold fw-semibold fs-6 text-decoration-none">
                         <i class="bi bi-telephone-outbound-fill"></i>
-                        <span>+880 1577-723404</span>
+                        <span>{{ site_setting('contact_phone', '+880 1577-723404') }}</span>
                     </a>
                 </div>
                 <div class="mb-2">
-                    <a href="https://wa.me/8801577723404" target="_blank" class="footer-contact-link d-flex align-items-center gap-2 text-success fw-medium text-decoration-none small">
+                    <a href="https://wa.me/{{ site_setting('whatsapp_number', '8801577723404') }}" target="_blank" class="footer-contact-link d-flex align-items-center gap-2 text-success fw-medium text-decoration-none small">
                         <i class="bi bi-whatsapp"></i>
                         <span>WhatsApp Concierge</span>
                     </a>
                 </div>
                 <div class="mb-3">
-                    <a href="mailto:biyemarriagemedia@gmail.com" class="footer-contact-link d-flex align-items-center gap-2 text-light fw-medium text-decoration-none small">
+                    <a href="mailto:{{ site_setting('contact_email', 'biyemarriagemedia@gmail.com') }}" class="footer-contact-link d-flex align-items-center gap-2 text-light fw-medium text-decoration-none small">
                         <i class="bi bi-envelope-fill text-gold"></i>
-                        <span>biyemarriagemedia@gmail.com</span>
+                        <span>{{ site_setting('contact_email', 'biyemarriagemedia@gmail.com') }}</span>
                     </a>
                 </div>
                 <div class="p-2 px-3 rounded" style="background: rgba(201, 151, 56, 0.1); border: 1px dashed rgba(201, 151, 56, 0.35);">

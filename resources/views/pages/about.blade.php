@@ -158,15 +158,15 @@
 <section class="py-5 bg-maroon text-white text-center">
     <div class="container py-3">
         <h3 class="font-serif fw-bold mb-2">Speak to Our Dhaka Matchmaking Directorate</h3>
-        <p class="text-white-50 mb-4">Ka-57/3, Second Floor, Kuril Chowrasta, Vatara, Dhaka, Bangladesh, 1212</p>
+        <p class="text-white-50 mb-4">{{ site_setting('office_address', 'Ka-57/3, Second Floor, Kuril Chowrasta, Vatara, Dhaka, Bangladesh, 1212') }}</p>
         <div class="d-flex justify-content-center gap-3 flex-wrap">
             <button type="button" class="btn btn-elite-gold px-4 py-2" data-bs-toggle="modal" data-bs-target="#consultationModal">
                 <i class="bi bi-calendar2-check me-1"></i> Schedule Private Family Consultation
             </button>
-            <a href="tel:+8801577723404" class="btn btn-elite-outline-gold px-4 py-2">
-                <i class="bi bi-telephone-fill me-1"></i> +880 1577-723404
+            <a href="tel:{{ preg_replace('/[^0-9+]/', '', site_setting('contact_phone', '+8801577723404')) }}" class="btn btn-elite-outline-gold px-4 py-2">
+                <i class="bi bi-telephone-fill me-1"></i> {{ site_setting('contact_phone', '+880 1577-723404') }}
             </a>
-            <a href="https://wa.me/8801577723404" target="_blank" class="btn btn-outline-light px-4 py-2">
+            <a href="https://wa.me/{{ site_setting('whatsapp_number', '8801577723404') }}" target="_blank" class="btn btn-outline-light px-4 py-2">
                 <i class="bi bi-whatsapp text-success me-1"></i> WhatsApp
             </a>
         </div>
