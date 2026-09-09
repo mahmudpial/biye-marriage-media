@@ -48,7 +48,7 @@
 
             <div class="col-lg-6">
                 <div class="position-relative">
-                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80" alt="Bangladeshi Wedding" class="img-fluid rounded-4 shadow-lg" style="height: 420px; width: 100%; object-fit: cover;">
+                    <img src="{{ site_setting_image('about_wedding_image', 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80') }}" alt="Bangladeshi Wedding" class="img-fluid rounded-4 shadow-lg" style="height: 420px; width: 100%; object-fit: cover;">
                     <div class="position-absolute bottom-0 start-0 end-0 p-4 bg-dark bg-opacity-75 text-white rounded-bottom-4">
                         <p class="fst-italic mb-0 small">
                             {{ site_setting('about_wedding_quote', '"বিশ্বাসের বন্ধনে, সুন্দর আগামী — Dedicated to creating blessed, honorable, and lifelong marital unions."') }}
@@ -116,7 +116,7 @@
             </div>
 
             <div class="col-lg-6 order-lg-1">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1000&q=80" alt="Executive Matchmaker" class="img-fluid rounded-4 shadow" style="height: 420px; width: 100%; object-fit: cover;">
+                <img src="{{ site_setting_image('about_concierge_image', 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1000&q=80') }}" alt="Executive Matchmaker" class="img-fluid rounded-4 shadow" style="height: 420px; width: 100%; object-fit: cover;">
             </div>
         </div>
     </div>

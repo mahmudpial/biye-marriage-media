@@ -5,7 +5,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="d-flex align-items-center mb-3">
                     <div class="brand-logo-frame me-2">
-                        <img src="{{ asset('site-logo/marriage-logo.jpeg') }}" alt="Biye Marriage Media Logo">
+                        <img src="{{ site_setting_image('site_logo', asset('site-logo/marriage-logo.jpeg')) }}" alt="Biye Marriage Media Logo">
                     </div>
                     <div>
                         <span class="footer-brand-title d-block">{{ site_setting('site_name', 'Biye Marriage Media') }}</span>

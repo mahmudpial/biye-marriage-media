@@ -5,7 +5,7 @@
             <div class="d-flex align-items-center">
                 <!-- Site Brand Logo -->
                 <div class="brand-logo-frame me-2">
-                    <img src="{{ asset('site-logo/marriage-logo.jpeg') }}" alt="Biye Marriage Media Logo">
+                    <img src="{{ site_setting_image('site_logo', asset('site-logo/marriage-logo.jpeg')) }}" alt="Biye Marriage Media Logo">
                 </div>
                 <div class="elite-brand-text">
                     <span class="elite-brand-title">{{ site_setting('site_name', 'Biye Marriage Media') }}</span>

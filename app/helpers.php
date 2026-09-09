@@ -24,3 +24,13 @@ if (! function_exists('site_setting_json')) {
         return SiteSetting::getJson($key, $default);
     }
 }
+
+if (! function_exists('site_setting_image')) {
+    /**
+     * Get a site setting image URL safely.
+     */
+    function site_setting_image(string $key, ?string $default = null): string
+    {
+        return SiteSetting::getImage($key, $default);
+    }
+}

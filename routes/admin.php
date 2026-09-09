@@ -103,7 +103,9 @@ Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
 
-    // Page Content & Sections CMS Studio
+    // Page Content & Sections CMS Studio (Hub & Dedicated Section Editors)
     Route::get('/sections', [ContentSectionController::class, 'index'])->name('sections.index');
+    Route::get('/sections/{section}', [ContentSectionController::class, 'edit'])->name('sections.edit');
+    Route::post('/sections/{section}', [ContentSectionController::class, 'updateSection'])->name('sections.update-section');
     Route::post('/sections', [ContentSectionController::class, 'update'])->name('sections.update');
 });

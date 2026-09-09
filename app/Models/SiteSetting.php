@@ -100,6 +100,13 @@ class SiteSetting extends Model
         'footer_trust_title' => '100% Confidential',
         'footer_trust_subtitle' => 'Islamic Values & Verified Matchmaking',
         'footer_presence_note' => 'Services: Bangladesh & Overseas Matchmaking',
+
+        // Brand & Page Media Assets
+        'site_logo' => 'site-logo/marriage-logo.jpeg',
+        'site_favicon' => 'site-logo/marriage-logo.jpeg',
+        'about_wedding_image' => 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80',
+        'about_concierge_image' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1000&q=80',
+        'meta_og_image' => 'site-logo/marriage-logo.jpeg',
     ];
 
     /**
@@ -144,6 +151,32 @@ class SiteSetting extends Model
         $decoded = json_decode((string) $raw, true);
 
         return is_array($decoded) ? $decoded : $default;
+    }
+
+    /**
+     * Retrieve an image URL from setting value with safe fallback.
+     */
+    public static function getImage(string $key, ?string $default = null): string
+    {
+        $value = static::get($key);
+
+        if (empty($value)) {
+            return $default ?? asset('site-logo/marriage-logo.jpeg');
+        }
+
+        if (str_starts_with($value, 'http://') || str_starts_with($value, 'https://')) {
+            return $value;
+        }
+
+        if (file_exists(public_path($value))) {
+            return asset($value);
+        }
+
+        if (file_exists(public_path('storage/'.$value))) {
+            return asset('storage/'.$value);
+        }
+
+        return asset($value);
     }
 
     /**

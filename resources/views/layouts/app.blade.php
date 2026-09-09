@@ -8,15 +8,15 @@
     <meta name="description" content="{{ site_setting('meta_description', 'Biye Marriage Media provides 100% confidential and professional matchmaking services in Bangladesh and overseas. Discover verified profiles and find your perfect life partner based on Islamic values and family compatibility.') }}">
 
     <!-- Favicon / Site Icon -->
-    <link rel="icon" type="image/jpeg" href="{{ asset('site-logo/marriage-logo.jpeg') }}">
-    <link rel="shortcut icon" type="image/jpeg" href="{{ asset('site-logo/marriage-logo.jpeg') }}">
-    <link rel="apple-touch-icon" href="{{ asset('site-logo/marriage-logo.jpeg') }}">
+    <link rel="icon" type="image/jpeg" href="{{ site_setting_image('site_favicon', asset('site-logo/marriage-logo.jpeg')) }}">
+    <link rel="shortcut icon" type="image/jpeg" href="{{ site_setting_image('site_favicon', asset('site-logo/marriage-logo.jpeg')) }}">
+    <link rel="apple-touch-icon" href="{{ site_setting_image('site_favicon', asset('site-logo/marriage-logo.jpeg')) }}">
 
     <!-- OpenGraph -->
     <meta property="og:title" content="{{ site_setting('meta_title_suffix', 'Biye Marriage Media - Find Your Perfect Life Partner with Trust & Confidentiality') }}">
     <meta property="og:description" content="{{ site_setting('meta_description', 'Biye Marriage Media provides 100% confidential and professional matchmaking services in Bangladesh and overseas.') }}">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="{{ asset('site-logo/marriage-logo.jpeg') }}">
+    <meta property="og:image" content="{{ site_setting_image('meta_og_image', asset('site-logo/marriage-logo.jpeg')) }}">
 
     <!-- Google Fonts: Playfair Display, Poppins, Great Vibes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
