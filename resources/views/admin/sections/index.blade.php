@@ -6,27 +6,6 @@
 @section('content')
 <div class="container-fluid px-0">
 
-    <!-- Header & Executive Controls -->
-    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
-        <div>
-            <h4 class="fw-bold text-white mb-1 font-serif">Website Sections &amp; Page CMS Studio</h4>
-            <p class="text-secondary small mb-0">
-                Modular visual management suite. Select any website section below to customize headings, texts, images, and layout blocks.
-            </p>
-        </div>
-        <div class="d-flex align-items-center gap-2 flex-wrap">
-            <a href="{{ route('home') }}" target="_blank" class="btn btn-outline-warning text-gold border-opacity-50 btn-sm px-3 py-2">
-                <i class="bi bi-globe2 me-1"></i> Live Homepage
-            </a>
-            <a href="{{ route('about') }}" target="_blank" class="btn btn-outline-light btn-sm px-3 py-2">
-                <i class="bi bi-building me-1"></i> Live About Page
-            </a>
-            <a href="{{ route('contact') }}" target="_blank" class="btn btn-outline-light btn-sm px-3 py-2">
-                <i class="bi bi-headset me-1"></i> Live Contact Page
-            </a>
-        </div>
-    </div>
-
     <!-- Executive Metrics Overview -->
     <div class="row g-3 mb-4">
         <div class="col-xl-3 col-sm-6">

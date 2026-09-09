@@ -37,7 +37,7 @@ class AdminContentSectionTest extends TestCase
         $response = $this->actingAs($admin)->get(route('admin.sections.index'));
 
         $response->assertStatus(200);
-        $response->assertSee('Website Sections &amp; Page CMS Studio', false);
+        $response->assertSee('Page Content &amp; Sections CMS Studio', false);
         $response->assertSee('Total CMS Modules');
 
         // All 11 section titles and nav labels
