@@ -107,6 +107,11 @@ class SiteSetting extends Model
         'about_wedding_image' => 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80',
         'about_concierge_image' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1000&q=80',
         'meta_og_image' => 'site-logo/marriage-logo.jpeg',
+
+        // Dynamic 3-Tier Theme Colors
+        'theme_primary' => '#851829',
+        'theme_secondary' => '#c99738',
+        'theme_accent' => '#121620',
     ];
 
     /**
@@ -224,6 +229,34 @@ class SiteSetting extends Model
         static::$cachedSettings = $merged;
 
         return static::$cachedSettings;
+    }
+
+    /**
+     * Convert a hex color string setting to an "r, g, b" string for CSS rgba(var(...), alpha) usage.
+     */
+    public static function getHexRgb(string $key, string $defaultHex): string
+    {
+        $hex = (string) static::get($key, $defaultHex);
+        $hex = ltrim($hex, '#');
+
+        if (strlen($hex) === 3) {
+            $hex = $hex[0].$hex[0].$hex[1].$hex[1].$hex[2].$hex[2];
+        }
+
+        if (strlen($hex) !== 6 || ! ctype_xdigit($hex)) {
+            $defaultClean = ltrim($defaultHex, '#');
+            $hex = strlen($defaultClean) === 6 ? $defaultClean : '133, 24, 41';
+        }
+
+        if (strlen($hex) === 6) {
+            $r = hexdec(substr($hex, 0, 2));
+            $g = hexdec(substr($hex, 2, 2));
+            $b = hexdec(substr($hex, 4, 2));
+
+            return "{$r}, {$g}, {$b}";
+        }
+
+        return '133, 24, 41';
     }
 
     /**

@@ -213,11 +213,24 @@ class ContentSectionController extends Controller
                         'site_logo_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:5120'],
                         'site_favicon' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,ico', 'max:2048'],
                         'site_favicon_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,ico', 'max:2048'],
+                        'theme_primary' => ['nullable', 'string', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+                        'theme_secondary' => ['nullable', 'string', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+                        'theme_accent' => ['nullable', 'string', 'regex:/^#[0-9A-Fa-f]{6}$/'],
                     ]);
 
                     SiteSetting::set('site_name', (string) $request->input('site_name'), 'general', 'text');
                     SiteSetting::set('site_tagline', (string) $request->input('site_tagline'), 'general', 'text');
                     SiteSetting::set('about_summary', (string) $request->input('about_summary'), 'general', 'textarea');
+
+                    if ($request->filled('theme_primary')) {
+                        SiteSetting::set('theme_primary', (string) $request->input('theme_primary'), 'general', 'color');
+                    }
+                    if ($request->filled('theme_secondary')) {
+                        SiteSetting::set('theme_secondary', (string) $request->input('theme_secondary'), 'general', 'color');
+                    }
+                    if ($request->filled('theme_accent')) {
+                        SiteSetting::set('theme_accent', (string) $request->input('theme_accent'), 'general', 'color');
+                    }
 
                     $logoPath = $this->handleFileUpload($request, 'site_logo_file', SiteSetting::get('site_logo'));
                     if ($logoPath) {

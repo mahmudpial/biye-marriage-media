@@ -4,20 +4,28 @@
  */
 
 :root {
-  /* Color Palette */
-  --elite-maroon-primary: #851829;
+  /* Dynamic 3-Tier Theme Tokens (Fallback defaults) */
+  --theme-primary: #851829;
+  --theme-primary-rgb: 133, 24, 41;
+  --theme-secondary: #c99738;
+  --theme-secondary-rgb: 201, 151, 56;
+  --theme-accent: #121620;
+  --theme-accent-rgb: 18, 22, 32;
+
+  /* Color Palette Mappings */
+  --elite-maroon-primary: var(--theme-primary);
   --elite-maroon-dark: #5e0d1b;
   --elite-maroon-deep: #420812;
   --elite-maroon-light: #a32238;
   --elite-maroon-subtle: #fbf0f2;
 
-  --elite-gold-primary: #c99738;
+  --elite-gold-primary: var(--theme-secondary);
   --elite-gold-light: #e5be6d;
   --elite-gold-dark: #9b7223;
   --elite-gold-bg: #fbf7ee;
-  --elite-gold-border: rgba(201, 151, 56, 0.35);
+  --elite-gold-border: rgba(var(--theme-secondary-rgb), 0.35);
 
-  --elite-dark: #121620;
+  --elite-dark: var(--theme-accent);
   --elite-dark-muted: #242938;
   --elite-gray: #586071;
   --elite-gray-light: #9aa2b1;

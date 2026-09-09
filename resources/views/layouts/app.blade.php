@@ -31,6 +31,23 @@
 
     <!-- Custom Elite Theme CSS -->
     <link rel="stylesheet" href="{{ asset('css/elite-theme.css') }}">
+
+    <!-- Dynamic 3-Tier Theme Color Tokens System -->
+    <style>
+        :root {
+            --theme-primary: {{ site_setting('theme_primary', '#851829') }};
+            --theme-primary-rgb: {{ site_setting_rgb('theme_primary', '#851829') }};
+            --theme-secondary: {{ site_setting('theme_secondary', '#c99738') }};
+            --theme-secondary-rgb: {{ site_setting_rgb('theme_secondary', '#c99738') }};
+            --theme-accent: {{ site_setting('theme_accent', '#121620') }};
+            --theme-accent-rgb: {{ site_setting_rgb('theme_accent', '#121620') }};
+
+            /* Bridge to existing CSS variables for full component compatibility */
+            --elite-maroon-primary: var(--theme-primary);
+            --elite-gold-primary: var(--theme-secondary);
+            --elite-dark: var(--theme-accent);
+        }
+    </style>
     
     @stack('styles')
 </head>

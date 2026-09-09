@@ -20,19 +20,26 @@
 
     <style>
         :root {
+            --theme-primary: {{ site_setting('theme_primary', '#851829') }};
+            --theme-primary-rgb: {{ site_setting_rgb('theme_primary', '#851829') }};
+            --theme-secondary: {{ site_setting('theme_secondary', '#c99738') }};
+            --theme-secondary-rgb: {{ site_setting_rgb('theme_secondary', '#c99738') }};
+            --theme-accent: {{ site_setting('theme_accent', '#121620') }};
+            --theme-accent-rgb: {{ site_setting_rgb('theme_accent', '#121620') }};
+
             --admin-bg: #0d0206;
             --sidebar-bg: #140309;
             --topbar-bg: rgba(20, 3, 9, 0.9);
             --card-bg: #1c050e;
             --card-surface: #240712;
-            --accent-gold: #d4af37;
+            --accent-gold: var(--theme-secondary);
             --accent-gold-hover: #f5d061;
             --gold-light: #fce7a1;
             --text-main: #ffffff;
             --text-secondary: #e2d5da;
             --text-muted-custom: #b5a4ab;
             --border-card: rgba(255, 255, 255, 0.09);
-            --border-gold: rgba(212, 175, 55, 0.28);
+            --border-gold: rgba(var(--theme-secondary-rgb), 0.28);
             --sidebar-width: 265px;
         }
 

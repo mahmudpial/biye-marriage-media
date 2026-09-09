@@ -410,4 +410,53 @@ class AdminContentSectionTest extends TestCase
 
         $response->assertSessionHasErrors(['hero_title']);
     }
+
+    public function test_admin_can_update_theme_colors_and_reflects_dynamically(): void
+    {
+        $admin = User::factory()->admin()->create();
+
+        $payload = [
+            'site_name' => 'Biye Marriage Media',
+            'site_tagline' => 'বিশ্বাসের বন্ধনে, সুন্দর আগামী',
+            'about_summary' => 'Executive matchmaking service.',
+            'theme_primary' => '#124e3f',
+            'theme_secondary' => '#d4af37',
+            'theme_accent' => '#0a1c17',
+        ];
+
+        $response = $this->actingAs($admin)->post(route('admin.sections.update-section', 'general'), $payload);
+
+        $response->assertRedirect(route('admin.sections.edit', 'general'));
+        $response->assertSessionHas('success', 'General & Brand Identity content updated successfully.');
+
+        $this->assertEquals('#124e3f', SiteSetting::get('theme_primary'));
+        $this->assertEquals('#d4af37', SiteSetting::get('theme_secondary'));
+        $this->assertEquals('#0a1c17', SiteSetting::get('theme_accent'));
+
+        // Test RGB calculations
+        $this->assertEquals('18, 78, 63', SiteSetting::getHexRgb('theme_primary', '#851829'));
+
+        // Verify public reflection of dynamic CSS variables
+        SiteSetting::clearCache();
+        $publicResponse = $this->get(route('home'));
+        $publicResponse->assertStatus(200);
+        $publicResponse->assertSee('--theme-primary: #124e3f;', false);
+        $publicResponse->assertSee('--theme-secondary: #d4af37;', false);
+        $publicResponse->assertSee('--theme-accent: #0a1c17;', false);
+        $publicResponse->assertSee('--theme-primary-rgb: 18, 78, 63;', false);
+    }
+
+    public function test_invalid_theme_color_fails_validation(): void
+    {
+        $admin = User::factory()->admin()->create();
+
+        $response = $this->actingAs($admin)->post(route('admin.sections.update-section', 'general'), [
+            'site_name' => 'Biye Marriage Media',
+            'site_tagline' => 'বিশ্বাসের বন্ধনে, সুন্দর আগামী',
+            'about_summary' => 'Executive matchmaking service.',
+            'theme_primary' => 'invalid-color-code',
+        ]);
+
+        $response->assertSessionHasErrors(['theme_primary']);
+    }
 }

@@ -128,6 +128,119 @@
                             </div>
                         </div>
                     </div>
+                <div class="section-card mb-4">
+                    <div class="form-section-title d-flex align-items-center justify-content-between">
+                        <span><i class="bi bi-palette2"></i> Dynamic 3-Tier Theme Color System</span>
+                        <span class="badge bg-dark text-gold border border-warning border-opacity-25 px-2 py-1 small" style="font-size: 0.72rem;">Live Sync</span>
+                    </div>
+                    <p class="text-secondary small mb-3">
+                        Choose your 3 core theme colors. All buttons, badges, gradients, cards, and highlights across the entire frontend and admin panel will automatically harmonize with these tokens.
+                    </p>
+
+                    <!-- Presets Strip -->
+                    <div class="mb-4 p-3 rounded" style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.08);">
+                        <label class="form-label small text-gold fw-semibold mb-2 d-flex align-items-center gap-1">
+                            <i class="bi bi-stars"></i> Curated Luxury Color Presets:
+                        </label>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary text-white border-opacity-25 d-inline-flex align-items-center gap-2 theme-preset-btn" data-primary="#851829" data-secondary="#c99738" data-accent="#121620">
+                                <span class="d-flex gap-1">
+                                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #851829; display: inline-block;"></span>
+                                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #c99738; display: inline-block;"></span>
+                                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #121620; display: inline-block;"></span>
+                                </span>
+                                <span>Royal Burgundy &amp; Gold</span>
+                            </button>
+
+                            <button type="button" class="btn btn-sm btn-outline-secondary text-white border-opacity-25 d-inline-flex align-items-center gap-2 theme-preset-btn" data-primary="#124e3f" data-secondary="#d4af37" data-accent="#0a1c17">
+                                <span class="d-flex gap-1">
+                                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #124e3f; display: inline-block;"></span>
+                                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #d4af37; display: inline-block;"></span>
+                                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #0a1c17; display: inline-block;"></span>
+                                </span>
+                                <span>Emerald Dignity</span>
+                            </button>
+
+                            <button type="button" class="btn btn-sm btn-outline-secondary text-white border-opacity-25 d-inline-flex align-items-center gap-2 theme-preset-btn" data-primary="#182e4e" data-secondary="#e09f87" data-accent="#0c1524">
+                                <span class="d-flex gap-1">
+                                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #182e4e; display: inline-block;"></span>
+                                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #e09f87; display: inline-block;"></span>
+                                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #0c1524; display: inline-block;"></span>
+                                </span>
+                                <span>Sapphire &amp; Rose Gold</span>
+                            </button>
+
+                            <button type="button" class="btn btn-sm btn-outline-secondary text-white border-opacity-25 d-inline-flex align-items-center gap-2 theme-preset-btn" data-primary="#581845" data-secondary="#d4a373" data-accent="#1a0715">
+                                <span class="d-flex gap-1">
+                                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #581845; display: inline-block;"></span>
+                                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #d4a373; display: inline-block;"></span>
+                                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #1a0715; display: inline-block;"></span>
+                                </span>
+                                <span>Majestic Plum &amp; Bronze</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 3 Color Input Columns -->
+                    <div class="row g-3 mb-3">
+                        <!-- Primary Color -->
+                        <div class="col-md-4">
+                            <label for="theme_primary" class="form-label d-flex align-items-center justify-content-between">
+                                <span>Primary Brand Color</span>
+                                <small class="text-gold" style="font-size: 0.72rem;">Buttons &amp; Headings</small>
+                            </label>
+                            <div class="input-group">
+                                <input type="color" class="form-control form-control-color p-1" id="theme_primary_picker" value="{{ old('theme_primary', $settings['theme_primary'] ?? '#851829') }}" title="Choose primary color" style="width: 46px; height: 38px;">
+                                <input type="text" name="theme_primary" id="theme_primary" class="form-control" value="{{ old('theme_primary', $settings['theme_primary'] ?? '#851829') }}" placeholder="#851829" maxlength="7">
+                            </div>
+                            <div class="form-text text-muted-custom small mt-1">Default: #851829 (Royal Burgundy)</div>
+                        </div>
+
+                        <!-- Secondary Color -->
+                        <div class="col-md-4">
+                            <label for="theme_secondary" class="form-label d-flex align-items-center justify-content-between">
+                                <span>Secondary Accent</span>
+                                <small class="text-gold" style="font-size: 0.72rem;">Badges &amp; Glows</small>
+                            </label>
+                            <div class="input-group">
+                                <input type="color" class="form-control form-control-color p-1" id="theme_secondary_picker" value="{{ old('theme_secondary', $settings['theme_secondary'] ?? '#c99738') }}" title="Choose secondary color" style="width: 46px; height: 38px;">
+                                <input type="text" name="theme_secondary" id="theme_secondary" class="form-control" value="{{ old('theme_secondary', $settings['theme_secondary'] ?? '#c99738') }}" placeholder="#c99738" maxlength="7">
+                            </div>
+                            <div class="form-text text-muted-custom small mt-1">Default: #c99738 (Warm Matrimonial Gold)</div>
+                        </div>
+
+                        <!-- Third / Surface Color -->
+                        <div class="col-md-4">
+                            <label for="theme_accent" class="form-label d-flex align-items-center justify-content-between">
+                                <span>Third / Surface Color</span>
+                                <small class="text-gold" style="font-size: 0.72rem;">Bases &amp; Cards</small>
+                            </label>
+                            <div class="input-group">
+                                <input type="color" class="form-control form-control-color p-1" id="theme_accent_picker" value="{{ old('theme_accent', $settings['theme_accent'] ?? '#121620') }}" title="Choose third color" style="width: 46px; height: 38px;">
+                                <input type="text" name="theme_accent" id="theme_accent" class="form-control" value="{{ old('theme_accent', $settings['theme_accent'] ?? '#121620') }}" placeholder="#121620" maxlength="7">
+                            </div>
+                            <div class="form-text text-muted-custom small mt-1">Default: #121620 (Midnight Slate Luxury)</div>
+                        </div>
+                    </div>
+
+                    <!-- Live Dynamic Preview Swatch Strip -->
+                    <div class="p-3 rounded mt-3" id="themeLivePreviewBox" style="background: {{ old('theme_accent', $settings['theme_accent'] ?? '#121620') }}; border: 1px solid rgba(255, 255, 255, 0.12); transition: all 0.3s ease;">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                            <span class="small fw-semibold" style="color: #f1f5f9;">Live Theme Harmonies Preview:</span>
+                            <span class="badge rounded-pill px-2.5 py-1 small" id="previewBadge" style="background: rgba(201, 151, 56, 0.2); color: {{ old('theme_secondary', $settings['theme_secondary'] ?? '#c99738') }}; border: 1px solid {{ old('theme_secondary', $settings['theme_secondary'] ?? '#c99738') }};">
+                                <i class="bi bi-check-circle-fill me-1"></i> 100% Confidential
+                            </span>
+                        </div>
+                        <div class="d-flex align-items-center gap-3 flex-wrap">
+                            <button type="button" class="btn btn-sm px-3 py-1.5 fw-semibold text-white shadow-sm" id="previewPrimaryBtn" style="background: {{ old('theme_primary', $settings['theme_primary'] ?? '#851829') }}; border: 1px solid rgba(255, 255, 255, 0.2);">
+                                <i class="bi bi-heart-fill me-1"></i> Primary Button
+                            </button>
+                            <button type="button" class="btn btn-sm px-3 py-1.5 fw-semibold" id="previewSecondaryBtn" style="background: transparent; color: {{ old('theme_secondary', $settings['theme_secondary'] ?? '#c99738') }}; border: 1px solid {{ old('theme_secondary', $settings['theme_secondary'] ?? '#c99738') }};">
+                                <i class="bi bi-stars me-1"></i> Secondary Outline
+                            </button>
+                            <span class="small" id="previewAccentText" style="color: #cbd5e1;">Sample headline with accent highlights</span>
+                        </div>
+                    </div>
                 </div>
                 @endif
 
@@ -702,6 +815,73 @@
         bindImagePreview('about_wedding_image_file', 'weddingImgPreview');
         bindImagePreview('about_concierge_image_file', 'conciergeImgPreview');
         bindImagePreview('meta_og_image_file', 'ogImagePreview');
+
+        // Dynamic Theme Colors Two-Way Binding & Live Preview
+        const primaryPicker = document.getElementById('theme_primary_picker');
+        const primaryInput = document.getElementById('theme_primary');
+        const secondaryPicker = document.getElementById('theme_secondary_picker');
+        const secondaryInput = document.getElementById('theme_secondary');
+        const accentPicker = document.getElementById('theme_accent_picker');
+        const accentInput = document.getElementById('theme_accent');
+
+        const previewBox = document.getElementById('themeLivePreviewBox');
+        const previewPrimaryBtn = document.getElementById('previewPrimaryBtn');
+        const previewSecondaryBtn = document.getElementById('previewSecondaryBtn');
+        const previewBadge = document.getElementById('previewBadge');
+
+        function updateThemePreview() {
+            if (!previewBox) return;
+            const p = primaryInput ? primaryInput.value : '#851829';
+            const s = secondaryInput ? secondaryInput.value : '#c99738';
+            const a = accentInput ? accentInput.value : '#121620';
+
+            previewBox.style.background = a;
+            if (previewPrimaryBtn) previewPrimaryBtn.style.background = p;
+            if (previewSecondaryBtn) {
+                previewSecondaryBtn.style.color = s;
+                previewSecondaryBtn.style.borderColor = s;
+            }
+            if (previewBadge) {
+                previewBadge.style.color = s;
+                previewBadge.style.borderColor = s;
+            }
+        }
+
+        function syncColorPair(picker, textInput) {
+            if (!picker || !textInput) return;
+            picker.addEventListener('input', function () {
+                textInput.value = this.value;
+                updateThemePreview();
+            });
+            textInput.addEventListener('input', function () {
+                if (/^#[0-9A-Fa-f]{6}$/.test(this.value)) {
+                    picker.value = this.value;
+                    updateThemePreview();
+                }
+            });
+        }
+
+        syncColorPair(primaryPicker, primaryInput);
+        syncColorPair(secondaryPicker, secondaryInput);
+        syncColorPair(accentPicker, accentInput);
+
+        // Preset buttons click
+        document.querySelectorAll('.theme-preset-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                const p = this.getAttribute('data-primary');
+                const s = this.getAttribute('data-secondary');
+                const a = this.getAttribute('data-accent');
+
+                if (primaryPicker) primaryPicker.value = p;
+                if (primaryInput) primaryInput.value = p;
+                if (secondaryPicker) secondaryPicker.value = s;
+                if (secondaryInput) secondaryInput.value = s;
+                if (accentPicker) accentPicker.value = a;
+                if (accentInput) accentInput.value = a;
+
+                updateThemePreview();
+            });
+        });
     });
 </script>
 @endpush

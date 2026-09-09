@@ -34,3 +34,13 @@ if (! function_exists('site_setting_image')) {
         return SiteSetting::getImage($key, $default);
     }
 }
+
+if (! function_exists('site_setting_rgb')) {
+    /**
+     * Get a site setting color converted to "r, g, b" string.
+     */
+    function site_setting_rgb(string $key, string $defaultHex): string
+    {
+        return SiteSetting::getHexRgb($key, $defaultHex);
+    }
+}
