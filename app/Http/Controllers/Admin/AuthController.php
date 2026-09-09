@@ -37,6 +37,18 @@ class AuthController extends Controller
 
         try {
             if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password'], 'is_admin' => true], $remember)) {
+                $user = Auth::user();
+
+                if (! $user->is_active) {
+                    Auth::logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+
+                    return back()->withInput($request->only('email', 'remember'))
+                        ->withErrors(['email' => 'Your administrative account has been deactivated. Please contact the Super Administrator.']);
+                }
+
+                $user->update(['last_login_at' => now()]);
                 $request->session()->regenerate();
 
                 return redirect()->intended(route('admin.dashboard'))

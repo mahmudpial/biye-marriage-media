@@ -7,11 +7,13 @@ use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\StoryController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Models\CandidateProfile;
 use App\Models\Faq;
 use App\Models\MembershipPackage;
 use App\Models\SuccessStory;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -85,4 +87,13 @@ Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
     Route::post('/faqs/{faq}', [FaqController::class, 'update'])->name('faqs.update.post');
     Route::match(['POST', 'PATCH'], '/faqs/{faq}/toggle-active', [FaqController::class, 'toggleActive'])->name('faqs.toggle-active');
     Route::get('/faqs/{faq}/toggle-active', fn () => redirect()->route('admin.faqs.index'));
+
+    // Admin Staff & Matchmaker Team Management CMS
+    Route::resource('users', UserController::class);
+    Route::get('/users/{user}', function (User $user) {
+        return redirect()->route('admin.users.edit', $user);
+    })->name('users.show');
+    Route::post('/users/{user}', [UserController::class, 'update'])->name('users.update.post');
+    Route::match(['POST', 'PATCH'], '/users/{user}/toggle-active', [UserController::class, 'toggleActive'])->name('users.toggle-active');
+    Route::get('/users/{user}/toggle-active', fn () => redirect()->route('admin.users.index'));
 });

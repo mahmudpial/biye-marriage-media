@@ -31,6 +31,10 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'is_admin' => false,
+            'role' => User::ROLE_RELATIONSHIP_MANAGER,
+            'designation' => 'Relationship Manager',
+            'phone' => '+880 17'.fake()->numerify('#######'),
+            'is_active' => true,
         ];
     }
 
@@ -41,6 +45,9 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'is_admin' => true,
+            'role' => User::ROLE_SUPER_ADMIN,
+            'designation' => 'Executive Matchmaking Director',
+            'is_active' => true,
         ]);
     }
 

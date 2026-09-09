@@ -654,6 +654,13 @@
                 <span class="badge rounded-pill ms-auto" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 0.68rem; border: 1px solid var(--border-gold);">CMS</span>
             </a>
 
+            <div class="nav-category">Administration &amp; Staff</div>
+            <a href="{{ route('admin.users.index') }}" class="sidebar-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                <i class="bi bi-person-gear"></i>
+                <span>Staff &amp; Matchmakers</span>
+                <span class="badge rounded-pill ms-auto" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 0.68rem; border: 1px solid var(--border-gold);">CMS</span>
+            </a>
+
             <div class="nav-category">Access &amp; Support</div>
             <a href="{{ route('home') }}" target="_blank" class="sidebar-link">
                 <i class="bi bi-globe2"></i>
@@ -673,7 +680,7 @@
                 </div>
                 <div class="overflow-hidden">
                     <div class="text-truncate fw-semibold text-clean-white" style="font-size: 0.82rem;">{{ auth()->user()->name ?? 'Administrator' }}</div>
-                    <div class="text-truncate" style="font-size: 0.72rem; color: var(--accent-gold);">Super Admin</div>
+                    <div class="text-truncate" style="font-size: 0.72rem; color: var(--accent-gold);">{{ auth()->user()->role_label ?? 'Administrator' }}</div>
                 </div>
             </div>
         </div>
@@ -737,6 +744,12 @@
                             <a class="dropdown-item" href="{{ route('profiles') }}" target="_blank">
                                 <i class="bi bi-people text-gold"></i>
                                 <span>Browse Biodata</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('admin.users.index') }}">
+                                <i class="bi bi-person-gear text-gold"></i>
+                                <span>Staff &amp; Matchmakers</span>
                             </a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
