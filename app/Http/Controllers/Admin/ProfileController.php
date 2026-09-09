@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\CandidateProfile;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -91,21 +93,39 @@ class ProfileController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $validated = $this->validateProfile($request);
+        try {
+            $validated = $this->validateProfile($request);
 
-        if (empty($validated['profile_code'])) {
-            $validated['profile_code'] = 'BD-ELT-'.rand(1000, 9999);
+            if (empty($validated['profile_code'])) {
+                $validated['profile_code'] = 'BD-ELT-'.rand(1000, 9999);
+            }
+
+            $uploadedImage = $this->handleImageUpload($request);
+            if ($uploadedImage !== null && $uploadedImage !== false) {
+                $validated['image'] = $uploadedImage;
+            }
+
+            $validated['is_active'] = $request->boolean('is_active', true);
+            $validated['is_discreet'] = $request->boolean('is_discreet', true);
+            $validated['is_featured'] = $request->boolean('is_featured', false);
+
+            unset($validated['image_file'], $validated['image_url']);
+
+            $profile = CandidateProfile::create($validated);
+
+            return redirect()->route('admin.profiles.index')
+                ->with('success', "Candidate profile #{$profile->profile_code} has been successfully created.");
+        } catch (ValidationException $e) {
+            throw $e;
+        } catch (\Throwable $e) {
+            Log::error('Failed to create candidate profile: '.$e->getMessage(), [
+                'exception' => $e,
+            ]);
+
+            return back()->withInput()->withErrors([
+                'error' => 'Unable to create profile: '.$e->getMessage(),
+            ]);
         }
-
-        $validated['image'] = $this->handleImageUpload($request);
-        $validated['is_active'] = $request->boolean('is_active', true);
-        $validated['is_discreet'] = $request->boolean('is_discreet', true);
-        $validated['is_featured'] = $request->boolean('is_featured', false);
-
-        $profile = CandidateProfile::create($validated);
-
-        return redirect()->route('admin.profiles.index')
-            ->with('success', "Candidate profile #{$profile->profile_code} has been successfully created.");
     }
 
     /**
@@ -124,21 +144,36 @@ class ProfileController extends Controller
      */
     public function update(Request $request, CandidateProfile $profile): RedirectResponse
     {
-        $validated = $this->validateProfile($request, $profile->id);
+        try {
+            $validated = $this->validateProfile($request, $profile->id);
 
-        $newImage = $this->handleImageUpload($request, $profile->image);
-        if ($newImage !== null) {
-            $validated['image'] = $newImage;
+            $newImage = $this->handleImageUpload($request, $profile->image);
+            if ($newImage !== null && $newImage !== false) {
+                $validated['image'] = $newImage;
+            }
+
+            $validated['is_active'] = $request->boolean('is_active');
+            $validated['is_discreet'] = $request->boolean('is_discreet');
+            $validated['is_featured'] = $request->boolean('is_featured');
+
+            unset($validated['image_file'], $validated['image_url']);
+
+            $profile->update($validated);
+
+            return redirect()->route('admin.profiles.index')
+                ->with('success', "Candidate profile #{$profile->profile_code} has been updated successfully.");
+        } catch (ValidationException $e) {
+            throw $e;
+        } catch (\Throwable $e) {
+            Log::error("Failed to update candidate profile #{$profile->profile_code}: ".$e->getMessage(), [
+                'exception' => $e,
+                'profile_id' => $profile->id,
+            ]);
+
+            return back()->withInput()->withErrors([
+                'error' => 'Unable to save profile changes: '.$e->getMessage(),
+            ]);
         }
-
-        $validated['is_active'] = $request->boolean('is_active');
-        $validated['is_discreet'] = $request->boolean('is_discreet');
-        $validated['is_featured'] = $request->boolean('is_featured');
-
-        $profile->update($validated);
-
-        return redirect()->route('admin.profiles.index')
-            ->with('success', "Candidate profile #{$profile->profile_code} has been updated successfully.");
     }
 
     /**
@@ -146,16 +181,30 @@ class ProfileController extends Controller
      */
     public function destroy(CandidateProfile $profile): RedirectResponse
     {
-        $code = $profile->profile_code;
+        try {
+            $code = $profile->profile_code;
 
-        if (! empty($profile->image) && ! str_starts_with($profile->image, 'http')) {
-            Storage::disk('public')->delete($profile->image);
+            if (! empty($profile->image) && ! str_starts_with($profile->image, 'http')) {
+                try {
+                    Storage::disk('public')->delete($profile->image);
+                } catch (\Throwable $e) {
+                    Log::warning("Could not delete image file for profile #{$code}: ".$e->getMessage());
+                }
+            }
+
+            $profile->delete();
+
+            return redirect()->route('admin.profiles.index')
+                ->with('success', "Candidate profile #{$code} was deleted successfully.");
+        } catch (\Throwable $e) {
+            Log::error("Failed to delete candidate profile #{$profile->profile_code}: ".$e->getMessage(), [
+                'exception' => $e,
+            ]);
+
+            return back()->withErrors([
+                'error' => 'Unable to delete profile: '.$e->getMessage(),
+            ]);
         }
-
-        $profile->delete();
-
-        return redirect()->route('admin.profiles.index')
-            ->with('success', "Candidate profile #{$code} was deleted successfully.");
     }
 
     /**
@@ -163,12 +212,22 @@ class ProfileController extends Controller
      */
     public function toggleActive(CandidateProfile $profile): RedirectResponse
     {
-        $profile->is_active = ! $profile->is_active;
-        $profile->save();
+        try {
+            $profile->is_active = ! $profile->is_active;
+            $profile->save();
 
-        $status = $profile->is_active ? 'activated' : 'deactivated';
+            $status = $profile->is_active ? 'activated' : 'deactivated';
 
-        return back()->with('success', "Profile #{$profile->profile_code} has been {$status}.");
+            return back()->with('success', "Profile #{$profile->profile_code} has been {$status}.");
+        } catch (\Throwable $e) {
+            Log::error("Failed to toggle active state for profile #{$profile->profile_code}: ".$e->getMessage(), [
+                'exception' => $e,
+            ]);
+
+            return back()->withErrors([
+                'error' => 'Unable to update status: '.$e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -176,12 +235,22 @@ class ProfileController extends Controller
      */
     public function toggleFeatured(CandidateProfile $profile): RedirectResponse
     {
-        $profile->is_featured = ! $profile->is_featured;
-        $profile->save();
+        try {
+            $profile->is_featured = ! $profile->is_featured;
+            $profile->save();
 
-        $status = $profile->is_featured ? 'marked as featured' : 'unmarked from featured';
+            $status = $profile->is_featured ? 'marked as featured' : 'unmarked from featured';
 
-        return back()->with('success', "Profile #{$profile->profile_code} has been {$status}.");
+            return back()->with('success', "Profile #{$profile->profile_code} has been {$status}.");
+        } catch (\Throwable $e) {
+            Log::error("Failed to toggle featured state for profile #{$profile->profile_code}: ".$e->getMessage(), [
+                'exception' => $e,
+            ]);
+
+            return back()->withErrors([
+                'error' => 'Unable to update featured state: '.$e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -224,10 +293,23 @@ class ProfileController extends Controller
     {
         if ($request->hasFile('image_file')) {
             if ($currentImage && ! str_starts_with($currentImage, 'http')) {
-                Storage::disk('public')->delete($currentImage);
+                try {
+                    Storage::disk('public')->delete($currentImage);
+                } catch (\Throwable $e) {
+                    Log::warning('Failed deleting old candidate image: '.$e->getMessage());
+                }
             }
 
-            return $request->file('image_file')->store('profiles', 'public');
+            try {
+                $storedPath = $request->file('image_file')->store('profiles', 'public');
+                if ($storedPath) {
+                    return $storedPath;
+                }
+            } catch (\Throwable $e) {
+                Log::error('Candidate image upload failed: '.$e->getMessage(), [
+                    'exception' => $e,
+                ]);
+            }
         }
 
         if ($request->filled('image_url')) {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MembershipPackage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -80,12 +81,24 @@ class PackageController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $validated = $this->validatePackage($request);
+        try {
+            $validated = $this->validatePackage($request);
 
-        $package = MembershipPackage::create($validated);
+            $package = MembershipPackage::create($validated);
 
-        return redirect()->route('admin.packages.index')
-            ->with('success', "Membership package '{$package->name}' has been created successfully.");
+            return redirect()->route('admin.packages.index')
+                ->with('success', "Membership package '{$package->name}' has been created successfully.");
+        } catch (ValidationException $e) {
+            throw $e;
+        } catch (\Throwable $e) {
+            Log::error('Failed to create membership package: '.$e->getMessage(), [
+                'exception' => $e,
+            ]);
+
+            return back()->withInput()->withErrors([
+                'error' => 'Unable to create membership package: '.$e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -104,12 +117,25 @@ class PackageController extends Controller
      */
     public function update(Request $request, MembershipPackage $package): RedirectResponse
     {
-        $validated = $this->validatePackage($request, $package->id);
+        try {
+            $validated = $this->validatePackage($request, $package->id);
 
-        $package->update($validated);
+            $package->update($validated);
 
-        return redirect()->route('admin.packages.index')
-            ->with('success', "Membership package '{$package->name}' has been updated successfully.");
+            return redirect()->route('admin.packages.index')
+                ->with('success', "Membership package '{$package->name}' has been updated successfully.");
+        } catch (ValidationException $e) {
+            throw $e;
+        } catch (\Throwable $e) {
+            Log::error("Failed to update membership package '{$package->name}': ".$e->getMessage(), [
+                'exception' => $e,
+                'package_id' => $package->id,
+            ]);
+
+            return back()->withInput()->withErrors([
+                'error' => 'Unable to update membership package: '.$e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -117,11 +143,21 @@ class PackageController extends Controller
      */
     public function destroy(MembershipPackage $package): RedirectResponse
     {
-        $name = $package->name;
-        $package->delete();
+        try {
+            $name = $package->name;
+            $package->delete();
 
-        return redirect()->route('admin.packages.index')
-            ->with('success', "Membership package '{$name}' was deleted successfully.");
+            return redirect()->route('admin.packages.index')
+                ->with('success', "Membership package '{$name}' was deleted successfully.");
+        } catch (\Throwable $e) {
+            Log::error("Failed to delete membership package '{$package->name}': ".$e->getMessage(), [
+                'exception' => $e,
+            ]);
+
+            return back()->withErrors([
+                'error' => 'Unable to delete package: '.$e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -129,12 +165,22 @@ class PackageController extends Controller
      */
     public function toggleActive(MembershipPackage $package): RedirectResponse
     {
-        $package->is_active = ! $package->is_active;
-        $package->save();
+        try {
+            $package->is_active = ! $package->is_active;
+            $package->save();
 
-        $status = $package->is_active ? 'activated' : 'deactivated';
+            $status = $package->is_active ? 'activated' : 'deactivated';
 
-        return back()->with('success', "Package '{$package->name}' has been {$status}.");
+            return back()->with('success', "Package '{$package->name}' has been {$status}.");
+        } catch (\Throwable $e) {
+            Log::error("Failed to toggle active state for package '{$package->name}': ".$e->getMessage(), [
+                'exception' => $e,
+            ]);
+
+            return back()->withErrors([
+                'error' => 'Unable to update status: '.$e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -142,12 +188,22 @@ class PackageController extends Controller
      */
     public function toggleFeatured(MembershipPackage $package): RedirectResponse
     {
-        $package->featured = ! $package->featured;
-        $package->save();
+        try {
+            $package->featured = ! $package->featured;
+            $package->save();
 
-        $status = $package->featured ? 'marked as Most Preferred' : 'unmarked from Most Preferred';
+            $status = $package->featured ? 'marked as Most Preferred' : 'unmarked from Most Preferred';
 
-        return back()->with('success', "Package '{$package->name}' has been {$status}.");
+            return back()->with('success', "Package '{$package->name}' has been {$status}.");
+        } catch (\Throwable $e) {
+            Log::error("Failed to toggle featured status for package '{$package->name}': ".$e->getMessage(), [
+                'exception' => $e,
+            ]);
+
+            return back()->withErrors([
+                'error' => 'Unable to update featured status: '.$e->getMessage(),
+            ]);
+        }
     }
 
     /**

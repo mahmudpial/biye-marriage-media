@@ -238,4 +238,30 @@ class AdminPackageTest extends TestCase
         $responseHome->assertSee('Diamond Elite Tier');
         $responseHome->assertDontSee('Decommissioned Tier');
     }
+
+    public function test_admin_can_update_package_via_direct_post(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $package = MembershipPackage::factory()->create([
+            'name' => 'Original Package Name',
+        ]);
+
+        $response = $this->actingAs($admin)->post(route('admin.packages.update.post', $package), [
+            'name' => 'Direct Post Updated Package',
+            'price' => '৳75,000 / 3 Months',
+            'badge' => 'Direct Post Tier',
+            'benefits_text' => "Direct Post Benefit 1\nDirect Post Benefit 2",
+            'is_active' => '1',
+            'featured' => '1',
+            'sort_order' => '5',
+        ]);
+
+        $response->assertRedirect(route('admin.packages.index'));
+        $this->assertDatabaseHas('membership_packages', [
+            'id' => $package->id,
+            'name' => 'Direct Post Updated Package',
+            'is_active' => true,
+            'featured' => true,
+        ]);
+    }
 }

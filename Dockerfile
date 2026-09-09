@@ -17,6 +17,11 @@ RUN apk add --no-cache \
 # PHP extensions
 RUN docker-php-ext-install pdo pdo_pgsql mbstring zip exif pcntl bcmath opcache
 
+# PHP upload & memory settings
+RUN echo "upload_max_filesize = 16M" >> /usr/local/etc/php/conf.d/uploads.ini && \
+    echo "post_max_size = 20M" >> /usr/local/etc/php/conf.d/uploads.ini && \
+    echo "memory_limit = 256M" >> /usr/local/etc/php/conf.d/uploads.ini
+
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
