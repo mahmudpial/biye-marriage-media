@@ -119,6 +119,17 @@ class UserController extends Controller
     }
 
     /**
+     * Display the specified admin staff / matchmaker details.
+     */
+    public function show(User $user): View
+    {
+        return view('admin.users.show', [
+            'user' => $user,
+            'roles' => User::ROLES,
+        ]);
+    }
+
+    /**
      * Show the form for editing the specified user.
      */
     public function edit(User $user): View

@@ -62,7 +62,6 @@ class AdminContentSectionTest extends TestCase
             $response->assertStatus(200);
             $response->assertSee('All Sections', false);
             $response->assertSee($sections[$sectionKey]['title']);
-            $response->assertSee('Switch Section', false);
         }
     }
 

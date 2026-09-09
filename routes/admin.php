@@ -15,7 +15,6 @@ use App\Models\CandidateProfile;
 use App\Models\Faq;
 use App\Models\MembershipPackage;
 use App\Models\SuccessStory;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -92,9 +91,6 @@ Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
 
     // Admin Staff & Matchmaker Team Management CMS
     Route::resource('users', UserController::class);
-    Route::get('/users/{user}', function (User $user) {
-        return redirect()->route('admin.users.edit', $user);
-    })->name('users.show');
     Route::post('/users/{user}', [UserController::class, 'update'])->name('users.update.post');
     Route::match(['POST', 'PATCH'], '/users/{user}/toggle-active', [UserController::class, 'toggleActive'])->name('users.toggle-active');
     Route::get('/users/{user}/toggle-active', fn () => redirect()->route('admin.users.index'));

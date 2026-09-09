@@ -484,6 +484,18 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 14px rgba(212, 175, 55, 0.55);
         }
+        .btn-action-icon.view {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.45);
+            color: #60a5fa !important;
+        }
+        .btn-action-icon.view:hover {
+            background: #2563eb;
+            color: #ffffff !important;
+            border-color: #3b82f6 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
+        }
         .btn-action-icon.delete {
             background: rgba(220, 38, 38, 0.2);
             border: 1px solid rgba(239, 68, 68, 0.55) !important;
@@ -667,44 +679,36 @@
             <a href="{{ route('admin.profiles.index') }}" class="sidebar-link {{ request()->routeIs('admin.profiles.*') ? 'active' : '' }}">
                 <i class="bi bi-people-fill"></i>
                 <span>Profiles &amp; Biodata</span>
-                <span class="badge rounded-pill ms-auto" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 0.68rem; border: 1px solid var(--border-gold);">CMS</span>
             </a>
             <a href="{{ route('admin.packages.index') }}" class="sidebar-link {{ request()->routeIs('admin.packages.*') ? 'active' : '' }}">
                 <i class="bi bi-gem"></i>
                 <span>Packages &amp; Membership</span>
-                <span class="badge rounded-pill ms-auto" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 0.68rem; border: 1px solid var(--border-gold);">CMS</span>
             </a>
             <a href="{{ route('admin.stories.index') }}" class="sidebar-link {{ request()->routeIs('admin.stories.*') ? 'active' : '' }}">
                 <i class="bi bi-heart-pulse-fill"></i>
                 <span>Success Stories</span>
-                <span class="badge rounded-pill ms-auto" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 0.68rem; border: 1px solid var(--border-gold);">CMS</span>
             </a>
             <a href="{{ route('admin.inquiries.index') }}" class="sidebar-link {{ request()->routeIs('admin.inquiries.*') ? 'active' : '' }}">
                 <i class="bi bi-person-lines-fill"></i>
                 <span>VIP Inquiries &amp; Leads</span>
-                <span class="badge rounded-pill ms-auto" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 0.68rem; border: 1px solid var(--border-gold);">CMS</span>
             </a>
             <a href="{{ route('admin.faqs.index') }}" class="sidebar-link {{ request()->routeIs('admin.faqs.*') ? 'active' : '' }}">
                 <i class="bi bi-question-diamond-fill"></i>
                 <span>FAQs &amp; Knowledgebase</span>
-                <span class="badge rounded-pill ms-auto" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 0.68rem; border: 1px solid var(--border-gold);">CMS</span>
             </a>
 
             <div class="nav-category">Administration &amp; Staff</div>
             <a href="{{ route('admin.users.index') }}" class="sidebar-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                 <i class="bi bi-person-gear"></i>
                 <span>Staff &amp; Matchmakers</span>
-                <span class="badge rounded-pill ms-auto" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 0.68rem; border: 1px solid var(--border-gold);">CMS</span>
             </a>
             <a href="{{ route('admin.settings.index') }}" class="sidebar-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
                 <i class="bi bi-sliders"></i>
                 <span>Site Settings</span>
-                <span class="badge rounded-pill ms-auto" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 0.68rem; border: 1px solid var(--border-gold);">CMS</span>
             </a>
             <a href="{{ route('admin.sections.index') }}" class="sidebar-link {{ request()->routeIs('admin.sections.*') ? 'active' : '' }}">
                 <i class="bi bi-layout-text-window-reverse"></i>
                 <span>Page Content CMS</span>
-                <span class="badge rounded-pill ms-auto" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); font-size: 0.68rem; border: 1px solid var(--border-gold);">CMS</span>
             </a>
 
             <div class="nav-category">Access &amp; Support</div>

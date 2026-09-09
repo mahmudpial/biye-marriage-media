@@ -11,21 +11,22 @@
 
     /* Stat Pills */
     .stat-pill {
-        background: #18030c;
-        border: 1px solid rgba(212, 175, 55, 0.3);
+        background: #141820;
+        background: linear-gradient(180deg, #171c26 0%, #131720 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         padding: 1rem 1.25rem;
         transition: transform 0.2s ease, border-color 0.2s ease;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
     }
     .stat-pill:hover {
-        border-color: rgba(212, 175, 55, 0.55);
+        border-color: rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.45);
         transform: translateY(-2px);
     }
     .stat-pill .num {
         font-size: 1.65rem;
         font-weight: 700;
-        color: #fff;
+        color: #f1f5f9;
     }
     .stat-pill .label {
         font-size: 0.76rem;
@@ -37,14 +38,15 @@
 
     /* Filter Card */
     .filter-card {
-        background: #18030c;
-        border: 1px solid rgba(212, 175, 55, 0.3);
+        background: #141820;
+        background: linear-gradient(180deg, #171c26 0%, #131720 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         padding: 1.15rem 1.35rem;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
     }
     .filter-label {
-        color: #fde68a;
+        color: #f1f5f9;
         font-size: 0.76rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -52,25 +54,26 @@
         margin-bottom: 0.35rem;
     }
     .filter-input, .filter-select {
-        background: #0f0207 !important;
-        border: 1px solid rgba(212, 175, 55, 0.35) !important;
+        background: #0d1117 !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
         color: #ffffff !important;
         font-size: 0.88rem;
         border-radius: 9px;
         padding: 0.55rem 0.85rem;
     }
     .filter-input:focus, .filter-select:focus {
-        border-color: #f5d061 !important;
-        box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25) !important;
+        border-color: rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.6) !important;
+        box-shadow: 0 0 0 0.2rem rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.2) !important;
     }
     .filter-input::placeholder {
-        color: rgba(255, 255, 255, 0.45) !important;
+        color: rgba(255, 255, 255, 0.35) !important;
     }
 
     /* Table Container */
     .table-container {
-        background: #17040d;
-        border: 1px solid rgba(212, 175, 55, 0.3);
+        background: #141820;
+        background: linear-gradient(180deg, #171c26 0%, #131720 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         overflow: hidden;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
@@ -82,29 +85,29 @@
         border-collapse: collapse;
     }
     .table-users thead th {
-        background: #240614 !important;
-        color: #fef08a !important;
+        background: #10141d !important;
+        color: #f1f5f9 !important;
         font-size: 0.78rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.6px;
         padding: 1rem 0.95rem;
-        border-bottom: 2px solid rgba(212, 175, 55, 0.35) !important;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
         vertical-align: middle;
         white-space: nowrap;
     }
     .table-users tbody td {
-        padding: 1rem 0.95rem;
+        padding: 0.95rem;
         vertical-align: middle;
         background: transparent !important;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         color: #e2e8f0;
     }
     .table-users tbody tr {
         transition: background-color 0.15s ease;
     }
     .table-users tbody tr:hover {
-        background: rgba(212, 175, 55, 0.04) !important;
+        background: rgba(255, 255, 255, 0.03) !important;
     }
 
     /* User Avatar */
@@ -300,18 +303,12 @@
         </div>
     </div>
 
-    <!-- Header Actions Bar -->
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-        <div>
-            <h4 class="mb-1 text-white fw-bold">Admin Staff &amp; Matchmaker Accounts</h4>
-            <p class="text-secondary small mb-0">Manage matchmakers, relationship managers, permissions, and credential security.</p>
-        </div>
-        <div class="d-flex align-items-center gap-2">
-            <a href="{{ route('admin.users.create') }}" class="btn btn-admin-primary px-3 py-2 fw-bold text-dark d-inline-flex align-items-center gap-2">
-                <i class="bi bi-person-plus-fill"></i>
-                <span>Add Team Member</span>
-            </a>
-        </div>
+    <!-- Action Bar -->
+    <div class="d-flex justify-content-end align-items-center mb-4">
+        <a href="{{ route('admin.users.create') }}" class="btn btn-admin-primary px-3 py-2 fw-bold text-dark d-inline-flex align-items-center gap-2">
+            <i class="bi bi-person-plus-fill"></i>
+            <span>Add Team Member</span>
+        </a>
     </div>
 
     <!-- Filter & Search Card -->
@@ -363,16 +360,15 @@
                     <tr>
                         <th>Team Member</th>
                         <th style="width: 190px;">Assigned Role</th>
-                        <th>Designation &amp; Branch</th>
-                        <th style="width: 140px;">Contact Phone</th>
+                        <th>Contact Details</th>
                         <th style="width: 130px;" class="text-center">Status</th>
-                        <th style="width: 110px;" class="text-center">Actions</th>
+                        <th style="width: 140px;" class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($users as $staff)
                         <tr>
-                            <!-- User Name & Email -->
+                            <!-- User Name & Designation -->
                             <td>
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="staff-avatar">
@@ -380,13 +376,15 @@
                                     </div>
                                     <div>
                                         <div class="fw-bold text-white fs-6 d-flex align-items-center gap-2">
-                                            <span>{{ $staff->name }}</span>
+                                            <a href="{{ route('admin.users.show', $staff) }}" class="text-white text-decoration-none">
+                                                {{ $staff->name }}
+                                            </a>
                                             @if($staff->id === auth()->id())
                                                 <span class="badge-you">You</span>
                                             @endif
                                         </div>
-                                        <div class="text-secondary small">
-                                            <i class="bi bi-envelope me-1 text-gold opacity-75"></i>{{ $staff->email }}
+                                        <div class="small mt-0.5" style="color: #94a3b8;">
+                                            {{ $staff->designation ?: 'Matchmaking Relationship Manager' }}
                                         </div>
                                     </div>
                                 </div>
@@ -409,24 +407,17 @@
                                 </span>
                             </td>
 
-                            <!-- Designation -->
+                            <!-- Contact Channels -->
                             <td>
-                                <div class="text-white small fw-semibold">
-                                    {{ $staff->designation ?: 'Matchmaking Relationship Manager' }}
+                                <div class="small">
+                                    <i class="bi bi-envelope text-gold me-1 opacity-75"></i>
+                                    <a href="mailto:{{ $staff->email }}" class="text-white text-decoration-none">{{ $staff->email }}</a>
                                 </div>
-                                <div class="text-secondary" style="font-size: 0.76rem;">
-                                    Last active: {{ $staff->last_login_at ? $staff->last_login_at->diffForHumans() : 'Never logged in' }}
-                                </div>
-                            </td>
-
-                            <!-- Phone -->
-                            <td>
                                 @if(!empty($staff->phone))
-                                    <a href="tel:{{ $staff->phone }}" class="text-gold text-decoration-none small fw-semibold">
-                                        <i class="bi bi-telephone-fill me-1"></i>{{ $staff->phone }}
-                                    </a>
-                                @else
-                                    <span class="text-muted small">&mdash;</span>
+                                    <div class="small mt-1">
+                                        <i class="bi bi-telephone-fill text-gold me-1 opacity-75"></i>
+                                        <a href="tel:{{ $staff->phone }}" class="text-decoration-none" style="color: #cbd5e1;">{{ $staff->phone }}</a>
+                                    </div>
                                 @endif
                             </td>
 
@@ -450,7 +441,12 @@
 
                             <!-- Actions -->
                             <td class="text-center">
-                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                <div class="d-flex justify-content-center align-items-center gap-1.5">
+                                    <!-- View Details Button -->
+                                    <a href="{{ route('admin.users.show', $staff) }}" class="btn-action-icon view" title="View Full Profile Details" data-bs-toggle="tooltip">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </a>
+
                                     <!-- Edit Button -->
                                     <a href="{{ route('admin.users.edit', $staff) }}" class="btn-action-icon edit" title="Edit Staff Member" data-bs-toggle="tooltip">
                                         <i class="bi bi-pencil-fill"></i>
@@ -471,7 +467,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center py-5">
+                            <td colspan="5" class="text-center py-5">
                                 <div class="py-4">
                                     <div class="mb-3">
                                         <i class="bi bi-person-x text-secondary opacity-50" style="font-size: 3.5rem;"></i>

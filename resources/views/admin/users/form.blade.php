@@ -127,17 +127,9 @@
 @section('content')
 <div class="container-fluid px-0">
 
-    <!-- Header & Back Navigation -->
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-        <div>
-            <h4 class="mb-1 text-white fw-bold">
-                {{ $isEdit ? "Edit Staff: {$user->name}" : 'Add New Team Member' }}
-            </h4>
-            <p class="text-secondary small mb-0">
-                Configure staff credentials, regional designations, and role permissions.
-            </p>
-        </div>
-        <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary px-3 py-2 d-inline-flex align-items-center gap-2">
+    <!-- Back Navigation -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary text-white btn-sm px-3 py-2 d-inline-flex align-items-center gap-2" style="border-radius: 8px;">
             <i class="bi bi-arrow-left"></i>
             <span>Back to Staff List</span>
         </a>

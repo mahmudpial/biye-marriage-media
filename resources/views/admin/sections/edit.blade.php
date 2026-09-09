@@ -6,50 +6,12 @@
 @section('content')
 <div class="container-fluid px-0">
 
-    <!-- Top Navigation Bar & Action Controls -->
-    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
-        <div class="d-flex align-items-center gap-3">
-            <a href="{{ route('admin.sections.index') }}" class="btn btn-outline-secondary text-white btn-sm px-3 py-2 d-inline-flex align-items-center gap-2" style="border-radius: 8px;">
-                <i class="bi bi-arrow-left"></i>
-                <span>All Sections</span>
-            </a>
-            <div>
-                <div class="d-flex align-items-center gap-2">
-                    <h4 class="fw-bold text-white mb-0 font-serif">{{ $sectionDef['title'] }}</h4>
-                    <span class="badge rounded-pill px-2.5 py-1 small" style="background: rgba(212, 175, 55, 0.15); color: var(--gold-light); border: 1px solid var(--border-gold); font-size: 0.72rem;">
-                        {{ $sectionDef['category'] }}
-                    </span>
-                </div>
-                <div class="text-secondary small mt-0.5">
-                    {{ $sectionDef['description'] }}
-                </div>
-            </div>
-        </div>
-
-        <div class="d-flex align-items-center gap-2 flex-wrap">
-            <!-- Section Quick Switcher -->
-            <div class="dropdown">
-                <button class="btn btn-outline-secondary text-white border-opacity-50 btn-sm dropdown-toggle px-3 py-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-shuffle me-1 text-gold"></i> Switch Section
-                </button>
-                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow-lg" style="background: var(--card-bg); border: 1px solid var(--border-card); max-height: 380px; overflow-y: auto;">
-                    @foreach($sections as $sKey => $s)
-                    <li>
-                        <a class="dropdown-item py-2 d-flex align-items-center gap-2 {{ $sKey === $sectionKey ? 'active bg-maroon text-gold' : 'text-secondary' }}" href="{{ route('admin.sections.edit', $sKey) }}">
-                            <i class="bi {{ $s['icon'] }} text-gold"></i>
-                            <span>{{ $s['nav_label'] }}</span>
-                        </a>
-                    </li>
-                    @endforeach
-                </ul>
-            </div>
-
-            @if(!empty($sectionDef['preview_url']))
-            <a href="{{ $sectionDef['preview_url'] }}" target="_blank" class="btn btn-outline-warning text-gold border-opacity-50 btn-sm px-3 py-2">
-                <i class="bi bi-box-arrow-up-right me-1"></i> View Live Page
-            </a>
-            @endif
-        </div>
+    <!-- Top Back Navigation -->
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <a href="{{ route('admin.sections.index') }}" class="btn btn-outline-secondary text-white btn-sm px-3 py-2 d-inline-flex align-items-center gap-2" style="border-radius: 8px;">
+            <i class="bi bi-arrow-left"></i>
+            <span>All Sections</span>
+        </a>
     </div>
 
     <!-- Main Section Form -->

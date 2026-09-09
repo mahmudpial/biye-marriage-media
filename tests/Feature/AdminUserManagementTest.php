@@ -38,10 +38,31 @@ class AdminUserManagementTest extends TestCase
         $response = $this->actingAs($admin)->get(route('admin.users.index'));
 
         $response->assertStatus(200);
-        $response->assertSee('Admin Staff &amp; Matchmaker Accounts', false);
+        $response->assertSee('Staff &amp; Matchmaker Accounts', false);
         $response->assertSee('Dr. Farhana Executive');
         $response->assertSee('farhana@biyemedia.com');
         $response->assertSee('Senior HNI Matchmaker');
+    }
+
+    public function test_admin_can_view_user_details_page(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $targetUser = User::factory()->create([
+            'name' => 'Farhana VIP Matchmaker',
+            'email' => 'farhana.vip@biyemedia.com',
+            'designation' => 'Executive Matchmaker',
+            'is_admin' => true,
+            'role' => User::ROLE_SENIOR_MATCHMAKER,
+        ]);
+
+        $response = $this->actingAs($admin)->get(route('admin.users.show', $targetUser));
+
+        $response->assertStatus(200);
+        $response->assertSee('Staff Member Details');
+        $response->assertSee('Farhana VIP Matchmaker');
+        $response->assertSee('farhana.vip@biyemedia.com');
+        $response->assertSee('Executive Matchmaker');
+        $response->assertSee('VIP Matrimonial Matching');
     }
 
     public function test_admin_can_filter_users_by_search_keyword(): void
