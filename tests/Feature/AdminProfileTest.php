@@ -226,4 +226,36 @@ class AdminProfileTest extends TestCase
         $response->assertDontSee('BD-HIDDEN-02');
         $response->assertDontSee('Secret Inactive Candidate');
     }
+
+    public function test_admin_can_update_candidate_profile_via_direct_post(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $profile = CandidateProfile::factory()->create([
+            'profession' => 'Before Post Update',
+        ]);
+
+        $response = $this->actingAs($admin)->post(route('admin.profiles.update.post', $profile), [
+            'profile_code' => $profile->profile_code,
+            'gender' => $profile->gender,
+            'age' => 30,
+            'height' => $profile->height,
+            'religion' => $profile->religion,
+            'desher_bari' => 'Sylhet',
+            'education' => 'Master of Science',
+            'profession' => 'Post Updated Profession',
+            'location' => 'Gulshan, Dhaka',
+            'income' => '৳80 Lakhs+',
+            'category' => 'Elite Professional',
+            'family' => 'Renowned Family',
+            'is_discreet' => '1',
+            'is_featured' => '0',
+            'is_active' => '1',
+        ]);
+
+        $response->assertRedirect(route('admin.profiles.index'));
+        $this->assertDatabaseHas('candidate_profiles', [
+            'id' => $profile->id,
+            'profession' => 'Post Updated Profession',
+        ]);
+    }
 }

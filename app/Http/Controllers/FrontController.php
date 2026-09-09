@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CandidateProfile;
+use App\Models\MembershipPackage;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -11,6 +12,20 @@ class FrontController extends Controller
      * Common data providers tailored for Bangladesh
      */
     private function getPackages()
+    {
+        try {
+            $packages = MembershipPackage::active()->ordered()->get();
+            if ($packages->isNotEmpty()) {
+                return $packages;
+            }
+        } catch (\Throwable $e) {
+            // Fallback to static sample if database is unreachable
+        }
+
+        return $this->getStaticPackages();
+    }
+
+    private function getStaticPackages()
     {
         return [
             [

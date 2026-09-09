@@ -395,6 +395,13 @@
                         </div>
 
                         <h3 class="package-tier-name font-serif">{{ $pkg['name'] }}</h3>
+                        @if(!empty($pkg['price']))
+                            <div class="mb-2">
+                                <span class="badge rounded-pill bg-gold-subtle text-dark border border-warning-subtle fw-bold px-3 py-1 small">
+                                    <i class="bi bi-tag-fill text-gold me-1"></i>{{ $pkg['price'] }}
+                                </span>
+                            </div>
+                        @endif
                         <p class="package-target">{{ $pkg['description'] }}</p>
                     </div>
 

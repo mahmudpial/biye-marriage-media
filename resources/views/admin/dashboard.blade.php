@@ -421,10 +421,10 @@
                     <i class="bi bi-chevron-right text-gold small"></i>
                 </a>
 
-                <a href="{{ route('packages') }}" target="_blank" class="action-btn-link">
+                <a href="{{ route('admin.packages.index') }}" class="action-btn-link">
                     <span class="d-flex align-items-center gap-2">
                         <i class="bi bi-gem icon-prefix"></i>
-                        <span>Elite Membership Packages</span>
+                        <span>Manage Membership Packages</span>
                     </span>
                     <i class="bi bi-chevron-right text-gold small"></i>
                 </a>
