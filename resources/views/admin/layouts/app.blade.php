@@ -54,13 +54,17 @@
             width: var(--sidebar-width);
             background: var(--sidebar-bg);
             border-right: 1px solid var(--border-card);
-            min-height: 100vh;
+            height: 100vh;
+            height: 100dvh;
+            max-height: 100vh;
             position: fixed;
             top: 0;
+            bottom: 0;
             left: 0;
             z-index: 1030;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -72,6 +76,7 @@
             border-bottom: 1px solid var(--border-card);
             text-decoration: none;
             background: rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
         }
 
         .sidebar-brand img {
@@ -102,8 +107,31 @@
 
         .sidebar-nav {
             padding: 1rem 0.85rem;
-            flex-grow: 1;
+            flex: 1 1 auto;
+            min-height: 0;
             overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(212, 175, 55, 0.35) rgba(0, 0, 0, 0.15);
+        }
+
+        .sidebar-nav::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sidebar-nav::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .sidebar-nav::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.35);
+            border-radius: 4px;
+        }
+
+        .sidebar-nav::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 175, 55, 0.65);
         }
 
         .nav-category {
@@ -164,6 +192,7 @@
             padding: 1rem 1.25rem;
             border-top: 1px solid var(--border-card);
             background: rgba(0, 0, 0, 0.35);
+            flex-shrink: 0;
         }
 
         /* ================= MAIN CONTENT WRAPPER ================= */
