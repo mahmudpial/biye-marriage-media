@@ -70,6 +70,11 @@
         color: #f8fafc !important;
         border-color: rgba(255, 255, 255, 0.15) !important;
     }
+    .sidebar-sticky-col {
+        position: sticky;
+        top: 1.5rem;
+        align-self: flex-start;
+    }
 </style>
 @endpush
 
@@ -160,6 +165,8 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
                 <div class="section-card mb-4">
                     <div class="form-section-title d-flex align-items-center justify-content-between">
                         <span><i class="bi bi-palette2"></i> Dynamic 3-Tier Theme Color System</span>
@@ -778,7 +785,7 @@
             </div>
 
             <!-- Right Column: Sidebar Info & Quick Live Preview -->
-            <div class="col-lg-4">
+            <div class="col-lg-4 sidebar-sticky-col">
                 <div class="section-card mb-4">
                     <div class="form-section-title">
                         <i class="bi bi-info-circle"></i> Section Overview
