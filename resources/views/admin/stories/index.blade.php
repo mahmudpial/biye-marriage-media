@@ -425,15 +425,15 @@
             <table class="table table-stories align-middle">
                 <thead>
                     <tr>
-                        <th style="width: 50px;" class="text-center">Order</th>
-                        <th style="width: 70px;">Photo</th>
-                        <th>Couple &amp; Pedigree Titles</th>
-                        <th>Locations</th>
-                        <th>Wedding Date &amp; Venue</th>
-                        <th>Testimonial Quote</th>
+                        <th style="width: 60px;" class="text-center">Order</th>
+                        <th style="width: 80px;" class="text-center">Photo</th>
+                        <th class="text-center">Couple &amp; Pedigree Titles</th>
+                        <th class="text-center">Locations</th>
+                        <th class="text-center">Wedding Date &amp; Venue</th>
+                        <th class="text-center">Testimonial Quote</th>
                         <th class="text-center" style="width: 120px;">Featured</th>
                         <th class="text-center" style="width: 120px;">Status</th>
-                        <th class="text-end" style="width: 110px;">Actions</th>
+                        <th class="text-center" style="width: 130px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -447,34 +447,35 @@
                             </td>
 
                             <!-- Photo Thumbnail -->
-                            <td>
-                                <img src="{{ $story->image }}" alt="{{ $story->names }}" class="story-thumb">
+                            <td class="text-center">
+                                <img src="{{ $story->image }}" alt="{{ $story->names }}" class="story-thumb mx-auto d-block">
                             </td>
 
                             <!-- Couple Names & Titles -->
-                            <td>
+                            <td class="text-center">
                                 <div class="fw-bold text-gold-bright fs-6 mb-0.5">{{ $story->names }}</div>
                                 <div class="small text-silver">{{ $story->titles }}</div>
                             </td>
 
                             <!-- Locations -->
-                            <td>
-                                <div class="story-location-tag">
+                            <td class="text-center">
+                                <div class="story-location-tag mx-auto">
                                     <i class="bi bi-geo-alt-fill me-1"></i>
                                     <span>{{ $story->locations }}</span>
                                 </div>
                             </td>
 
                             <!-- Wedding Date & Venue -->
-                            <td>
-                                <div class="small text-white fw-semibold">
-                                    <i class="bi bi-calendar-heart text-gold me-1"></i>{{ $story->year }}
+                            <td class="text-center">
+                                <div class="small text-white fw-semibold d-flex align-items-center justify-content-center gap-1">
+                                    <i class="bi bi-calendar-heart text-gold"></i>
+                                    <span>{{ $story->year }}</span>
                                 </div>
                             </td>
 
                             <!-- Testimonial Quote -->
-                            <td style="max-width: 280px;">
-                                <div class="story-quote-card" title="{{ $story->quote }}">
+                            <td class="text-center" style="max-width: 280px;">
+                                <div class="story-quote-card mx-auto text-center" title="{{ $story->quote }}">
                                     <i class="bi bi-quote story-quote-icon"></i>
                                     <span>{{ $story->quote }}</span>
                                 </div>
@@ -511,8 +512,8 @@
                             </td>
 
                             <!-- Action Buttons -->
-                            <td class="text-end">
-                                <div class="d-flex justify-content-end gap-2">
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
                                     <!-- View Details Button (36px Sky/Cyan) -->
                                     <button 
                                         type="button" 

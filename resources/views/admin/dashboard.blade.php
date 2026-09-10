@@ -145,6 +145,17 @@
         background: rgba(255, 255, 255, 0.03);
     }
 
+    .client-name-highlight {
+        color: #fde047 !important;
+        font-size: 0.95rem;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+        text-shadow: 0 0 10px rgba(250, 204, 21, 0.3);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+    }
+
     /* Quick Action Button Styles */
     .action-btn-link {
         background: rgba(255, 255, 255, 0.04);
@@ -324,64 +335,68 @@
             </div>
 
             <div class="table-responsive-custom">
-                <table class="table admin-table">
+                <table class="table admin-table align-middle">
                     <thead>
                         <tr>
-                            <th>Inquiry ID</th>
-                            <th>Client / Guardian</th>
-                            <th>Phone Number</th>
-                            <th>Seeking Match For</th>
-                            <th>Location &amp; Ancestral Home</th>
-                            <th>Package</th>
-                            <th>Status</th>
+                            <th class="text-center">Inquiry ID</th>
+                            <th class="text-center">Client / Guardian</th>
+                            <th class="text-center">Phone Number</th>
+                            <th class="text-center">Seeking Match For</th>
+                            <th class="text-center">Location &amp; Ancestral Home</th>
+                            <th class="text-center">Package</th>
+                            <th class="text-center">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($recentInquiries as $inq)
                             <tr>
                                 <!-- ID -->
-                                <td>
+                                <td class="text-center">
                                     <span class="badge px-2 py-1 fw-bold text-nowrap" style="background: rgba(0, 0, 0, 0.5); color: #fce7a1; border: 1px solid rgba(212, 175, 55, 0.35); font-family: monospace; font-size: 0.82rem;">
                                         {{ $inq['inquiry_code'] ?? $inq['id'] }}
                                     </span>
                                 </td>
 
                                 <!-- Applicant Name -->
-                                <td>
-                                    <span class="fw-bold text-white text-nowrap" style="font-size: 0.92rem;">{{ $inq['full_name'] ?? $inq['name'] }}</span>
+                                <td class="text-center">
+                                    <span class="client-name-highlight">
+                                        <i class="bi bi-person-fill text-gold"></i> {{ $inq['full_name'] ?? $inq['name'] }}
+                                    </span>
                                 </td>
 
                                 <!-- Phone -->
-                                <td>
-                                    <span class="text-nowrap small fw-medium" style="color: #fcd34d;">
-                                        <i class="bi bi-telephone text-warning me-1"></i>{{ $inq['phone'] }}
+                                <td class="text-center">
+                                    <span class="text-nowrap small fw-medium d-inline-flex align-items-center justify-content-center gap-1" style="color: #fcd34d;">
+                                        <i class="bi bi-telephone text-warning"></i><span>{{ $inq['phone'] }}</span>
                                     </span>
                                 </td>
 
                                 <!-- Seeking / Match Requirement -->
-                                <td>
-                                    <span class="text-nowrap" style="color: #f1e6eb; font-size: 0.88rem;">
-                                        <i class="bi bi-person-heart text-gold me-1"></i>{{ $inq['looking_for'] }}
+                                <td class="text-center">
+                                    <span class="text-nowrap d-inline-flex align-items-center justify-content-center gap-1" style="color: #f1e6eb; font-size: 0.88rem;">
+                                        <i class="bi bi-person-heart text-gold"></i><span>{{ $inq['looking_for'] }}</span>
                                     </span>
                                 </td>
 
                                 <!-- Location & Desher Bari -->
-                                <td>
-                                    <span class="text-nowrap text-white fw-medium" style="font-size: 0.86rem;">
-                                        <i class="bi bi-geo-alt-fill text-danger me-1"></i>{{ $inq['city'] ?? $inq['location'] }}
-                                    </span>
-                                    <span class="text-nowrap small ms-1" style="color: #cbd5e1;">(Home: {{ $inq['desher_bari'] }})</span>
+                                <td class="text-center">
+                                    <div class="d-inline-flex align-items-center justify-content-center gap-1">
+                                        <span class="text-nowrap text-white fw-medium" style="font-size: 0.86rem;">
+                                            <i class="bi bi-geo-alt-fill text-danger me-1"></i>{{ $inq['city'] ?? $inq['location'] }}
+                                        </span>
+                                        <span class="text-nowrap small" style="color: #cbd5e1;">(Home: {{ $inq['desher_bari'] }})</span>
+                                    </div>
                                 </td>
 
                                 <!-- Package -->
-                                <td>
+                                <td class="text-center">
                                     <span class="badge fw-semibold text-nowrap" style="background: rgba(212, 175, 55, 0.16); color: #fde68a; border: 1px solid rgba(212, 175, 55, 0.35); font-size: 0.78rem;">
                                         {{ $inq['preferred_package'] ?? $inq['package'] }}
                                     </span>
                                 </td>
 
                                 <!-- Status -->
-                                <td>
+                                <td class="text-center">
                                     @if ($inq['status'] === 'Pending Review')
                                         <span class="badge text-nowrap" style="background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.4); font-size: 0.78rem;">
                                             <i class="bi bi-hourglass-split me-1"></i> Pending Review

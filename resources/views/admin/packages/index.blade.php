@@ -396,13 +396,13 @@
                 <thead>
                     <tr>
                         <th style="width: 70px;" class="text-center">Order</th>
-                        <th style="width: 220px;">Package Tier</th>
-                        <th style="width: 200px;">Badge &amp; Category</th>
-                        <th style="width: 170px;">Pricing / Fee</th>
-                        <th>Privileges Included</th>
+                        <th style="width: 220px;" class="text-center">Package Tier</th>
+                        <th style="width: 200px;" class="text-center">Badge &amp; Category</th>
+                        <th style="width: 170px;" class="text-center">Pricing / Fee</th>
+                        <th class="text-center">Privileges Included</th>
                         <th class="text-center" style="width: 140px;">Most Preferred</th>
                         <th class="text-center" style="width: 120px;">Status</th>
-                        <th class="text-end" style="width: 140px;">Actions</th>
+                        <th class="text-center" style="width: 140px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -416,7 +416,7 @@
                         </td>
 
                         <!-- 2. Package Tier -->
-                        <td>
+                        <td class="text-center">
                             <div>
                                 <div class="text-white fw-bold fs-6 mb-0.5">{{ $pkg->name }}</div>
                                 <div class="text-silver small font-monospace" style="font-size: 0.78rem;">
@@ -426,7 +426,7 @@
                         </td>
 
                         <!-- 3. Badge & Category -->
-                        <td>
+                        <td class="text-center">
                             @if($pkg->badge)
                                 <span class="badge-tier">
                                     <i class="bi bi-tag-fill me-1 text-gold"></i>{{ $pkg->badge }}
@@ -437,7 +437,7 @@
                         </td>
 
                         <!-- 4. Price / Fee -->
-                        <td>
+                        <td class="text-center">
                             @if($pkg->price)
                                 <span class="fw-bold text-gold-bright fs-6">
                                     {{ $pkg->price }}
@@ -448,14 +448,14 @@
                         </td>
 
                         <!-- 5. Privileges Included -->
-                        <td>
-                            <div class="d-flex align-items-center gap-2">
+                        <td class="text-center">
+                            <div class="d-flex align-items-center justify-content-center gap-2">
                                 <span class="badge rounded-pill bg-dark text-white border border-secondary border-opacity-50 px-2.5 py-1 small">
                                     <i class="bi bi-check2-circle text-gold me-1"></i>{{ is_array($pkg->benefits) ? count($pkg->benefits) : 0 }} Benefits
                                 </span>
                             </div>
                             @if(is_array($pkg->benefits) && count($pkg->benefits) > 0)
-                                <div class="text-silver small text-truncate mt-1" style="max-width: 280px;" title="{{ implode(' • ', $pkg->benefits) }}">
+                                <div class="text-silver small text-truncate mt-1 mx-auto" style="max-width: 280px;" title="{{ implode(' • ', $pkg->benefits) }}">
                                     {{ $pkg->benefits[0] }}
                                 </div>
                             @endif
@@ -500,8 +500,8 @@
                         </td>
 
                         <!-- 8. Actions: View, Edit & Delete Icon Buttons -->
-                        <td class="text-end">
-                            <div class="d-inline-flex gap-2 align-items-center justify-content-end">
+                        <td class="text-center">
+                            <div class="d-flex gap-2 align-items-center justify-content-center">
                                 <!-- View Details Icon Button -->
                                 <button 
                                     type="button" 

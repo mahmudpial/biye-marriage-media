@@ -143,6 +143,16 @@
         border-radius: 8px;
         font-size: 0.76rem;
     }
+    .client-name-highlight {
+        color: #fde047 !important;
+        font-size: 0.95rem;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+        text-shadow: 0 0 10px rgba(250, 204, 21, 0.3);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+    }
 
     /* Status Dropdown Component */
     .status-dropdown-wrapper {
@@ -562,32 +572,36 @@
             <table class="table table-inquiries align-middle">
                 <thead>
                     <tr>
-                        <th>Client / Guardian</th>
-                        <th>Phone &amp; Direct Contact</th>
-                        <th>Seeking Match For</th>
-                        <th>Location &amp; Desher Bari</th>
-                        <th>Target Tier</th>
+                        <th class="text-center" style="min-width: 170px;">Client / Guardian</th>
+                        <th class="text-center" style="min-width: 170px;">Phone &amp; Direct Contact</th>
+                        <th class="text-center" style="min-width: 180px;">Seeking Match For</th>
+                        <th class="text-center" style="min-width: 170px;">Location &amp; Desher Bari</th>
+                        <th class="text-center" style="min-width: 140px;">Target Tier</th>
                         <th class="text-center" style="min-width: 175px; width: 175px;">Status</th>
-                        <th style="width: 130px;">Received</th>
-                        <th class="text-end" style="width: 110px;">Actions</th>
+                        <th class="text-center" style="min-width: 120px; width: 120px;">Received</th>
+                        <th class="text-center" style="min-width: 110px; width: 110px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($inquiries as $inq)
                         <tr>
                             <!-- Client Name & Relation -->
-                            <td>
-                                <div class="fw-bold text-white fs-6 mb-0.5">{{ $inq->full_name }}</div>
-                                <div class="small">
-                                    <span class="badge rounded-pill bg-dark border border-secondary text-silver" style="font-size: 0.72rem;">
-                                        For: {{ $inq->profile_for }}
+                            <td class="text-center">
+                                <div>
+                                    <span class="client-name-highlight">
+                                        <i class="bi bi-person-fill text-gold"></i> {{ $inq->full_name }}
+                                    </span>
+                                </div>
+                                <div class="mt-1">
+                                    <span class="badge rounded-pill bg-dark border border-secondary border-opacity-50 text-silver" style="font-size: 0.72rem;">
+                                        For: <strong class="text-white">{{ $inq->profile_for }}</strong>
                                     </span>
                                 </div>
                             </td>
 
                             <!-- Phone & WhatsApp -->
-                            <td>
-                                <div class="d-flex flex-column gap-1">
+                            <td class="text-center">
+                                <div class="d-flex flex-column align-items-center justify-content-center gap-1">
                                     <a href="tel:{{ $inq->phone }}" class="btn-contact-chip phone" title="Call Client">
                                         <i class="bi bi-telephone-fill"></i> {{ $inq->phone }}
                                     </a>
@@ -600,29 +614,31 @@
                             </td>
 
                             <!-- Seeking Match For -->
-                            <td>
+                            <td class="text-center">
                                 <div class="text-white fw-semibold mb-0.5">
                                     <i class="bi bi-person-heart text-gold me-1"></i>{{ $inq->looking_for }}
                                 </div>
                                 @if($inq->message)
-                                    <div class="small text-muted text-truncate" style="max-width: 220px;" title="{{ $inq->message }}">
+                                    <div class="small text-muted text-truncate mx-auto" style="max-width: 220px;" title="{{ $inq->message }}">
                                         {{ $inq->message }}
                                     </div>
                                 @endif
                             </td>
 
                             <!-- Location & Ancestral Home -->
-                            <td>
-                                <div class="text-white small fw-medium">
-                                    <i class="bi bi-geo-alt-fill text-danger me-1"></i>{{ $inq->city ?: 'Pan-Bangladesh' }}
+                            <td class="text-center">
+                                <div class="text-white small fw-medium d-flex align-items-center justify-content-center gap-1">
+                                    <i class="bi bi-geo-alt-fill text-danger"></i>
+                                    <span>{{ $inq->city ?: 'Pan-Bangladesh' }}</span>
                                 </div>
-                                <div class="small text-silver">
-                                    Home: {{ $inq->desher_bari ?: 'Not Specified' }}
+                                <div class="small text-silver mt-0.5 d-flex align-items-center justify-content-center gap-1">
+                                    <i class="bi bi-house-door-fill text-gold"></i>
+                                    <span>Home: <strong class="text-white">{{ $inq->desher_bari ?: 'Not Specified' }}</strong></span>
                                 </div>
                             </td>
 
                             <!-- Target Package Tier -->
-                            <td>
+                            <td class="text-center">
                                 <span class="badge-gold text-nowrap">
                                     <i class="bi bi-gem me-1 text-gold"></i>{{ $inq->preferred_package ?: 'Standard' }}
                                 </span>
@@ -686,7 +702,7 @@
                             </td>
 
                             <!-- Date Received -->
-                            <td>
+                            <td class="text-center">
                                 <div class="small text-silver">
                                     {{ $inq->created_at ? $inq->created_at->format('M d, Y') : 'N/A' }}
                                 </div>
@@ -696,8 +712,8 @@
                             </td>
 
                             <!-- Action Buttons -->
-                            <td class="text-end">
-                                <div class="d-flex justify-content-end gap-2">
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
                                     <!-- View/Edit Details Modal Button (36px Gold) -->
                                     <button 
                                         type="button" 

@@ -358,9 +358,9 @@
             <table class="table table-users align-middle">
                 <thead>
                     <tr>
-                        <th>Team Member</th>
-                        <th style="width: 190px;">Assigned Role</th>
-                        <th>Contact Details</th>
+                        <th class="text-center">Team Member</th>
+                        <th style="width: 190px;" class="text-center">Assigned Role</th>
+                        <th class="text-center">Contact Details</th>
                         <th style="width: 130px;" class="text-center">Status</th>
                         <th style="width: 140px;" class="text-center">Actions</th>
                     </tr>
@@ -369,12 +369,12 @@
                     @forelse($users as $staff)
                         <tr>
                             <!-- User Name & Designation -->
-                            <td>
-                                <div class="d-flex align-items-center gap-3">
+                            <td class="text-center">
+                                <div class="d-flex align-items-center justify-content-center gap-3">
                                     <div class="staff-avatar">
                                         {{ strtoupper(substr($staff->name, 0, 1)) }}
                                     </div>
-                                    <div>
+                                    <div class="text-start">
                                         <div class="fw-bold text-white fs-6 d-flex align-items-center gap-2">
                                             <a href="{{ route('admin.users.show', $staff) }}" class="text-white text-decoration-none">
                                                 {{ $staff->name }}
@@ -391,11 +391,11 @@
                             </td>
 
                             <!-- Role Badge -->
-                            <td>
+                            <td class="text-center">
                                 @php
                                     $roleClass = 'role-' . ($staff->role ?? 'relationship_manager');
                                 @endphp
-                                <span class="badge-role {{ $roleClass }}">
+                                <span class="badge-role {{ $roleClass }} mx-auto">
                                     @if($staff->role === 'super_admin')
                                         <i class="bi bi-shield-fill-check"></i>
                                     @elseif($staff->role === 'senior_matchmaker')
@@ -408,13 +408,13 @@
                             </td>
 
                             <!-- Contact Channels -->
-                            <td>
-                                <div class="small">
+                            <td class="text-center">
+                                <div class="small d-flex align-items-center justify-content-center gap-1">
                                     <i class="bi bi-envelope text-gold me-1 opacity-75"></i>
                                     <a href="mailto:{{ $staff->email }}" class="text-white text-decoration-none">{{ $staff->email }}</a>
                                 </div>
                                 @if(!empty($staff->phone))
-                                    <div class="small mt-1">
+                                    <div class="small mt-1 d-flex align-items-center justify-content-center gap-1">
                                         <i class="bi bi-telephone-fill text-gold me-1 opacity-75"></i>
                                         <a href="tel:{{ $staff->phone }}" class="text-decoration-none" style="color: #cbd5e1;">{{ $staff->phone }}</a>
                                     </div>
