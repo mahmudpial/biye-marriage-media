@@ -82,7 +82,7 @@
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
     }
     .table-inquiries {
-        min-width: 1080px;
+        min-width: 980px;
         width: 100%;
         margin-bottom: 0;
         border-collapse: collapse;
@@ -393,7 +393,6 @@
             <table class="table table-inquiries align-middle">
                 <thead>
                     <tr>
-                        <th style="width: 100px;">Lead ID</th>
                         <th>Client / Guardian</th>
                         <th>Phone &amp; Direct Contact</th>
                         <th>Seeking Match For</th>
@@ -407,13 +406,6 @@
                 <tbody>
                     @forelse($inquiries as $inq)
                         <tr>
-                            <!-- Inquiry Code -->
-                            <td>
-                                <span class="badge-code">
-                                    {{ $inq->inquiry_code }}
-                                </span>
-                            </td>
-
                             <!-- Client Name & Relation -->
                             <td>
                                 <div class="fw-bold text-white fs-6 mb-0.5">{{ $inq->full_name }}</div>
@@ -533,7 +525,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="text-center py-5">
+                            <td colspan="8" class="text-center py-5">
                                 <div class="py-4">
                                     <i class="bi bi-inbox fs-1 text-gold opacity-50 d-block mb-3"></i>
                                     <h5 class="text-white fw-bold mb-2">No Consultation Requests Found</h5>
