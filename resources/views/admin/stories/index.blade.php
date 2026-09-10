@@ -385,12 +385,12 @@
             </div>
 
             <!-- Filter Buttons -->
-            <div class="col-lg-2 col-md-12 d-flex gap-2">
-                <button type="submit" class="btn btn-admin-primary flex-grow-1 py-2 fw-bold text-dark">
+            <div class="col-lg-2 col-md-12 d-flex gap-2 align-items-end">
+                <button type="submit" class="btn btn-admin-primary flex-grow-1 fw-semibold">
                     <i class="bi bi-funnel-fill me-1"></i> Filter
                 </button>
                 @if(request()->anyFilled(['search', 'status', 'featured']))
-                    <a href="{{ route('admin.stories.index') }}" class="btn btn-outline-secondary py-2 px-3" title="Reset Filters">
+                    <a href="{{ route('admin.stories.index') }}" class="btn btn-outline-secondary filter-reset-btn" title="Reset Filters">
                         <i class="bi bi-arrow-counterclockwise"></i>
                     </a>
                 @endif
@@ -412,7 +412,7 @@
             </div>
 
             <div class="d-flex align-items-center gap-2">
-                <a href="{{ route('admin.stories.create') }}" class="btn btn-admin-primary px-3.5 py-2 fw-bold text-dark d-inline-flex align-items-center gap-2">
+                <a href="{{ route('admin.stories.create') }}" class="btn btn-admin-primary fw-semibold d-inline-flex align-items-center gap-2">
                     <i class="bi bi-plus-circle-fill"></i>
                     <span>+ Add New Story</span>
                 </a>
@@ -588,7 +588,7 @@
                                                     <a href="{{ route('stories') }}" target="_blank" class="btn btn-outline-secondary btn-sm px-3">
                                                         <i class="bi bi-globe me-1"></i> Public Gallery
                                                     </a>
-                                                    <a href="{{ route('admin.stories.edit', $story) }}" class="btn btn-admin-primary btn-sm px-3 fw-bold text-dark">
+                                                    <a href="{{ route('admin.stories.edit', $story) }}" class="btn btn-admin-primary btn-sm px-3 fw-semibold">
                                                         <i class="bi bi-pencil-square me-1"></i> Edit Story
                                                     </a>
                                                 </div>
@@ -617,7 +617,7 @@
                                                 <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Filters
                                             </a>
                                         @endif
-                                        <a href="{{ route('admin.stories.create') }}" class="btn btn-admin-primary px-4 py-2 fw-bold text-dark">
+                                        <a href="{{ route('admin.stories.create') }}" class="btn btn-admin-primary px-3 fw-semibold">
                                             <i class="bi bi-plus-circle-fill me-1"></i> Add First Success Story
                                         </a>
                                     </div>

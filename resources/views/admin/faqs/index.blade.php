@@ -70,14 +70,15 @@
         min-width: 0;
     }
     .filter-btn {
-        height: 42px;
-        border-radius: 9px;
-        font-size: 0.85rem;
+        height: 35px;
+        border-radius: 8px;
+        font-size: 0.82rem;
+        font-weight: 600;
         display: inline-flex;
         align-items: center;
         justify-content: center;
         white-space: nowrap;
-        padding: 0.5rem 0.9rem;
+        padding: 0.35rem 0.85rem;
         transition: all 0.2s ease;
     }
     .filter-btn-publish {
@@ -359,16 +360,16 @@
 
                 <!-- Action Buttons: Filter & Publish New FAQ -->
                 <div class="col-xl-4 col-lg-4 col-md-8 col-12">
-                    <div class="filter-btn-group">
-                        <button type="submit" class="btn btn-admin-primary filter-btn flex-shrink-0 fw-bold text-dark" style="padding: 0 1.15rem;">
+                    <div class="filter-btn-group align-items-end">
+                        <button type="submit" class="btn btn-admin-primary filter-btn flex-shrink-0 fw-semibold" style="padding: 0 0.85rem;">
                             <i class="bi bi-funnel-fill me-1"></i> Filter
                         </button>
                         @if(!empty($filters['search']) || !empty($filters['category']) || !empty($filters['status']))
-                            <a href="{{ route('admin.faqs.index') }}" class="btn btn-outline-secondary filter-btn flex-shrink-0 px-2" style="width: 42px;" title="Reset Filters">
+                            <a href="{{ route('admin.faqs.index') }}" class="btn btn-outline-secondary filter-btn filter-reset-btn flex-shrink-0" style="width: 35px;" title="Reset Filters">
                                 <i class="bi bi-arrow-counterclockwise"></i>
                             </a>
                         @endif
-                        <a href="{{ route('admin.faqs.create') }}" class="btn btn-admin-primary filter-btn filter-btn-publish fw-bold text-dark" title="Publish New FAQ">
+                        <a href="{{ route('admin.faqs.create') }}" class="btn btn-admin-primary filter-btn filter-btn-publish fw-semibold" title="Publish New FAQ">
                             <i class="bi bi-plus-circle-fill me-1 flex-shrink-0"></i>
                             <span class="text-truncate">Publish New FAQ</span>
                         </a>
@@ -474,7 +475,7 @@
                                                 <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Filters
                                             </a>
                                         @endif
-                                        <a href="{{ route('admin.faqs.create') }}" class="btn btn-admin-primary px-4 py-2 fw-bold text-dark">
+                                        <a href="{{ route('admin.faqs.create') }}" class="btn btn-admin-primary px-3 fw-semibold">
                                             <i class="bi bi-plus-circle-fill me-1"></i> Publish First FAQ
                                         </a>
                                     </div>

@@ -361,7 +361,7 @@
 
                 <!-- Submit & Cancel Actions -->
                 <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-admin-primary py-2.5 fw-bold fs-6 text-dark">
+                    <button type="submit" class="btn btn-admin-primary py-2.5 fw-semibold fs-6">
                         <i class="bi bi-check2-circle me-1 fs-5"></i> {{ $isEdit ? 'Save Package Changes' : 'Create & Publish Package' }}
                     </button>
                     <a href="{{ route('admin.packages.index') }}" class="btn btn-admin-cancel py-2.5 fw-bold fs-6">

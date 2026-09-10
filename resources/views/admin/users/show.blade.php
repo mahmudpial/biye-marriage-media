@@ -154,7 +154,7 @@
 
         <div class="d-flex align-items-center gap-2 flex-wrap">
             <!-- Edit Staff Member -->
-            <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-admin-primary btn-sm px-3 py-2 fw-bold text-dark d-inline-flex align-items-center gap-2">
+            <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-admin-primary btn-sm px-3 fw-semibold d-inline-flex align-items-center gap-2">
                 <i class="bi bi-pencil-square"></i>
                 <span>Edit Credentials</span>
             </a>

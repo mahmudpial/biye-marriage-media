@@ -535,12 +535,12 @@
             </div>
 
             <!-- Filter Buttons -->
-            <div class="col-lg-2 col-md-12 d-flex gap-2">
-                <button type="submit" class="btn btn-admin-primary flex-grow-1 py-2 fw-bold text-dark">
+            <div class="col-lg-2 col-md-12 d-flex gap-2 align-items-end">
+                <button type="submit" class="btn btn-admin-primary flex-grow-1 fw-semibold">
                     <i class="bi bi-funnel-fill me-1"></i> Filter
                 </button>
                 @if(request()->anyFilled(['search', 'status', 'package', 'looking_for']))
-                    <a href="{{ route('admin.inquiries.index') }}" class="btn btn-outline-secondary py-2 px-3" title="Reset Filters">
+                    <a href="{{ route('admin.inquiries.index') }}" class="btn btn-outline-secondary filter-reset-btn" title="Reset Filters">
                         <i class="bi bi-arrow-counterclockwise"></i>
                     </a>
                 @endif
@@ -875,7 +875,7 @@
 
                 <div class="modal-footer border-top border-secondary border-opacity-25 pt-3">
                     <button type="button" class="btn btn-outline-secondary px-3" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-admin-primary px-4 fw-bold text-dark">
+                    <button type="submit" class="btn btn-admin-primary px-4 fw-semibold">
                         <i class="bi bi-check2-circle me-1"></i> Save Changes
                     </button>
                 </div>

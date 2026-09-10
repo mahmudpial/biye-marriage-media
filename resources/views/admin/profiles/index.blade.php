@@ -323,12 +323,12 @@
             </div>
 
             <!-- Filter Buttons -->
-            <div class="col-6 col-lg-2 col-md-8 d-flex gap-2">
-                <button type="submit" class="btn btn-admin-primary flex-grow-1 py-2 fw-bold">
+            <div class="col-6 col-lg-2 col-md-8 d-flex gap-2 align-items-end">
+                <button type="submit" class="btn btn-admin-primary flex-grow-1 fw-semibold">
                     <i class="bi bi-funnel-fill me-1"></i> Filter
                 </button>
                 @if(request()->anyFilled(['q', 'gender', 'category', 'status']))
-                    <a href="{{ route('admin.profiles.index') }}" class="btn btn-outline-secondary py-2 px-3" title="Reset Filters">
+                    <a href="{{ route('admin.profiles.index') }}" class="btn btn-outline-secondary filter-reset-btn" title="Reset Filters">
                         <i class="bi bi-arrow-counterclockwise"></i>
                     </a>
                 @endif
@@ -350,7 +350,7 @@
             </div>
 
             <div class="d-flex align-items-center gap-2">
-                <a href="{{ route('admin.profiles.create') }}" class="btn btn-admin-primary px-3.5 py-2 fw-bold text-dark d-inline-flex align-items-center gap-2">
+                <a href="{{ route('admin.profiles.create') }}" class="btn btn-admin-primary fw-semibold d-inline-flex align-items-center gap-2">
                     <i class="bi bi-person-plus-fill"></i>
                     <span>+ Add New Candidate</span>
                 </a>
@@ -613,7 +613,7 @@
                                                 <a href="{{ route('profiles', ['q' => $profile->profile_code]) }}" target="_blank" class="btn btn-outline-secondary btn-sm px-3">
                                                     <i class="bi bi-globe me-1"></i> View Live Gallery
                                                 </a>
-                                                <a href="{{ route('admin.profiles.edit', $profile) }}" class="btn btn-admin-primary btn-sm px-3 fw-bold text-dark">
+                                                <a href="{{ route('admin.profiles.edit', $profile) }}" class="btn btn-admin-primary btn-sm px-3 fw-semibold">
                                                     <i class="bi bi-pencil-square me-1"></i> Edit Candidate
                                                 </a>
                                             </div>
@@ -670,7 +670,7 @@
                             <i class="bi bi-people display-4 d-block mb-3 opacity-25 text-gold"></i>
                             <h5 class="text-white fw-bold">No candidate profiles found</h5>
                             <p class="small text-silver mb-3">Try adjusting your search query or reset the filters.</p>
-                            <a href="{{ route('admin.profiles.create') }}" class="btn btn-admin-primary btn-sm px-3.5 py-2 fw-bold">
+                            <a href="{{ route('admin.profiles.create') }}" class="btn btn-admin-primary px-3 fw-semibold">
                                 <i class="bi bi-plus-circle-fill me-1"></i> + Add New Candidate
                             </a>
                         </td>

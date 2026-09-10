@@ -257,38 +257,6 @@
         color: var(--accent-gold, #d4af37) !important;
     }
 
-    /* Primary Action Buttons */
-    .btn-admin-primary {
-        background: linear-gradient(135deg, #f5d061 0%, #d4af37 55%, #b89327 100%) !important;
-        color: #0b0f17 !important;
-        border: 1px solid rgba(254, 240, 138, 0.8) !important;
-        font-weight: 700 !important;
-        border-radius: 9px;
-        box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.45rem;
-        text-decoration: none;
-        letter-spacing: 0.2px;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .btn-admin-primary:hover {
-        background: linear-gradient(135deg, #fff3b0 0%, #f7d768 50%, #d4af37 100%) !important;
-        color: #000000 !important;
-        border-color: #ffffff !important;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 22px rgba(212, 175, 55, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-    }
-    .btn-admin-primary:active {
-        transform: translateY(0);
-        box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
-    }
-    .btn-admin-primary *,
-    .btn-admin-primary:hover *,
-    .btn-admin-primary:focus * {
-        color: inherit !important;
-    }
 
     .badge-you {
         font-size: 0.65rem;
@@ -382,12 +350,12 @@
                         <option value="inactive" {{ ($filters['status'] ?? '') === 'inactive' ? 'selected' : '' }}>Suspended</option>
                     </select>
                 </div>
-                <div class="col-md-2 d-flex gap-2">
-                    <button type="submit" class="btn btn-admin-primary flex-grow-1 py-2 fw-bold text-dark">
+                <div class="col-md-2 d-flex gap-2 align-items-end">
+                    <button type="submit" class="btn btn-admin-primary flex-grow-1 fw-semibold">
                         <i class="bi bi-funnel-fill me-1"></i> Filter
                     </button>
                     @if(!empty($filters['search']) || !empty($filters['role']) || !empty($filters['status']))
-                        <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary px-2 py-2" title="Reset Filters">
+                        <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary filter-reset-btn" title="Reset Filters">
                             <i class="bi bi-arrow-counterclockwise"></i>
                         </a>
                     @endif
@@ -411,7 +379,7 @@
             </div>
 
             <div class="d-flex align-items-center gap-2">
-                <a href="{{ route('admin.users.create') }}" class="btn btn-admin-primary px-3.5 py-2 fw-bold text-dark d-inline-flex align-items-center gap-2">
+                <a href="{{ route('admin.users.create') }}" class="btn btn-admin-primary fw-semibold d-inline-flex align-items-center gap-2">
                     <i class="bi bi-person-plus-fill"></i>
                     <span>+ Add Team Member</span>
                 </a>
@@ -545,7 +513,7 @@
                                                 <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Filters
                                             </a>
                                         @endif
-                                        <a href="{{ route('admin.users.create') }}" class="btn btn-admin-primary px-4 py-2 fw-bold text-dark">
+                                        <a href="{{ route('admin.users.create') }}" class="btn btn-admin-primary px-3 fw-semibold">
                                             <i class="bi bi-person-plus-fill me-1"></i> Add Team Member
                                         </a>
                                     </div>

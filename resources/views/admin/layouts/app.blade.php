@@ -547,19 +547,23 @@
         .btn-admin-primary,
         a.btn-admin-primary,
         button.btn-admin-primary {
-            background: linear-gradient(135deg, #f5d061 0%, #d4af37 55%, #b89327 100%) !important;
-            color: #0b0f17 !important;
-            border: 1px solid rgba(254, 240, 138, 0.8) !important;
-            font-weight: 700 !important;
-            border-radius: 9px;
-            box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.45rem;
-            text-decoration: none;
-            letter-spacing: 0.2px;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #9b1c31 0%, #851829 55%, #6e111f 100%) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(212, 175, 55, 0.45) !important;
+            font-size: 0.82rem !important;
+            font-weight: 600 !important;
+            border-radius: 8px !important;
+            padding: 0.35rem 0.85rem !important;
+            height: 35px !important;
+            box-shadow: 0 2px 8px rgba(110, 17, 31, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 0.38rem !important;
+            text-decoration: none !important;
+            letter-spacing: 0.25px !important;
+            white-space: nowrap !important;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
         .btn-admin-primary:hover,
         .btn-admin-primary:focus,
@@ -567,22 +571,57 @@
         a.btn-admin-primary:focus,
         button.btn-admin-primary:hover,
         button.btn-admin-primary:focus {
-            background: linear-gradient(135deg, #fff3b0 0%, #f7d768 50%, #d4af37 100%) !important;
-            color: #000000 !important;
-            border-color: #ffffff !important;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 22px rgba(212, 175, 55, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            background: linear-gradient(135deg, #b8233b 0%, #9e1d33 55%, #7e1222 100%) !important;
+            color: #ffffff !important;
+            border-color: rgba(245, 208, 97, 0.85) !important;
+            transform: translateY(-1.5px) !important;
+            box-shadow: 0 4px 14px rgba(155, 28, 49, 0.5), 0 0 10px rgba(212, 175, 55, 0.28) !important;
         }
         .btn-admin-primary:active,
         a.btn-admin-primary:active,
         button.btn-admin-primary:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+            transform: translateY(0) !important;
+            box-shadow: 0 1px 4px rgba(110, 17, 31, 0.4) !important;
         }
         .btn-admin-primary *,
         .btn-admin-primary:hover *,
         .btn-admin-primary:focus * {
-            color: inherit !important;
+            color: #ffffff !important;
+        }
+
+        /* Large Form Submit Buttons override (Create/Edit pages) */
+        form.admin-form .btn-admin-primary.form-submit-btn,
+        .btn-admin-primary.py-2.5,
+        .btn-admin-primary.fs-6 {
+            height: 40px !important;
+            font-size: 0.9rem !important;
+            padding: 0.45rem 1.4rem !important;
+        }
+
+        /* Filter Reset Button alignment */
+        .filter-reset-btn,
+        a.btn-outline-secondary[title="Reset Filters"],
+        .btn-filter-reset {
+            height: 35px !important;
+            width: 35px !important;
+            min-width: 35px !important;
+            padding: 0 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 8px !important;
+            border: 1px solid rgba(255, 255, 255, 0.16) !important;
+            color: #94a3b8 !important;
+            background: rgba(255, 255, 255, 0.04) !important;
+            transition: all 0.2s ease !important;
+        }
+        .filter-reset-btn:hover,
+        a.btn-outline-secondary[title="Reset Filters"]:hover,
+        .btn-filter-reset:hover {
+            border-color: #ef4444 !important;
+            color: #ef4444 !important;
+            background: rgba(239, 68, 68, 0.12) !important;
+            transform: translateY(-1.5px) !important;
         }
 
         .btn-admin-cancel {
