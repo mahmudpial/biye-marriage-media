@@ -560,12 +560,6 @@
                     {{ $inquiries->total() }} Leads
                 </span>
             </div>
-
-            <div class="d-flex gap-2">
-                <a href="{{ route('contact') }}" target="_blank" class="btn btn-outline-warning btn-sm px-3 py-1.5 text-gold fw-semibold">
-                    <i class="bi bi-globe2 me-1"></i> Public Contact Form
-                </a>
-            </div>
         </div>
 
         <div class="table-responsive">

@@ -284,6 +284,11 @@
         transform: translateY(0);
         box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
     }
+    .btn-admin-primary *,
+    .btn-admin-primary:hover *,
+    .btn-admin-primary:focus * {
+        color: inherit !important;
+    }
 
     .badge-you {
         font-size: 0.65rem;

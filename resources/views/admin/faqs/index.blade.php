@@ -360,7 +360,7 @@
                 <!-- Action Buttons: Filter & Publish New FAQ -->
                 <div class="col-xl-4 col-lg-4 col-md-8 col-12">
                     <div class="filter-btn-group">
-                        <button type="submit" class="btn btn-outline-warning filter-btn flex-shrink-0" style="padding: 0 1rem;">
+                        <button type="submit" class="btn btn-admin-primary filter-btn flex-shrink-0 fw-bold text-dark" style="padding: 0 1.15rem;">
                             <i class="bi bi-funnel-fill me-1"></i> Filter
                         </button>
                         @if(!empty($filters['search']) || !empty($filters['category']) || !empty($filters['status']))

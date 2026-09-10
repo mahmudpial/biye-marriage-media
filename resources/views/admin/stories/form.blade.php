@@ -137,21 +137,6 @@
     }
 
     /* Buttons */
-    .btn-admin-primary {
-        background: linear-gradient(135deg, var(--accent-gold) 0%, #a17822 100%) !important;
-        color: #0b0f17 !important;
-        border: 1px solid #fde68a !important;
-        border-radius: 10px;
-        font-weight: 700;
-        transition: all 0.2s ease;
-        box-shadow: 0 4px 14px rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.4);
-    }
-    .btn-admin-primary:hover {
-        background: linear-gradient(135deg, #fde68a 0%, var(--accent-gold) 100%) !important;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.6);
-        color: #000000 !important;
-    }
     .btn-admin-cancel {
         background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important;
         color: #ffffff !important;

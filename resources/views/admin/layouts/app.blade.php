@@ -544,28 +544,45 @@
         }
 
         /* ================= EXECUTIVE ADMIN BUTTONS ================= */
-        .btn-admin-primary {
-            background: linear-gradient(135deg, var(--accent-gold) 0%, #a17822 100%) !important;
+        .btn-admin-primary,
+        a.btn-admin-primary,
+        button.btn-admin-primary {
+            background: linear-gradient(135deg, #f5d061 0%, #d4af37 55%, #b89327 100%) !important;
             color: #0b0f17 !important;
-            border: 1px solid #fde68a !important;
+            border: 1px solid rgba(254, 240, 138, 0.8) !important;
             font-weight: 700 !important;
-            box-shadow: 0 4px 14px rgba(var(--theme-secondary-rgb), 0.4);
+            border-radius: 9px;
+            box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.4rem;
+            gap: 0.45rem;
             text-decoration: none;
+            letter-spacing: 0.2px;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .btn-admin-primary:hover {
-            background: linear-gradient(135deg, #fde68a 0%, var(--accent-gold) 100%) !important;
+        .btn-admin-primary:hover,
+        .btn-admin-primary:focus,
+        a.btn-admin-primary:hover,
+        a.btn-admin-primary:focus,
+        button.btn-admin-primary:hover,
+        button.btn-admin-primary:focus {
+            background: linear-gradient(135deg, #fff3b0 0%, #f7d768 50%, #d4af37 100%) !important;
             color: #000000 !important;
             border-color: #ffffff !important;
-            transform: translateY(-1.5px);
-            box-shadow: 0 6px 20px rgba(var(--theme-secondary-rgb), 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 22px rgba(212, 175, 55, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.6);
         }
-        .btn-admin-primary:active {
+        .btn-admin-primary:active,
+        a.btn-admin-primary:active,
+        button.btn-admin-primary:active {
             transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+        }
+        .btn-admin-primary *,
+        .btn-admin-primary:hover *,
+        .btn-admin-primary:focus * {
+            color: inherit !important;
         }
 
         .btn-admin-cancel {

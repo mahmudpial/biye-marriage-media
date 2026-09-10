@@ -411,12 +411,10 @@
                 </span>
             </div>
 
-            <div class="d-flex gap-2">
-                <a href="{{ route('stories') }}" target="_blank" class="btn btn-outline-warning btn-sm px-3 py-1.5 text-gold fw-semibold">
-                    <i class="bi bi-globe2 me-1"></i> Preview Public Stories
-                </a>
-                <a href="{{ route('admin.stories.create') }}" class="btn btn-admin-primary btn-sm px-3.5 py-1.5 fw-bold text-dark">
-                    <i class="bi bi-plus-circle-fill me-1"></i> + Add New Story
+            <div class="d-flex align-items-center gap-2">
+                <a href="{{ route('admin.stories.create') }}" class="btn btn-admin-primary px-3.5 py-2 fw-bold text-dark d-inline-flex align-items-center gap-2">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    <span>+ Add New Story</span>
                 </a>
             </div>
         </div>
