@@ -627,13 +627,11 @@
 
                             <!-- Location & Ancestral Home -->
                             <td class="text-center">
-                                <div class="text-white small fw-medium d-flex align-items-center justify-content-center gap-1">
-                                    <i class="bi bi-geo-alt-fill text-danger"></i>
-                                    <span>{{ $inq->city ?: 'Pan-Bangladesh' }}</span>
+                                <div class="text-white small fw-medium">
+                                    {{ $inq->city ?: 'Pan-Bangladesh' }}
                                 </div>
-                                <div class="small text-silver mt-0.5 d-flex align-items-center justify-content-center gap-1">
-                                    <i class="bi bi-house-door-fill text-gold"></i>
-                                    <span>Home: <strong class="text-white">{{ $inq->desher_bari ?: 'Not Specified' }}</strong></span>
+                                <div class="small text-silver mt-0.5">
+                                    Home: <strong class="text-white">{{ $inq->desher_bari ?: 'Not Specified' }}</strong>
                                 </div>
                             </td>
 
@@ -849,7 +847,7 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="modalStatusSelect" class="form-label text-gold fw-bold small">Update Workflow Status</label>
-                            <select name="status" id="modalStatusSelect" class="form-select filter-select">
+                            <select name="status" id="modalStatusSelect" class="form-select">
                                 <option value="Pending Review">Pending Review</option>
                                 <option value="In Progress">In Progress</option>
                                 <option value="Contacted">Contacted</option>
@@ -860,7 +858,7 @@
 
                         <div class="col-md-6">
                             <label for="modalPackageSelect" class="form-label text-gold fw-bold small">Assigned Package Tier</label>
-                            <select name="preferred_package" id="modalPackageSelect" class="form-select filter-select">
+                            <select name="preferred_package" id="modalPackageSelect" class="form-select">
                                 <option value="Elite Professional">Elite Professional</option>
                                 <option value="Elite Business">Elite Business</option>
                                 <option value="Elite Aristocrat">Elite Aristocrat</option>

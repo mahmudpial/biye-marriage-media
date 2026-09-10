@@ -422,21 +422,18 @@
                             <div class="text-white fw-bold fs-6 line-clamp-2 mx-auto text-center" style="max-width: 210px;" title="{{ $profile->profession }}">
                                 {{ $profile->profession }}
                             </div>
-                            <div class="text-silver small mt-1 d-flex align-items-center justify-content-center gap-1 mx-auto" style="max-width: 210px;" title="{{ $profile->education }}">
-                                <i class="bi bi-mortarboard-fill text-gold flex-shrink-0"></i>
-                                <span class="line-clamp-2 text-center">{{ $profile->education }}</span>
+                            <div class="text-silver small mt-1 line-clamp-2 mx-auto text-center" style="max-width: 210px;" title="{{ $profile->education }}">
+                                {{ $profile->education }}
                             </div>
                         </td>
 
                         <!-- 4. Location & Origin -->
                         <td class="text-center">
-                            <div class="text-white fw-medium d-flex align-items-center justify-content-center gap-1.5 mx-auto" style="max-width: 200px;" title="{{ $profile->location }}">
-                                <i class="bi bi-geo-alt-fill text-danger flex-shrink-0"></i>
-                                <span class="line-clamp-2 text-center">{{ $profile->location }}</span>
+                            <div class="text-white fw-medium line-clamp-2 mx-auto text-center" style="max-width: 200px;" title="{{ $profile->location }}">
+                                {{ $profile->location }}
                             </div>
-                            <div class="text-silver small mt-1 d-flex align-items-center justify-content-center gap-1.5 mx-auto" style="max-width: 200px;" title="Home: {{ $profile->desher_bari }}">
-                                <i class="bi bi-house-door-fill text-gold flex-shrink-0"></i>
-                                <span class="line-clamp-2 text-center">Home: <strong class="text-white">{{ $profile->desher_bari }}</strong></span>
+                            <div class="text-silver small mt-1 line-clamp-2 mx-auto text-center" style="max-width: 200px;" title="Home: {{ $profile->desher_bari }}">
+                                Home: <strong class="text-white">{{ $profile->desher_bari }}</strong>
                             </div>
                         </td>
 

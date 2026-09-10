@@ -643,6 +643,122 @@
             box-shadow: 0 4px 14px rgba(220, 38, 38, 0.55);
         }
 
+        /* ================= CUSTOM FILTER DROPDOWN COMPONENTS ================= */
+        .custom-filter-dropdown {
+            position: relative;
+            width: 100%;
+        }
+
+        .custom-filter-btn {
+            width: 100%;
+            height: 38px;
+            background: #0d1117 !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            border-radius: 9px !important;
+            padding: 0.45rem 0.85rem !important;
+            color: #f8fafc !important;
+            font-size: 0.88rem !important;
+            font-weight: 500 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            text-align: left !important;
+            transition: all 0.2s ease !important;
+            cursor: pointer;
+            box-shadow: none !important;
+        }
+
+        .custom-filter-btn::after {
+            display: none !important; /* Hide Bootstrap default caret */
+        }
+
+        .custom-filter-btn:focus,
+        .custom-filter-btn.show,
+        .custom-filter-dropdown.show .custom-filter-btn {
+            border-color: var(--theme-secondary, #d4af37) !important;
+            box-shadow: 0 0 0 0.2rem rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.25) !important;
+            color: #ffffff !important;
+        }
+
+        .custom-filter-btn .btn-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-right: 0.5rem;
+        }
+
+        .custom-filter-btn .btn-chevron {
+            color: var(--theme-secondary, #d4af37);
+            font-size: 0.75rem;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .custom-filter-btn[aria-expanded="true"] .btn-chevron,
+        .custom-filter-dropdown.show .custom-filter-btn .btn-chevron {
+            transform: rotate(180deg);
+        }
+
+        .custom-filter-menu {
+            box-sizing: border-box !important;
+            background: #141820 !important;
+            background: linear-gradient(180deg, #171c26 0%, #111520 100%) !important;
+            border: 1px solid rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.4) !important;
+            border-radius: 10px !important;
+            padding: 0.4rem !important;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75) !important;
+            max-height: 280px !important;
+            overflow-y: auto !important;
+            z-index: 1060 !important;
+            margin-top: 4px !important;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.3) transparent;
+        }
+
+        .custom-filter-menu::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-filter-menu::-webkit-scrollbar-thumb {
+            background: rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.35);
+            border-radius: 4px;
+        }
+
+        .custom-filter-item {
+            color: #cbd5e1 !important;
+            padding: 0.5rem 0.8rem !important;
+            font-size: 0.86rem !important;
+            font-weight: 500 !important;
+            border-radius: 7px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            transition: all 0.15s ease !important;
+            background: transparent !important;
+            border: none !important;
+            width: 100% !important;
+            text-align: left !important;
+            cursor: pointer;
+        }
+
+        .custom-filter-item:hover,
+        .custom-filter-item:focus {
+            background: rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.15) !important;
+            color: #ffffff !important;
+            padding-left: 0.95rem !important;
+        }
+
+        .custom-filter-item.active-item {
+            background: rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.22) !important;
+            color: #fde047 !important;
+            font-weight: 700 !important;
+        }
+
+        .custom-filter-item .item-check {
+            color: var(--theme-secondary, #d4af37);
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
         /* ================= EXECUTIVE TOAST NOTIFICATIONS ================= */
         .admin-toast-container {
             position: fixed;
@@ -1093,6 +1209,122 @@
                     el.remove();
                 }, 350);
             }
+
+            // Universal Custom Filter Dropdown Enhancer for Admin & CMS Studio Search Fields
+            const filterSelects = document.querySelectorAll('form select.filter-select');
+            filterSelects.forEach(function (select) {
+                if (select.dataset.customEnhanced) return;
+                select.dataset.customEnhanced = 'true';
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'dropdown custom-filter-dropdown';
+
+                const selectedOpt = select.options[select.selectedIndex] || select.options[0];
+                const initialText = selectedOpt ? selectedOpt.text : 'Select...';
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'btn custom-filter-btn dropdown-toggle';
+                btn.setAttribute('data-bs-toggle', 'dropdown');
+                btn.setAttribute('data-bs-popper-config', '{"strategy":"fixed"}');
+                btn.setAttribute('aria-expanded', 'false');
+                btn.innerHTML = `
+                    <span class="btn-text">${initialText}</span>
+                    <i class="bi bi-chevron-down btn-chevron"></i>
+                `;
+
+                const menu = document.createElement('ul');
+                menu.className = 'dropdown-menu custom-filter-menu shadow-lg';
+
+                Array.from(select.options).forEach(function (opt) {
+                    const li = document.createElement('li');
+                    const itemBtn = document.createElement('button');
+                    itemBtn.type = 'button';
+                    const isSelected = opt.value === select.value || (!select.value && !opt.value);
+                    itemBtn.className = 'dropdown-item custom-filter-item' + (isSelected ? ' active-item' : '');
+                    itemBtn.dataset.value = opt.value;
+                    itemBtn.innerHTML = `
+                        <span>${opt.text}</span>
+                        ${isSelected ? '<i class="bi bi-check2 item-check"></i>' : ''}
+                    `;
+
+                    itemBtn.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        if (select.value === opt.value) {
+                            const bsDropdown = bootstrap.Dropdown.getInstance(btn);
+                            if (bsDropdown) bsDropdown.hide();
+                            return;
+                        }
+
+                        select.value = opt.value;
+                        btn.querySelector('.btn-text').textContent = opt.text;
+
+                        menu.querySelectorAll('.custom-filter-item').forEach(function (el) {
+                            el.classList.remove('active-item');
+                            const chk = el.querySelector('.item-check');
+                            if (chk) chk.remove();
+                        });
+                        itemBtn.classList.add('active-item');
+                        const chk = document.createElement('i');
+                        chk.className = 'bi bi-check2 item-check';
+                        itemBtn.appendChild(chk);
+
+                        const bsDropdown = bootstrap.Dropdown.getInstance(btn);
+                        if (bsDropdown) bsDropdown.hide();
+
+                        // Dispatch change event on original select
+                        select.dispatchEvent(new Event('change', { bubbles: true }));
+
+                        // Handle automatic submission
+                        if (select.onchange) {
+                            select.onchange();
+                        } else if (select.getAttribute('onchange') && select.getAttribute('onchange').includes('submit')) {
+                            select.form.submit();
+                        }
+                    });
+
+                    li.appendChild(itemBtn);
+                    menu.appendChild(li);
+                });
+
+                wrapper.appendChild(btn);
+                wrapper.appendChild(menu);
+
+                // Hide native select visually
+                select.style.setProperty('display', 'none', 'important');
+                select.parentNode.insertBefore(wrapper, select.nextSibling);
+
+                // Synchronize width on dropdown show
+                wrapper.addEventListener('show.bs.dropdown', function () {
+                    const btnWidth = btn.offsetWidth;
+                    menu.style.width = btnWidth + 'px';
+                    menu.style.minWidth = btnWidth + 'px';
+                    menu.style.maxWidth = btnWidth + 'px';
+                });
+
+                // Initialize Bootstrap Dropdown with Popper sameWidth modifier
+                new bootstrap.Dropdown(btn, {
+                    popperConfig: function () {
+                        return {
+                            strategy: 'fixed',
+                            modifiers: [
+                                {
+                                    name: 'sameWidth',
+                                    enabled: true,
+                                    phase: 'beforeWrite',
+                                    requires: ['computeStyles'],
+                                    fn: function (data) {
+                                        data.state.styles.popper.width = `${data.state.rects.reference.width}px`;
+                                    },
+                                    effect: function (data) {
+                                        data.state.elements.popper.style.width = `${data.state.elements.reference.offsetWidth}px`;
+                                    }
+                                }
+                            ]
+                        };
+                    }
+                });
+            });
         });
     </script>
     @stack('scripts')

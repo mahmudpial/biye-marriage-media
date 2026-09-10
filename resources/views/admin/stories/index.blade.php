@@ -460,7 +460,6 @@
                             <!-- Locations -->
                             <td class="text-center">
                                 <div class="story-location-tag mx-auto">
-                                    <i class="bi bi-geo-alt-fill me-1"></i>
                                     <span>{{ $story->locations }}</span>
                                 </div>
                             </td>

@@ -382,7 +382,7 @@
                                 <td class="text-center">
                                     <div class="d-inline-flex align-items-center justify-content-center gap-1">
                                         <span class="text-nowrap text-white fw-medium" style="font-size: 0.86rem;">
-                                            <i class="bi bi-geo-alt-fill text-danger me-1"></i>{{ $inq['city'] ?? $inq['location'] }}
+                                            {{ $inq['city'] ?? $inq['location'] }}
                                         </span>
                                         <span class="text-nowrap small" style="color: #cbd5e1;">(Home: {{ $inq['desher_bari'] }})</span>
                                     </div>
