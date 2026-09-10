@@ -39,7 +39,7 @@ class AdminFaqTest extends TestCase
         $response = $this->actingAs($admin)->get(route('admin.faqs.index'));
 
         $response->assertStatus(200);
-        $response->assertSee('Matrimonial FAQs &amp; Knowledgebase', false);
+        $response->assertSee('Publish New FAQ');
         $response->assertSee('How does Biye Marriage Media ensure complete confidentiality in Bangladesh?', false);
         $response->assertSee('Confidentiality &amp; Discretion', false);
     }

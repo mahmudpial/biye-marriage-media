@@ -199,6 +199,18 @@
         transform: translateY(-2px);
         box-shadow: 0 4px 14px rgba(212, 175, 55, 0.55);
     }
+    .btn-action-icon.view {
+        background: rgba(56, 189, 248, 0.18);
+        border: 1px solid rgba(56, 189, 248, 0.5) !important;
+        color: #38bdf8 !important;
+    }
+    .btn-action-icon.view:hover {
+        background: #0284c7;
+        color: #ffffff !important;
+        border-color: #38bdf8 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(2, 132, 199, 0.55);
+    }
     .btn-action-icon.delete {
         background: rgba(220, 38, 38, 0.2);
         border: 1px solid rgba(239, 68, 68, 0.55) !important;
@@ -325,7 +337,7 @@
                         <th style="min-width: 170px;">Ancestral Origin</th>
                         <th style="width: 170px;">Tier &amp; Income</th>
                         <th class="text-center" style="width: 110px;">Status</th>
-                        <th class="text-end" style="width: 110px;">Actions</th>
+                        <th class="text-end" style="width: 140px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -437,9 +449,20 @@
                             </form>
                         </td>
 
-                        <!-- 9. Actions: Edit & Delete Icon Buttons -->
+                        <!-- 9. Actions: View, Edit & Delete Icon Buttons -->
                         <td class="text-end">
                             <div class="d-inline-flex gap-2 align-items-center justify-content-end">
+                                <!-- View Details Icon Button -->
+                                <button 
+                                    type="button" 
+                                    class="btn-action-icon view" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#viewProfileModal{{ $profile->id }}"
+                                    title="View Candidate Full Profile"
+                                >
+                                    <i class="bi bi-eye-fill"></i>
+                                </button>
+
                                 <!-- Edit Icon Button -->
                                 <a 
                                     href="{{ route('admin.profiles.edit', $profile) }}" 
@@ -459,6 +482,125 @@
                                 >
                                     <i class="bi bi-trash3-fill"></i>
                                 </button>
+                            </div>
+
+                            <!-- Candidate Details Modal -->
+                            <div class="modal fade text-start" id="viewProfileModal{{ $profile->id }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content text-white" style="background: #141820; border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 16px;">
+                                        <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <i class="bi bi-person-badge-fill text-gold fs-5"></i>
+                                                <h5 class="modal-title fw-bold text-white mb-0">Candidate Overview: <span class="text-gold font-monospace">{{ $profile->profile_code }}</span></h5>
+                                            </div>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body p-4">
+                                            <div class="row g-4">
+                                                <div class="col-md-4 text-center">
+                                                    <img src="{{ $profile->resolved_image }}" alt="{{ $profile->profile_code }}" class="img-fluid rounded-3 border border-warning border-opacity-25 shadow-sm mb-3" style="max-height: 220px; object-fit: cover; width: 100%;">
+                                                    <div class="mb-2">
+                                                        @if($profile->gender === 'female')
+                                                            <span class="badge badge-bride px-2.5 py-1.5"><i class="bi bi-gender-female"></i> Bride Profile</span>
+                                                        @else
+                                                            <span class="badge badge-groom px-2.5 py-1.5"><i class="bi bi-gender-male"></i> Groom Profile</span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="d-flex flex-wrap gap-1.5 justify-content-center">
+                                                        <span class="badge badge-tier">{{ $profile->category }}</span>
+                                                        @if($profile->is_discreet)
+                                                            <span class="badge badge-discreet"><i class="bi bi-shield-lock-fill"></i> Discreet</span>
+                                                        @else
+                                                            <span class="badge bg-dark border border-secondary border-opacity-50 text-silver"><i class="bi bi-eye-fill text-success"></i> Public</span>
+                                                        @endif
+                                                        <span class="badge {{ $profile->is_active ? 'bg-success' : 'bg-danger' }}">
+                                                            {{ $profile->is_active ? 'Active' : 'Inactive' }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="row g-3">
+                                                        <div class="col-6">
+                                                            <div class="small text-secondary">Age &amp; Height</div>
+                                                            <div class="fw-bold text-white fs-6">{{ $profile->age }} Yrs &bull; {{ $profile->height }}</div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="small text-secondary">Religion &amp; Status</div>
+                                                            <div class="fw-bold text-white fs-6">{{ $profile->religion }} &bull; {{ $profile->marital_status }}</div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="small text-secondary">Profession &amp; Workplace</div>
+                                                            <div class="fw-bold text-gold-bright fs-6">
+                                                                {{ $profile->profession }}
+                                                                @if($profile->employer)
+                                                                    <span class="text-silver fw-normal small">at {{ $profile->employer }}</span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="small text-secondary">Education &amp; Institution</div>
+                                                            <div class="fw-medium text-white">
+                                                                <i class="bi bi-mortarboard-fill text-gold me-1"></i>{{ $profile->education }}
+                                                                @if($profile->institution)
+                                                                    <span class="text-silver small">({{ $profile->institution }})</span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="small text-secondary">Present Location</div>
+                                                            <div class="fw-medium text-white">
+                                                                <i class="bi bi-geo-alt-fill text-danger me-1"></i>{{ $profile->location }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="small text-secondary">Ancestral Origin (Desher Bari)</div>
+                                                            <div class="fw-medium text-white">
+                                                                <i class="bi bi-house-door-fill text-gold me-1"></i>{{ $profile->desher_bari }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="small text-secondary">Annual Income</div>
+                                                            <div class="fw-bold text-gold fs-6">
+                                                                <i class="bi bi-cash-stack me-1"></i>{{ $profile->income }}
+                                                            </div>
+                                                        </div>
+                                                        @if($profile->complexion)
+                                                        <div class="col-6">
+                                                            <div class="small text-secondary">Complexion</div>
+                                                            <div class="fw-medium text-white">{{ $profile->complexion }}</div>
+                                                        </div>
+                                                        @endif
+                                                    </div>
+
+                                                    @if($profile->about)
+                                                    <div class="mt-3 pt-3 border-top border-secondary border-opacity-25">
+                                                        <div class="small text-gold fw-semibold mb-1">About &amp; Personal Notes</div>
+                                                        <div class="small text-silver" style="line-height: 1.55;">{{ $profile->about }}</div>
+                                                    </div>
+                                                    @endif
+
+                                                    @if($profile->partner_expectations)
+                                                    <div class="mt-3 pt-2">
+                                                        <div class="small text-gold fw-semibold mb-1">Partner Expectations</div>
+                                                        <div class="small text-silver" style="line-height: 1.55;">{{ $profile->partner_expectations }}</div>
+                                                    </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer border-top border-secondary border-opacity-25 py-2.5 px-4 d-flex justify-content-between">
+                                            <span class="small text-muted font-monospace">Candidate #{{ $profile->id }}</span>
+                                            <div class="d-flex gap-2">
+                                                <a href="{{ route('profiles', ['q' => $profile->profile_code]) }}" target="_blank" class="btn btn-outline-secondary btn-sm px-3">
+                                                    <i class="bi bi-globe me-1"></i> View Live Gallery
+                                                </a>
+                                                <a href="{{ route('admin.profiles.edit', $profile) }}" class="btn btn-admin-primary btn-sm px-3 fw-bold text-dark">
+                                                    <i class="bi bi-pencil-square me-1"></i> Edit Candidate
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Delete Modal -->

@@ -14,7 +14,7 @@
                     <i class="bi bi-grid-fill"></i>
                 </div>
                 <div>
-                    <div class="fs-4 fw-bold text-white mb-0">11</div>
+                    <div class="fs-4 fw-bold text-white mb-0">{{ count($sections) + 1 }}</div>
                     <div class="small text-secondary">Total CMS Modules</div>
                 </div>
             </div>
@@ -95,6 +95,42 @@
             </div>
         </div>
         @endforeach
+
+        <!-- FAQs & Knowledgebase CMS Hub Card -->
+        <div class="col-xl-4 col-md-6 d-flex">
+            <div class="section-card w-100 d-flex flex-column p-4 position-relative section-module-card">
+                <!-- Top Card Row: Icon & Category Badge -->
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="section-card-icon-frame">
+                        <i class="bi bi-question-diamond-fill"></i>
+                    </div>
+                    <span class="badge rounded-pill px-2.5 py-1" style="background: rgba(255, 255, 255, 0.05); color: #94a3b8; border: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.72rem; letter-spacing: 0.4px;">
+                        Client Assurance
+                    </span>
+                </div>
+
+                <!-- Section Title & Meta -->
+                <div class="mb-1 text-gold fw-semibold small d-flex align-items-center gap-1" style="color: var(--theme-secondary, #d4af37) !important; font-size: 0.78rem; letter-spacing: 0.4px;">
+                    <i class="bi bi-circle-fill me-1" style="font-size: 0.4rem; opacity: 0.75;"></i>
+                    <span>FAQs &amp; Helpdesk</span>
+                </div>
+                <h5 class="fw-bold font-serif mb-2" style="color: #f1f5f9; font-size: 1.15rem; letter-spacing: -0.01em;">FAQs &amp; Knowledgebase</h5>
+                <p class="small mb-4 flex-grow-1" style="color: #94a3b8; line-height: 1.6; font-size: 0.88rem;">
+                    Matrimonial trust, confidentiality assurances, packages questions, and process clarifications displayed on public portal.
+                </p>
+
+                <!-- Card Footer & Action Button -->
+                <div class="pt-3 border-top border-secondary border-opacity-10 d-flex align-items-center justify-content-between">
+                    <span class="badge bg-dark text-muted-custom border border-secondary border-opacity-25 px-2.5 py-1 small" style="font-size: 0.7rem; font-weight: 500;">
+                        <i class="bi bi-patch-question-fill text-warning me-1"></i> Knowledgebase
+                    </span>
+                    <a href="{{ route('admin.faqs.index') }}" class="btn btn-sm btn-manage-section px-3 py-1.5 fw-semibold d-inline-flex align-items-center gap-1.5">
+                        <span>Manage FAQs</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

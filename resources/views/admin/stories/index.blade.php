@@ -116,7 +116,7 @@
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     }
 
-    /* Badges */
+    /* Badges & Location Pill */
     .badge-gold {
         background: rgba(212, 175, 55, 0.15);
         color: #fde68a;
@@ -125,6 +125,55 @@
         padding: 0.35rem 0.65rem;
         border-radius: 8px;
         font-size: 0.76rem;
+    }
+    .story-location-tag {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #e2e8f0;
+        font-size: 0.78rem;
+        font-weight: 500;
+        padding: 0.3rem 0.65rem;
+        border-radius: 6px;
+        letter-spacing: 0.2px;
+        white-space: nowrap;
+    }
+    .story-location-tag i {
+        color: var(--theme-secondary, #d4af37);
+        font-size: 0.8rem;
+    }
+
+    /* Clean Testimonial Quote Card */
+    .story-quote-card {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        background: #0f141d;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-left: 3px solid var(--theme-secondary, #d4af37);
+        padding: 0.45rem 0.7rem;
+        border-radius: 8px;
+        color: #cbd5e1;
+        font-size: 0.8rem;
+        line-height: 1.45;
+        font-style: italic;
+        max-width: 280px;
+        transition: all 0.2s ease;
+        cursor: default;
+    }
+    .story-quote-card:hover {
+        background: #141b27;
+        border-color: rgba(212, 175, 55, 0.35);
+        border-left-color: var(--theme-secondary, #d4af37);
+        color: #ffffff;
+    }
+    .story-quote-icon {
+        font-size: 0.9rem;
+        color: var(--theme-secondary, #d4af37);
+        margin-right: 0.25rem;
+        vertical-align: -1px;
     }
 
     /* Status Toggle Buttons */
@@ -398,9 +447,10 @@
 
                             <!-- Locations -->
                             <td>
-                                <span class="badge-gold">
-                                    <i class="bi bi-geo-alt-fill text-gold me-1"></i>{{ $story->locations }}
-                                </span>
+                                <div class="story-location-tag">
+                                    <i class="bi bi-geo-alt-fill me-1"></i>
+                                    <span>{{ $story->locations }}</span>
+                                </div>
                             </td>
 
                             <!-- Wedding Date & Venue -->
@@ -411,9 +461,10 @@
                             </td>
 
                             <!-- Testimonial Quote -->
-                            <td style="max-width: 250px;">
-                                <div class="small text-muted text-truncate" title="{{ $story->quote }}">
-                                    "{{ $story->quote }}"
+                            <td style="max-width: 280px;">
+                                <div class="story-quote-card" title="{{ $story->quote }}">
+                                    <i class="bi bi-quote story-quote-icon"></i>
+                                    <span>{{ $story->quote }}</span>
                                 </div>
                             </td>
 
@@ -450,6 +501,17 @@
                             <!-- Action Buttons -->
                             <td class="text-end">
                                 <div class="d-flex justify-content-end gap-2">
+                                    <!-- View Details Button (36px Sky/Cyan) -->
+                                    <button 
+                                        type="button" 
+                                        class="btn-action-icon view" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#viewStoryModal{{ $story->id }}"
+                                        title="View Full Testimonial Details"
+                                    >
+                                        <i class="bi bi-eye-fill"></i>
+                                    </button>
+
                                     <!-- Edit Button (36px Gold) -->
                                     <a 
                                         href="{{ route('admin.stories.edit', $story) }}" 
@@ -468,6 +530,61 @@
                                     >
                                         <i class="bi bi-trash3-fill"></i>
                                     </button>
+                                </div>
+
+                                <!-- View Story Modal -->
+                                <div class="modal fade text-start" id="viewStoryModal{{ $story->id }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                        <div class="modal-content text-white" style="background: #141820; border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 16px;">
+                                            <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <i class="bi bi-heart-fill text-gold fs-5"></i>
+                                                    <h5 class="modal-title fw-bold text-white mb-0">{{ $story->names }}</h5>
+                                                </div>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body p-4">
+                                                <div class="row g-4 align-items-center">
+                                                    <div class="col-md-5 text-center">
+                                                        <img src="{{ $story->image }}" alt="{{ $story->names }}" class="img-fluid rounded-3 border border-warning border-opacity-25 shadow-sm mb-2" style="max-height: 240px; object-fit: cover; width: 100%;">
+                                                        <div class="text-gold fw-bold">{{ $story->names }}</div>
+                                                        <div class="text-silver small">{{ $story->titles }}</div>
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <div class="d-flex flex-wrap gap-2 mb-3">
+                                                            <span class="story-location-tag">
+                                                                <i class="bi bi-geo-alt-fill me-1"></i> {{ $story->locations }}
+                                                            </span>
+                                                            <span class="badge rounded-pill bg-dark border border-secondary border-opacity-50 text-white px-2.5 py-1.5 small">
+                                                                <i class="bi bi-calendar-heart text-gold me-1"></i> {{ $story->year }}
+                                                            </span>
+                                                            @if($story->is_featured)
+                                                                <span class="badge rounded-pill bg-warning-subtle text-warning border border-warning-subtle px-2.5 py-1.5 small">
+                                                                    <i class="bi bi-star-fill me-1"></i> Featured on Home
+                                                                </span>
+                                                            @endif
+                                                        </div>
+
+                                                        <label class="text-gold fw-semibold small text-uppercase mb-1 d-block" style="letter-spacing: 0.5px;">Testimonial Quote</label>
+                                                        <div class="p-3 rounded-3" style="background: #0b0f17; border-left: 4px solid var(--theme-secondary, #d4af37); color: #cbd5e1; font-style: italic; line-height: 1.6;">
+                                                            <i class="bi bi-quote fs-4 text-gold me-1"></i>{{ $story->quote }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer border-top border-secondary border-opacity-25 py-2.5 px-4 d-flex justify-content-between">
+                                                <span class="small text-muted">Order Priority: #{{ $story->sort_order }}</span>
+                                                <div class="d-flex gap-2">
+                                                    <a href="{{ route('stories') }}" target="_blank" class="btn btn-outline-secondary btn-sm px-3">
+                                                        <i class="bi bi-globe me-1"></i> Public Gallery
+                                                    </a>
+                                                    <a href="{{ route('admin.stories.edit', $story) }}" class="btn btn-admin-primary btn-sm px-3 fw-bold text-dark">
+                                                        <i class="bi bi-pencil-square me-1"></i> Edit Story
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </td>
                         </tr>

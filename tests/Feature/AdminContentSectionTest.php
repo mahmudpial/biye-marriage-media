@@ -49,6 +49,10 @@ class AdminContentSectionTest extends TestCase
             $response->assertSee($sec['nav_label']);
             $response->assertSee(route('admin.sections.edit', $key), false);
         }
+
+        // FAQs & Knowledgebase module card
+        $response->assertSee('FAQs &amp; Knowledgebase', false);
+        $response->assertSee(route('admin.faqs.index'), false);
     }
 
     public function test_admin_can_view_each_of_the_11_section_edit_pages(): void

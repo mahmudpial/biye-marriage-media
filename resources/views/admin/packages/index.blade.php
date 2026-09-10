@@ -227,6 +227,18 @@
         transform: translateY(-2px);
         box-shadow: 0 4px 14px rgba(212, 175, 55, 0.55);
     }
+    .btn-action-icon.view {
+        background: rgba(56, 189, 248, 0.18);
+        border: 1px solid rgba(56, 189, 248, 0.5) !important;
+        color: #38bdf8 !important;
+    }
+    .btn-action-icon.view:hover {
+        background: #0284c7;
+        color: #ffffff !important;
+        border-color: #38bdf8 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(2, 132, 199, 0.55);
+    }
     .btn-action-icon.delete {
         background: rgba(220, 38, 38, 0.2);
         border: 1px solid rgba(239, 68, 68, 0.55) !important;
@@ -388,7 +400,7 @@
                         <th>Privileges Included</th>
                         <th class="text-center" style="width: 140px;">Most Preferred</th>
                         <th class="text-center" style="width: 120px;">Status</th>
-                        <th class="text-end" style="width: 120px;">Actions</th>
+                        <th class="text-end" style="width: 140px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -488,9 +500,20 @@
                             </form>
                         </td>
 
-                        <!-- 8. Actions: Edit & Delete Icon Buttons -->
+                        <!-- 8. Actions: View, Edit & Delete Icon Buttons -->
                         <td class="text-end">
                             <div class="d-inline-flex gap-2 align-items-center justify-content-end">
+                                <!-- View Details Icon Button -->
+                                <button 
+                                    type="button" 
+                                    class="btn-action-icon view" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#viewPackageModal{{ $pkg->id }}"
+                                    title="View Package Privileges &amp; Details"
+                                >
+                                    <i class="bi bi-eye-fill"></i>
+                                </button>
+
                                 <!-- Edit Icon Button -->
                                 <a 
                                     href="{{ route('admin.packages.edit', $pkg) }}" 
@@ -510,6 +533,76 @@
                                 >
                                     <i class="bi bi-trash3-fill"></i>
                                 </button>
+                            </div>
+
+                            <!-- Package Details Modal -->
+                            <div class="modal fade text-start" id="viewPackageModal{{ $pkg->id }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content text-white" style="background: #141820; border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 16px;">
+                                        <div class="modal-header border-bottom border-secondary border-opacity-25 py-3 px-4">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <i class="bi bi-crown text-gold fs-5"></i>
+                                                <h5 class="modal-title fw-bold text-white mb-0">Package: <span class="text-gold">{{ $pkg->name }}</span></h5>
+                                            </div>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body p-4">
+                                            <div class="row g-4 mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="small text-secondary">Pricing / Fee Structure</div>
+                                                    <div class="fs-4 fw-bold text-gold-bright">{{ $pkg->price ?: 'Custom Quote' }}</div>
+                                                </div>
+                                                <div class="col-md-6 text-md-end">
+                                                    <div class="small text-secondary mb-1">Status &amp; Showcase</div>
+                                                    <span class="badge {{ $pkg->is_active ? 'bg-success' : 'bg-danger' }} px-2.5 py-1.5 me-1">
+                                                        {{ $pkg->is_active ? 'Active' : 'Inactive' }}
+                                                    </span>
+                                                    @if($pkg->is_popular)
+                                                        <span class="badge bg-warning text-dark px-2.5 py-1.5 fw-bold">
+                                                            <i class="bi bi-star-fill"></i> Most Preferred
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+
+                                            @if($pkg->description)
+                                            <div class="mb-3 p-3 rounded-3" style="background: #0b0f17; border-left: 3px solid var(--theme-secondary, #d4af37);">
+                                                <div class="small text-secondary mb-1">Overview Description</div>
+                                                <div class="text-silver small" style="line-height: 1.55;">{{ $pkg->description }}</div>
+                                            </div>
+                                            @endif
+
+                                            <div>
+                                                <div class="small text-gold fw-semibold text-uppercase mb-2" style="letter-spacing: 0.5px;">
+                                                    <i class="bi bi-check2-all me-1"></i> Included Privileges &amp; Features ({{ is_array($pkg->benefits) ? count($pkg->benefits) : 0 }})
+                                                </div>
+                                                <div class="row g-2">
+                                                    @forelse($pkg->benefits ?? [] as $benefit)
+                                                        <div class="col-md-6">
+                                                            <div class="d-flex align-items-start gap-2 p-2 rounded" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);">
+                                                                <i class="bi bi-check-circle-fill text-success flex-shrink-0 mt-0.5"></i>
+                                                                <span class="small text-silver">{{ $benefit }}</span>
+                                                            </div>
+                                                        </div>
+                                                    @empty
+                                                        <div class="col-12 text-muted small">No specific privileges listed.</div>
+                                                    @endforelse
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer border-top border-secondary border-opacity-25 py-2.5 px-4 d-flex justify-content-between">
+                                            <span class="small text-muted">Sort Order #{{ $pkg->sort_order }}</span>
+                                            <div class="d-flex gap-2">
+                                                <a href="{{ route('packages') }}" target="_blank" class="btn btn-outline-secondary btn-sm px-3">
+                                                    <i class="bi bi-globe me-1"></i> Public Pricing Page
+                                                </a>
+                                                <a href="{{ route('admin.packages.edit', $pkg) }}" class="btn btn-admin-primary btn-sm px-3 fw-bold text-dark">
+                                                    <i class="bi bi-pencil-square me-1"></i> Edit Package
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Delete Modal -->
