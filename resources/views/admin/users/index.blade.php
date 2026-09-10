@@ -257,6 +257,34 @@
         color: var(--accent-gold, #d4af37) !important;
     }
 
+    /* Primary Action Buttons */
+    .btn-admin-primary {
+        background: linear-gradient(135deg, #f5d061 0%, #d4af37 55%, #b89327 100%) !important;
+        color: #0b0f17 !important;
+        border: 1px solid rgba(254, 240, 138, 0.8) !important;
+        font-weight: 700 !important;
+        border-radius: 9px;
+        box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-admin-primary:hover {
+        background: linear-gradient(135deg, #fff3b0 0%, #f7d768 50%, #d4af37 100%) !important;
+        color: #000000 !important;
+        border-color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 22px rgba(212, 175, 55, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+    .btn-admin-primary:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+    }
+
     .badge-you {
         font-size: 0.65rem;
         background: rgba(212, 175, 55, 0.2);
@@ -322,14 +350,6 @@
         </div>
     </div>
 
-    <!-- Action Bar -->
-    <div class="d-flex justify-content-end align-items-center mb-4">
-        <a href="{{ route('admin.users.create') }}" class="btn btn-admin-primary px-3 py-2 fw-bold text-dark d-inline-flex align-items-center gap-2">
-            <i class="bi bi-person-plus-fill"></i>
-            <span>Add Team Member</span>
-        </a>
-    </div>
-
     <!-- Filter & Search Card -->
     <div class="filter-card mb-4">
         <form method="GET" action="{{ route('admin.users.index') }}">
@@ -371,8 +391,28 @@
         </form>
     </div>
 
-    <!-- Users Table -->
-    <div class="table-container mb-4">
+    <!-- Users Table Card -->
+    <div class="table-container mb-4 shadow-lg">
+        <!-- Table Card Header -->
+        <div class="p-3 px-4 border-bottom border-secondary border-opacity-25 d-flex flex-wrap justify-content-between align-items-center gap-3" style="background: rgba(0, 0, 0, 0.25);">
+            <div class="d-flex align-items-center gap-2">
+                <h5 class="text-white fw-bold mb-0 d-flex align-items-center gap-2">
+                    <i class="bi bi-person-gear text-gold"></i>
+                    <span>Staff &amp; Matchmaker Accounts</span>
+                </h5>
+                <span class="badge rounded-pill bg-dark border border-warning-subtle text-gold px-2.5 py-1" style="font-size: 0.72rem; letter-spacing: 0.3px;">
+                    {{ $users->total() }} Members
+                </span>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+                <a href="{{ route('admin.users.create') }}" class="btn btn-admin-primary px-3.5 py-2 fw-bold text-dark d-inline-flex align-items-center gap-2">
+                    <i class="bi bi-person-plus-fill"></i>
+                    <span>+ Add Team Member</span>
+                </a>
+            </div>
+        </div>
+
         <div class="table-responsive">
             <table class="table table-users align-middle">
                 <thead>
