@@ -232,6 +232,7 @@
         color: #cbd5e1;
         line-height: 1.5;
         margin-top: 0.35rem;
+        text-align: center;
     }
     .faq-order-badge {
         background: rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.15);
@@ -241,6 +242,8 @@
         font-weight: 700;
         padding: 0.25rem 0.55rem;
         border-radius: 6px;
+        display: inline-block;
+        text-align: center;
     }
 </style>
 @endpush
@@ -319,23 +322,21 @@
                     <label class="filter-label"><i class="bi bi-toggle2-on me-1"></i> Status</label>
                     <select name="status" class="form-select filter-select">
                         <option value="">All Statuses</option>
-                        <option value="active" {{ ($filters['status'] ?? '') === 'active' ? 'selected' : '' }}>Published (Active)</option>
-                        <option value="inactive" {{ ($filters['status'] ?? '') === 'inactive' ? 'selected' : '' }}>Hidden (Draft)</option>
+                        <option value="active" {{ ($filters['status'] ?? '') === 'active' ? 'selected' : '' }}>Active Only</option>
+                        <option value="inactive" {{ ($filters['status'] ?? '') === 'inactive' ? 'selected' : '' }}>Drafts Only</option>
                     </select>
                 </div>
-                <div class="col-xl-3 col-lg-4 col-md-8 d-flex align-items-end gap-2">
-                    <button type="submit" class="btn btn-admin-primary flex-grow-1 py-2 fw-bold text-dark d-inline-flex align-items-center justify-content-center gap-1" style="height: 42px; line-height: 1;">
-                        <i class="bi bi-funnel-fill"></i>
-                        <span>Filter</span>
+                <div class="col-xl-3 col-lg-4 col-md-8 d-flex gap-2">
+                    <button type="submit" class="btn btn-outline-warning flex-fill filter-btn py-2">
+                        <i class="bi bi-funnel-fill me-1"></i> Filter
                     </button>
                     @if(!empty($filters['search']) || !empty($filters['category']) || !empty($filters['status']))
-                        <a href="{{ route('admin.faqs.index') }}" class="btn btn-outline-secondary d-inline-flex align-items-center justify-content-center flex-shrink-0" style="height: 42px; width: 42px; line-height: 1;" title="Reset Filters">
+                        <a href="{{ route('admin.faqs.index') }}" class="btn btn-outline-secondary filter-btn py-2" title="Reset Filters">
                             <i class="bi bi-arrow-counterclockwise"></i>
                         </a>
                     @endif
-                    <a href="{{ route('admin.faqs.create') }}" class="btn btn-admin-primary px-3 py-2 fw-bold text-dark d-inline-flex align-items-center justify-content-center gap-1.5 flex-shrink-0" style="height: 42px; line-height: 1; white-space: nowrap;">
-                        <i class="bi bi-plus-circle-fill"></i>
-                        <span>Publish New FAQ</span>
+                    <a href="{{ route('admin.faqs.create') }}" class="btn btn-admin-primary flex-fill filter-btn py-2 fw-bold text-dark">
+                        <i class="bi bi-plus-circle-fill me-1"></i> Publish New FAQ
                     </a>
                 </div>
             </div>
@@ -349,8 +350,8 @@
                 <thead>
                     <tr>
                         <th style="width: 70px;" class="text-center">Order</th>
-                        <th>Question &amp; Answer Excerpt</th>
-                        <th style="width: 170px;">Category</th>
+                        <th class="text-center">Question &amp; Answer Excerpt</th>
+                        <th style="width: 170px;" class="text-center">Category</th>
                         <th style="width: 130px;" class="text-center">Status</th>
                         <th style="width: 110px;" class="text-center">Actions</th>
                     </tr>
@@ -364,18 +365,18 @@
                             </td>
 
                             <!-- Question & Answer Excerpt -->
-                            <td>
-                                <div class="fw-bold text-white fs-6 mb-1 d-flex align-items-center gap-2">
-                                    <i class="bi bi-patch-question text-gold"></i>
+                            <td class="text-center">
+                                <div class="fw-bold text-white fs-6 mb-1 d-flex align-items-center justify-content-center gap-2 text-center">
+                                    <i class="bi bi-patch-question text-gold flex-shrink-0"></i>
                                     <span>{{ $faq->question }}</span>
                                 </div>
-                                <div class="faq-answer-preview">
+                                <div class="faq-answer-preview text-center mx-auto" style="max-width: 680px;">
                                     {{ Str::limit($faq->answer, 140) }}
                                 </div>
                             </td>
 
                             <!-- Category -->
-                            <td>
+                            <td class="text-center">
                                 @php
                                     $catClass = match(true) {
                                         str_contains($faq->category, 'Confidentiality') => 'cat-Confidentiality',
