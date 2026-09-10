@@ -942,10 +942,6 @@
                 <i class="bi bi-person-lines-fill"></i>
                 <span>VIP Inquiries &amp; Leads</span>
             </a>
-            <a href="{{ route('admin.faqs.index') }}" class="sidebar-link {{ request()->routeIs('admin.faqs.*') ? 'active' : '' }}">
-                <i class="bi bi-question-diamond-fill"></i>
-                <span>FAQs &amp; Knowledgebase</span>
-            </a>
 
             <div class="nav-category">Administration &amp; Staff</div>
             <a href="{{ route('admin.users.index') }}" class="sidebar-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
