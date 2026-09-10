@@ -104,8 +104,8 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
         $response->assertStatus(200);
-        $response->assertSee('New to Biye Marriage Media?');
-        $response->assertSee('Register Profile / Create Account');
+        $response->assertSee('New user or don\'t have an account yet?', false);
+        $response->assertSee('Register Profile');
         $response->assertSee('id="btnSwitchToRegister"', false);
     }
 

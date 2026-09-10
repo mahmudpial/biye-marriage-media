@@ -69,36 +69,21 @@
                     </div>
                 </div>
 
-                <!-- New User / Registration Section -->
-                <div class="mt-4 pt-3 border-top">
-                    <div class="new-member-banner p-3.5 rounded-3" style="background: linear-gradient(135deg, #fdfbf7 0%, #f7f1e5 100%); border: 1px solid rgba(201, 151, 56, 0.35); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);">
-                        <div class="d-flex align-items-center gap-2.5 mb-2">
-                            <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 34px; height: 34px; background: rgba(133, 24, 41, 0.1); color: var(--theme-primary, #851829); border: 1px solid rgba(133, 24, 41, 0.25);">
-                                <i class="bi bi-person-plus-fill fs-6"></i>
-                            </div>
-                            <div>
-                                <h6 class="mb-0 fw-bold text-dark" style="font-size: 0.92rem; line-height: 1.2;">
-                                    New to Biye Marriage Media?
-                                </h6>
-                                <span class="text-secondary" style="font-size: 0.77rem;">
-                                    নতুন ব্যবহারকারী বা এখনও অ্যাকাউন্ট / বায়োডাটা তৈরি করেননি?
-                                </span>
-                            </div>
-                        </div>
-                        <p class="text-muted mb-3" style="font-size: 0.82rem; line-height: 1.45;">
-                            Register your matrimonial profile or request a confidential VIP matchmaking consultation to connect with verified elite families.
-                        </p>
-                        <div class="d-grid">
-                            <button type="button" class="btn btn-elite-primary py-2 px-3 rounded-pill fw-semibold shadow-sm d-inline-flex align-items-center justify-content-center gap-2" id="btnSwitchToRegister" data-bs-dismiss="modal">
-                                <i class="bi bi-person-plus-fill"></i>
-                                <span>Register Profile / Create Account</span>
-                            </button>
-                        </div>
+                <!-- New User / Registration Prompt (Clean & Minimal) -->
+                <div class="mt-4 pt-3 border-top text-center">
+                    <p class="text-secondary mb-2" style="font-size: 0.86rem;">
+                        New user or don't have an account yet?
+                    </p>
+                    <div>
+                        <button type="button" class="btn btn-switch-register btn-sm rounded-pill px-4 py-2 fw-semibold d-inline-flex align-items-center gap-1.5" id="btnSwitchToRegister" data-bs-dismiss="modal">
+                            <i class="bi bi-person-plus-fill"></i>
+                            <span>Register Profile</span>
+                        </button>
                     </div>
 
                     <!-- Discreet Admin Login Link -->
-                    <div class="mt-3 text-center">
-                        <a href="{{ route('admin.login') }}" class="small text-muted text-decoration-none" style="font-size: 0.77rem;">
+                    <div class="mt-3 pt-1">
+                        <a href="{{ route('admin.login') }}" class="small text-muted text-decoration-none" style="font-size: 0.76rem;">
                             <i class="bi bi-shield-lock me-1 text-gold"></i> Administrative Staff? <strong class="text-secondary">Login to Admin Portal &rarr;</strong>
                         </a>
                     </div>
@@ -107,6 +92,28 @@
         </div>
     </div>
 </div>
+
+<style>
+.btn-switch-register {
+    color: var(--theme-primary, #851829);
+    border: 1.5px solid rgba(133, 24, 41, 0.35);
+    background: rgba(133, 24, 41, 0.04);
+    font-size: 0.86rem;
+    transition: all 0.25s ease;
+}
+.btn-switch-register:hover,
+.btn-switch-register:focus {
+    background: var(--theme-primary, #851829) !important;
+    border-color: var(--theme-primary, #851829) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(133, 24, 41, 0.25) !important;
+    transform: translateY(-1.5px);
+}
+.btn-switch-register:hover i,
+.btn-switch-register:focus i {
+    color: #ffffff !important;
+}
+</style>
 
 @push('scripts')
 <script>
