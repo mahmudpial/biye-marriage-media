@@ -208,6 +208,18 @@
         cursor: pointer;
         border: none;
     }
+    .btn-action-icon.view {
+        background: rgba(59, 130, 246, 0.2);
+        border: 1px solid rgba(59, 130, 246, 0.45);
+        color: #60a5fa !important;
+    }
+    .btn-action-icon.view:hover {
+        background: #2563eb;
+        color: #ffffff !important;
+        border-color: #3b82f6 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
+    }
     .btn-action-icon.edit {
         background: #d4af37;
         color: #0b0f17 !important;
@@ -236,6 +248,13 @@
         opacity: 0.35;
         cursor: not-allowed;
         pointer-events: none;
+    }
+
+    .staff-name-link {
+        transition: color 0.15s ease;
+    }
+    .staff-name-link:hover {
+        color: var(--accent-gold, #d4af37) !important;
     }
 
     .badge-you {
@@ -362,7 +381,7 @@
                         <th style="width: 190px;" class="text-center">Assigned Role</th>
                         <th class="text-center">Contact Details</th>
                         <th style="width: 130px;" class="text-center">Status</th>
-                        <th style="width: 140px;" class="text-center">Actions</th>
+                        <th style="width: 150px;" class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -370,22 +389,17 @@
                         <tr>
                             <!-- User Name & Designation -->
                             <td class="text-center">
-                                <div class="d-flex align-items-center justify-content-center gap-3">
-                                    <div class="staff-avatar">
-                                        {{ strtoupper(substr($staff->name, 0, 1)) }}
+                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                    <div class="fw-bold text-white fs-6 d-flex align-items-center justify-content-center gap-2">
+                                        <a href="{{ route('admin.users.show', $staff) }}" class="text-white text-decoration-none staff-name-link">
+                                            {{ $staff->name }}
+                                        </a>
+                                        @if($staff->id === auth()->id())
+                                            <span class="badge-you">You</span>
+                                        @endif
                                     </div>
-                                    <div class="text-start">
-                                        <div class="fw-bold text-white fs-6 d-flex align-items-center gap-2">
-                                            <a href="{{ route('admin.users.show', $staff) }}" class="text-white text-decoration-none">
-                                                {{ $staff->name }}
-                                            </a>
-                                            @if($staff->id === auth()->id())
-                                                <span class="badge-you">You</span>
-                                            @endif
-                                        </div>
-                                        <div class="small mt-0.5" style="color: #94a3b8;">
-                                            {{ $staff->designation ?: 'Matchmaking Relationship Manager' }}
-                                        </div>
+                                    <div class="small mt-0.5" style="color: #94a3b8;">
+                                        {{ $staff->designation ?: 'Matchmaking Relationship Manager' }}
                                     </div>
                                 </div>
                             </td>
@@ -441,7 +455,7 @@
 
                             <!-- Actions -->
                             <td class="text-center">
-                                <div class="d-flex justify-content-center align-items-center gap-1.5">
+                                <div class="d-flex justify-content-center align-items-center gap-2">
                                     <!-- View Details Button -->
                                     <a href="{{ route('admin.users.show', $staff) }}" class="btn-action-icon view" title="View Full Profile Details" data-bs-toggle="tooltip">
                                         <i class="bi bi-eye-fill"></i>
