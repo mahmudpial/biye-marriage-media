@@ -396,8 +396,8 @@
                 <thead>
                     <tr>
                         <th style="width: 70px;" class="text-center">Order</th>
-                        <th style="width: 250px;">Package Tier</th>
-                        <th style="width: 220px;">Badge &amp; Category</th>
+                        <th style="width: 220px;">Package Tier</th>
+                        <th style="width: 200px;">Badge &amp; Category</th>
                         <th style="width: 170px;">Pricing / Fee</th>
                         <th>Privileges Included</th>
                         <th class="text-center" style="width: 140px;">Most Preferred</th>
@@ -417,13 +417,10 @@
 
                         <!-- 2. Package Tier -->
                         <td>
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="package-icon-box">
-                                    <i class="bi bi-crown"></i>
-                                </div>
-                                <div>
-                                    <div class="text-white fw-bold fs-6">{{ $pkg->name }}</div>
-                                    <div class="text-silver small font-monospace">slug: {{ $pkg->slug }}</div>
+                            <div>
+                                <div class="text-white fw-bold fs-6 mb-0.5">{{ $pkg->name }}</div>
+                                <div class="text-silver small font-monospace" style="font-size: 0.78rem;">
+                                    <span class="text-muted-custom">slug:</span> {{ $pkg->slug }}
                                 </div>
                             </div>
                         </td>
