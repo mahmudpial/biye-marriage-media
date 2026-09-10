@@ -97,6 +97,16 @@ class ExampleTest extends TestCase
         $response->assertSee('Stories');
         $response->assertSee('Contact');
         $response->assertSee('Login');
+        $response->assertDontSee('elite-navbar" [^>]*Register Profile', false);
+    }
+
+    public function test_login_modal_has_new_user_registration_section(): void
+    {
+        $response = $this->get('/');
+        $response->assertStatus(200);
+        $response->assertSee('New to Biye Marriage Media?');
+        $response->assertSee('Register Profile / Create Account');
+        $response->assertSee('id="btnSwitchToRegister"', false);
     }
 
     public function test_login_route_redirects(): void

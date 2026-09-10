@@ -44,11 +44,9 @@
                 <a href="https://wa.me/{{ site_setting('whatsapp_number', '8801577723404') }}" target="_blank" class="btn btn-outline-success btn-sm rounded-pill px-3 py-2 fw-medium d-none d-xl-inline-flex align-items-center gap-1">
                     <i class="bi bi-whatsapp"></i> WhatsApp
                 </a>
-                <button type="button" class="btn btn-outline-secondary btn-login-nav btn-sm rounded-pill px-3 py-2 fw-medium text-dark border-1" data-bs-toggle="modal" data-bs-target="#memberLoginModal">
-                    <i class="bi bi-person-lock me-1"></i> Login
-                </button>
-                <button type="button" class="btn btn-elite-primary btn-sm px-3 py-2" data-bs-toggle="modal" data-bs-target="#consultationModal">
-                    <i class="bi bi-person-plus-fill me-1"></i> Register Profile
+                <button type="button" class="btn btn-elite-primary btn-sm rounded-pill px-3.5 py-2 fw-semibold d-inline-flex align-items-center gap-1.5" data-bs-toggle="modal" data-bs-target="#memberLoginModal">
+                    <i class="bi bi-person-lock"></i>
+                    <span>Login</span>
                 </button>
             </div>
         </div>

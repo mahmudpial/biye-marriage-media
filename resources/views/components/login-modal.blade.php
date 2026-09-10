@@ -69,14 +69,37 @@
                     </div>
                 </div>
 
-                <div class="mt-4 pt-3 border-top text-center">
-                    <p class="small text-muted mb-2">Not an Elite Member yet?</p>
-                    <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#consultationModal">
-                        Apply for Elite Membership
-                    </button>
-                    <div class="mt-3">
-                        <a href="{{ route('admin.login') }}" class="small text-muted text-decoration-none">
-                            <i class="bi bi-shield-lock me-1 text-gold"></i> Administrative Staff? <strong>Login to Admin Portal</strong>
+                <!-- New User / Registration Section -->
+                <div class="mt-4 pt-3 border-top">
+                    <div class="new-member-banner p-3.5 rounded-3" style="background: linear-gradient(135deg, #fdfbf7 0%, #f7f1e5 100%); border: 1px solid rgba(201, 151, 56, 0.35); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);">
+                        <div class="d-flex align-items-center gap-2.5 mb-2">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 34px; height: 34px; background: rgba(133, 24, 41, 0.1); color: var(--theme-primary, #851829); border: 1px solid rgba(133, 24, 41, 0.25);">
+                                <i class="bi bi-person-plus-fill fs-6"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold text-dark" style="font-size: 0.92rem; line-height: 1.2;">
+                                    New to Biye Marriage Media?
+                                </h6>
+                                <span class="text-secondary" style="font-size: 0.77rem;">
+                                    নতুন ব্যবহারকারী বা এখনও অ্যাকাউন্ট / বায়োডাটা তৈরি করেননি?
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-3" style="font-size: 0.82rem; line-height: 1.45;">
+                            Register your matrimonial profile or request a confidential VIP matchmaking consultation to connect with verified elite families.
+                        </p>
+                        <div class="d-grid">
+                            <button type="button" class="btn btn-elite-primary py-2 px-3 rounded-pill fw-semibold shadow-sm d-inline-flex align-items-center justify-content-center gap-2" id="btnSwitchToRegister" data-bs-dismiss="modal">
+                                <i class="bi bi-person-plus-fill"></i>
+                                <span>Register Profile / Create Account</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Discreet Admin Login Link -->
+                    <div class="mt-3 text-center">
+                        <a href="{{ route('admin.login') }}" class="small text-muted text-decoration-none" style="font-size: 0.77rem;">
+                            <i class="bi bi-shield-lock me-1 text-gold"></i> Administrative Staff? <strong class="text-secondary">Login to Admin Portal &rarr;</strong>
                         </a>
                     </div>
                 </div>
@@ -84,3 +107,32 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const switchBtn = document.getElementById('btnSwitchToRegister');
+        if (switchBtn) {
+            switchBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const loginModalEl = document.getElementById('memberLoginModal');
+                const consultationModalEl = document.getElementById('consultationModal');
+                
+                if (loginModalEl && typeof bootstrap !== 'undefined') {
+                    const loginModal = bootstrap.Modal.getInstance(loginModalEl);
+                    if (loginModal) {
+                        loginModal.hide();
+                    }
+                }
+                
+                setTimeout(function () {
+                    if (consultationModalEl && typeof bootstrap !== 'undefined') {
+                        const consultationModal = bootstrap.Modal.getOrCreateInstance(consultationModalEl);
+                        consultationModal.show();
+                    }
+                }, 300);
+            });
+        }
+    });
+</script>
+@endpush
