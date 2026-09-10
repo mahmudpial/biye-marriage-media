@@ -514,7 +514,7 @@
 <!-- Modal for Delete Confirmation -->
 <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="background: #18030c; border: 1px solid rgba(239, 68, 68, 0.5); border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);">
+        <div class="modal-content" style="background: #141820; border: 1px solid rgba(239, 68, 68, 0.5); border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);">
             <div class="modal-header border-0 pb-0">
                 <div class="d-flex align-items-center gap-2 text-danger">
                     <i class="bi bi-exclamation-triangle-fill fs-4"></i>

@@ -12,15 +12,15 @@
 
     /* Stat Pills */
     .stat-pill {
-        background: #18030c;
-        border: 1px solid rgba(212, 175, 55, 0.3);
+        background: #141820;
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         padding: 1rem 1.25rem;
         transition: transform 0.2s ease, border-color 0.2s ease;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     }
     .stat-pill:hover {
-        border-color: rgba(212, 175, 55, 0.55);
+        border-color: rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.5);
         transform: translateY(-2px);
     }
     .stat-pill .num {
@@ -38,14 +38,15 @@
 
     /* Filter Card */
     .filter-card {
-        background: #18030c;
-        border: 1px solid rgba(212, 175, 55, 0.3);
+        background: #141820;
+        background: linear-gradient(180deg, #171c26 0%, #131720 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         padding: 1.15rem 1.35rem;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
     }
     .filter-label {
-        color: #fde68a;
+        color: var(--theme-secondary, #d4af37);
         font-size: 0.76rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -53,44 +54,44 @@
         margin-bottom: 0.35rem;
     }
     .filter-input, .filter-select {
-        background: #0f0207 !important;
-        border: 1px solid rgba(212, 175, 55, 0.35) !important;
-        color: #ffffff !important;
+        background: #0d1117 !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        color: #f8fafc !important;
         font-size: 0.88rem;
         border-radius: 9px;
         padding: 0.55rem 0.85rem;
+        transition: all 0.2s ease;
     }
     .filter-input:focus, .filter-select:focus {
-        border-color: #f5d061 !important;
-        box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25) !important;
+        border-color: rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.6) !important;
+        box-shadow: 0 0 0 0.2rem rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.2) !important;
     }
     .filter-input::placeholder {
-        color: rgba(255, 255, 255, 0.45) !important;
+        color: #64748b !important;
     }
 
     /* Table Container */
     .table-container {
-        background: #17040d;
-        border: 1px solid rgba(212, 175, 55, 0.3);
+        background: #141820;
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         overflow: hidden;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
     }
     .table-packages {
-        min-width: 1050px;
         width: 100%;
         margin-bottom: 0;
         border-collapse: collapse;
     }
     .table-packages thead th {
-        background: #240614 !important;
-        color: #fef08a !important;
+        background: #111622 !important;
+        color: #f8fafc !important;
         font-size: 0.78rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.6px;
         padding: 1rem 0.95rem;
-        border-bottom: 2px solid rgba(212, 175, 55, 0.35) !important;
+        border-bottom: 2px solid rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.35) !important;
         vertical-align: middle;
         white-space: nowrap;
     }
@@ -98,10 +99,11 @@
         padding: 0.95rem 0.95rem;
         vertical-align: middle;
         background: transparent !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        color: #e2e8f0;
     }
     .table-packages tbody tr:hover td {
-        background: rgba(212, 175, 55, 0.06) !important;
+        background: rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.05) !important;
     }
     .table-packages tbody tr:last-child td {
         border-bottom: none;
@@ -115,9 +117,9 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, rgba(212, 175, 55, 0.22) 0%, rgba(117, 20, 35, 0.5) 100%);
-        border: 1px solid rgba(212, 175, 55, 0.4);
-        color: var(--gold-light);
+        background: rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.12);
+        border: 1px solid rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.3);
+        color: var(--theme-secondary, #d4af37);
         font-size: 1.25rem;
         flex-shrink: 0;
     }
@@ -608,7 +610,7 @@
                             <!-- Delete Modal -->
                             <div class="modal fade text-start" id="deletePackageModal{{ $pkg->id }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content text-white" style="background: #1c0510; border: 1px solid rgba(220, 53, 69, 0.45); border-radius: 14px;">
+                                    <div class="modal-content text-white" style="background: #141820; border: 1px solid rgba(220, 53, 69, 0.45); border-radius: 16px;">
                                         <div class="modal-header border-bottom border-secondary border-opacity-25 py-3">
                                             <h5 class="modal-title fw-bold text-danger d-flex align-items-center gap-2">
                                                 <i class="bi bi-exclamation-triangle-fill"></i>

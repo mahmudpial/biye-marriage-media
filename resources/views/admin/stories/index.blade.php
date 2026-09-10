@@ -12,21 +12,21 @@
 
     /* Stat Pills */
     .stat-pill {
-        background: #18030c;
-        border: 1px solid rgba(212, 175, 55, 0.3);
+        background: #141820;
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         padding: 1rem 1.25rem;
-        transition: transform 0.2s ease, border-color 0.2s ease;
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     }
     .stat-pill:hover {
-        border-color: rgba(212, 175, 55, 0.55);
+        border-color: rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.45);
         transform: translateY(-2px);
     }
     .stat-pill .num {
         font-size: 1.65rem;
         font-weight: 700;
-        color: #fff;
+        color: #f8fafc;
     }
     .stat-pill .label {
         font-size: 0.76rem;
@@ -38,14 +38,15 @@
 
     /* Filter Card */
     .filter-card {
-        background: #18030c;
-        border: 1px solid rgba(212, 175, 55, 0.3);
+        background: #141820;
+        background: linear-gradient(180deg, #171c26 0%, #131720 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         padding: 1.15rem 1.35rem;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
     }
     .filter-label {
-        color: #fde68a;
+        color: var(--theme-secondary, #d4af37);
         font-size: 0.76rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -53,25 +54,25 @@
         margin-bottom: 0.35rem;
     }
     .filter-input, .filter-select {
-        background: #0f0207 !important;
-        border: 1px solid rgba(212, 175, 55, 0.35) !important;
-        color: #ffffff !important;
+        background: #0d1117 !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        color: #f8fafc !important;
         font-size: 0.88rem;
         border-radius: 9px;
         padding: 0.55rem 0.85rem;
     }
     .filter-input:focus, .filter-select:focus {
-        border-color: #f5d061 !important;
-        box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25) !important;
+        border-color: var(--theme-secondary, #d4af37) !important;
+        box-shadow: 0 0 0 0.2rem rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.25) !important;
     }
     .filter-input::placeholder {
-        color: rgba(255, 255, 255, 0.45) !important;
+        color: #64748b !important;
     }
 
     /* Table Container */
     .table-container {
-        background: #17040d;
-        border: 1px solid rgba(212, 175, 55, 0.3);
+        background: #141820;
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         overflow: hidden;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
@@ -83,14 +84,14 @@
         border-collapse: collapse;
     }
     .table-stories thead th {
-        background: #240614 !important;
-        color: #fef08a !important;
+        background: #111622 !important;
+        color: #f8fafc !important;
         font-size: 0.78rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.6px;
         padding: 1rem 0.95rem;
-        border-bottom: 2px solid rgba(212, 175, 55, 0.35) !important;
+        border-bottom: 2px solid rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.35) !important;
         vertical-align: middle;
         white-space: nowrap;
     }
@@ -98,12 +99,12 @@
         padding: 0.95rem 0.95rem;
         vertical-align: middle;
         background: transparent !important;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.12) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
         color: #e2e8f0;
         font-size: 0.88rem;
     }
     .table-stories tbody tr:hover td {
-        background: rgba(212, 175, 55, 0.05) !important;
+        background: rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.05) !important;
     }
 
     /* Thumbnail */
@@ -244,7 +245,7 @@
         transform: scale(1.03);
     }
 
-    /* Action Icon Buttons: 36px square Edit & Delete */
+    /* Action Icon Buttons: 36px square View, Edit & Delete */
     .btn-action-icon {
         width: 36px;
         height: 36px;
@@ -258,21 +259,33 @@
         cursor: pointer;
         border: none;
     }
+    .btn-action-icon.view {
+        background: rgba(56, 189, 248, 0.15);
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        color: #38bdf8 !important;
+    }
+    .btn-action-icon.view:hover {
+        background: #0284c7;
+        color: #ffffff !important;
+        border-color: #38bdf8 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(2, 132, 199, 0.55);
+    }
     .btn-action-icon.edit {
-        background: #d4af37;
+        background: var(--theme-secondary, #d4af37);
         color: #0d0206 !important;
         border: 1px solid #f5d061;
-        box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+        box-shadow: 0 2px 8px rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.3);
     }
     .btn-action-icon.edit:hover {
         background: #f5d061;
         color: #000000 !important;
         transform: translateY(-2px);
-        box-shadow: 0 4px 14px rgba(212, 175, 55, 0.55);
+        box-shadow: 0 4px 14px rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.55);
     }
     .btn-action-icon.delete {
-        background: rgba(220, 38, 38, 0.2);
-        border: 1px solid rgba(239, 68, 68, 0.55) !important;
+        background: rgba(220, 38, 38, 0.15);
+        border: 1px solid rgba(239, 68, 68, 0.45) !important;
         color: #fca5a5 !important;
     }
     .btn-action-icon.delete:hover {
@@ -635,7 +648,7 @@
 <!-- Modal for Delete Confirmation -->
 <div class="modal fade" id="deleteStoryModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="background: #18030c; border: 1px solid rgba(239, 68, 68, 0.5); border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);">
+        <div class="modal-content" style="background: #141820; border: 1px solid rgba(239, 68, 68, 0.5); border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);">
             <div class="modal-header border-0 pb-0">
                 <div class="d-flex align-items-center gap-2 text-danger">
                     <i class="bi bi-exclamation-triangle-fill fs-4"></i>

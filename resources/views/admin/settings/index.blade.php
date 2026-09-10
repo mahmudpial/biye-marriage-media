@@ -166,7 +166,7 @@
     }
     .preview-banner {
         background: linear-gradient(90deg, #d4af37 0%, #fef08a 50%, #d4af37 100%);
-        color: #18030c;
+        color: #0f172a;
         font-size: 0.82rem;
         font-weight: 700;
         border-radius: 8px;

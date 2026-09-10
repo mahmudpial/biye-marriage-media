@@ -32,26 +32,30 @@
     .form-label {
         font-size: 0.85rem;
         font-weight: 700;
-        color: #fde68a;
+        color: var(--theme-secondary, #d4af37);
         margin-bottom: 0.4rem;
         letter-spacing: 0.3px;
     }
 
     .form-control, .form-select {
-        background: #0f0207 !important;
-        border: 1px solid rgba(212, 175, 55, 0.35) !important;
-        color: #ffffff !important;
+        background: #0d1117 !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        color: #f8fafc !important;
         border-radius: 10px;
         padding: 0.65rem 0.9rem;
         font-size: 0.9rem;
         transition: all 0.2s ease;
     }
     .form-control:focus, .form-select:focus {
-        border-color: #f5d061 !important;
-        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25) !important;
+        border-color: var(--theme-secondary, #d4af37) !important;
+        box-shadow: 0 0 0 3px rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.25) !important;
     }
     .form-control::placeholder {
-        color: rgba(255, 255, 255, 0.35) !important;
+        color: #64748b !important;
+    }
+    .form-select option {
+        background: #0d1117 !important;
+        color: #f8fafc !important;
     }
     .form-text, .text-muted-custom {
         color: #cbd5e1 !important;
@@ -59,16 +63,16 @@
 
     /* Switches */
     .switch-card {
-        background: #17040d;
-        border: 1px solid rgba(212, 175, 55, 0.25);
+        background: #141820;
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         padding: 1.15rem 1.25rem;
         margin-bottom: 1.15rem;
         transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
     }
     .switch-card:hover {
-        border-color: rgba(212, 175, 55, 0.55);
-        background: #1f0511;
+        border-color: rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.45);
+        background: #171c26;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
     }
     .switch-card-header {

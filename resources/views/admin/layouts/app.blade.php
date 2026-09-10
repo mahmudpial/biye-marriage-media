@@ -522,7 +522,7 @@
         }
         .admin-toast {
             pointer-events: auto;
-            background: #17040d;
+            background: #141820;
             border-radius: 14px;
             min-width: 320px;
             max-width: 440px;

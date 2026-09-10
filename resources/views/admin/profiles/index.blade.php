@@ -12,14 +12,15 @@
 
     /* Filter Card */
     .filter-card {
-        background: #18030c;
-        border: 1px solid rgba(212, 175, 55, 0.3);
+        background: #141820;
+        background: linear-gradient(180deg, #171c26 0%, #131720 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         padding: 1.15rem 1.35rem;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
     }
     .filter-label {
-        color: #fde68a;
+        color: var(--theme-secondary, #d4af37);
         font-size: 0.76rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -27,44 +28,44 @@
         margin-bottom: 0.35rem;
     }
     .filter-input, .filter-select {
-        background: #0f0207 !important;
-        border: 1px solid rgba(212, 175, 55, 0.35) !important;
-        color: #ffffff !important;
+        background: #0d1117 !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        color: #f8fafc !important;
         font-size: 0.88rem;
         border-radius: 9px;
         padding: 0.55rem 0.85rem;
+        transition: all 0.2s ease;
     }
     .filter-input:focus, .filter-select:focus {
-        border-color: #f5d061 !important;
-        box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25) !important;
+        border-color: rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.6) !important;
+        box-shadow: 0 0 0 0.2rem rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.2) !important;
     }
     .filter-input::placeholder {
-        color: rgba(255, 255, 255, 0.45) !important;
+        color: #64748b !important;
     }
 
     /* Table Container - Smooth horizontal scroll on smaller viewports */
     .table-container {
-        background: #17040d;
-        border: 1px solid rgba(212, 175, 55, 0.3);
+        background: #141820;
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         overflow: hidden;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
     }
     .table-profiles {
-        min-width: 1400px;
         width: 100%;
         margin-bottom: 0;
         border-collapse: collapse;
     }
     .table-profiles thead th {
-        background: #240614 !important;
-        color: #fef08a !important;
+        background: #111622 !important;
+        color: #f8fafc !important;
         font-size: 0.78rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.6px;
         padding: 1rem 0.95rem;
-        border-bottom: 2px solid rgba(212, 175, 55, 0.35) !important;
+        border-bottom: 2px solid rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.35) !important;
         vertical-align: middle;
         white-space: nowrap;
     }
@@ -72,10 +73,11 @@
         padding: 0.95rem 0.95rem;
         vertical-align: middle;
         background: transparent !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        color: #e2e8f0;
     }
     .table-profiles tbody tr:hover td {
-        background: rgba(212, 175, 55, 0.06) !important;
+        background: rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.05) !important;
     }
     .table-profiles tbody tr:last-child td {
         border-bottom: none;
@@ -330,12 +332,10 @@
                 <thead>
                     <tr>
                         <th style="width: 170px;">Candidate</th>
-                        <th style="width: 160px;">Demographics</th>
-                        <th style="min-width: 230px;">Profession</th>
-                        <th style="min-width: 220px;">Education</th>
-                        <th style="min-width: 190px;">Present Location</th>
-                        <th style="min-width: 170px;">Ancestral Origin</th>
-                        <th style="width: 170px;">Tier &amp; Income</th>
+                        <th style="width: 150px;">Demographics</th>
+                        <th>Career &amp; Education</th>
+                        <th style="min-width: 190px;">Location &amp; Origin</th>
+                        <th style="width: 160px;">Tier &amp; Income</th>
                         <th class="text-center" style="width: 110px;">Status</th>
                         <th class="text-end" style="width: 140px;">Actions</th>
                     </tr>
@@ -385,38 +385,30 @@
                             </div>
                         </td>
 
-                        <!-- 3. Profession -->
+                        <!-- 3. Career & Education -->
                         <td>
                             <div class="text-white fw-bold fs-6">
                                 {{ $profile->profession }}
                             </div>
-                        </td>
-
-                        <!-- 4. Education -->
-                        <td>
-                            <div class="text-silver d-flex align-items-center gap-1.5">
-                                <i class="bi bi-mortarboard-fill text-gold flex-shrink-0 fs-6"></i>
-                                <span class="text-white fw-medium">{{ $profile->education }}</span>
+                            <div class="text-silver small mt-0.5 d-flex align-items-center gap-1">
+                                <i class="bi bi-mortarboard-fill text-gold flex-shrink-0"></i>
+                                <span>{{ $profile->education }}</span>
                             </div>
                         </td>
 
-                        <!-- 5. Present Location -->
+                        <!-- 4. Location & Origin -->
                         <td>
                             <div class="text-white fw-medium d-flex align-items-center gap-1.5">
                                 <i class="bi bi-geo-alt-fill text-danger flex-shrink-0"></i>
                                 <span>{{ $profile->location }}</span>
                             </div>
-                        </td>
-
-                        <!-- 6. Ancestral Origin (Desher Bari) -->
-                        <td>
-                            <div class="text-silver d-flex align-items-center gap-1.5">
+                            <div class="text-silver small mt-0.5 d-flex align-items-center gap-1.5">
                                 <i class="bi bi-house-door-fill text-gold flex-shrink-0"></i>
-                                <strong class="text-white">{{ $profile->desher_bari }}</strong>
+                                <span>Home: <strong class="text-white">{{ $profile->desher_bari }}</strong></span>
                             </div>
                         </td>
 
-                        <!-- 7. Tier & Income -->
+                        <!-- 5. Tier & Income -->
                         <td>
                             <div>
                                 <span class="badge badge-tier">
@@ -606,7 +598,7 @@
                             <!-- Delete Modal -->
                             <div class="modal fade text-start" id="deleteProfileModal{{ $profile->id }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content text-white" style="background: #1c0510; border: 1px solid rgba(220, 53, 69, 0.45); border-radius: 14px;">
+                                    <div class="modal-content text-white" style="background: #141820; border: 1px solid rgba(220, 53, 69, 0.45); border-radius: 16px;">
                                         <div class="modal-header border-bottom border-secondary border-opacity-25 py-3">
                                             <h5 class="modal-title fw-bold text-danger d-flex align-items-center gap-2">
                                                 <i class="bi bi-exclamation-triangle-fill"></i>
