@@ -53,13 +53,25 @@
         letter-spacing: 0.5px;
         margin-bottom: 0.35rem;
     }
-    .filter-input, .filter-select {
+    .filter-input {
         background: #0d1117 !important;
         border: 1px solid rgba(255, 255, 255, 0.12) !important;
         color: #f8fafc !important;
         font-size: 0.88rem;
         border-radius: 9px;
         padding: 0.55rem 0.85rem;
+    }
+    .filter-select {
+        background-color: #0d1117 !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        color: #f8fafc !important;
+        font-size: 0.88rem;
+        border-radius: 9px;
+        padding: 0.55rem 2.2rem 0.55rem 0.85rem !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23d4af37' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+        background-repeat: no-repeat !important;
+        background-position: right 0.75rem center !important;
+        background-size: 13px 10px !important;
     }
     .filter-input:focus, .filter-select:focus {
         border-color: var(--theme-secondary, #d4af37) !important;
@@ -143,30 +155,63 @@
         gap: 0.35rem;
         white-space: nowrap;
     }
+    .inquiry-status-select {
+        display: inline-block;
+        font-size: 0.8rem !important;
+        font-weight: 700 !important;
+        padding: 0.42rem 2.1rem 0.42rem 0.85rem !important;
+        border-radius: 20px !important;
+        cursor: pointer;
+        min-width: 156px;
+        width: 100%;
+        max-width: 165px;
+        white-space: nowrap !important;
+        text-align: left;
+        background-repeat: no-repeat !important;
+        background-position: right 0.75rem center !important;
+        background-size: 13px 10px !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+        transition: all 0.2s ease-in-out;
+    }
+    .inquiry-status-select:focus {
+        box-shadow: 0 0 0 2px rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.4) !important;
+        outline: none;
+    }
+    .inquiry-status-select option {
+        background-color: #0d1117 !important;
+        color: #f8fafc !important;
+        font-weight: 600;
+        padding: 6px 10px;
+    }
     .status-pending {
-        background: rgba(245, 158, 11, 0.18);
-        color: #fde68a;
-        border: 1px solid rgba(245, 158, 11, 0.5);
+        background-color: rgba(245, 158, 11, 0.18) !important;
+        color: #fde68a !important;
+        border: 1px solid rgba(245, 158, 11, 0.5) !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23fde68a' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
     }
     .status-progress {
-        background: rgba(14, 165, 233, 0.18);
-        color: #7dd3fc;
-        border: 1px solid rgba(14, 165, 233, 0.5);
+        background-color: rgba(14, 165, 233, 0.18) !important;
+        color: #7dd3fc !important;
+        border: 1px solid rgba(14, 165, 233, 0.5) !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%237dd3fc' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
     }
     .status-contacted {
-        background: rgba(168, 85, 247, 0.18);
-        color: #d8b4fe;
-        border: 1px solid rgba(168, 85, 247, 0.5);
+        background-color: rgba(168, 85, 247, 0.18) !important;
+        color: #d8b4fe !important;
+        border: 1px solid rgba(168, 85, 247, 0.5) !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23d8b4fe' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
     }
     .status-verified {
-        background: rgba(34, 197, 94, 0.18);
-        color: #86efac;
-        border: 1px solid rgba(34, 197, 94, 0.5);
+        background-color: rgba(34, 197, 94, 0.18) !important;
+        color: #86efac !important;
+        border: 1px solid rgba(34, 197, 94, 0.5) !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2386efac' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
     }
     .status-closed {
-        background: rgba(148, 163, 184, 0.18);
-        color: #cbd5e1;
-        border: 1px solid rgba(148, 163, 184, 0.4);
+        background-color: rgba(148, 163, 184, 0.18) !important;
+        color: #cbd5e1 !important;
+        border: 1px solid rgba(148, 163, 184, 0.4) !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23cbd5e1' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
     }
 
     /* Action Buttons (36px square) */
@@ -398,7 +443,7 @@
                         <th>Seeking Match For</th>
                         <th>Location &amp; Desher Bari</th>
                         <th>Target Tier</th>
-                        <th class="text-center" style="width: 150px;">Status</th>
+                        <th class="text-center" style="min-width: 175px; width: 175px;">Status</th>
                         <th style="width: 130px;">Received</th>
                         <th class="text-end" style="width: 110px;">Actions</th>
                     </tr>
@@ -474,8 +519,7 @@
                                     @csrf
                                     <select 
                                         name="status" 
-                                        class="form-select form-select-sm {{ $statusClass }} fw-bold" 
-                                        style="font-size: 0.78rem; padding: 0.35rem 0.65rem; border-radius: 12px; cursor: pointer;"
+                                        class="form-select form-select-sm inquiry-status-select {{ $statusClass }} fw-bold" 
                                         onchange="this.form.submit()"
                                         title="Change lead workflow status"
                                     >
