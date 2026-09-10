@@ -27,19 +27,19 @@
             --theme-accent: {{ site_setting('theme_accent', '#121620') }};
             --theme-accent-rgb: {{ site_setting_rgb('theme_accent', '#121620') }};
 
-            --admin-bg: #0d0206;
-            --sidebar-bg: #140309;
-            --topbar-bg: rgba(20, 3, 9, 0.9);
-            --card-bg: #1c050e;
-            --card-surface: #240712;
+            --admin-bg: #0b0f17;
+            --sidebar-bg: #111622;
+            --topbar-bg: rgba(17, 22, 34, 0.88);
+            --card-bg: #141820;
+            --card-surface: #171c26;
             --accent-gold: var(--theme-secondary);
             --accent-gold-hover: #f5d061;
-            --gold-light: #fce7a1;
-            --text-main: #ffffff;
-            --text-secondary: #e2d5da;
-            --text-muted-custom: #b5a4ab;
-            --border-card: rgba(255, 255, 255, 0.09);
-            --border-gold: rgba(var(--theme-secondary-rgb), 0.28);
+            --gold-light: #fde68a;
+            --text-main: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted-custom: #94a3b8;
+            --border-card: rgba(255, 255, 255, 0.08);
+            --border-gold: rgba(var(--theme-secondary-rgb), 0.35);
             --sidebar-width: 265px;
         }
 
@@ -59,7 +59,8 @@
         /* ================= SIDEBAR ================= */
         .admin-sidebar {
             width: var(--sidebar-width);
-            background: var(--sidebar-bg);
+            background: #111622;
+            background: linear-gradient(180deg, #131824 0%, #0d1117 100%);
             border-right: 1px solid var(--border-card);
             height: 100vh;
             height: 100dvh;
@@ -82,7 +83,7 @@
             gap: 0.85rem;
             border-bottom: 1px solid var(--border-card);
             text-decoration: none;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(13, 17, 23, 0.7);
             flex-shrink: 0;
         }
 
@@ -92,21 +93,21 @@
             border-radius: 50%;
             border: 2px solid var(--accent-gold);
             object-fit: cover;
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 12px rgba(var(--theme-secondary-rgb), 0.35);
         }
 
         .sidebar-brand .brand-title {
             font-family: 'Playfair Display', serif;
             font-size: 1.15rem;
             font-weight: 700;
-            color: var(--gold-light);
+            color: #f8fafc;
             line-height: 1.2;
             letter-spacing: 0.3px;
         }
 
         .sidebar-brand .brand-sub {
             font-size: 0.68rem;
-            color: var(--text-muted-custom);
+            color: var(--accent-gold);
             letter-spacing: 1.5px;
             text-transform: uppercase;
             font-weight: 600;
@@ -121,24 +122,24 @@
             -webkit-overflow-scrolling: touch;
             overscroll-behavior: contain;
             scrollbar-width: thin;
-            scrollbar-color: rgba(212, 175, 55, 0.35) rgba(0, 0, 0, 0.15);
+            scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
         }
 
         .sidebar-nav::-webkit-scrollbar {
-            width: 5px;
+            width: 4px;
         }
 
         .sidebar-nav::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.15);
+            background: transparent;
         }
 
         .sidebar-nav::-webkit-scrollbar-thumb {
-            background: rgba(212, 175, 55, 0.35);
+            background: rgba(255, 255, 255, 0.12);
             border-radius: 4px;
         }
 
         .sidebar-nav::-webkit-scrollbar-thumb:hover {
-            background: rgba(212, 175, 55, 0.65);
+            background: rgba(var(--theme-secondary-rgb), 0.45);
         }
 
         .nav-category {
@@ -148,7 +149,7 @@
             color: var(--accent-gold);
             padding: 1rem 0.75rem 0.35rem;
             font-weight: 700;
-            opacity: 0.9;
+            opacity: 0.95;
         }
 
         .sidebar-link {
@@ -161,31 +162,31 @@
             border-radius: 10px;
             font-size: 0.88rem;
             font-weight: 500;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.25rem;
             transition: all 0.2s ease;
             position: relative;
         }
 
         .sidebar-link i {
             font-size: 1.1rem;
-            color: #d99c43;
+            color: var(--accent-gold);
             transition: transform 0.2s ease, color 0.2s ease;
             width: 20px;
             text-align: center;
         }
 
         .sidebar-link:hover {
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.07);
             color: #ffffff;
         }
 
         .sidebar-link:hover i {
-            color: var(--gold-light);
+            color: #ffffff;
             transform: scale(1.1);
         }
 
         .sidebar-link.active {
-            background: linear-gradient(90deg, rgba(212, 175, 55, 0.18) 0%, rgba(212, 175, 55, 0.05) 100%);
+            background: linear-gradient(90deg, rgba(var(--theme-secondary-rgb), 0.18) 0%, rgba(var(--theme-secondary-rgb), 0.04) 100%);
             color: #ffffff;
             font-weight: 600;
             border-left: 3px solid var(--accent-gold);
@@ -198,7 +199,7 @@
         .sidebar-footer {
             padding: 1rem 1.25rem;
             border-top: 1px solid var(--border-card);
-            background: rgba(0, 0, 0, 0.35);
+            background: rgba(13, 17, 23, 0.75);
             flex-shrink: 0;
         }
 
@@ -214,8 +215,8 @@
         /* ================= TOP HEADER ================= */
         .admin-topbar {
             background: var(--topbar-bg);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-card);
             padding: 0.75rem 1.75rem;
             position: sticky;
@@ -234,9 +235,9 @@
             width: 42px;
             height: 42px;
             border-radius: 50%;
-            background: rgba(212, 175, 55, 0.12);
+            background: rgba(var(--theme-secondary-rgb), 0.12);
             border: 1px solid var(--border-gold);
-            color: var(--gold-light);
+            color: var(--accent-gold);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -247,20 +248,20 @@
         }
 
         .btn-earth-visit:hover {
-            background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
-            color: #0d0206;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #a17822 100%);
+            color: #0b0f17;
             border-color: var(--accent-gold);
             transform: scale(1.08) rotate(15deg);
-            box-shadow: 0 0 16px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 16px rgba(var(--theme-secondary-rgb), 0.5);
         }
 
         /* Profile Dropdown Button */
         .admin-profile-btn {
-            background: rgba(255, 255, 255, 0.05);
+            background: #141820;
             border: 1px solid var(--border-card);
             border-radius: 40px;
             padding: 0.35rem 0.9rem 0.35rem 0.4rem;
-            color: #ffffff;
+            color: #f8fafc;
             display: flex;
             align-items: center;
             gap: 0.65rem;
@@ -269,7 +270,7 @@
         }
 
         .admin-profile-btn:hover, .admin-profile-btn[aria-expanded="true"] {
-            background: rgba(212, 175, 55, 0.15);
+            background: #171c26;
             border-color: var(--border-gold);
             color: #ffffff;
         }
@@ -278,14 +279,14 @@
             width: 34px;
             height: 34px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #f5d061 0%, #b8860b 100%);
-            color: #120207;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #a17822 100%);
+            color: #0b0f17;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
             font-size: 0.9rem;
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 8px rgba(var(--theme-secondary-rgb), 0.3);
         }
 
         .user-name-text {
@@ -315,8 +316,8 @@
 
         /* Admin Dropdown Menu */
         .admin-dropdown-menu {
-            background: #19050e;
-            border: 1px solid var(--border-gold);
+            background: #141820;
+            border: 1px solid var(--border-card);
             border-radius: 14px;
             padding: 0.65rem 0;
             min-width: 240px;
@@ -331,7 +332,7 @@
 
         .dropdown-header-custom .name {
             font-weight: 600;
-            color: #ffffff;
+            color: #f8fafc;
             font-size: 0.9rem;
         }
 
@@ -351,7 +352,7 @@
         }
 
         .admin-dropdown-menu .dropdown-item:hover {
-            background: rgba(212, 175, 55, 0.12);
+            background: rgba(var(--theme-secondary-rgb), 0.12);
             color: #ffffff;
         }
 
@@ -367,6 +368,30 @@
         .admin-dropdown-menu .dropdown-divider {
             border-top-color: var(--border-card);
             margin: 0.4rem 0;
+        }
+
+        .sidebar-toggle-btn {
+            background: #141820;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--accent-gold);
+            border-radius: 8px;
+            padding: 0.35rem 0.65rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .sidebar-toggle-btn:hover {
+            background: #171c26;
+            border-color: var(--accent-gold);
+            color: #ffffff;
+        }
+
+        .text-gold {
+            color: var(--accent-gold) !important;
+        }
+        .text-silver {
+            color: var(--text-secondary) !important;
         }
 
         /* ================= CARDS & UI ELEMENTS ================= */
@@ -411,11 +436,11 @@
 
         /* ================= EXECUTIVE ADMIN BUTTONS ================= */
         .btn-admin-primary {
-            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%) !important;
-            color: #0b0106 !important;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #a17822 100%) !important;
+            color: #0b0f17 !important;
             border: 1px solid #fde68a !important;
             font-weight: 700 !important;
-            box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 4px 14px rgba(var(--theme-secondary-rgb), 0.4);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -424,11 +449,11 @@
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .btn-admin-primary:hover {
-            background: linear-gradient(135deg, #fde68a 0%, #d4af37 100%) !important;
+            background: linear-gradient(135deg, #fde68a 0%, var(--accent-gold) 100%) !important;
             color: #000000 !important;
             border-color: #ffffff !important;
             transform: translateY(-1.5px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+            box-shadow: 0 6px 20px rgba(var(--theme-secondary-rgb), 0.6);
         }
         .btn-admin-primary:active {
             transform: translateY(0);
@@ -473,10 +498,10 @@
             border: none;
         }
         .btn-action-icon.edit {
-            background: #d4af37;
-            color: #0d0206 !important;
+            background: var(--theme-secondary, #d4af37);
+            color: #0b0f17 !important;
             border: 1px solid #f5d061;
-            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 2px 8px rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.3);
         }
         .btn-action-icon.edit:hover {
             background: #f5d061;
@@ -742,7 +767,7 @@
         <header class="admin-topbar d-flex justify-content-between align-items-center">
             <!-- Left: Sidebar Toggle & Page Title -->
             <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-outline-warning d-lg-none p-1 px-2 border-opacity-50" id="sidebarToggleBtn" type="button" aria-label="Toggle Sidebar">
+                <button class="sidebar-toggle-btn d-lg-none" id="sidebarToggleBtn" type="button" aria-label="Toggle Sidebar">
                     <i class="bi bi-list fs-5"></i>
                 </button>
                 <div>

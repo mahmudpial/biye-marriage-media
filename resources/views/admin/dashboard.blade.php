@@ -6,8 +6,8 @@
 @push('styles')
 <style>
     .banner-card {
-        background: linear-gradient(135deg, #380818 0%, #1c050e 100%);
-        border: 1px solid rgba(212, 175, 55, 0.35);
+        background: linear-gradient(135deg, #171c26 0%, #131720 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 20px;
         box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55);
         padding: 2rem;
@@ -21,13 +21,13 @@
         right: -60px;
         width: 220px;
         height: 220px;
-        background: radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.18) 0%, transparent 70%);
         border-radius: 50%;
         pointer-events: none;
     }
 
     .banner-desc {
-        color: #f0e2e7 !important;
+        color: #cbd5e1 !important;
         font-size: 0.96rem;
         line-height: 1.65;
         font-weight: 400;
@@ -36,8 +36,8 @@
 
     /* Metric Stat Cards */
     .metric-card {
-        background: #1c050e;
-        border: 1px solid rgba(255, 255, 255, 0.09);
+        background: #141820;
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 18px;
         padding: 1.4rem;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -46,7 +46,7 @@
     }
 
     .metric-card:hover {
-        border-color: rgba(212, 175, 55, 0.35);
+        border-color: rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.35);
         transform: translateY(-3px);
         box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
     }
@@ -56,7 +56,7 @@
         font-weight: 600;
         letter-spacing: 0.8px;
         text-transform: uppercase;
-        color: #d1c3c9;
+        color: #94a3b8;
         margin-bottom: 0.4rem;
     }
 
