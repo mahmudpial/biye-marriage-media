@@ -6,27 +6,28 @@
 @push('styles')
 <style>
     .form-card {
-        background: #1c050e;
-        border: 1px solid rgba(212, 175, 55, 0.25);
+        background: #141820;
+        background: linear-gradient(180deg, #171c26 0%, #131720 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 18px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-        padding: 2rem;
+        padding: 1.75rem 2rem;
     }
 
     .form-section-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.15rem;
+        font-size: 1.05rem;
         font-weight: 700;
-        color: #fef08a;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-        padding-bottom: 0.65rem;
+        color: #f8fafc;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 0.75rem;
         margin-bottom: 1.5rem;
         display: flex;
         align-items: center;
+        gap: 0.6rem;
     }
     .form-section-title i {
-        color: #d4af37;
-        margin-right: 0.6rem;
+        color: var(--accent-gold);
+        font-size: 1.15rem;
     }
 
     .form-label {
@@ -118,13 +119,13 @@
     /* Live Preview Box */
     .preview-box {
         background: #0d1117;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         padding: 1.25rem;
     }
     .preview-accordion-header {
         font-weight: 700;
-        color: #fef08a;
+        color: #f8fafc;
         font-size: 0.95rem;
         margin-bottom: 0.5rem;
     }
@@ -134,6 +135,25 @@
         line-height: 1.6;
         border-left: 2px solid var(--accent-gold);
         padding-left: 0.75rem;
+    }
+
+    /* Actions */
+    .btn-admin-cancel {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #cbd5e1 !important;
+        border-radius: 10px;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        text-decoration: none;
+    }
+    .btn-admin-cancel:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff !important;
+        border-color: rgba(255, 255, 255, 0.2);
     }
 </style>
 @endpush
@@ -233,7 +253,7 @@
                     </div>
                     <div class="preview-box">
                         <div class="d-flex align-items-center justify-content-between mb-2">
-                            <span class="badge rounded-pill bg-warning text-dark px-2.5 py-1 small fw-bold" id="previewCategoryBadge">
+                            <span class="badge rounded-pill px-2.5 py-1 small fw-bold" id="previewCategoryBadge" style="background: rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.18); color: var(--accent-gold); border: 1px solid var(--border-gold);">
                                 {{ $categories[$faq->category] ?? ($faq->category ?: 'General') }}
                             </span>
                             <span class="text-secondary small">Sort: #<span id="previewSortOrder">{{ $faq->sort_order ?? 1 }}</span></span>

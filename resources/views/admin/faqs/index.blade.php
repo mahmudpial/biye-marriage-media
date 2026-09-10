@@ -401,9 +401,8 @@
 
                             <!-- Question & Answer Excerpt -->
                             <td class="text-center">
-                                <div class="fw-bold text-white fs-6 mb-1 d-flex align-items-center justify-content-center gap-2 text-center">
-                                    <i class="bi bi-patch-question text-gold flex-shrink-0"></i>
-                                    <span>{{ $faq->question }}</span>
+                                <div class="fw-bold text-white fs-6 mb-1">
+                                    {{ $faq->question }}
                                 </div>
                                 <div class="faq-answer-preview text-center mx-auto" style="max-width: 680px;">
                                     {{ Str::limit($faq->answer, 140) }}
