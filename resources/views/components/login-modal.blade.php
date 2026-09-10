@@ -14,23 +14,50 @@
             <div class="modal-body p-4 bg-white">
                 <ul class="nav nav-pills nav-fill mb-4 p-1 bg-light rounded-pill" id="loginTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active rounded-pill py-2 small fw-semibold" id="otp-tab" data-bs-toggle="pill" data-bs-target="#otp-login" type="button" role="tab" aria-controls="otp-login" aria-selected="true">
-                            Login via OTP
+                        <button class="nav-link active rounded-pill py-2 small fw-semibold" id="pwd-tab" data-bs-toggle="pill" data-bs-target="#pwd-login" type="button" role="tab" aria-controls="pwd-login" aria-selected="true">
+                            Password Login
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link rounded-pill py-2 small fw-semibold" id="pwd-tab" data-bs-toggle="pill" data-bs-target="#pwd-login" type="button" role="tab" aria-controls="pwd-login" aria-selected="false">
-                            Password Login
+                        <button class="nav-link rounded-pill py-2 small fw-semibold" id="otp-tab" data-bs-toggle="pill" data-bs-target="#otp-login" type="button" role="tab" aria-controls="otp-login" aria-selected="false">
+                            Login via OTP
                         </button>
                     </li>
                 </ul>
 
                 <div class="tab-content" id="loginTabContent">
-                    <!-- OTP Login -->
-                    <div class="tab-pane fade show active" id="otp-login" role="tabpanel" aria-labelledby="otp-tab">
-                        <form onsubmit="event.preventDefault(); alert('For prototype demonstration: Please request a VIP consultation or contact your relationship manager.');">
+                    <!-- Password Login -->
+                    <div class="tab-pane fade show active" id="pwd-login" role="tabpanel" aria-labelledby="pwd-tab">
+                        <form action="{{ route('login.submit') }}" method="POST">
+                            @csrf
                             <div class="mb-3">
-                                <label class="form-label small fw-semibold text-dark">Registered Mobile Number / Elite ID</label>
+                                <label class="form-label small fw-semibold text-dark">Mobile Number or Email</label>
+                                <div class="input-group elite-input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-person text-secondary"></i></span>
+                                    <input type="text" name="login" class="form-control" placeholder="e.g. 017XXXXXXXX or name@domain.com" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <label class="form-label small fw-semibold text-dark mb-0">Password</label>
+                                    <span class="small text-muted" title="Please contact relationship manager to reset credentials">Forgot?</span>
+                                </div>
+                                <div class="input-group elite-input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-key text-secondary"></i></span>
+                                    <input type="password" name="password" class="form-control" placeholder="••••••••••••" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-elite-primary w-100 py-2 fw-medium mt-2">
+                                Secure Sign In
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- OTP Login -->
+                    <div class="tab-pane fade" id="otp-login" role="tabpanel" aria-labelledby="otp-tab">
+                        <form onsubmit="event.preventDefault(); alert('Live SMS Gateway is undergoing routine carrier sync. Please sign in with your Password or Register a new profile.');">
+                            <div class="mb-3">
+                                <label class="form-label small fw-semibold text-dark">Registered Mobile Number</label>
                                 <div class="input-group elite-input-group">
                                     <span class="input-group-text bg-light">+880</span>
                                     <input type="tel" class="form-control" placeholder="Enter 10-digit mobile" required>
@@ -38,32 +65,6 @@
                             </div>
                             <button type="submit" class="btn btn-elite-primary w-100 py-2 fw-medium mt-2">
                                 Send Secret OTP
-                            </button>
-                        </form>
-                    </div>
-
-                    <!-- Password Login -->
-                    <div class="tab-pane fade" id="pwd-login" role="tabpanel" aria-labelledby="pwd-tab">
-                        <form onsubmit="event.preventDefault(); alert('For prototype demonstration: Please request a VIP consultation or contact your relationship manager.');">
-                            <div class="mb-3">
-                                <label class="form-label small fw-semibold text-dark">Elite Member ID or Email</label>
-                                <div class="input-group elite-input-group">
-                                    <span class="input-group-text bg-light"><i class="bi bi-person text-secondary"></i></span>
-                                    <input type="text" class="form-control" placeholder="e.g. ELT-78901 or name@domain.com" required>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <label class="form-label small fw-semibold text-dark mb-0">Password</label>
-                                    <a href="#" class="small text-maroon text-decoration-none" onclick="alert('Please contact your dedicated relationship manager to reset credentials.')">Forgot?</a>
-                                </div>
-                                <div class="input-group elite-input-group">
-                                    <span class="input-group-text bg-light"><i class="bi bi-key text-secondary"></i></span>
-                                    <input type="password" class="form-control" placeholder="••••••••••••" required>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-elite-primary w-100 py-2 fw-medium mt-2">
-                                Secure Sign In
                             </button>
                         </form>
                     </div>
@@ -75,10 +76,10 @@
                         New user or don't have an account yet?
                     </p>
                     <div>
-                        <button type="button" class="btn btn-switch-register btn-sm rounded-pill px-4 py-2 fw-semibold d-inline-flex align-items-center gap-1.5" id="btnSwitchToRegister" data-bs-dismiss="modal">
+                        <a href="{{ route('register') }}" class="btn btn-switch-register btn-sm rounded-pill px-4 py-2 fw-semibold d-inline-flex align-items-center gap-1.5" id="btnSwitchToRegister">
                             <i class="bi bi-person-plus-fill"></i>
                             <span>Register Profile</span>
-                        </button>
+                        </a>
                     </div>
 
                     <!-- Discreet Admin Login Link -->

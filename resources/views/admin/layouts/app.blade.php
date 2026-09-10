@@ -982,6 +982,16 @@
             </a>
 
             <div class="nav-category">Matrimony Management</div>
+            <a href="{{ route('admin.clients.index') }}" class="sidebar-link {{ request()->routeIs('admin.clients.*') ? 'active' : '' }}">
+                <i class="bi bi-person-check-fill"></i>
+                <span>Client Accounts</span>
+                @php
+                    $pendingClientsBadge = \App\Models\User::clients()->where('verification_status', 'pending')->count();
+                @endphp
+                @if($pendingClientsBadge > 0)
+                    <span class="badge rounded-pill bg-warning text-dark ms-auto" style="font-size: 0.68rem; padding: 0.25em 0.55em;">{{ $pendingClientsBadge }}</span>
+                @endif
+            </a>
             <a href="{{ route('admin.profiles.index') }}" class="sidebar-link {{ request()->routeIs('admin.profiles.*') ? 'active' : '' }}">
                 <i class="bi bi-people-fill"></i>
                 <span>Profiles &amp; Biodata</span>

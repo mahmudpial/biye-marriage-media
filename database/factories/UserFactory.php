@@ -45,8 +45,24 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'is_admin' => true,
+            'user_type' => User::TYPE_STAFF,
             'role' => User::ROLE_SUPER_ADMIN,
             'designation' => 'Executive Matchmaking Director',
+            'is_active' => true,
+        ]);
+    }
+
+    /**
+     * Indicate that the user is a matrimony client / member.
+     */
+    public function client(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_admin' => false,
+            'user_type' => User::TYPE_CLIENT,
+            'profile_for' => 'self',
+            'verification_status' => User::VERIFICATION_PENDING,
+            'status' => User::STATUS_ACTIVE,
             'is_active' => true,
         ]);
     }

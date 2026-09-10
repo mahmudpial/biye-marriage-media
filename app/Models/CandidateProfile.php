@@ -15,6 +15,8 @@ class CandidateProfile extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
+        'full_name',
         'profile_code',
         'gender',
         'age',
@@ -31,6 +33,18 @@ class CandidateProfile extends Model
         'is_discreet',
         'is_featured',
         'is_active',
+        'approval_status',
+        'admin_notes',
+        'completion_score',
+        'pref_age_min',
+        'pref_age_max',
+        'pref_height_min',
+        'pref_height_max',
+        'pref_education',
+        'pref_profession',
+        'pref_desher_bari',
+        'pref_marital_status',
+        'pref_religion',
     ];
 
     /**
@@ -45,6 +59,9 @@ class CandidateProfile extends Model
             'is_discreet' => 'boolean',
             'is_featured' => 'boolean',
             'is_active' => 'boolean',
+            'completion_score' => 'integer',
+            'pref_age_min' => 'integer',
+            'pref_age_max' => 'integer',
         ];
     }
 
@@ -81,10 +98,58 @@ class CandidateProfile extends Model
     }
 
     /**
+     * Scope for approved profiles for public display.
+     */
+    public function scopeApproved($query)
+    {
+        return $query->where('approval_status', 'approved');
+    }
+
+    /**
+     * Scope for profiles pending review.
+     */
+    public function scopeUnderReview($query)
+    {
+        return $query->where('approval_status', 'under_review');
+    }
+
+    /**
      * Scope for featured profiles.
      */
     public function scopeFeatured($query)
     {
         return $query->where('is_featured', true);
+    }
+
+    /**
+     * The client user who owns this profile.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Proposals received by this profile.
+     */
+    public function receivedProposals()
+    {
+        return $this->hasMany(Proposal::class, 'receiver_profile_id');
+    }
+
+    /**
+     * Proposals sent on behalf of this profile.
+     */
+    public function sentProposals()
+    {
+        return $this->hasMany(Proposal::class, 'sender_profile_id');
+    }
+
+    /**
+     * Shortlist entries for this profile.
+     */
+    public function shortlistedBy()
+    {
+        return $this->hasMany(Shortlist::class, 'candidate_profile_id');
     }
 }

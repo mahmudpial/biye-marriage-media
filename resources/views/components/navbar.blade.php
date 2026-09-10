@@ -44,10 +44,58 @@
                 <a href="https://wa.me/{{ site_setting('whatsapp_number', '8801577723404') }}" target="_blank" class="btn btn-outline-success btn-sm rounded-pill px-3 py-2 fw-medium d-none d-xl-inline-flex align-items-center gap-1">
                     <i class="bi bi-whatsapp"></i> WhatsApp
                 </a>
-                <button type="button" class="btn btn-elite-primary btn-sm rounded-pill px-3.5 py-2 fw-semibold d-inline-flex align-items-center gap-1.5" data-bs-toggle="modal" data-bs-target="#memberLoginModal">
-                    <i class="bi bi-person-lock"></i>
-                    <span>Login</span>
-                </button>
+
+                @auth
+                    @if(auth()->user()->isStaff())
+                        <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-danger btn-sm rounded-pill px-3.5 py-2 fw-semibold d-inline-flex align-items-center gap-1.5">
+                            <i class="bi bi-shield-lock-fill"></i>
+                            <span>Admin Console</span>
+                        </a>
+                    @else
+                        <div class="dropdown">
+                            <button class="btn btn-elite-primary btn-sm rounded-pill px-3.5 py-2 fw-semibold dropdown-toggle d-inline-flex align-items-center gap-1.5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-check-fill"></i>
+                                <span>{{ \Illuminate\Support\Str::limit(auth()->user()->name, 15) }}</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3 mt-1 py-2" style="min-width: 200px;">
+                                <li>
+                                    <a class="dropdown-item py-2 small fw-semibold" href="{{ route('member.dashboard') }}">
+                                        <i class="bi bi-grid-1x2 text-maroon me-2"></i> আমার ড্যাশবোর্ড
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2 small" href="{{ route('member.biodata.edit') }}">
+                                        <i class="bi bi-file-earmark-person text-primary me-2"></i> বায়োডাটা এডিট
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2 small" href="{{ route('member.matches') }}">
+                                        <i class="bi bi-stars text-gold me-2"></i> ডেইলি ম্যাচ
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2 small" href="{{ route('member.proposals') }}">
+                                        <i class="bi bi-send-check text-success me-2"></i> বিয়ের প্রস্তাবনা
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item py-2 small text-danger">
+                                            <i class="bi bi-box-arrow-right me-2"></i> লগআউট
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    @endif
+                @else
+                    <button type="button" class="btn btn-elite-primary btn-sm rounded-pill px-3.5 py-2 fw-semibold d-inline-flex align-items-center gap-1.5" data-bs-toggle="modal" data-bs-target="#memberLoginModal">
+                        <i class="bi bi-person-lock"></i>
+                        <span>Login</span>
+                    </button>
+                @endauth
             </div>
         </div>
     </div>

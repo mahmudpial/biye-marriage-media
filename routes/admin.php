@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ContentSectionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaqController;
@@ -88,6 +89,14 @@ Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function () {
     Route::post('/faqs/{faq}', [FaqController::class, 'update'])->name('faqs.update.post');
     Route::match(['POST', 'PATCH'], '/faqs/{faq}/toggle-active', [FaqController::class, 'toggleActive'])->name('faqs.toggle-active');
     Route::get('/faqs/{faq}/toggle-active', fn () => redirect()->route('admin.faqs.index'));
+
+    // Client Accounts (Matrimonial Clients & Guardians) Management
+    Route::resource('clients', ClientController::class)->only(['index', 'show']);
+    Route::post('/clients/{client}/status', [ClientController::class, 'updateStatus'])->name('clients.status');
+    Route::post('/clients/{client}/verify', [ClientController::class, 'verify'])->name('clients.verify');
+    Route::post('/clients/{client}/assign-staff', [ClientController::class, 'assignStaff'])->name('clients.assign-staff');
+    Route::post('/clients/{client}/subscription', [ClientController::class, 'updateSubscription'])->name('clients.subscription');
+    Route::post('/clients/{client}/impersonate', [ClientController::class, 'impersonate'])->name('clients.impersonate');
 
     // Admin Staff & Matchmaker Team Management CMS
     Route::resource('users', UserController::class);
