@@ -269,10 +269,28 @@
             cursor: pointer;
         }
 
+        /* Eliminate Bootstrap default duplicate caret */
+        .admin-profile-btn::after {
+            display: none !important;
+        }
+
         .admin-profile-btn:hover, .admin-profile-btn[aria-expanded="true"] {
             background: #171c26;
             border-color: var(--border-gold);
             color: #ffffff;
+        }
+
+        .admin-profile-btn .chevron-icon {
+            font-size: 0.72rem;
+            color: var(--accent-gold);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+        }
+
+        .admin-profile-btn[aria-expanded="true"] .chevron-icon {
+            transform: rotate(180deg);
         }
 
         .user-avatar {
@@ -290,19 +308,17 @@
         }
 
         .user-name-text {
-            font-size: 0.86rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            color: #ffffff;
             line-height: 1.2;
         }
 
         .user-status-text {
-            font-size: 0.7rem;
-            color: #34d399;
+            font-size: 0.72rem;
+            color: var(--accent-gold);
             display: flex;
             align-items: center;
-            gap: 0.3rem;
-            font-weight: 500;
+            gap: 0.35rem;
         }
 
         .status-dot {
@@ -316,58 +332,101 @@
 
         /* Admin Dropdown Menu */
         .admin-dropdown-menu {
-            background: #141820;
-            border: 1px solid var(--border-card);
+            background: linear-gradient(180deg, #161b26 0%, #111520 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 14px;
-            padding: 0.65rem 0;
+            padding: 0.45rem;
             min-width: 240px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.04);
             margin-top: 0.6rem !important;
+            animation: fadeInMenu 0.15s ease-out;
+        }
+
+        @keyframes fadeInMenu {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .dropdown-header-custom {
-            padding: 0.6rem 1.25rem 0.75rem;
-            border-bottom: 1px solid var(--border-card);
+            padding: 0.65rem 0.85rem;
+            margin-bottom: 0.35rem;
+            background: rgba(13, 17, 23, 0.6);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .dropdown-header-custom .name {
             font-weight: 600;
             color: #f8fafc;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
+            line-height: 1.25;
         }
 
         .dropdown-header-custom .email {
-            font-size: 0.76rem;
+            font-size: 0.75rem;
             color: var(--accent-gold);
+            margin-top: 0.15rem;
         }
 
         .admin-dropdown-menu .dropdown-item {
-            padding: 0.6rem 1.25rem;
+            padding: 0.55rem 0.85rem;
             color: var(--text-secondary);
-            font-size: 0.86rem;
+            font-size: 0.84rem;
+            font-weight: 500;
             display: flex;
             align-items: center;
             gap: 0.65rem;
-            transition: all 0.15s ease;
+            border-radius: 8px;
+            margin: 2px 0;
+            transition: all 0.18s ease;
+        }
+
+        .admin-dropdown-menu .dropdown-item i {
+            font-size: 0.95rem;
+            width: 18px;
+            text-align: center;
+            color: var(--accent-gold);
+            transition: transform 0.2s ease, color 0.2s ease;
         }
 
         .admin-dropdown-menu .dropdown-item:hover {
-            background: rgba(var(--theme-secondary-rgb), 0.12);
+            background: rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.12);
             color: #ffffff;
+            transform: translateX(3px);
+        }
+
+        .admin-dropdown-menu .dropdown-item:hover i {
+            transform: scale(1.15);
+            color: #fde68a;
         }
 
         .admin-dropdown-menu .dropdown-item.text-danger {
             color: #f87171 !important;
         }
 
+        .admin-dropdown-menu .dropdown-item.text-danger i {
+            color: #f87171 !important;
+        }
+
         .admin-dropdown-menu .dropdown-item.text-danger:hover {
-            background: rgba(220, 53, 69, 0.2);
+            background: rgba(239, 68, 68, 0.16) !important;
             color: #ffffff !important;
+            transform: translateX(3px);
+        }
+
+        .admin-dropdown-menu .dropdown-item.text-danger:hover i {
+            color: #fca5a5 !important;
         }
 
         .admin-dropdown-menu .dropdown-divider {
-            border-top-color: var(--border-card);
-            margin: 0.4rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin: 0.35rem 0.25rem;
         }
 
         .sidebar-toggle-btn {
@@ -785,7 +844,7 @@
 
                 <!-- Profile Dropdown (Logout item is inside here) -->
                 <div class="dropdown">
-                    <button class="admin-profile-btn dropdown-toggle border-0" type="button" id="adminProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="admin-profile-btn border-0" type="button" id="adminProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="user-avatar">
                             {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
                         </div>
@@ -795,47 +854,50 @@
                                 <span class="status-dot"></span> Online
                             </div>
                         </div>
-                        <i class="bi bi-chevron-down ms-1" style="font-size: 0.75rem; color: var(--accent-gold);"></i>
+                        <i class="bi bi-chevron-down ms-1 chevron-icon"></i>
                     </button>
 
                     <ul class="dropdown-menu dropdown-menu-end admin-dropdown-menu" aria-labelledby="adminProfileDropdown">
                         <li class="dropdown-header-custom">
-                            <div class="name">{{ auth()->user()->name ?? 'Administrator' }}</div>
-                            <div class="email">{{ auth()->user()->email ?? 'admin@biyemedia.com' }}</div>
+                            <div class="d-flex align-items-center justify-content-between gap-2">
+                                <div class="name text-truncate">{{ auth()->user()->name ?? 'Administrator' }}</div>
+                                <span class="badge rounded-pill" style="background: rgba(var(--theme-secondary-rgb), 0.18); color: var(--accent-gold); font-size: 0.65rem; border: 1px solid var(--border-gold); padding: 0.2rem 0.5rem;">{{ auth()->user()->role_label ?? 'Admin' }}</span>
+                            </div>
+                            <div class="email text-truncate">{{ auth()->user()->email ?? 'admin@biyemedia.com' }}</div>
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
-                                <i class="bi bi-grid-1x2-fill text-gold"></i>
+                                <i class="bi bi-grid-1x2-fill"></i>
                                 <span>Dashboard Home</span>
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('home') }}" target="_blank">
-                                <i class="bi bi-globe2 text-gold"></i>
+                                <i class="bi bi-globe2"></i>
                                 <span>Visit Public Website</span>
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('profiles') }}" target="_blank">
-                                <i class="bi bi-people text-gold"></i>
+                                <i class="bi bi-people"></i>
                                 <span>Browse Biodata</span>
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('admin.users.index') }}">
-                                <i class="bi bi-person-gear text-gold"></i>
+                                <i class="bi bi-person-gear"></i>
                                 <span>Staff &amp; Matchmakers</span>
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('admin.settings.index') }}">
-                                <i class="bi bi-sliders text-gold"></i>
+                                <i class="bi bi-sliders"></i>
                                 <span>Site Settings</span>
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('admin.sections.index') }}">
-                                <i class="bi bi-layout-text-window-reverse text-gold"></i>
+                                <i class="bi bi-layout-text-window-reverse"></i>
                                 <span>Page Content CMS</span>
                             </a>
                         </li>
