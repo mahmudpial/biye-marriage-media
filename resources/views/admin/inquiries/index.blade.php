@@ -144,74 +144,198 @@
         font-size: 0.76rem;
     }
 
-    /* Status Badges & Quick Select */
-    .status-badge {
-        font-size: 0.78rem;
-        font-weight: 700;
-        padding: 0.35rem 0.75rem;
-        border-radius: 20px;
+    /* Status Dropdown Component */
+    .status-dropdown-wrapper {
+        width: 165px;
+        position: relative;
+    }
+    .status-dropdown-btn {
+        width: 165px;
         display: inline-flex;
         align-items: center;
-        gap: 0.35rem;
-        white-space: nowrap;
-    }
-    .inquiry-status-select {
-        display: inline-block;
-        font-size: 0.8rem !important;
-        font-weight: 700 !important;
-        padding: 0.42rem 2.1rem 0.42rem 0.85rem !important;
-        border-radius: 20px !important;
+        gap: 0.45rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        padding: 0.38rem 0.75rem;
+        border-radius: 20px;
         cursor: pointer;
-        min-width: 156px;
-        width: 100%;
-        max-width: 165px;
-        white-space: nowrap !important;
+        white-space: nowrap;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid transparent;
         text-align: left;
-        background-repeat: no-repeat !important;
-        background-position: right 0.75rem center !important;
-        background-size: 13px 10px !important;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
-        transition: all 0.2s ease-in-out;
     }
-    .inquiry-status-select:focus {
-        box-shadow: 0 0 0 2px rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.4) !important;
-        outline: none;
+    .status-dropdown-btn.dropdown-toggle::after {
+        display: none !important;
     }
-    .inquiry-status-select option {
-        background-color: #0d1117 !important;
-        color: #f8fafc !important;
-        font-weight: 600;
-        padding: 6px 10px;
+    .status-dropdown-btn .status-btn-text {
+        flex-grow: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
+    .status-dropdown-btn .status-btn-chevron {
+        font-size: 0.7rem;
+        transition: transform 0.25s ease;
+        opacity: 0.85;
+        flex-shrink: 0;
+    }
+    .status-dropdown-btn[aria-expanded="true"] .status-btn-chevron {
+        transform: rotate(180deg);
+    }
+
+    /* Status Themes */
     .status-pending {
-        background-color: rgba(245, 158, 11, 0.18) !important;
+        background-color: rgba(245, 158, 11, 0.16) !important;
         color: #fde68a !important;
-        border: 1px solid rgba(245, 158, 11, 0.5) !important;
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23fde68a' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+        border-color: rgba(245, 158, 11, 0.45) !important;
+    }
+    .status-pending:hover, .status-pending:focus {
+        background-color: rgba(245, 158, 11, 0.26) !important;
+        border-color: rgba(245, 158, 11, 0.7) !important;
+        color: #ffffff !important;
     }
     .status-progress {
-        background-color: rgba(14, 165, 233, 0.18) !important;
+        background-color: rgba(14, 165, 233, 0.16) !important;
         color: #7dd3fc !important;
-        border: 1px solid rgba(14, 165, 233, 0.5) !important;
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%237dd3fc' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+        border-color: rgba(14, 165, 233, 0.45) !important;
+    }
+    .status-progress:hover, .status-progress:focus {
+        background-color: rgba(14, 165, 233, 0.26) !important;
+        border-color: rgba(14, 165, 233, 0.7) !important;
+        color: #ffffff !important;
     }
     .status-contacted {
-        background-color: rgba(168, 85, 247, 0.18) !important;
+        background-color: rgba(168, 85, 247, 0.16) !important;
         color: #d8b4fe !important;
-        border: 1px solid rgba(168, 85, 247, 0.5) !important;
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23d8b4fe' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+        border-color: rgba(168, 85, 247, 0.45) !important;
+    }
+    .status-contacted:hover, .status-contacted:focus {
+        background-color: rgba(168, 85, 247, 0.26) !important;
+        border-color: rgba(168, 85, 247, 0.7) !important;
+        color: #ffffff !important;
     }
     .status-verified {
-        background-color: rgba(34, 197, 94, 0.18) !important;
+        background-color: rgba(34, 197, 94, 0.16) !important;
         color: #86efac !important;
-        border: 1px solid rgba(34, 197, 94, 0.5) !important;
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2386efac' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+        border-color: rgba(34, 197, 94, 0.45) !important;
+    }
+    .status-verified:hover, .status-verified:focus {
+        background-color: rgba(34, 197, 94, 0.26) !important;
+        border-color: rgba(34, 197, 94, 0.7) !important;
+        color: #ffffff !important;
     }
     .status-closed {
-        background-color: rgba(148, 163, 184, 0.18) !important;
+        background-color: rgba(148, 163, 184, 0.16) !important;
         color: #cbd5e1 !important;
-        border: 1px solid rgba(148, 163, 184, 0.4) !important;
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23cbd5e1' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+        border-color: rgba(148, 163, 184, 0.4) !important;
+    }
+    .status-closed:hover, .status-closed:focus {
+        background-color: rgba(148, 163, 184, 0.26) !important;
+        border-color: rgba(148, 163, 184, 0.65) !important;
+        color: #ffffff !important;
+    }
+
+    /* Colored Indicator Dots */
+    .status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        display: inline-block;
+        flex-shrink: 0;
+    }
+    .status-pending-dot {
+        background: #f59e0b;
+        box-shadow: 0 0 6px rgba(245, 158, 11, 0.7);
+    }
+    .status-progress-dot {
+        background: #0ea5e9;
+        box-shadow: 0 0 6px rgba(14, 165, 233, 0.7);
+    }
+    .status-contacted-dot {
+        background: #a855f7;
+        box-shadow: 0 0 6px rgba(168, 85, 247, 0.7);
+    }
+    .status-verified-dot {
+        background: #22c55e;
+        box-shadow: 0 0 6px rgba(34, 197, 94, 0.7);
+    }
+    .status-closed-dot {
+        background: #94a3b8;
+        box-shadow: 0 0 5px rgba(148, 163, 184, 0.5);
+    }
+
+    /* Status Dropdown Menu (Exact matching 165px width) */
+    .status-dropdown-menu {
+        width: 165px !important;
+        min-width: 165px !important;
+        max-width: 165px !important;
+        box-sizing: border-box !important;
+        background: #121722 !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 12px !important;
+        padding: 0.35rem !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65) !important;
+        margin-top: 0.35rem !important;
+        z-index: 1060 !important;
+    }
+    .status-menu-item {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.45rem !important;
+        width: 100% !important;
+        padding: 0.42rem 0.65rem !important;
+        font-size: 0.76rem !important;
+        font-weight: 600 !important;
+        border-radius: 8px !important;
+        transition: all 0.15s ease-in-out !important;
+        background: transparent;
+        border: none;
+        text-align: left;
+        cursor: pointer;
+        margin-bottom: 2px;
+    }
+    .status-menu-item:last-child {
+        margin-bottom: 0;
+    }
+    .status-menu-item.item-pending {
+        color: #fde68a !important;
+    }
+    .status-menu-item.item-pending:hover, .status-menu-item.item-pending.active-status {
+        background: rgba(245, 158, 11, 0.18) !important;
+        color: #ffffff !important;
+    }
+    .status-menu-item.item-progress {
+        color: #7dd3fc !important;
+    }
+    .status-menu-item.item-progress:hover, .status-menu-item.item-progress.active-status {
+        background: rgba(14, 165, 233, 0.18) !important;
+        color: #ffffff !important;
+    }
+    .status-menu-item.item-contacted {
+        color: #d8b4fe !important;
+    }
+    .status-menu-item.item-contacted:hover, .status-menu-item.item-contacted.active-status {
+        background: rgba(168, 85, 247, 0.18) !important;
+        color: #ffffff !important;
+    }
+    .status-menu-item.item-verified {
+        color: #86efac !important;
+    }
+    .status-menu-item.item-verified:hover, .status-menu-item.item-verified.active-status {
+        background: rgba(34, 197, 94, 0.18) !important;
+        color: #ffffff !important;
+    }
+    .status-menu-item.item-closed {
+        color: #cbd5e1 !important;
+    }
+    .status-menu-item.item-closed:hover, .status-menu-item.item-closed.active-status {
+        background: rgba(148, 163, 184, 0.18) !important;
+        color: #ffffff !important;
+    }
+    .status-menu-item .active-check {
+        font-size: 0.82rem;
+        font-weight: 700;
     }
 
     /* Action Buttons (36px square) */
@@ -507,29 +631,58 @@
                             <!-- Status Dropdown Quick-Update -->
                             <td class="text-center">
                                 @php
-                                    $statusClass = match($inq->status) {
-                                        'Pending Review' => 'status-pending',
-                                        'In Progress' => 'status-progress',
-                                        'Contacted' => 'status-contacted',
-                                        'Verified' => 'status-verified',
-                                        default => 'status-closed',
+                                    $statusKey = match($inq->status) {
+                                        'Pending Review' => 'pending',
+                                        'In Progress' => 'progress',
+                                        'Contacted' => 'contacted',
+                                        'Verified' => 'verified',
+                                        default => 'closed',
                                     };
                                 @endphp
-                                <form action="{{ route('admin.inquiries.update-status', $inq) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    <select 
-                                        name="status" 
-                                        class="form-select form-select-sm inquiry-status-select {{ $statusClass }} fw-bold" 
-                                        onchange="this.form.submit()"
-                                        title="Change lead workflow status"
+                                <div class="dropdown d-inline-block status-dropdown-wrapper">
+                                    <button 
+                                        type="button" 
+                                        class="btn status-dropdown-btn status-{{ $statusKey }} dropdown-toggle" 
+                                        id="statusDropdown{{ $inq->id }}"
+                                        data-bs-toggle="dropdown" 
+                                        data-bs-popper-config='{"strategy":"fixed"}'
+                                        aria-expanded="false"
+                                        title="Click to change workflow status"
                                     >
-                                        <option value="Pending Review" {{ $inq->status === 'Pending Review' ? 'selected' : '' }}>Pending Review</option>
-                                        <option value="In Progress" {{ $inq->status === 'In Progress' ? 'selected' : '' }}>In Progress</option>
-                                        <option value="Contacted" {{ $inq->status === 'Contacted' ? 'selected' : '' }}>Contacted</option>
-                                        <option value="Verified" {{ $inq->status === 'Verified' ? 'selected' : '' }}>Verified</option>
-                                        <option value="Closed" {{ $inq->status === 'Closed' ? 'selected' : '' }}>Closed</option>
-                                    </select>
-                                </form>
+                                        <span class="status-dot status-{{ $statusKey }}-dot"></span>
+                                        <span class="status-btn-text">{{ $inq->status }}</span>
+                                        <i class="bi bi-chevron-down ms-auto status-btn-chevron"></i>
+                                    </button>
+                                    <ul class="dropdown-menu status-dropdown-menu shadow-lg" aria-labelledby="statusDropdown{{ $inq->id }}">
+                                        @foreach(['Pending Review', 'In Progress', 'Contacted', 'Verified', 'Closed'] as $opt)
+                                            @php
+                                                $optKey = match($opt) {
+                                                    'Pending Review' => 'pending',
+                                                    'In Progress' => 'progress',
+                                                    'Contacted' => 'contacted',
+                                                    'Verified' => 'verified',
+                                                    default => 'closed',
+                                                };
+                                            @endphp
+                                            <li>
+                                                <form action="{{ route('admin.inquiries.update-status', $inq) }}" method="POST" class="m-0 p-0">
+                                                    @csrf
+                                                    <input type="hidden" name="status" value="{{ $opt }}">
+                                                    <button 
+                                                        type="submit" 
+                                                        class="dropdown-item status-menu-item item-{{ $optKey }} {{ $inq->status === $opt ? 'active-status' : '' }}"
+                                                    >
+                                                        <span class="status-dot status-{{ $optKey }}-dot"></span>
+                                                        <span class="menu-item-text">{{ $opt }}</span>
+                                                        @if($inq->status === $opt)
+                                                            <i class="bi bi-check2 ms-auto active-check"></i>
+                                                        @endif
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </td>
 
                             <!-- Date Received -->
