@@ -41,9 +41,9 @@
                 </div>
 
                 <div class="d-flex align-items-center gap-3 flex-wrap">
-                    <button type="button" class="btn btn-elite-gold px-4 py-2" data-bs-toggle="modal" data-bs-target="#consultationModal">
+                    <a href="{{ route('register') }}" class="btn btn-elite-gold px-4 py-2">
                         <i class="bi bi-person-plus-fill me-1"></i> {{ site_setting('hero_cta_primary_text', 'Register Profile') }}
-                    </button>
+                    </a>
                     <a href="{{ route('contact') }}" class="btn btn-elite-outline-gold px-4 py-2">
                         <i class="bi bi-envelope-fill me-1"></i> {{ site_setting('hero_cta_secondary_text', 'Contact Us') }}
                     </a>

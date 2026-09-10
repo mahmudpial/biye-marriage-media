@@ -116,31 +116,4 @@
 }
 </style>
 
-@push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const switchBtn = document.getElementById('btnSwitchToRegister');
-        if (switchBtn) {
-            switchBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                const loginModalEl = document.getElementById('memberLoginModal');
-                const consultationModalEl = document.getElementById('consultationModal');
-                
-                if (loginModalEl && typeof bootstrap !== 'undefined') {
-                    const loginModal = bootstrap.Modal.getInstance(loginModalEl);
-                    if (loginModal) {
-                        loginModal.hide();
-                    }
-                }
-                
-                setTimeout(function () {
-                    if (consultationModalEl && typeof bootstrap !== 'undefined') {
-                        const consultationModal = bootstrap.Modal.getOrCreateInstance(consultationModalEl);
-                        consultationModal.show();
-                    }
-                }, 300);
-            });
-        }
-    });
-</script>
-@endpush
+
