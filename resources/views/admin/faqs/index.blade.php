@@ -43,6 +43,7 @@
         border-radius: 14px;
         padding: 1.15rem 1.35rem;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+        overflow: hidden;
     }
     .filter-label {
         color: var(--theme-secondary, #d4af37);
@@ -59,6 +60,30 @@
         font-size: 0.88rem;
         border-radius: 9px;
         padding: 0.55rem 0.85rem;
+        width: 100%;
+    }
+    .filter-btn-group {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100%;
+        min-width: 0;
+    }
+    .filter-btn {
+        height: 42px;
+        border-radius: 9px;
+        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        padding: 0.5rem 0.9rem;
+        transition: all 0.2s ease;
+    }
+    .filter-btn-publish {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
     }
     .filter-input:focus, .filter-select:focus {
         border-color: var(--theme-secondary, #d4af37) !important;
@@ -302,12 +327,15 @@
     <!-- Filter, Search & Quick Actions Card -->
     <div class="filter-card mb-4">
         <form method="GET" action="{{ route('admin.faqs.index') }}">
-            <div class="row g-3 align-items-end">
-                <div class="col-xl-4 col-lg-3 col-md-6">
+            <div class="row g-2 g-xl-3 align-items-end">
+                <!-- Search Input -->
+                <div class="col-xl-3 col-lg-3 col-md-6 col-12">
                     <label class="filter-label"><i class="bi bi-search me-1"></i> Search Question / Answer</label>
                     <input type="text" name="search" class="form-control filter-input" placeholder="e.g. confidentiality, verification, fees, NRB..." value="{{ $filters['search'] ?? '' }}">
                 </div>
-                <div class="col-xl-3 col-lg-3 col-md-6">
+
+                <!-- Category -->
+                <div class="col-xl-3 col-lg-3 col-md-6 col-12">
                     <label class="filter-label"><i class="bi bi-tag me-1"></i> Category</label>
                     <select name="category" class="form-select filter-select">
                         <option value="">All Categories</option>
@@ -318,7 +346,9 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-xl-2 col-lg-2 col-md-4">
+
+                <!-- Status -->
+                <div class="col-xl-2 col-lg-2 col-md-4 col-12">
                     <label class="filter-label"><i class="bi bi-toggle2-on me-1"></i> Status</label>
                     <select name="status" class="form-select filter-select">
                         <option value="">All Statuses</option>
@@ -326,18 +356,23 @@
                         <option value="inactive" {{ ($filters['status'] ?? '') === 'inactive' ? 'selected' : '' }}>Drafts Only</option>
                     </select>
                 </div>
-                <div class="col-xl-3 col-lg-4 col-md-8 d-flex gap-2">
-                    <button type="submit" class="btn btn-outline-warning flex-fill filter-btn py-2">
-                        <i class="bi bi-funnel-fill me-1"></i> Filter
-                    </button>
-                    @if(!empty($filters['search']) || !empty($filters['category']) || !empty($filters['status']))
-                        <a href="{{ route('admin.faqs.index') }}" class="btn btn-outline-secondary filter-btn py-2" title="Reset Filters">
-                            <i class="bi bi-arrow-counterclockwise"></i>
+
+                <!-- Action Buttons: Filter & Publish New FAQ -->
+                <div class="col-xl-4 col-lg-4 col-md-8 col-12">
+                    <div class="filter-btn-group">
+                        <button type="submit" class="btn btn-outline-warning filter-btn flex-shrink-0" style="padding: 0 1rem;">
+                            <i class="bi bi-funnel-fill me-1"></i> Filter
+                        </button>
+                        @if(!empty($filters['search']) || !empty($filters['category']) || !empty($filters['status']))
+                            <a href="{{ route('admin.faqs.index') }}" class="btn btn-outline-secondary filter-btn flex-shrink-0 px-2" style="width: 42px;" title="Reset Filters">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                            </a>
+                        @endif
+                        <a href="{{ route('admin.faqs.create') }}" class="btn btn-admin-primary filter-btn filter-btn-publish fw-bold text-dark" title="Publish New FAQ">
+                            <i class="bi bi-plus-circle-fill me-1 flex-shrink-0"></i>
+                            <span class="text-truncate">Publish New FAQ</span>
                         </a>
-                    @endif
-                    <a href="{{ route('admin.faqs.create') }}" class="btn btn-admin-primary flex-fill filter-btn py-2 fw-bold text-dark">
-                        <i class="bi bi-plus-circle-fill me-1"></i> Publish New FAQ
-                    </a>
+                    </div>
                 </div>
             </div>
         </form>
