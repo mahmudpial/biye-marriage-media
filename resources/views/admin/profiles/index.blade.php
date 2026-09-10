@@ -52,8 +52,29 @@
         overflow: hidden;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
     }
+    .table-container .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.4) #0d1117;
+    }
+    .table-container .table-responsive::-webkit-scrollbar {
+        height: 7px;
+    }
+    .table-container .table-responsive::-webkit-scrollbar-track {
+        background: #0d1117;
+        border-radius: 4px;
+    }
+    .table-container .table-responsive::-webkit-scrollbar-thumb {
+        background: rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.35);
+        border-radius: 4px;
+    }
+    .table-container .table-responsive::-webkit-scrollbar-thumb:hover {
+        background: rgba(var(--theme-secondary-rgb, 201, 151, 56), 0.65);
+    }
     .table-profiles {
         width: 100%;
+        min-width: 1160px;
         margin-bottom: 0;
         border-collapse: collapse;
     }
@@ -81,6 +102,17 @@
     }
     .table-profiles tbody tr:last-child td {
         border-bottom: none;
+    }
+
+    /* 2-line clamp for clean, balanced table fit */
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        line-height: 1.35;
     }
 
     /* Candidate Photo */
@@ -331,23 +363,23 @@
             <table class="table table-profiles align-middle">
                 <thead>
                     <tr>
-                        <th style="width: 170px;">Candidate</th>
-                        <th style="width: 150px;">Demographics</th>
-                        <th>Career &amp; Education</th>
-                        <th style="min-width: 190px;">Location &amp; Origin</th>
-                        <th style="width: 160px;">Tier &amp; Income</th>
-                        <th class="text-center" style="width: 110px;">Status</th>
-                        <th class="text-end" style="width: 140px;">Actions</th>
+                        <th class="text-center" style="min-width: 180px; width: 180px;">Candidate</th>
+                        <th class="text-center" style="min-width: 150px; width: 150px;">Demographics</th>
+                        <th class="text-center" style="min-width: 220px; width: 220px;">Career &amp; Education</th>
+                        <th class="text-center" style="min-width: 210px; width: 210px;">Location &amp; Origin</th>
+                        <th class="text-center" style="min-width: 160px; width: 160px;">Tier &amp; Income</th>
+                        <th class="text-center" style="min-width: 115px; width: 115px;">Status</th>
+                        <th class="text-center" style="min-width: 140px; width: 140px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($profiles as $profile)
                     <tr>
                         <!-- 1. Candidate Photo & Code -->
-                        <td>
-                            <div class="d-flex align-items-center gap-2.5">
+                        <td class="text-center">
+                            <div class="d-flex align-items-center justify-content-center gap-2.5">
                                 <img src="{{ $profile->resolved_image }}" alt="{{ $profile->profile_code }}" class="profile-thumb {{ $profile->is_discreet ? 'is-discreet' : '' }}">
-                                <div>
+                                <div class="text-center">
                                     <div class="fw-bold text-gold-bright font-monospace fs-6">
                                         {{ $profile->profile_code }}
                                     </div>
@@ -365,8 +397,8 @@
                         </td>
 
                         <!-- 2. Demographics -->
-                        <td>
-                            <div>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center">
                                 @if($profile->gender === 'female')
                                     <span class="badge badge-bride">
                                         <i class="bi bi-gender-female"></i> Bride
@@ -380,47 +412,47 @@
                             <div class="text-white fw-bold mt-1 fs-7">
                                 {{ $profile->age }} Yrs &bull; {{ $profile->height }}
                             </div>
-                            <div class="small text-silver mt-0.5">
+                            <div class="small text-silver mt-0.5 line-clamp-2 text-center" title="{{ $profile->religion }}">
                                 {{ $profile->religion }}
                             </div>
                         </td>
 
                         <!-- 3. Career & Education -->
-                        <td>
-                            <div class="text-white fw-bold fs-6">
+                        <td class="text-center">
+                            <div class="text-white fw-bold fs-6 line-clamp-2 mx-auto text-center" style="max-width: 210px;" title="{{ $profile->profession }}">
                                 {{ $profile->profession }}
                             </div>
-                            <div class="text-silver small mt-0.5 d-flex align-items-center gap-1">
+                            <div class="text-silver small mt-1 d-flex align-items-center justify-content-center gap-1 mx-auto" style="max-width: 210px;" title="{{ $profile->education }}">
                                 <i class="bi bi-mortarboard-fill text-gold flex-shrink-0"></i>
-                                <span>{{ $profile->education }}</span>
+                                <span class="line-clamp-2 text-center">{{ $profile->education }}</span>
                             </div>
                         </td>
 
                         <!-- 4. Location & Origin -->
-                        <td>
-                            <div class="text-white fw-medium d-flex align-items-center gap-1.5">
+                        <td class="text-center">
+                            <div class="text-white fw-medium d-flex align-items-center justify-content-center gap-1.5 mx-auto" style="max-width: 200px;" title="{{ $profile->location }}">
                                 <i class="bi bi-geo-alt-fill text-danger flex-shrink-0"></i>
-                                <span>{{ $profile->location }}</span>
+                                <span class="line-clamp-2 text-center">{{ $profile->location }}</span>
                             </div>
-                            <div class="text-silver small mt-0.5 d-flex align-items-center gap-1.5">
+                            <div class="text-silver small mt-1 d-flex align-items-center justify-content-center gap-1.5 mx-auto" style="max-width: 200px;" title="Home: {{ $profile->desher_bari }}">
                                 <i class="bi bi-house-door-fill text-gold flex-shrink-0"></i>
-                                <span>Home: <strong class="text-white">{{ $profile->desher_bari }}</strong></span>
+                                <span class="line-clamp-2 text-center">Home: <strong class="text-white">{{ $profile->desher_bari }}</strong></span>
                             </div>
                         </td>
 
                         <!-- 5. Tier & Income -->
-                        <td>
-                            <div>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center">
                                 <span class="badge badge-tier">
                                     {{ $profile->category }}
                                 </span>
                             </div>
-                            <div class="small fw-bold mt-1 text-gold-bright">
+                            <div class="small fw-bold mt-1 text-gold-bright line-clamp-2 mx-auto text-center" style="max-width: 150px;" title="{{ $profile->income }}">
                                 <i class="bi bi-cash-stack me-1 text-gold"></i>{{ $profile->income }}
                             </div>
                         </td>
 
-                        <!-- 8. Status Toggle: Active in bright green vs Inactive in red -->
+                        <!-- 6. Status Toggle: Active in bright green vs Inactive in red -->
                         <td class="text-center">
                             <form action="{{ route('admin.profiles.toggle-active', $profile) }}" method="POST" class="d-inline">
                                 @csrf
@@ -441,9 +473,9 @@
                             </form>
                         </td>
 
-                        <!-- 9. Actions: View, Edit & Delete Icon Buttons -->
-                        <td class="text-end">
-                            <div class="d-inline-flex gap-2 align-items-center justify-content-end">
+                        <!-- 7. Actions: View, Edit & Delete Icon Buttons -->
+                        <td class="text-center">
+                            <div class="d-flex gap-2 align-items-center justify-content-center">
                                 <!-- View Details Icon Button -->
                                 <button 
                                     type="button" 
@@ -639,7 +671,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="9" class="text-center py-5 text-silver">
+                        <td colspan="7" class="text-center py-5 text-silver">
                             <i class="bi bi-people display-4 d-block mb-3 opacity-25 text-gold"></i>
                             <h5 class="text-white fw-bold">No candidate profiles found</h5>
                             <p class="small text-silver mb-3">Try adjusting your search query or reset the filters.</p>
