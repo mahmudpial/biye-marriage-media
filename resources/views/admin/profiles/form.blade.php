@@ -6,27 +6,28 @@
 @push('styles')
 <style>
     .form-card {
-        background: #1c050e;
-        border: 1px solid rgba(212, 175, 55, 0.25);
+        background: #141820;
+        background: linear-gradient(180deg, #171c26 0%, #131720 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 18px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
         padding: 2rem;
     }
 
     .form-section-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.15rem;
+        font-size: 1.05rem;
         font-weight: 700;
-        color: #fef08a;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-        padding-bottom: 0.65rem;
+        color: #f8fafc;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 0.75rem;
         margin-bottom: 1.5rem;
         display: flex;
         align-items: center;
+        gap: 0.6rem;
     }
     .form-section-title i {
-        color: #d4af37;
-        margin-right: 0.6rem;
+        color: var(--accent-gold);
+        font-size: 1.15rem;
     }
 
     .form-label {
@@ -126,21 +127,21 @@
         flex-shrink: 0;
     }
     .custom-switch-control .form-check-input {
-        width: 3rem;
-        height: 1.65rem;
+        width: 2.8rem;
+        height: 1.45rem;
         cursor: pointer;
-        background-color: rgba(255, 255, 255, 0.18);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: #334155;
+        border-color: #475569;
         transition: background-position 0.2s ease-in-out, background-color 0.2s ease, border-color 0.2s ease;
     }
     .custom-switch-control .form-check-input:focus {
-        border-color: #f5d061;
-        box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+        border-color: var(--accent-gold);
+        box-shadow: 0 0 0 0.2rem rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.25);
     }
     .custom-switch-control .form-check-input:checked {
         background-color: #22c55e;
-        border-color: #22c55e;
-        box-shadow: 0 0 12px rgba(34, 197, 94, 0.5);
+        border-color: #16a34a;
+        box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
     }
 </style>
 @endpush
@@ -149,11 +150,11 @@
 <div class="container-fluid px-0">
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <a href="{{ route('admin.profiles.index') }}" class="btn btn-sm btn-outline-secondary px-3 py-1.5 text-silver" style="border-radius: 8px;">
+        <a href="{{ route('admin.profiles.index') }}" class="btn btn-sm btn-outline-secondary px-3 py-1.5" style="border-radius: 8px;">
             <i class="bi bi-arrow-left me-1"></i> Back to Candidates List
         </a>
         @if($isEdit)
-            <span class="badge" style="background: rgba(212, 175, 55, 0.18); color: #fde68a; border: 1px solid rgba(212, 175, 55, 0.4); font-size: 0.82rem; padding: 0.4rem 0.8rem; border-radius: 8px;">
+            <span class="badge" style="background: rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.18); color: #fde68a; border: 1px solid rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.4); font-size: 0.82rem; padding: 0.4rem 0.8rem; border-radius: 8px;">
                 <i class="bi bi-fingerprint me-1 text-gold"></i> ID: {{ $profile->profile_code }}
             </span>
         @endif

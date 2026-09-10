@@ -6,27 +6,28 @@
 @push('styles')
 <style>
     .form-card {
-        background: #1c050e;
-        border: 1px solid rgba(212, 175, 55, 0.25);
+        background: #141820;
+        background: linear-gradient(180deg, #171c26 0%, #131720 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 18px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
         padding: 2rem;
     }
 
     .form-section-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.15rem;
+        font-size: 1.05rem;
         font-weight: 700;
-        color: #fef08a;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-        padding-bottom: 0.65rem;
+        color: #f8fafc;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 0.75rem;
         margin-bottom: 1.5rem;
         display: flex;
         align-items: center;
+        gap: 0.6rem;
     }
     .form-section-title i {
-        color: #d4af37;
-        margin-right: 0.6rem;
+        color: var(--accent-gold);
+        font-size: 1.15rem;
     }
 
     .form-label {
@@ -106,15 +107,17 @@
     }
 
     .custom-switch-control .form-check-input {
-        width: 3.2em;
-        height: 1.7em;
+        width: 2.8rem;
+        height: 1.45rem;
         cursor: pointer;
-        background-color: #3b0918;
-        border: 1px solid rgba(212, 175, 55, 0.5);
+        background-color: #334155;
+        border-color: #475569;
+        transition: background-position 0.2s ease-in-out, background-color 0.2s ease, border-color 0.2s ease;
     }
     .custom-switch-control .form-check-input:checked {
         background-color: #22c55e;
-        border-color: #4ade80;
+        border-color: #16a34a;
+        box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
     }
 
     /* Photo Preview Box */
@@ -123,7 +126,7 @@
         height: 160px;
         border-radius: 16px;
         overflow: hidden;
-        border: 2px solid #d4af37;
+        border: 2px solid var(--accent-gold);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         background: #000;
     }
@@ -135,31 +138,35 @@
 
     /* Buttons */
     .btn-admin-primary {
-        background: linear-gradient(135deg, #d4af37 0%, #f5d061 50%, #aa820a 100%);
-        color: #0b0206 !important;
-        border: none;
+        background: linear-gradient(135deg, var(--accent-gold) 0%, #a17822 100%) !important;
+        color: #0b0f17 !important;
+        border: 1px solid #fde68a !important;
         border-radius: 10px;
         font-weight: 700;
         transition: all 0.2s ease;
-        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+        box-shadow: 0 4px 14px rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.4);
     }
     .btn-admin-primary:hover {
+        background: linear-gradient(135deg, #fde68a 0%, var(--accent-gold) 100%) !important;
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        box-shadow: 0 6px 20px rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.6);
         color: #000000 !important;
     }
     .btn-admin-cancel {
-        background: rgba(220, 38, 38, 0.15);
-        color: #fca5a5 !important;
-        border: 1px solid rgba(239, 68, 68, 0.4);
+        background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important;
+        color: #ffffff !important;
+        border: 1px solid #ef4444 !important;
         border-radius: 10px;
+        font-weight: 700;
         transition: all 0.2s ease;
+        box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4);
     }
     .btn-admin-cancel:hover {
-        background: #dc2626;
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
         color: #ffffff !important;
-        border-color: #ef4444;
+        border-color: #fca5a5 !important;
         transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
     }
 </style>
 @endpush

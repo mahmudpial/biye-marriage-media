@@ -493,6 +493,56 @@
             color: var(--gold-light) !important;
         }
 
+        /* High-Legibility Text & Bootstrap Overrides */
+        .text-secondary {
+            color: #94a3b8 !important;
+        }
+        .text-muted {
+            color: #94a3b8 !important;
+        }
+
+        .btn-outline-secondary {
+            color: #cbd5e1 !important;
+            border-color: rgba(255, 255, 255, 0.18) !important;
+            background: rgba(255, 255, 255, 0.04) !important;
+            transition: all 0.2s ease;
+        }
+        .btn-outline-secondary:hover {
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.35) !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        /* Global Solo UI Modals */
+        .modal-content {
+            background: #141820 !important;
+            background: linear-gradient(180deg, #171c26 0%, #131720 100%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 16px !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+            color: #f8fafc !important;
+        }
+        .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+        .modal-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+        .modal-label, .modal-detail-label {
+            font-size: 0.76rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+            color: #94a3b8 !important;
+            font-weight: 700 !important;
+            margin-bottom: 0.25rem !important;
+            display: block !important;
+        }
+        .modal-val, .modal-detail-val {
+            color: #f8fafc !important;
+            font-size: 0.95rem !important;
+            font-weight: 600 !important;
+        }
+
         /* ================= EXECUTIVE ADMIN BUTTONS ================= */
         .btn-admin-primary {
             background: linear-gradient(135deg, var(--accent-gold) 0%, #a17822 100%) !important;

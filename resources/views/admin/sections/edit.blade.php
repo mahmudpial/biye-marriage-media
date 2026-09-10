@@ -3,6 +3,76 @@
 @section('title', $sectionDef['title'] . ' | Page Content CMS')
 @section('page-title', $sectionDef['title'])
 
+@push('styles')
+<style>
+    .section-card {
+        background: #141820;
+        background: linear-gradient(180deg, #171c26 0%, #131720 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+        padding: 1.75rem 2rem;
+    }
+    .form-section-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #f8fafc;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 0.75rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+    .form-section-title i {
+        color: var(--accent-gold);
+        font-size: 1.15rem;
+    }
+    .form-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--theme-secondary, #d4af37);
+        margin-bottom: 0.4rem;
+        letter-spacing: 0.3px;
+    }
+    .form-control, .form-select {
+        background: #0d1117 !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        color: #f8fafc !important;
+        border-radius: 10px;
+        padding: 0.65rem 0.9rem;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+    }
+    .form-control:focus, .form-select:focus {
+        border-color: var(--theme-secondary, #d4af37) !important;
+        box-shadow: 0 0 0 3px rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.25) !important;
+    }
+    .form-control::placeholder {
+        color: #64748b !important;
+    }
+    .form-text, .text-muted-custom {
+        color: #cbd5e1 !important;
+    }
+    .active-section-nav {
+        background: linear-gradient(90deg, rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.2) 0%, rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.05) 100%) !important;
+        border: 1px solid rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.45) !important;
+        color: #ffffff !important;
+    }
+    .inactive-section-nav {
+        background: rgba(13, 17, 23, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        color: #94a3b8 !important;
+        transition: all 0.2s ease;
+    }
+    .inactive-section-nav:hover {
+        background: rgba(255, 255, 255, 0.08) !important;
+        color: #f8fafc !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+    }
+</style>
+@endpush
+
 @section('content')
 <div class="container-fluid px-0">
 
@@ -695,7 +765,7 @@
                 @endif
 
                 <!-- Save & Action Controls -->
-                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 p-3 rounded" style="background: rgba(20, 3, 9, 0.7); border: 1px solid var(--border-gold);">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 p-3" style="background: #141820; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
                     <button type="submit" class="btn btn-admin-primary px-4 py-2.5 fw-bold fs-6 d-inline-flex align-items-center gap-2">
                         <i class="bi bi-check2-circle fs-5"></i>
                         <span>Save &amp; Publish {{ $sectionDef['nav_label'] }}</span>
@@ -737,7 +807,7 @@
                     </div>
                     <div class="d-flex flex-column gap-1.5">
                         @foreach($sections as $sKey => $s)
-                        <a href="{{ route('admin.sections.edit', $sKey) }}" class="d-flex align-items-center justify-content-between p-2 rounded text-decoration-none {{ $sKey === $sectionKey ? 'bg-maroon text-white fw-bold border border-warning border-opacity-50' : 'text-secondary bg-dark bg-opacity-25' }}">
+                        <a href="{{ route('admin.sections.edit', $sKey) }}" class="d-flex align-items-center justify-content-between p-2 rounded text-decoration-none {{ $sKey === $sectionKey ? 'active-section-nav fw-bold' : 'inactive-section-nav' }}">
                             <span class="small d-flex align-items-center gap-2">
                                 <i class="bi {{ $s['icon'] }} {{ $sKey === $sectionKey ? 'text-gold' : 'text-muted-custom' }}"></i>
                                 <span>{{ $s['nav_label'] }}</span>

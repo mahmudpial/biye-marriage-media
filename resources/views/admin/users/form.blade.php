@@ -6,27 +6,28 @@
 @push('styles')
 <style>
     .form-card {
-        background: #1c050e;
-        border: 1px solid rgba(212, 175, 55, 0.25);
+        background: #141820;
+        background: linear-gradient(180deg, #171c26 0%, #131720 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 18px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
         padding: 2rem;
     }
 
     .form-section-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.15rem;
+        font-size: 1.05rem;
         font-weight: 700;
-        color: #fef08a;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-        padding-bottom: 0.65rem;
+        color: #f8fafc;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 0.75rem;
         margin-bottom: 1.5rem;
         display: flex;
         align-items: center;
+        gap: 0.6rem;
     }
     .form-section-title i {
-        color: #d4af37;
-        margin-right: 0.6rem;
+        color: var(--accent-gold);
+        font-size: 1.15rem;
     }
 
     .form-label {

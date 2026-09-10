@@ -219,7 +219,7 @@
     }
     .btn-action-icon.edit {
         background: #d4af37;
-        color: #0d0206 !important;
+        color: #0b0f17 !important;
         border: 1px solid #f5d061;
         box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
     }
@@ -548,11 +548,11 @@
                                         <div class="modal-body p-4">
                                             <div class="row g-4 mb-3">
                                                 <div class="col-md-6">
-                                                    <div class="small text-secondary">Pricing / Fee Structure</div>
+                                                    <div class="modal-label">Pricing / Fee Structure</div>
                                                     <div class="fs-4 fw-bold text-gold-bright">{{ $pkg->price ?: 'Custom Quote' }}</div>
                                                 </div>
                                                 <div class="col-md-6 text-md-end">
-                                                    <div class="small text-secondary mb-1">Status &amp; Showcase</div>
+                                                    <div class="modal-label mb-1">Status &amp; Showcase</div>
                                                     <span class="badge {{ $pkg->is_active ? 'bg-success' : 'bg-danger' }} px-2.5 py-1.5 me-1">
                                                         {{ $pkg->is_active ? 'Active' : 'Inactive' }}
                                                     </span>
@@ -566,13 +566,13 @@
 
                                             @if($pkg->description)
                                             <div class="mb-3 p-3 rounded-3" style="background: #0b0f17; border-left: 3px solid var(--theme-secondary, #d4af37);">
-                                                <div class="small text-secondary mb-1">Overview Description</div>
+                                                <div class="modal-label mb-1">Overview Description</div>
                                                 <div class="text-silver small" style="line-height: 1.55;">{{ $pkg->description }}</div>
                                             </div>
                                             @endif
 
                                             <div>
-                                                <div class="small text-gold fw-semibold text-uppercase mb-2" style="letter-spacing: 0.5px;">
+                                                <div class="modal-label text-gold mb-2">
                                                     <i class="bi bi-check2-all me-1"></i> Included Privileges &amp; Features ({{ is_array($pkg->benefits) ? count($pkg->benefits) : 0 }})
                                                 </div>
                                                 <div class="row g-2">
@@ -584,13 +584,13 @@
                                                             </div>
                                                         </div>
                                                     @empty
-                                                        <div class="col-12 text-muted small">No specific privileges listed.</div>
+                                                        <div class="col-12 text-silver small">No specific privileges listed.</div>
                                                     @endforelse
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer border-top border-secondary border-opacity-25 py-2.5 px-4 d-flex justify-content-between">
-                                            <span class="small text-muted">Sort Order #{{ $pkg->sort_order }}</span>
+                                            <span class="small text-silver font-monospace">Sort Order #{{ $pkg->sort_order }}</span>
                                             <div class="d-flex gap-2">
                                                 <a href="{{ route('packages') }}" target="_blank" class="btn btn-outline-secondary btn-sm px-3">
                                                     <i class="bi bi-globe me-1"></i> Public Pricing Page

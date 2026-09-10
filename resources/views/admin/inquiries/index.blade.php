@@ -663,7 +663,7 @@
                                 class="form-control filter-input" 
                                 placeholder="e.g. Spoke with the father. Prefers meetings at Westin Dhaka. Family verified through local Sylhet council..."
                             ></textarea>
-                            <div class="form-text text-muted small">These notes are confidential and visible only to administrators.</div>
+                            <div class="form-text text-silver small">These notes are confidential and visible only to administrators.</div>
                         </div>
                     </div>
                 </div>

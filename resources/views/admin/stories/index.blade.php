@@ -231,7 +231,7 @@
     }
     .btn-featured-toggle.featured:hover {
         background: #d4af37;
-        color: #0b0206;
+        color: #0b0f17;
         transform: scale(1.03);
     }
     .btn-featured-toggle.standard {
@@ -240,12 +240,11 @@
         border: 1px solid rgba(148, 163, 184, 0.3);
     }
     .btn-featured-toggle.standard:hover {
-        background: #64748b;
+        background: rgba(148, 163, 184, 0.28);
         color: #ffffff;
-        transform: scale(1.03);
     }
 
-    /* Action Icon Buttons: 36px square View, Edit & Delete */
+    /* Action Icons */
     .btn-action-icon {
         width: 36px;
         height: 36px;
@@ -273,7 +272,7 @@
     }
     .btn-action-icon.edit {
         background: var(--theme-secondary, #d4af37);
-        color: #0d0206 !important;
+        color: #0b0f17 !important;
         border: 1px solid #f5d061;
         box-shadow: 0 2px 8px rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.3);
     }
@@ -578,15 +577,15 @@
                                                             @endif
                                                         </div>
 
-                                                        <label class="text-gold fw-semibold small text-uppercase mb-1 d-block" style="letter-spacing: 0.5px;">Testimonial Quote</label>
-                                                        <div class="p-3 rounded-3" style="background: #0b0f17; border-left: 4px solid var(--theme-secondary, #d4af37); color: #cbd5e1; font-style: italic; line-height: 1.6;">
+                                                        <div class="modal-label text-gold mb-1">Testimonial Quote</div>
+                                                        <div class="p-3 rounded-3" style="background: #0b0f17; border-left: 4px solid var(--theme-secondary, #d4af37); color: #f8fafc; font-style: italic; line-height: 1.6;">
                                                             <i class="bi bi-quote fs-4 text-gold me-1"></i>{{ $story->quote }}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer border-top border-secondary border-opacity-25 py-2.5 px-4 d-flex justify-content-between">
-                                                <span class="small text-muted">Order Priority: #{{ $story->sort_order }}</span>
+                                                <span class="small text-silver font-monospace">Order Priority: #{{ $story->sort_order }}</span>
                                                 <div class="d-flex gap-2">
                                                     <a href="{{ route('stories') }}" target="_blank" class="btn btn-outline-secondary btn-sm px-3">
                                                         <i class="bi bi-globe me-1"></i> Public Gallery

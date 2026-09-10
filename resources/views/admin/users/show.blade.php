@@ -23,10 +23,10 @@
         justify-content: center;
         font-weight: 800;
         font-size: 2.2rem;
-        color: #0b0206;
+        color: #0b0f17;
         background: linear-gradient(135deg, #fce07e 0%, #d4af37 100%);
-        border: 3px solid rgba(212, 175, 55, 0.6);
-        box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35);
+        border: 3px solid rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.6);
+        box-shadow: 0 4px 20px rgba(var(--theme-secondary-rgb, 212, 175, 55), 0.35);
     }
 
     .badge-role-lg {
@@ -119,10 +119,9 @@
     }
 
     .card-heading {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.15rem;
+        font-size: 1.05rem;
         font-weight: 700;
-        color: #f1f5f9;
+        color: #f8fafc;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         padding-bottom: 0.75rem;
         margin-bottom: 1.25rem;

@@ -191,7 +191,7 @@
     }
     .btn-action-icon.edit {
         background: #d4af37;
-        color: #0d0206 !important;
+        color: #0b0f17 !important;
         border: 1px solid #f5d061;
         box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
     }
@@ -513,15 +513,15 @@
                                                 <div class="col-md-8">
                                                     <div class="row g-3">
                                                         <div class="col-6">
-                                                            <div class="small text-secondary">Age &amp; Height</div>
+                                                            <div class="modal-label">Age &amp; Height</div>
                                                             <div class="fw-bold text-white fs-6">{{ $profile->age }} Yrs &bull; {{ $profile->height }}</div>
                                                         </div>
                                                         <div class="col-6">
-                                                            <div class="small text-secondary">Religion &amp; Status</div>
+                                                            <div class="modal-label">Religion &amp; Status</div>
                                                             <div class="fw-bold text-white fs-6">{{ $profile->religion }} &bull; {{ $profile->marital_status }}</div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <div class="small text-secondary">Profession &amp; Workplace</div>
+                                                            <div class="modal-label">Profession &amp; Workplace</div>
                                                             <div class="fw-bold text-gold-bright fs-6">
                                                                 {{ $profile->profession }}
                                                                 @if($profile->employer)
@@ -530,7 +530,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <div class="small text-secondary">Education &amp; Institution</div>
+                                                            <div class="modal-label">Education &amp; Institution</div>
                                                             <div class="fw-medium text-white">
                                                                 <i class="bi bi-mortarboard-fill text-gold me-1"></i>{{ $profile->education }}
                                                                 @if($profile->institution)
@@ -539,26 +539,26 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
-                                                            <div class="small text-secondary">Present Location</div>
+                                                            <div class="modal-label">Present Location</div>
                                                             <div class="fw-medium text-white">
                                                                 <i class="bi bi-geo-alt-fill text-danger me-1"></i>{{ $profile->location }}
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
-                                                            <div class="small text-secondary">Ancestral Origin (Desher Bari)</div>
+                                                            <div class="modal-label">Ancestral Origin (Desher Bari)</div>
                                                             <div class="fw-medium text-white">
                                                                 <i class="bi bi-house-door-fill text-gold me-1"></i>{{ $profile->desher_bari }}
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
-                                                            <div class="small text-secondary">Annual Income</div>
+                                                            <div class="modal-label">Annual Income</div>
                                                             <div class="fw-bold text-gold fs-6">
                                                                 <i class="bi bi-cash-stack me-1"></i>{{ $profile->income }}
                                                             </div>
                                                         </div>
                                                         @if($profile->complexion)
                                                         <div class="col-6">
-                                                            <div class="small text-secondary">Complexion</div>
+                                                            <div class="modal-label">Complexion</div>
                                                             <div class="fw-medium text-white">{{ $profile->complexion }}</div>
                                                         </div>
                                                         @endif
@@ -566,14 +566,14 @@
 
                                                     @if($profile->about)
                                                     <div class="mt-3 pt-3 border-top border-secondary border-opacity-25">
-                                                        <div class="small text-gold fw-semibold mb-1">About &amp; Personal Notes</div>
+                                                        <div class="modal-label text-gold">About &amp; Personal Notes</div>
                                                         <div class="small text-silver" style="line-height: 1.55;">{{ $profile->about }}</div>
                                                     </div>
                                                     @endif
 
                                                     @if($profile->partner_expectations)
                                                     <div class="mt-3 pt-2">
-                                                        <div class="small text-gold fw-semibold mb-1">Partner Expectations</div>
+                                                        <div class="modal-label text-gold">Partner Expectations</div>
                                                         <div class="small text-silver" style="line-height: 1.55;">{{ $profile->partner_expectations }}</div>
                                                     </div>
                                                     @endif
@@ -581,7 +581,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer border-top border-secondary border-opacity-25 py-2.5 px-4 d-flex justify-content-between">
-                                            <span class="small text-muted font-monospace">Candidate #{{ $profile->id }}</span>
+                                            <span class="small text-silver font-monospace">Candidate #{{ $profile->id }}</span>
                                             <div class="d-flex gap-2">
                                                 <a href="{{ route('profiles', ['q' => $profile->profile_code]) }}" target="_blank" class="btn btn-outline-secondary btn-sm px-3">
                                                     <i class="bi bi-globe me-1"></i> View Live Gallery

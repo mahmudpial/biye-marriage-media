@@ -210,7 +210,7 @@
     }
     .btn-action-icon.edit {
         background: #d4af37;
-        color: #0d0206 !important;
+        color: #0b0f17 !important;
         border: 1px solid #f5d061;
         box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
     }
@@ -522,11 +522,11 @@
                 </div>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body text-secondary pt-3">
+            <div class="modal-body text-silver pt-3">
                 Are you sure you want to permanently delete the staff account for:
                 <div class="p-3 my-2 rounded-3 border border-secondary border-opacity-25 text-white small" style="background: rgba(0,0,0,0.3);">
                     <div class="fw-bold" id="deleteUserName"></div>
-                    <div class="text-secondary small" id="deleteUserEmail"></div>
+                    <div class="text-silver small" id="deleteUserEmail"></div>
                 </div>
                 <p class="small text-danger opacity-75 mt-2 mb-0">
                     <i class="bi bi-info-circle me-1"></i> This action cannot be undone. The staff member will immediately lose all access to the administration portal.

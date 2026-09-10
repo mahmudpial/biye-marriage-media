@@ -15,7 +15,7 @@
                 </div>
                 <div>
                     <div class="fs-4 fw-bold text-white mb-0">{{ count($sections) + 1 }}</div>
-                    <div class="small text-secondary">Total CMS Modules</div>
+                    <div class="small text-silver">Total CMS Modules</div>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
                 </div>
                 <div>
                     <div class="fs-4 fw-bold text-white mb-0">5</div>
-                    <div class="small text-secondary">Homepage Live Sections</div>
+                    <div class="small text-silver">Homepage Live Sections</div>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                 </div>
                 <div>
                     <div class="fs-4 fw-bold text-white mb-0">5</div>
-                    <div class="small text-secondary">Brand &amp; Communications</div>
+                    <div class="small text-silver">Brand &amp; Communications</div>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
                 </div>
                 <div>
                     <div class="fs-4 fw-bold text-white mb-0">100%</div>
-                    <div class="small text-secondary">Dynamic CMS Coverage</div>
+                    <div class="small text-silver">Dynamic CMS Coverage</div>
                 </div>
             </div>
         </div>
