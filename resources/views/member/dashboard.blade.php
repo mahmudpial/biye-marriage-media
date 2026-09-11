@@ -15,8 +15,8 @@
 
             <div class="card-body p-4 p-md-5 position-relative z-1">
                 <div class="row align-items-center g-4">
-                    <!-- Left: Greetings & Completion Progress -->
-                    <div class="col-12 col-lg-8">
+                    <!-- Left Column (7 Cols): Greetings & Frosted Glass Completion Progress -->
+                    <div class="col-12 col-lg-7">
                         <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-black bg-opacity-25 text-white small mb-3 border border-warning-subtle" style="font-size: 0.82rem;">
                             <i class="bi bi-patch-check-fill text-warning"></i>
                             <span class="fw-semibold">এলিট মেম্বার পোর্টাল &bull; ১০০% সুরক্ষিত ও ব্যক্তিগত ম্যাচমেকিং</span>
@@ -25,22 +25,30 @@
                         <h2 class="font-serif fw-bold mb-2 display-6" style="letter-spacing: -0.5px;">
                             আসসালামু আলাইকুম, {{ $user->name }}!
                         </h2>
-                        <p class="text-white-50 mb-4 lh-base" style="max-width: 620px; font-size: 0.96rem;">
+                        <p class="text-white-50 mb-4 lh-base" style="max-width: 580px; font-size: 0.96rem;">
                             {{ site_setting('site_name', 'Biye Marriage Media') }}-তে আপনার পরিবারের জন্য উপযুক্ত দ্বীনদার, সুশিক্ষিত ও সমমর্যাদার জীবনসঙ্গী খুঁজে পেতে আমাদের সিনিয়র ম্যাচমেকার টিম আন্তরিকভাবে নিবেদিত।
                         </p>
 
-                        <!-- Interactive Biodata Completion Progress Box -->
-                        <div class="p-3.5 rounded-4 bg-black bg-opacity-30 border border-white border-opacity-15 shadow-inner" style="max-width: 560px;">
-                            <div class="d-flex justify-content-between align-items-center mb-2 small">
-                                <span class="text-white-50 d-flex align-items-center gap-1.5">
-                                    <i class="bi bi-ui-checks-grid text-warning"></i> বায়োডাটা সম্পূর্ণতা সূচক:
-                                </span>
-                                <span class="badge bg-warning text-dark px-2.5 py-1 rounded-pill fw-bold">
+                        <!-- Refined Frosted Glass Completion Meter Card -->
+                        <div class="completion-meter-card p-4 rounded-4 shadow-sm" style="max-width: 580px;">
+                            <div class="d-flex justify-content-between align-items-center mb-2.5 flex-wrap gap-2">
+                                <div class="d-flex align-items-center gap-2.5">
+                                    <div class="meter-icon-box">
+                                        <i class="bi bi-award-fill text-warning"></i>
+                                    </div>
+                                    <div>
+                                        <span class="fw-semibold text-white small d-block">বায়োডাটা সম্পূর্ণতা সূচক</span>
+                                        <span class="text-white-50" style="font-size: 0.72rem;">তথ্য যত সমৃদ্ধ হবে, ম্যাচমেকিং তত দ্রুত ও কার্যকর হবে</span>
+                                    </div>
+                                </div>
+                                <span class="badge badge-gold-glow px-3 py-1.5 rounded-pill font-monospace fw-bold">
                                     {{ $candidateProfile->completion_score }}% সম্পন্ন
                                 </span>
                             </div>
-                            <div class="progress mb-3" style="height: 10px; background-color: rgba(255,255,255,0.15); border-radius: 20px;">
-                                <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" 
+
+                            <!-- Shimmer Gold Progress Bar -->
+                            <div class="progress progress-royal-gold mb-3.5">
+                                <div class="progress-bar progress-bar-gold progress-bar-striped progress-bar-animated" 
                                      role="progressbar" 
                                      style="width: {{ $candidateProfile->completion_score }}%;" 
                                      aria-valuenow="{{ $candidateProfile->completion_score }}" 
@@ -48,51 +56,73 @@
                                      aria-valuemax="100"></div>
                             </div>
                             
-                            <div class="d-flex gap-2 flex-wrap align-items-center">
-                                <a href="{{ route('member.biodata.edit') }}" class="btn btn-warning btn-sm rounded-pill px-3.5 py-1.5 fw-bold text-dark shadow-sm">
-                                    <i class="bi bi-pencil-square me-1"></i> বায়োডাটা আপডেট করুন &rarr;
+                            <!-- Action Buttons with Generous Spacing -->
+                            <div class="d-flex gap-2.5 flex-wrap align-items-center pt-1">
+                                <a href="{{ route('member.biodata.edit') }}" class="btn btn-warning btn-sm rounded-pill px-4 py-2 fw-bold text-dark shadow-sm d-inline-flex align-items-center gap-1.5">
+                                    <i class="bi bi-pencil-square"></i>
+                                    <span>বায়োডাটা আপডেট করুন</span>
+                                    <i class="bi bi-arrow-right"></i>
                                 </a>
-                                <a href="{{ route('member.matches') }}" class="btn btn-outline-light btn-sm rounded-pill px-3 py-1.5">
-                                    <i class="bi bi-stars me-1 text-warning"></i> ডেইলি ম্যাচ দেখুন
+                                <a href="{{ route('member.matches') }}" class="btn btn-outline-light btn-sm rounded-pill px-3.5 py-2 fw-semibold d-inline-flex align-items-center gap-1.5">
+                                    <i class="bi bi-stars text-warning"></i>
+                                    <span>ডেইলি ম্যাচ দেখুন</span>
                                 </a>
-                                <button type="button" class="btn btn-outline-light btn-sm rounded-pill px-3 py-1.5" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-                                    <i class="bi bi-key-fill me-1 text-warning"></i> পাসওয়ার্ড পরিবর্তন
+                                <button type="button" class="btn btn-outline-light btn-sm rounded-pill px-3.5 py-2 fw-semibold d-inline-flex align-items-center gap-1.5" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                    <i class="bi bi-key-fill text-warning"></i>
+                                    <span>পাসওয়ার্ড পরিবর্তন</span>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Right: Profile Preview Frame -->
-                    <div class="col-12 col-lg-4 text-lg-end">
-                        <div class="d-inline-block text-center p-3.5 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-15 shadow-sm">
-                            <div class="position-relative d-inline-block mb-2">
-                                <div class="member-hero-avatar-frame">
+                    <!-- Right Column (5 Cols): Dedicated Executive Candidate Dossier Card -->
+                    <div class="col-12 col-lg-5">
+                        <div class="hero-profile-dossier-card p-4 text-center">
+                            <!-- Large Avatar Frame with Dual Gold Ring -->
+                            <div class="position-relative d-inline-block mb-3">
+                                <div class="hero-avatar-ring-large">
                                     <img src="{{ $candidateProfile->resolved_image }}" 
                                          alt="{{ $user->name }}" 
-                                         class="rounded-circle shadow-sm object-fit-cover {{ $candidateProfile->is_discreet ? 'blur-discreet' : '' }}" 
-                                         style="width: 95px; height: 95px; border: 3px solid #c99738;">
+                                         class="{{ $candidateProfile->is_discreet ? 'blur-discreet' : '' }}">
                                 </div>
                                 @if($user->isVerified())
-                                    <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-primary border border-2 border-white p-1" title="অফিসিয়াল ব্লু ভেরিফাইড সিল">
-                                        <i class="bi bi-patch-check-fill fs-6"></i>
+                                    <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-primary border border-2 border-white p-1.5" title="অফিসিয়াল ব্লু ভেরিফাইড মেম্বার">
+                                        <i class="bi bi-patch-check-fill fs-5"></i>
                                     </span>
                                 @endif
                             </div>
 
-                            <div class="fw-bold font-serif text-warning fs-5 mb-1" style="letter-spacing: 0.5px;">
+                            <!-- Profile Code & Identity -->
+                            <h4 class="fw-bold font-serif text-warning mb-1 fs-4 letter-spacing-1">
                                 {{ $candidateProfile->profile_code }}
+                            </h4>
+
+                            <!-- Demographic Chips -->
+                            <div class="d-flex justify-content-center gap-1.5 flex-wrap mb-2">
+                                <span class="badge bg-white text-maroon rounded-pill px-3 py-1 fw-bold shadow-xs">
+                                    {{ $candidateProfile->gender === 'female' ? 'পাত্রী' : 'পাত্র' }}, {{ $candidateProfile->age }} বছর
+                                </span>
+                                <span class="badge bg-black bg-opacity-35 text-white border border-white border-opacity-20 rounded-pill px-2.5 py-1 small">
+                                    {{ $candidateProfile->height }}
+                                </span>
+                                @if($candidateProfile->category)
+                                    <span class="badge bg-black bg-opacity-35 text-warning border border-warning-subtle rounded-pill px-2.5 py-1 small">
+                                        {{ $candidateProfile->category }}
+                                    </span>
+                                @endif
                             </div>
-                            <div class="badge bg-white text-maroon rounded-pill px-3 py-1 small fw-bold mb-2 shadow-sm">
-                                {{ ucfirst($candidateProfile->gender) }}, {{ $candidateProfile->age }} বছর
+
+                            <!-- Location & Origin -->
+                            <div class="small text-white-50 text-truncate mb-3 px-2">
+                                <i class="bi bi-geo-alt-fill text-warning me-1"></i>{{ $candidateProfile->location }} &bull; দেশের বাড়ি: <strong class="text-white">{{ $candidateProfile->desher_bari }}</strong>
                             </div>
-                            <div class="small text-white-50 text-truncate mb-2" style="max-width: 220px;">
-                                <i class="bi bi-geo-alt-fill text-warning me-1"></i>{{ $candidateProfile->desher_bari ?? 'বাংলাদেশ' }}
-                            </div>
-                            <div>
-                                <a href="{{ route('member.biodata.show') }}" class="btn btn-outline-light btn-sm rounded-pill px-3 py-1" style="font-size: 0.78rem;">
-                                    <i class="bi bi-file-earmark-person me-1 text-warning"></i>আমার সিভি দেখুন &rarr;
-                                </a>
-                            </div>
+
+                            <!-- Action Button to View Full Marriage CV -->
+                            <a href="{{ route('member.biodata.show') }}" class="btn btn-elite-primary rounded-pill w-100 py-2.5 fw-semibold shadow-sm d-flex align-items-center justify-content-center gap-2">
+                                <i class="bi bi-file-earmark-person-fill text-warning fs-6"></i>
+                                <span>আমার পূর্ণাঙ্গ সিভি দেখুন</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -463,6 +493,92 @@
 .blur-discreet {
     filter: blur(6px);
     transition: filter 0.3s ease;
+}
+
+/* Completion Meter Card (Frosted Glassmorphism) */
+.completion-meter-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(201, 151, 56, 0.35);
+    transition: all 0.3s ease;
+}
+
+.completion-meter-card:hover {
+    border-color: rgba(201, 151, 56, 0.6);
+    background: rgba(255, 255, 255, 0.11);
+}
+
+.meter-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(201, 151, 56, 0.18);
+    border: 1px solid rgba(201, 151, 56, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+}
+
+.badge-gold-glow {
+    background: linear-gradient(135deg, #fef08a 0%, #d4af37 100%);
+    color: #1a0309;
+    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+    font-size: 0.84rem;
+}
+
+.progress-royal-gold {
+    height: 10px;
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+}
+
+.progress-bar-gold {
+    background: linear-gradient(90deg, #c99738 0%, #fef08a 50%, #d4af37 100%) !important;
+    border-radius: 20px;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+    transition: width 0.6s ease;
+}
+
+/* Dedicated Executive Candidate Dossier Card */
+.hero-profile-dossier-card {
+    background: rgba(18, 3, 7, 0.52);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1.5px solid rgba(201, 151, 56, 0.45);
+    border-radius: 24px;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.hero-profile-dossier-card:hover {
+    border-color: rgba(201, 151, 56, 0.8);
+    transform: translateY(-3px);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+}
+
+.hero-avatar-ring-large {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    padding: 3.5px;
+    background: linear-gradient(135deg, #fef08a 0%, #c99738 50%, #851829 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.hero-avatar-ring-large img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffffff;
 }
 
 /* Stat Cards Luxury Lift */
