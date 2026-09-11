@@ -14,6 +14,18 @@ class AdminClientManagementTest extends TestCase
 
     public function test_admin_can_view_client_accounts_list(): void
     {
+        MembershipPackage::create([
+            'slug' => 'elite-pro',
+            'name' => 'Elite Professional',
+            'badge' => 'Exclusive',
+            'price' => '৳60,000 / 6 Months',
+            'description' => 'Test package',
+            'benefits' => ['Benefit 1'],
+            'featured' => true,
+            'sort_order' => 1,
+            'is_active' => true,
+        ]);
+
         $admin = User::factory()->admin()->create();
         $client = User::factory()->client()->create(['name' => 'Tanjina Sultana']);
         CandidateProfile::factory()->create(['user_id' => $client->id]);
@@ -23,6 +35,7 @@ class AdminClientManagementTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Registered Matrimony Clients');
         $response->assertSee('Tanjina Sultana');
+        $response->assertSee('Elite Professional (৳60,000 / 6 Months)');
     }
 
     public function test_admin_can_filter_clients_by_verification_status(): void

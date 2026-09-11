@@ -419,8 +419,12 @@
                                                         <select name="package_id" class="form-select" id="pkgSelect{{ $client->id }}" onchange="handlePackageSelect(this, '{{ $client->id }}')">
                                                             <option value="">Custom Package</option>
                                                             @foreach($packages as $pkg)
-                                                                <option value="{{ $pkg->id }}" data-name="{{ $pkg->name }}" data-price="{{ $pkg->price }}" data-proposals="25">
-                                                                    {{ $pkg->name }} (৳{{ number_format($pkg->price) }})
+                                                                @php
+                                                                    $cleaned = preg_replace('/[^0-9]/', '', (string) $pkg->price);
+                                                                    $numericPrice = is_numeric($cleaned) && $cleaned !== '' ? (int) $cleaned : 0;
+                                                                @endphp
+                                                                <option value="{{ $pkg->id }}" data-name="{{ $pkg->name }}" data-price="{{ $numericPrice }}" data-proposals="25">
+                                                                    {{ $pkg->name }} ({{ $pkg->price }})
                                                                 </option>
                                                             @endforeach
                                                         </select>
