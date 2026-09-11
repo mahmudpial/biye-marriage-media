@@ -47,4 +47,6 @@ Route::middleware(['auth', EnsureUserIsClient::class])->prefix('member')->name('
     Route::get('/proposals', [ProposalController::class, 'index'])->name('proposals');
     Route::post('/proposals/{candidateProfile}', [ProposalController::class, 'send'])->name('proposals.send');
     Route::post('/proposals/{proposal}/respond', [ProposalController::class, 'respond'])->name('proposals.respond');
+
+    Route::post('/password', [DashboardController::class, 'updatePassword'])->name('password.update');
 });

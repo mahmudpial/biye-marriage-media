@@ -4,14 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title', 'Member Dashboard - Biye Marriage Media')</title>
+    <title>@yield('title', 'সদস্য ড্যাশবোর্ড - ' . site_setting('site_name', 'Biye Marriage Media'))</title>
     
+    <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="{{ site_setting_image('site_favicon', asset('site-logo/marriage-logo.jpeg')) }}">
+    <link rel="shortcut icon" type="image/jpeg" href="{{ site_setting_image('site_favicon', asset('site-logo/marriage-logo.jpeg')) }}">
+    <link rel="apple-touch-icon" href="{{ site_setting_image('site_favicon', asset('site-logo/marriage-logo.jpeg')) }}">
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5.3.3 CSS & Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Elite Theme Base CSS -->
     <link rel="stylesheet" href="{{ asset('css/elite-theme.css') }}">
 
     <style>
@@ -21,11 +30,13 @@
             --theme-accent: {{ site_setting('theme_accent', '#121620') }};
             --font-serif: 'Playfair Display', Georgia, serif;
             --font-sans: 'Poppins', 'Hind Siliguri', sans-serif;
+            --elite-maroon-primary: var(--theme-primary);
+            --elite-gold-primary: var(--theme-secondary);
         }
 
         body {
             font-family: var(--font-sans);
-            background-color: #f7f5f2;
+            background-color: #f8f6f3;
             color: #2c323f;
             min-height: 100vh;
             display: flex;
@@ -36,12 +47,83 @@
             font-family: var(--font-serif);
         }
 
-        .member-navbar {
-            background: #ffffff;
-            border-bottom: 1px solid rgba(133, 24, 41, 0.08);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        /* Top VIP Helpdesk Bar */
+        .member-topbar {
+            background: #180308;
+            border-bottom: 1px solid rgba(201, 151, 56, 0.3);
+            color: #e5e7eb;
+            font-size: 0.8rem;
+            padding: 0.4rem 0;
         }
 
+        .member-topbar a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .member-topbar a:hover {
+            color: var(--theme-secondary);
+        }
+
+        .topbar-divider {
+            color: rgba(201, 151, 56, 0.4);
+            margin: 0 0.4rem;
+        }
+
+        /* Main Navbar */
+        .member-navbar {
+            background: #ffffff;
+            border-bottom: 1px solid rgba(201, 151, 56, 0.2);
+            box-shadow: 0 4px 20px rgba(133, 24, 41, 0.04);
+        }
+
+        /* Brand Logo Frame */
+        .member-brand-logo-frame {
+            width: 46px;
+            height: 46px;
+            min-width: 46px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            border: 2px solid var(--theme-secondary);
+            box-shadow: 0 2px 8px rgba(201, 151, 56, 0.2);
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .member-brand-logo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.22);
+            transition: transform 0.3s ease;
+        }
+
+        .member-brand:hover .member-brand-logo-frame img {
+            transform: scale(1.3);
+        }
+
+        .member-brand-title {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--theme-primary);
+            line-height: 1.1;
+        }
+
+        .member-brand-subtitle {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--theme-secondary);
+            font-weight: 700;
+        }
+
+        /* Nav Links */
         .member-nav-link {
             font-weight: 500;
             color: #4b5563;
@@ -53,35 +135,33 @@
             align-items: center;
             gap: 0.4rem;
             text-decoration: none;
+            border: 1px solid transparent;
         }
 
         .member-nav-link:hover {
             color: var(--theme-primary);
             background-color: rgba(133, 24, 41, 0.05);
+            border-color: rgba(133, 24, 41, 0.1);
         }
 
         .member-nav-link.active {
             color: #ffffff !important;
-            background: var(--theme-primary) !important;
+            background: linear-gradient(135deg, var(--theme-primary) 0%, #5d0f1b 100%) !important;
             box-shadow: 0 4px 12px rgba(133, 24, 41, 0.25);
+            border-color: transparent;
         }
 
-        .stat-card-member {
-            background: #ffffff;
-            border-radius: 16px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .stat-card-member:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(133, 24, 41, 0.07);
-        }
-
-        .badge-quota {
+        .badge-quota-pill {
             background: rgba(201, 151, 56, 0.12);
             color: #8c6310;
-            border: 1px solid rgba(201, 151, 56, 0.25);
+            border: 1px solid rgba(201, 151, 56, 0.35);
             font-weight: 600;
+            font-size: 0.82rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
         .btn-elite-primary {
@@ -98,6 +178,21 @@
             transform: translateY(-1px);
         }
 
+        /* User Menu Avatar */
+        .avatar-initials {
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, var(--theme-primary) 0%, #5a0e1a 100%);
+            color: #ffffff;
+            border: 2px solid var(--theme-secondary);
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.88rem;
+        }
+
         /* Mobile Bottom App Bar */
         @media (max-width: 991.98px) {
             .mobile-bottom-bar {
@@ -106,8 +201,8 @@
                 left: 0;
                 right: 0;
                 background: #ffffff;
-                border-top: 1px solid rgba(0, 0, 0, 0.08);
-                box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
+                border-top: 1px solid rgba(201, 151, 56, 0.25);
+                box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
                 z-index: 1040;
                 display: flex;
                 justify-content: space-around;
@@ -151,42 +246,66 @@
         </div>
     @endif
 
+    <!-- VIP Top Priority Helpdesk Bar -->
+    <div class="member-topbar d-none d-md-block">
+        <div class="container-xl d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+                <span><i class="bi bi-shield-check text-warning me-1"></i> ১০০% গোপনীয় ও ব্যক্তিগত ম্যাচমেকিং পোর্টাল</span>
+                <span class="topbar-divider">|</span>
+                <span class="text-warning-subtle"><i class="bi bi-heart-fill text-warning me-1"></i> {{ site_setting('site_tagline', 'বিশ্বাসের বন্ধনে, সুন্দর আগামী') }}</span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <a href="tel:{{ preg_replace('/[^0-9+]/', '', site_setting('contact_phone', '+8801577723404')) }}">
+                    <i class="bi bi-telephone-fill text-warning me-1"></i> {{ site_setting('contact_phone', '+880 1577-723404') }}
+                </a>
+                <span class="topbar-divider">|</span>
+                <a href="https://wa.me/{{ site_setting('whatsapp_number', '8801577723404') }}" target="_blank">
+                    <i class="bi bi-whatsapp text-success me-1"></i> VIP WhatsApp
+                </a>
+                <span class="topbar-divider">|</span>
+                <a href="{{ route('home') }}" target="_blank">
+                    <i class="bi bi-box-arrow-up-right me-1"></i> মূল ওয়েবসাইট
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Member Navigation Bar -->
     <header class="member-navbar sticky-top">
-        <div class="container-xl py-2.5">
+        <div class="container-xl py-2">
             <div class="d-flex align-items-center justify-content-between">
                 <!-- Brand / Logo -->
-                <a href="{{ route('member.dashboard') }}" class="d-flex align-items-center gap-2.5 text-decoration-none">
-                    <img src="{{ site_setting_image('site_logo', asset('site-logo/marriage-logo.jpeg')) }}" 
-                         alt="{{ site_setting('brand_name', 'Biye Marriage Media') }}" 
-                         height="42" 
-                         class="rounded-circle border border-2 border-warning-subtle object-fit-cover">
+                <a href="{{ route('member.dashboard') }}" class="member-brand d-flex align-items-center gap-2.5 text-decoration-none">
+                    <div class="member-brand-logo-frame">
+                        <img src="{{ site_setting_image('site_logo', asset('site-logo/marriage-logo.jpeg')) }}" 
+                             alt="{{ site_setting('site_name', 'Biye Marriage Media') }}">
+                    </div>
                     <div>
-                        <span class="font-serif fw-bold text-dark fs-5 d-block line-height-1">Biye Media</span>
-                        <span class="text-maroon small text-uppercase letter-spacing-1 fw-bold" style="font-size: 0.68rem;">Elite Member Portal</span>
+                        <div class="member-brand-title">{{ site_setting('site_name', 'Biye Marriage Media') }}</div>
+                        <div class="member-brand-subtitle">ELITE CLIENT PORTAL</div>
                     </div>
                 </a>
 
                 <!-- Desktop Navigation Links -->
-                <nav class="d-none d-lg-flex align-items-center gap-1">
+                <nav class="d-none d-lg-flex align-items-center gap-1.5">
                     <a href="{{ route('member.dashboard') }}" class="member-nav-link {{ request()->routeIs('member.dashboard') ? 'active' : '' }}">
-                        <i class="bi bi-grid-1x2"></i>
+                        <i class="bi bi-grid-1x2-fill"></i>
                         <span>ড্যাশবোর্ড</span>
                     </a>
                     <a href="{{ route('member.biodata.edit') }}" class="member-nav-link {{ request()->routeIs('member.biodata.*') ? 'active' : '' }}">
-                        <i class="bi bi-file-earmark-person"></i>
+                        <i class="bi bi-person-vcard-fill"></i>
                         <span>আমার বায়োডাটা</span>
                     </a>
                     <a href="{{ route('member.matches') }}" class="member-nav-link {{ request()->routeIs('member.matches') ? 'active' : '' }}">
-                        <i class="bi bi-stars text-gold"></i>
+                        <i class="bi bi-stars text-warning"></i>
                         <span>ডেইলি ম্যাচ</span>
                     </a>
                     <a href="{{ route('member.shortlists') }}" class="member-nav-link {{ request()->routeIs('member.shortlists') ? 'active' : '' }}">
-                        <i class="bi bi-bookmark-heart"></i>
+                        <i class="bi bi-bookmark-heart-fill"></i>
                         <span>শর্টলিস্ট</span>
                     </a>
                     <a href="{{ route('member.proposals') }}" class="member-nav-link {{ request()->routeIs('member.proposals') ? 'active' : '' }}">
-                        <i class="bi bi-send-check"></i>
+                        <i class="bi bi-send-check-fill"></i>
                         <span>প্রস্তাবনা</span>
                         @php
                             $user = Auth::user();
@@ -194,7 +313,7 @@
                             $pendingIn = $myProfile ? $myProfile->receivedProposals()->where('status', 'pending')->count() : 0;
                         @endphp
                         @if($pendingIn > 0)
-                            <span class="badge rounded-pill bg-danger" style="font-size: 0.65rem;">{{ $pendingIn }}</span>
+                            <span class="badge rounded-pill bg-danger ms-1" style="font-size: 0.65rem;">{{ $pendingIn }}</span>
                         @endif
                     </a>
                 </nav>
@@ -205,34 +324,40 @@
                         $sub = Auth::user()->activeSubscription;
                     @endphp
                     @if($sub)
-                        <div class="d-none d-sm-flex align-items-center gap-1.5 px-3 py-1 rounded-pill badge-quota small" title="অবশিষ্ট প্রপোজাল কোটা">
-                            <i class="bi bi-send-fill text-gold"></i>
+                        <div class="d-none d-sm-flex align-items-center badge-quota-pill" title="অবশিষ্ট প্রপোজাল কোটা">
+                            <i class="bi bi-send-fill text-warning"></i>
                             <span>কোটা: <strong>{{ $sub->remainingProposals() }}</strong>/{{ $sub->proposals_quota }}</span>
                         </div>
                     @endif
 
                     <!-- User Profile Dropdown -->
                     <div class="dropdown">
-                        <button class="btn btn-light border rounded-pill d-flex align-items-center gap-2 py-1.5 px-2.5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="rounded-circle bg-maroon text-white fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.85rem;">
+                        <button class="btn btn-light border rounded-pill d-flex align-items-center gap-2 py-1 px-2.5 shadow-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="avatar-initials">
                                 {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                             </div>
-                            <span class="d-none d-md-inline fw-semibold small text-dark">{{ Auth::user()->name }}</span>
+                            <div class="d-none d-md-block text-start lh-1">
+                                <span class="fw-semibold small text-dark d-block">{{ \Illuminate\Support\Str::limit(Auth::user()->name, 16) }}</span>
+                                <span class="text-muted" style="font-size: 0.68rem;">ক্লায়েন্ট অ্যাকাউন্ট</span>
+                            </div>
                             <i class="bi bi-chevron-down text-muted" style="font-size: 0.75rem;"></i>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3 mt-1 py-2" style="min-width: 220px;">
-                            <li class="px-3 py-1">
-                                <div class="fw-bold text-dark">{{ Auth::user()->name }}</div>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4 mt-2 py-2" style="min-width: 250px; border: 1px solid rgba(201, 151, 56, 0.2) !important;">
+                            <li class="px-3 py-2 bg-light rounded-top-4 mb-2">
+                                <div class="fw-bold text-dark font-serif">{{ Auth::user()->name }}</div>
                                 <div class="small text-muted text-truncate">{{ Auth::user()->email }}</div>
-                                <div class="mt-1">
+                                <div class="mt-1.5">
                                     @if(Auth::user()->isVerified())
-                                        <span class="badge bg-success-subtle text-success small"><i class="bi bi-patch-check-fill me-1"></i>Verified Member</span>
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle small">
+                                            <i class="bi bi-patch-check-fill me-1"></i>অফিসিয়ালি ভেরিফাইড মেম্বার
+                                        </span>
                                     @else
-                                        <span class="badge bg-warning-subtle text-warning small"><i class="bi bi-clock-history me-1"></i>Verification Pending</span>
+                                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle small">
+                                            <i class="bi bi-clock-history me-1"></i>ভেরিফিকেশন অপেক্ষমাণ
+                                        </span>
                                     @endif
                                 </div>
                             </li>
-                            <li><hr class="dropdown-divider"></li>
                             <li>
                                 <a class="dropdown-item py-2 small" href="{{ route('member.dashboard') }}">
                                     <i class="bi bi-speedometer2 text-maroon me-2"></i> ওভারভিউ ড্যাশবোর্ড
@@ -245,13 +370,18 @@
                             </li>
                             <li>
                                 <a class="dropdown-item py-2 small" href="{{ route('member.matches') }}">
-                                    <i class="bi bi-search-heart text-gold me-2"></i> পাত্র-পাত্রী খুঁজুন
+                                    <i class="bi bi-search-heart text-warning me-2"></i> পাত্র-পাত্রী খুঁজুন
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item py-2 small" href="{{ route('member.proposals') }}">
                                     <i class="bi bi-inbox text-success me-2"></i> প্রস্তাবনা হিস্ট্রি
                                 </a>
+                            </li>
+                            <li>
+                                <button type="button" class="dropdown-item py-2 small text-dark" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                    <i class="bi bi-key-fill text-warning me-2"></i> পাসওয়ার্ড পরিবর্তন করুন
+                                </button>
                             </li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
@@ -269,7 +399,7 @@
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="dropdown-item py-2 small text-danger">
+                                    <button type="submit" class="dropdown-item py-2 small text-danger fw-medium">
                                         <i class="bi bi-box-arrow-right me-2"></i> লগআউট
                                     </button>
                                 </form>
@@ -286,31 +416,31 @@
         <div class="container-xl">
             <!-- Flash Notifications -->
             @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show d-flex align-items-center gap-2 rounded-3 shadow-sm mb-4" role="alert">
-                    <i class="bi bi-check-circle-fill fs-5"></i>
+                <div class="alert alert-success alert-dismissible fade show d-flex align-items-center gap-2 rounded-3 shadow-sm mb-4 border-success-subtle" role="alert">
+                    <i class="bi bi-check-circle-fill fs-5 text-success"></i>
                     <div>{{ session('success') }}</div>
                     <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
 
             @if(session('info'))
-                <div class="alert alert-info alert-dismissible fade show d-flex align-items-center gap-2 rounded-3 shadow-sm mb-4" role="alert">
-                    <i class="bi bi-info-circle-fill fs-5"></i>
+                <div class="alert alert-info alert-dismissible fade show d-flex align-items-center gap-2 rounded-3 shadow-sm mb-4 border-info-subtle" role="alert">
+                    <i class="bi bi-info-circle-fill fs-5 text-info"></i>
                     <div>{{ session('info') }}</div>
                     <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
 
             @if(session('error'))
-                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-2 rounded-3 shadow-sm mb-4" role="alert">
-                    <i class="bi bi-exclamation-octagon-fill fs-5"></i>
+                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-2 rounded-3 shadow-sm mb-4 border-danger-subtle" role="alert">
+                    <i class="bi bi-exclamation-octagon-fill fs-5 text-danger"></i>
                     <div>{{ session('error') }}</div>
                     <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
 
             @if($errors->any())
-                <div class="alert alert-danger alert-dismissible fade show rounded-3 shadow-sm mb-4" role="alert">
+                <div class="alert alert-danger alert-dismissible fade show rounded-3 shadow-sm mb-4 border-danger-subtle" role="alert">
                     <div class="fw-bold mb-1"><i class="bi bi-exclamation-triangle-fill me-1"></i> কিছু তথ্যে সমস্যা রয়েছে:</div>
                     <ul class="mb-0 ps-3 small">
                         @foreach($errors->all() as $error)
@@ -325,14 +455,60 @@
         </div>
     </main>
 
+    <!-- Global Change Password Modal -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                <form action="{{ route('member.password.update') }}" method="POST">
+                    @csrf
+                    <div class="modal-header text-white" style="background: linear-gradient(135deg, #851829 0%, #520f1a 100%);">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle bg-warning text-dark p-1.5 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                                <i class="bi bi-key-fill"></i>
+                            </div>
+                            <h5 class="modal-title font-serif fw-bold mb-0" id="changePasswordModalLabel">পাসওয়ার্ড পরিবর্তন করুন</h5>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <p class="small text-muted mb-3">
+                            আপনার অ্যাকাউন্টের নিরাপত্তা নিশ্চিত করতে একটি শক্তিশালী পাসওয়ার্ড নির্ধারণ করুন। পরবর্তীতে এই পাসওয়ার্ড দিয়ে সরাসরি লগইন করতে পারবেন।
+                        </p>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-dark">বর্তমান পাসওয়ার্ড (যদি জানা থাকে)</label>
+                            <input type="password" name="current_password" class="form-control" placeholder="বর্তমান পাসওয়ার্ড দিন (ঐচ্ছিক)">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-dark">নতুন পাসওয়ার্ড <span class="text-danger">*</span></label>
+                            <input type="password" name="password" class="form-control" placeholder="কমপক্ষে ৬ অক্ষরের নতুন পাসওয়ার্ড" required minlength="6">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-dark">নতুন পাসওয়ার্ড নিশ্চিত করুন <span class="text-danger">*</span></label>
+                            <input type="password" name="password_confirmation" class="form-control" placeholder="নতুন পাসওয়ার্ডটি পুনরায় লিখুন" required minlength="6">
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-light rounded-pill px-3" data-bs-dismiss="modal">বাতিল</button>
+                        <button type="submit" class="btn btn-elite-primary rounded-pill px-4 fw-semibold">
+                            <i class="bi bi-check2-circle me-1"></i> পাসওয়ার্ড সংরক্ষণ করুন
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Mobile Bottom App Bar -->
     <div class="mobile-bottom-bar d-lg-none">
         <a href="{{ route('member.dashboard') }}" class="mobile-tab-item {{ request()->routeIs('member.dashboard') ? 'active' : '' }}">
-            <i class="bi bi-grid-1x2"></i>
+            <i class="bi bi-grid-1x2-fill"></i>
             <span>হোম</span>
         </a>
         <a href="{{ route('member.biodata.edit') }}" class="mobile-tab-item {{ request()->routeIs('member.biodata.*') ? 'active' : '' }}">
-            <i class="bi bi-file-earmark-person"></i>
+            <i class="bi bi-person-vcard-fill"></i>
             <span>বায়োডাটা</span>
         </a>
         <a href="{{ route('member.matches') }}" class="mobile-tab-item {{ request()->routeIs('member.matches') ? 'active' : '' }}">
@@ -340,25 +516,29 @@
             <span>ম্যাচ</span>
         </a>
         <a href="{{ route('member.shortlists') }}" class="mobile-tab-item {{ request()->routeIs('member.shortlists') ? 'active' : '' }}">
-            <i class="bi bi-bookmark-heart"></i>
+            <i class="bi bi-bookmark-heart-fill"></i>
             <span>শর্টলিস্ট</span>
         </a>
         <a href="{{ route('member.proposals') }}" class="mobile-tab-item {{ request()->routeIs('member.proposals') ? 'active' : '' }}">
-            <i class="bi bi-send-check"></i>
+            <i class="bi bi-send-check-fill"></i>
             <span>প্রস্তাব</span>
         </a>
     </div>
 
     <!-- Member Footer -->
-    <footer class="bg-white border-top py-3 text-center small text-muted mt-auto d-none d-lg-block">
+    <footer class="bg-white border-top py-3.5 text-center small text-muted mt-auto d-none d-lg-block">
         <div class="container-xl d-flex justify-content-between align-items-center">
             <div>
-                &copy; {{ date('Y') }} {{ site_setting('brand_name', 'Biye Marriage Media') }}. ১০০% গোপনীয় ও বিশ্বস্ত ম্যাচমেকিং।
+                &copy; {{ date('Y') }} <strong>{{ site_setting('site_name', 'Biye Marriage Media') }}</strong>. ১০০% গোপনীয় ও বিশ্বস্ত পারিবারিক পাত্র-পাত্রী ম্যাচমেকিং।
             </div>
-            <div class="d-flex gap-3">
-                <a href="{{ route('about') }}" class="text-muted text-decoration-none">আমাদের সম্পর্কে</a>
-                <a href="{{ route('packages') }}" class="text-muted text-decoration-none">প্যাকেজসমূহ</a>
-                <a href="{{ route('contact') }}" class="text-muted text-decoration-none">যোগাযোগ</a>
+            <div class="d-flex align-items-center gap-3">
+                <a href="{{ route('about') }}" class="text-muted text-decoration-none hover-maroon">আমাদের সম্পর্কে</a>
+                <span class="text-secondary opacity-50">&bull;</span>
+                <a href="{{ route('packages') }}" class="text-muted text-decoration-none hover-maroon">প্যাকেজসমূহ</a>
+                <span class="text-secondary opacity-50">&bull;</span>
+                <a href="{{ route('stories') }}" class="text-muted text-decoration-none hover-maroon">সফল দম্পতি গল্প</a>
+                <span class="text-secondary opacity-50">&bull;</span>
+                <a href="{{ route('contact') }}" class="text-muted text-decoration-none hover-maroon">যোগাযোগ</a>
             </div>
         </div>
     </footer>

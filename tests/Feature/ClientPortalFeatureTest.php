@@ -7,6 +7,7 @@ use App\Models\Proposal;
 use App\Models\User;
 use App\Models\UserSubscription;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class ClientPortalFeatureTest extends TestCase
@@ -253,5 +254,37 @@ class ClientPortalFeatureTest extends TestCase
         $response->assertSessionHas('success');
         $this->assertEquals('accepted', $proposal->fresh()->status);
         $this->assertNotNull($proposal->fresh()->responded_at);
+    }
+
+    public function test_client_can_update_password(): void
+    {
+        $client = User::factory()->client()->create([
+            'password' => bcrypt('oldpassword123'),
+        ]);
+
+        $response = $this->actingAs($client)->post(route('member.password.update'), [
+            'current_password' => 'oldpassword123',
+            'password' => 'newpassword456',
+            'password_confirmation' => 'newpassword456',
+        ]);
+
+        $response->assertSessionHas('success');
+        $this->assertTrue(Hash::check('newpassword456', $client->fresh()->password));
+    }
+
+    public function test_client_cannot_update_password_with_wrong_current_password(): void
+    {
+        $client = User::factory()->client()->create([
+            'password' => bcrypt('correctpassword'),
+        ]);
+
+        $response = $this->actingAs($client)->post(route('member.password.update'), [
+            'current_password' => 'wrongpassword',
+            'password' => 'newpassword456',
+            'password_confirmation' => 'newpassword456',
+        ]);
+
+        $response->assertSessionHasErrors(['current_password']);
+        $this->assertFalse(Hash::check('newpassword456', $client->fresh()->password));
     }
 }

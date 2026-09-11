@@ -1,60 +1,92 @@
 @extends('member.layouts.app')
 
-@section('title', 'সদস্য ড্যাশবোর্ড - Biye Marriage Media')
+@section('title', 'সদস্য ড্যাশবোর্ড - ' . site_setting('site_name', 'Biye Marriage Media'))
 
 @section('content')
 <div class="row g-4">
-    <!-- Welcome Banner & Completion Progress -->
+    <!-- 1. Grand Royal Welcome Hero Banner & Completion Progress -->
     <div class="col-12">
-        <div class="card border-0 shadow-sm rounded-4 overflow-hidden text-white" style="background: linear-gradient(135deg, #851829 0%, #4a0d17 100%);">
-            <div class="card-body p-4 p-md-5 position-relative">
+        <div class="card border-0 rounded-4 overflow-hidden text-white shadow-sm position-relative" 
+             style="background: linear-gradient(135deg, #640f1c 0%, #851829 45%, #2c050d 100%); border: 1px solid rgba(201, 151, 56, 0.35) !important;">
+            
+            <!-- Golden Glow Ambient Accent -->
+            <div class="position-absolute top-0 end-0 h-100 w-50 pointer-events-none d-none d-md-block" 
+                 style="background: radial-gradient(ellipse at 85% 20%, rgba(201, 151, 56, 0.22) 0%, transparent 65%);"></div>
+
+            <div class="card-body p-4 p-md-5 position-relative z-1">
                 <div class="row align-items-center g-4">
+                    <!-- Left: Greetings & Completion Progress -->
                     <div class="col-12 col-lg-8">
-                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-3 border border-white border-opacity-10">
-                            <i class="bi bi-shield-check text-gold"></i>
-                            <span>১০০% গোপনীয় ও বিশ্বস্ত এলিট ম্যাচমেকিং সার্ভিস</span>
+                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-black bg-opacity-25 text-white small mb-3 border border-warning-subtle" style="font-size: 0.82rem;">
+                            <i class="bi bi-patch-check-fill text-warning"></i>
+                            <span class="fw-semibold">এলিট মেম্বার পোর্টাল &bull; ১০০% সুরক্ষিত ও ব্যক্তিগত ম্যাচমেকিং</span>
                         </div>
-                        <h2 class="font-serif fw-bold mb-2">
+
+                        <h2 class="font-serif fw-bold mb-2 display-6" style="letter-spacing: -0.5px;">
                             আসসালামু আলাইকুম, {{ $user->name }}!
                         </h2>
-                        <p class="text-white-50 mb-4" style="max-width: 600px;">
-                            Biye Marriage Media-তে আপনার পাত্র/পাত্রীর জন্য উপযুক্ত দ্বীনদার ও সমমর্যাদার পারিবারিক জীবনসঙ্গী খুঁজে পেতে আমরা আন্তরিকভাবে নিবেদিত।
+                        <p class="text-white-50 mb-4 lh-base" style="max-width: 620px; font-size: 0.96rem;">
+                            {{ site_setting('site_name', 'Biye Marriage Media') }}-তে আপনার পরিবারের জন্য উপযুক্ত দ্বীনদার, সুশিক্ষিত ও সমমর্যাদার জীবনসঙ্গী খুঁজে পেতে আমাদের সিনিয়র ম্যাচমেকার টিম আন্তরিকভাবে নিবেদিত।
                         </p>
 
-                        <!-- Completion Meter -->
-                        <div class="p-3 rounded-3 bg-black bg-opacity-20 border border-white border-opacity-10" style="max-width: 540px;">
+                        <!-- Interactive Biodata Completion Progress Box -->
+                        <div class="p-3.5 rounded-4 bg-black bg-opacity-30 border border-white border-opacity-15 shadow-inner" style="max-width: 560px;">
                             <div class="d-flex justify-content-between align-items-center mb-2 small">
-                                <span class="text-white-50">বায়োডাটা পূরণের অগ্রগতি:</span>
-                                <strong class="text-white">{{ $candidateProfile->completion_score }}% সম্পন্ন</strong>
+                                <span class="text-white-50 d-flex align-items-center gap-1.5">
+                                    <i class="bi bi-ui-checks-grid text-warning"></i> বায়োডাটা সম্পূর্ণতা সূচক:
+                                </span>
+                                <span class="badge bg-warning text-dark px-2.5 py-1 rounded-pill fw-bold">
+                                    {{ $candidateProfile->completion_score }}% সম্পন্ন
+                                </span>
                             </div>
-                            <div class="progress mb-3" style="height: 10px; background-color: rgba(255,255,255,0.15);">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $candidateProfile->completion_score }}%" aria-valuenow="{{ $candidateProfile->completion_score }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress mb-3" style="height: 10px; background-color: rgba(255,255,255,0.15); border-radius: 20px;">
+                                <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" 
+                                     role="progressbar" 
+                                     style="width: {{ $candidateProfile->completion_score }}%;" 
+                                     aria-valuenow="{{ $candidateProfile->completion_score }}" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100"></div>
                             </div>
-                            <div class="d-flex gap-2 flex-wrap">
-                                <a href="{{ route('member.biodata.edit') }}" class="btn btn-warning btn-sm rounded-pill px-4 fw-semibold text-dark">
-                                    <i class="bi bi-pencil-square me-1"></i> বায়োডাটা সম্পূর্ণ করুন &rarr;
+                            
+                            <div class="d-flex gap-2 flex-wrap align-items-center">
+                                <a href="{{ route('member.biodata.edit') }}" class="btn btn-warning btn-sm rounded-pill px-3.5 py-1.5 fw-bold text-dark shadow-sm">
+                                    <i class="bi bi-pencil-square me-1"></i> বায়োডাটা আপডেট করুন &rarr;
                                 </a>
-                                <a href="{{ route('member.matches') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
-                                    <i class="bi bi-search-heart me-1"></i> ম্যাচ খুঁজুন
+                                <a href="{{ route('member.matches') }}" class="btn btn-outline-light btn-sm rounded-pill px-3 py-1.5">
+                                    <i class="bi bi-stars me-1 text-warning"></i> ডেইলি ম্যাচ দেখুন
                                 </a>
+                                <button type="button" class="btn btn-outline-light btn-sm rounded-pill px-3 py-1.5" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                    <i class="bi bi-key-fill me-1 text-warning"></i> পাসওয়ার্ড পরিবর্তন
+                                </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Profile Avatar & Badges -->
+                    <!-- Right: Profile Preview Frame -->
                     <div class="col-12 col-lg-4 text-lg-end">
-                        <div class="d-inline-block text-center p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10">
+                        <div class="d-inline-block text-center p-3.5 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-15 shadow-sm">
                             <div class="position-relative d-inline-block mb-2">
-                                <img src="{{ $candidateProfile->resolved_image }}" alt="{{ $user->name }}" class="rounded-circle shadow object-fit-cover border border-3 border-white" style="width: 90px; height: 90px;">
+                                <div class="member-hero-avatar-frame">
+                                    <img src="{{ $candidateProfile->resolved_image }}" 
+                                         alt="{{ $user->name }}" 
+                                         class="rounded-circle shadow-sm object-fit-cover {{ $candidateProfile->is_discreet ? 'blur-discreet' : '' }}" 
+                                         style="width: 95px; height: 95px; border: 3px solid #c99738;">
+                                </div>
                                 @if($user->isVerified())
-                                    <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-primary border border-white p-1" title="অফিসিয়াল ব্লু ভেরিফাইড সিল">
+                                    <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-primary border border-2 border-white p-1" title="অফিসিয়াল ব্লু ভেরিফাইড সিল">
                                         <i class="bi bi-patch-check-fill fs-6"></i>
                                     </span>
                                 @endif
                             </div>
-                            <div class="fw-bold font-serif text-white fs-6 mb-1">{{ $candidateProfile->profile_code }}</div>
-                            <div class="badge bg-white text-maroon rounded-pill px-3 py-1 small fw-semibold">
+
+                            <div class="fw-bold font-serif text-warning fs-5 mb-1" style="letter-spacing: 0.5px;">
+                                {{ $candidateProfile->profile_code }}
+                            </div>
+                            <div class="badge bg-white text-maroon rounded-pill px-3 py-1 small fw-bold mb-2 shadow-sm">
                                 {{ ucfirst($candidateProfile->gender) }}, {{ $candidateProfile->age }} বছর
+                            </div>
+                            <div class="small text-white-50 text-truncate" style="max-width: 220px;">
+                                <i class="bi bi-geo-alt-fill text-warning me-1"></i>{{ $candidateProfile->desher_bari ?? 'বাংলাদেশ' }}
                             </div>
                         </div>
                     </div>
@@ -63,83 +95,98 @@
         </div>
     </div>
 
-    <!-- Quick Stats Cards -->
+    <!-- 2. Quick Metrics: 4 Stat Cards with Royal Accents -->
     <div class="col-6 col-md-3">
         <a href="{{ route('member.shortlists') }}" class="text-decoration-none">
-            <div class="stat-card-member p-3 p-md-4 text-center">
-                <div class="rounded-circle bg-danger-subtle text-danger mx-auto mb-2 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 1.3rem;">
+            <div class="stat-card-luxury p-3 p-md-4 text-center h-100">
+                <div class="stat-icon-wrapper bg-danger-subtle text-danger mx-auto mb-2.5">
                     <i class="bi bi-bookmark-heart-fill"></i>
                 </div>
-                <h3 class="fw-bold text-dark mb-0">{{ $shortlistsCount }}</h3>
-                <div class="small text-muted">পছন্দের তালিকা (Shortlist)</div>
+                <h3 class="fw-bold text-dark mb-1 font-serif">{{ $shortlistsCount }}</h3>
+                <div class="fw-semibold text-dark small">পছন্দের তালিকা</div>
+                <div class="text-muted" style="font-size: 0.76rem;">সংরক্ষিত বায়োডাটা</div>
             </div>
         </a>
     </div>
+
     <div class="col-6 col-md-3">
         <a href="{{ route('member.proposals') }}" class="text-decoration-none">
-            <div class="stat-card-member p-3 p-md-4 text-center">
-                <div class="rounded-circle bg-primary-subtle text-primary mx-auto mb-2 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 1.3rem;">
+            <div class="stat-card-luxury p-3 p-md-4 text-center h-100">
+                <div class="stat-icon-wrapper bg-primary-subtle text-primary mx-auto mb-2.5">
                     <i class="bi bi-send-check-fill"></i>
                 </div>
-                <h3 class="fw-bold text-dark mb-0">{{ $sentProposalsCount }}</h3>
-                <div class="small text-muted">পাঠানো প্রস্তাবনা (Sent)</div>
+                <h3 class="fw-bold text-dark mb-1 font-serif">{{ $sentProposalsCount }}</h3>
+                <div class="fw-semibold text-dark small">পাঠানো প্রস্তাবনা</div>
+                <div class="text-muted" style="font-size: 0.76rem;">মোট পাঠানো আগ্রহ</div>
             </div>
         </a>
     </div>
+
     <div class="col-6 col-md-3">
         <a href="{{ route('member.proposals') }}" class="text-decoration-none">
-            <div class="stat-card-member p-3 p-md-4 text-center position-relative">
+            <div class="stat-card-luxury p-3 p-md-4 text-center h-100 position-relative">
                 @if($pendingReceivedCount > 0)
-                    <span class="position-absolute top-0 end-0 m-2 badge rounded-pill bg-danger">
+                    <span class="position-absolute top-0 end-0 m-2 badge rounded-pill bg-danger shadow-sm" style="font-size: 0.68rem;">
                         {{ $pendingReceivedCount }} নতুন
                     </span>
                 @endif
-                <div class="rounded-circle bg-success-subtle text-success mx-auto mb-2 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 1.3rem;">
+                <div class="stat-icon-wrapper bg-success-subtle text-success mx-auto mb-2.5">
                     <i class="bi bi-inbox-fill"></i>
                 </div>
-                <h3 class="fw-bold text-dark mb-0">{{ $receivedProposalsCount }}</h3>
-                <div class="small text-muted">আগত আগ্রহ (Received)</div>
+                <h3 class="fw-bold text-dark mb-1 font-serif">{{ $receivedProposalsCount }}</h3>
+                <div class="fw-semibold text-dark small">আগত প্রস্তাবনা</div>
+                <div class="text-muted" style="font-size: 0.76rem;">অপর পক্ষ থেকে প্রাপ্ত</div>
             </div>
         </a>
     </div>
+
     <div class="col-6 col-md-3">
-        <div class="stat-card-member p-3 p-md-4 text-center">
-            <div class="rounded-circle bg-warning-subtle text-warning mx-auto mb-2 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 1.3rem;">
+        <div class="stat-card-luxury p-3 p-md-4 text-center h-100">
+            <div class="stat-icon-wrapper bg-warning-subtle text-warning mx-auto mb-2.5">
                 <i class="bi bi-gem"></i>
             </div>
-            <h3 class="fw-bold text-dark mb-0">
+            <h3 class="fw-bold text-dark mb-1 font-serif">
                 {{ $activeSubscription ? $activeSubscription->remainingProposals() : 0 }}
             </h3>
-            <div class="small text-muted">অবশিষ্ট প্রপোজাল কোটা</div>
+            <div class="fw-semibold text-dark small">অবশিষ্ট কোটা</div>
+            <div class="text-muted" style="font-size: 0.76rem;">
+                মোট কোটা: {{ $activeSubscription?->proposals_quota ?? 5 }} টি
+            </div>
         </div>
     </div>
 
-    <!-- Assigned Relationship Manager Helpdesk & Photo Privacy Card -->
+    <!-- 3. Main Center/Left Column (8 cols): Relationship Manager & Smart Matches -->
     <div class="col-12 col-lg-8">
-        <!-- Relationship Manager Card -->
-        <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
+        <!-- Relationship Manager Concierge Card -->
+        <div class="card border-0 shadow-sm rounded-4 bg-white mb-4 concierge-card overflow-hidden">
             <div class="card-body p-4">
                 <div class="row align-items-center g-3">
                     <div class="col-12 col-md-8">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="rounded-circle bg-maroon text-white fw-bold d-flex align-items-center justify-content-center shadow-sm" style="width: 58px; height: 58px; font-size: 1.4rem;">
-                                {{ strtoupper(substr($relationshipManager?->name ?? 'M', 0, 1)) }}
+                            <div class="rm-avatar-ring">
+                                <div class="rm-avatar-inner">
+                                    {{ strtoupper(substr($relationshipManager?->name ?? 'M', 0, 1)) }}
+                                </div>
                             </div>
                             <div>
-                                <span class="badge bg-gold-subtle text-gold small px-2 py-0.5 rounded-pill mb-1">
-                                    আপনার ব্যক্তিগত রিলেশনশিপ ম্যানেজার
+                                <span class="badge bg-gold-subtle text-gold small px-2.5 py-1 rounded-pill mb-1 fw-semibold border border-warning-subtle">
+                                    <i class="bi bi-star-fill text-warning me-1"></i>আপনার ব্যক্তিগত রিলেশনশিপ ম্যানেজার
                                 </span>
-                                <h5 class="fw-bold text-dark mb-0 font-serif">{{ $relationshipManager?->name ?? 'সিনিয়র ম্যাচমেকার টিম' }}</h5>
-                                <div class="small text-muted">{{ $relationshipManager?->designation ?? 'গুলশান ও আন্তর্জাতিক ডেস্কে সিনিয়র ম্যাচমেকিং এক্সিকিউটিভ' }}</div>
+                                <h5 class="fw-bold text-dark mb-0 font-serif fs-5">
+                                    {{ $relationshipManager?->name ?? 'সিনিয়র ম্যাচমেকার টিম' }}
+                                </h5>
+                                <div class="small text-muted">
+                                    {{ $relationshipManager?->designation ?? 'গুলশান ও আন্তর্জাতিক ডেস্কে সিনিয়র ম্যাচমেকিং এক্সিকিউটিভ' }}
+                                </div>
                             </div>
                         </div>
-                        <p class="small text-secondary mt-3 mb-0">
-                            পাত্র-পাত্রী পছন্দ হলে বা পরিবারের সাথে সরাসরি কথা বলতে আপনার ম্যাচমেকারের সাথে নিশ্চিন্তে পরামর্শ করুন।
+                        <p class="small text-secondary mt-3 mb-0 lh-base">
+                            পাত্র-পাত্রী পছন্দ হলে, উভয় পরিবারের সাথে সরাসরি বৈঠক বা ব্যাকগ্রাউন্ড ভেরিফিকেশন সমন্বয়ের জন্য আপনার ম্যাচমেকারের সাথে যেকোনো সময় যোগাযোগ করুন।
                         </p>
                     </div>
                     <div class="col-12 col-md-4 text-md-end">
                         <div class="d-flex flex-column gap-2">
-                            <a href="tel:{{ $relationshipManager?->phone ?? '+8801577723404' }}" class="btn btn-outline-dark btn-sm rounded-pill py-2">
+                            <a href="tel:{{ $relationshipManager?->phone ?? '+8801577723404' }}" class="btn btn-outline-dark btn-sm rounded-pill py-2 fw-semibold">
                                 <i class="bi bi-telephone-fill me-1.5 text-maroon"></i> সরাসরি কল করুন
                             </a>
                             @php
@@ -147,7 +194,7 @@
                             @endphp
                             <a href="https://wa.me/{{ $cleanPhone }}?text=Hello%2C%20I%20am%20member%20{{ urlencode($user->name) }}%20(Code%3A%20{{ $candidateProfile->profile_code }}).%20I%20need%20assistance%20regarding%20matchmaking." 
                                target="_blank" 
-                               class="btn btn-success btn-sm rounded-pill py-2 fw-semibold">
+                               class="btn btn-success btn-sm rounded-pill py-2 fw-semibold shadow-sm">
                                 <i class="bi bi-whatsapp me-1.5"></i> WhatsApp মেসেজ
                             </a>
                         </div>
@@ -156,19 +203,20 @@
             </div>
         </div>
 
-        <!-- Recommended Smart Matches -->
-        <div class="card border-0 shadow-sm rounded-4 bg-white">
-            <div class="card-header bg-white py-3.5 border-bottom d-flex justify-content-between align-items-center">
+        <!-- Recommended Smart Matches Showcase -->
+        <div class="card border-0 shadow-sm rounded-4 bg-white overflow-hidden">
+            <div class="card-header bg-white py-3.5 px-4 border-bottom d-flex justify-content-between align-items-center flex-wrap gap-2">
                 <div>
-                    <h5 class="fw-bold text-dark mb-0 font-serif">
-                        <i class="bi bi-stars text-gold me-2"></i>আপনার জন্য প্রস্তাবিত ম্যাচ (Daily Matches)
+                    <h5 class="fw-bold text-dark mb-0 font-serif d-flex align-items-center gap-2">
+                        <i class="bi bi-stars text-warning"></i> আপনার জন্য প্রস্তাবিত ম্যাচ (Daily Matches)
                     </h5>
-                    <div class="small text-muted">আপনার প্রত্যাশা ও বিপরীত লিঙ্গের বায়োডাটা অনুযায়ী নির্বাচিত</div>
+                    <div class="small text-muted">আপনার পছন্দ, শিক্ষাগত যোগ্যতা ও বিপরীত লিঙ্গের বায়োডাটা অনুযায়ী নির্বাচিত</div>
                 </div>
-                <a href="{{ route('member.matches') }}" class="btn btn-outline-dark btn-sm rounded-pill px-3">
+                <a href="{{ route('member.matches') }}" class="btn btn-outline-dark btn-sm rounded-pill px-3.5 py-1.5 fw-medium">
                     সব দেখুন &rarr;
                 </a>
             </div>
+            
             <div class="card-body p-3 p-md-4">
                 <div class="row g-3">
                     @forelse($recommendedProfiles as $match)
@@ -176,37 +224,57 @@
                             $isShortlisted = in_array($match->id, $shortlistedProfileIds);
                         @endphp
                         <div class="col-12 col-sm-6 col-xl-4">
-                            <div class="card h-100 border rounded-3 p-3 text-center shadow-none hover-shadow">
-                                <div class="position-relative d-inline-block mx-auto mb-2">
-                                    <img src="{{ $match->resolved_image }}" 
-                                         alt="Candidate" 
-                                         class="rounded-circle object-fit-cover shadow-sm {{ $match->is_discreet ? 'blur-discreet' : '' }}" 
-                                         style="width: 76px; height: 76px; border: 2px solid #851829;">
-                                    @if($match->is_discreet)
-                                        <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-dark" style="font-size: 0.6rem;" title="Discreet Photo">
-                                            <i class="bi bi-eye-slash-fill"></i>
+                            <div class="match-card-royal h-100 p-3 text-center d-flex flex-column justify-content-between position-relative">
+                                <div>
+                                    <!-- Avatar with Discreet Blur if applicable -->
+                                    <div class="position-relative d-inline-block mx-auto mb-2">
+                                        <img src="{{ $match->resolved_image }}" 
+                                             alt="Candidate" 
+                                             class="rounded-circle object-fit-cover shadow-sm {{ $match->is_discreet ? 'blur-discreet' : '' }}" 
+                                             style="width: 78px; height: 78px; border: 2px solid var(--theme-secondary);">
+                                        
+                                        @if($match->is_discreet)
+                                            <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-dark p-1 border border-white" style="font-size: 0.62rem;" title="Discreet Photo Protected">
+                                                <i class="bi bi-eye-slash-fill"></i>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <h6 class="fw-bold font-serif text-dark mb-1 fs-6">{{ $match->profile_code }}</h6>
+                                    
+                                    <div class="d-flex justify-content-center gap-1 flex-wrap mb-2">
+                                        <span class="badge bg-light text-dark border small px-2 py-0.5">
+                                            {{ $match->age }} বছর
                                         </span>
-                                    @endif
-                                </div>
-                                <h6 class="fw-bold font-serif text-dark mb-1">{{ $match->profile_code }}</h6>
-                                <div class="small text-muted mb-2">
-                                    {{ $match->age }} বছর, {{ $match->height }} | {{ $match->desher_bari }}
-                                </div>
-                                <div class="small text-dark fw-medium text-truncate mb-1" title="{{ $match->profession }}">
-                                    {{ $match->profession }}
-                                </div>
-                                <div class="small text-secondary text-truncate mb-3" style="font-size: 0.78rem;" title="{{ $match->education }}">
-                                    {{ $match->education }}
+                                        <span class="badge bg-light text-dark border small px-2 py-0.5">
+                                            {{ $match->height }}
+                                        </span>
+                                        <span class="badge bg-light text-secondary border small px-2 py-0.5">
+                                            {{ $match->desher_bari }}
+                                        </span>
+                                    </div>
+
+                                    <div class="small text-dark fw-semibold text-truncate mb-1" title="{{ $match->profession }}">
+                                        {{ $match->profession }}
+                                    </div>
+                                    <div class="small text-muted text-truncate mb-3" style="font-size: 0.78rem;" title="{{ $match->education }}">
+                                        {{ $match->education }}
+                                    </div>
                                 </div>
 
-                                <div class="d-flex gap-1.5 justify-content-center mt-auto">
+                                <!-- Action Buttons -->
+                                <div class="d-flex gap-2 justify-content-center pt-2 border-top">
                                     <form action="{{ route('member.shortlists.toggle', $match) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-sm {{ $isShortlisted ? 'btn-danger' : 'btn-outline-danger' }} rounded-circle p-2" title="{{ $isShortlisted ? 'শর্টলিস্ট থেকে মুছুন' : 'শর্টলিস্টে রাখুন' }}">
+                                        <button type="submit" 
+                                                class="btn btn-sm {{ $isShortlisted ? 'btn-danger' : 'btn-outline-danger' }} rounded-circle p-2 d-flex align-items-center justify-content-center" 
+                                                style="width: 34px; height: 34px;"
+                                                title="{{ $isShortlisted ? 'শর্টলিস্ট থেকে মুছুন' : 'শর্টলিস্টে রাখুন' }}">
                                             <i class="bi bi-heart{{ $isShortlisted ? '-fill' : '' }}"></i>
                                         </button>
                                     </form>
-                                    <button type="button" class="btn btn-elite-primary btn-sm rounded-pill px-3 small" data-bs-toggle="modal" data-bs-target="#sendProposalModal{{ $match->id }}">
+
+                                    <button type="button" class="btn btn-elite-primary btn-sm rounded-pill px-3 small fw-semibold" data-bs-toggle="modal" data-bs-target="#sendProposalModal{{ $match->id }}">
                                         <i class="bi bi-send-fill me-1"></i> প্রস্তাব পাঠান
                                     </button>
                                 </div>
@@ -216,35 +284,38 @@
                         <!-- Modal: Send Proposal -->
                         <div class="modal fade" id="sendProposalModal{{ $match->id }}" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content text-start">
+                                <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden text-start">
                                     <form action="{{ route('member.proposals.send', $match) }}" method="POST">
                                         @csrf
-                                        <div class="modal-header bg-maroon text-white">
-                                            <h5 class="modal-title font-serif fw-bold">
-                                                <i class="bi bi-envelope-heart-fill me-2 text-gold"></i>বিয়ের প্রস্তাবনা পাঠান
+                                        <div class="modal-header text-white" style="background: linear-gradient(135deg, #851829 0%, #520f1a 100%);">
+                                            <h5 class="modal-title font-serif fw-bold d-flex align-items-center gap-2">
+                                                <i class="bi bi-envelope-heart-fill text-warning"></i> বিয়ের প্রস্তাবনা পাঠান
                                             </h5>
                                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body p-4">
-                                            <div class="d-flex align-items-center gap-3 mb-3 p-2 bg-light rounded-3">
-                                                <img src="{{ $match->resolved_image }}" class="rounded-circle object-fit-cover {{ $match->is_discreet ? 'blur-discreet' : '' }}" style="width: 50px; height: 50px;">
+                                            <div class="d-flex align-items-center gap-3 mb-3 p-3 bg-light rounded-3 border">
+                                                <img src="{{ $match->resolved_image }}" class="rounded-circle object-fit-cover {{ $match->is_discreet ? 'blur-discreet' : '' }}" style="width: 52px; height: 52px; border: 2px solid var(--theme-secondary);">
                                                 <div>
-                                                    <div class="fw-bold text-dark">{{ $match->profile_code }}</div>
-                                                    <div class="small text-muted">{{ $match->age }} বছর, {{ $match->profession }} ({{ $match->desher_bari }})</div>
+                                                    <div class="fw-bold font-serif text-dark fs-6">{{ $match->profile_code }}</div>
+                                                    <div class="small text-muted">{{ $match->age }} বছর &bull; {{ $match->profession }} ({{ $match->desher_bari }})</div>
                                                 </div>
                                             </div>
+
                                             <div class="mb-3">
-                                                <label class="form-label small fw-semibold">প্রাথমিক পারিবারিক বার্তা (ঐচ্ছিক)</label>
+                                                <label class="form-label small fw-semibold text-dark">প্রাথমিক পারিবারিক বার্তা (ঐচ্ছিক)</label>
                                                 <textarea name="message" class="form-control" rows="3" placeholder="শ্রদ্ধাভাজন অভিভাবক, আমরা আপনার প্রার্থীর বায়োডাটা দেখে সম্মানিত বোধ করেছি এবং পারিবারিক আলোচনার আগ্রহ প্রকাশ করছি..."></textarea>
                                             </div>
-                                            <div class="alert alert-info small py-2 mb-0">
-                                                <i class="bi bi-info-circle me-1"></i> প্রস্তাব পাঠানোর পর আপনার দায়িত্বপ্রাপ্ত ম্যাচমেকার অপর পরিবারের সাথে আলোচনা করে অগ্রগতি জানাবেন।
+
+                                            <div class="alert alert-warning-subtle text-dark small py-2 px-3 mb-0 rounded-3 border border-warning-subtle d-flex align-items-center gap-2">
+                                                <i class="bi bi-info-circle-fill text-warning fs-5"></i>
+                                                <div>প্রস্তাব পাঠানোর পর আপনার দায়িত্বপ্রাপ্ত ম্যাচমেকার অপর পরিবারের সাথে আলোচনা করে অগ্রগতি জানাবেন।</div>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">বাতিল</button>
-                                            <button type="submit" class="btn btn-elite-primary px-4 fw-semibold">
-                                                প্রস্তাব নিশ্চিত করুন
+                                        <div class="modal-footer bg-light">
+                                            <button type="button" class="btn btn-light rounded-pill px-3" data-bs-dismiss="modal">বাতিল</button>
+                                            <button type="submit" class="btn btn-elite-primary rounded-pill px-4 fw-semibold">
+                                                <i class="bi bi-send-fill me-1"></i> প্রস্তাব নিশ্চিত করুন
                                             </button>
                                         </div>
                                     </form>
@@ -252,9 +323,14 @@
                             </div>
                         </div>
                     @empty
-                        <div class="col-12 py-4 text-center text-muted">
-                            <i class="bi bi-stars fs-2 d-block text-secondary mb-2"></i>
-                            <div>বর্তমানে আপনার ক্যাটাগরিতে নতুন কোনো বায়োডাটা নেই। শীঘ্রই নতুন প্রোফাইল যোগ হবে।</div>
+                        <div class="col-12 py-5 text-center text-muted">
+                            <div class="rounded-circle bg-light d-inline-flex p-3 mb-2 text-warning">
+                                <i class="bi bi-stars fs-1"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark font-serif">বর্তমানে নতুন কোনো ম্যাচ নেই</h6>
+                            <p class="small text-muted mb-0" style="max-width: 380px; margin: 0 auto;">
+                                আমাদের টিম নিয়মিত নতুন ভেরিফাইড বায়োডাটা যাচাই করছেন। শীঘ্রই আপনার পছন্দের সাথে সামঞ্জস্যপূর্ণ নতুন প্রোফাইল এখানে দেখতে পাবেন।
+                            </p>
                         </div>
                     @endforelse
                 </div>
@@ -262,38 +338,44 @@
         </div>
     </div>
 
-    <!-- Right Column: Privacy & Account Status -->
+    <!-- 4. Right Column (4 cols): Privacy Vault, Membership Quota & Account Security -->
     <div class="col-12 col-lg-4">
         <!-- Photo Privacy Vault Card -->
-        <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
-            <div class="card-header bg-white py-3 border-bottom">
-                <h6 class="fw-bold text-dark mb-0 font-serif">
-                    <i class="bi bi-shield-lock-fill text-maroon me-2"></i>গোপনীয়তা ও ফটো ভল্ট
+        <div class="card border-0 shadow-sm rounded-4 bg-white mb-4 overflow-hidden">
+            <div class="card-header bg-white py-3.5 px-4 border-bottom">
+                <h6 class="fw-bold text-dark mb-0 font-serif d-flex align-items-center gap-2">
+                    <i class="bi bi-shield-lock-fill text-maroon"></i> গোপনীয়তা ও ফটো ভল্ট
                 </h6>
             </div>
             <div class="card-body p-4 text-center">
-                <div class="mb-3">
+                <div class="mb-2">
                     @if($candidateProfile->is_discreet)
-                        <div class="rounded-circle bg-dark-subtle text-dark mx-auto d-flex align-items-center justify-content-center mb-2" style="width: 64px; height: 64px; font-size: 1.8rem;">
-                            <i class="bi bi-eye-slash-fill"></i>
+                        <div class="rounded-circle bg-dark-subtle text-dark mx-auto d-flex align-items-center justify-content-center mb-3 shadow-inner" style="width: 64px; height: 64px; font-size: 1.8rem;">
+                            <i class="bi bi-eye-slash-fill text-dark"></i>
                         </div>
-                        <h6 class="fw-bold text-dark mb-1">Discreet Mode চালু আছে</h6>
-                        <p class="small text-muted mb-3">
-                            আপনার ছবি অন্যান্য ভিজিটরদের কাছে স্বয়ংক্রিয়ভাবে ব্লার থাকবে। অনুমতি দেওয়া হলে তবেই দেখা যাবে।
+                        <span class="badge bg-dark rounded-pill px-3 py-1 small fw-semibold mb-2">
+                            Discreet Mode সক্রিয়
+                        </span>
+                        <h6 class="fw-bold text-dark mb-1">ছবি ব্লার/সুরক্ষিত আছে</h6>
+                        <p class="small text-muted mb-3 lh-base">
+                            আপনার ছবি সাধারণ ব্যবহারকারীদের কাছে স্বয়ংক্রিয়ভাবে ব্লার থাকবে। কেবল আপনার অনুমোদিত পরিবারই পরিষ্কার দেখতে পাবেন।
                         </p>
                     @else
-                        <div class="rounded-circle bg-success-subtle text-success mx-auto d-flex align-items-center justify-content-center mb-2" style="width: 64px; height: 64px; font-size: 1.8rem;">
-                            <i class="bi bi-eye-fill"></i>
+                        <div class="rounded-circle bg-success-subtle text-success mx-auto d-flex align-items-center justify-content-center mb-3 shadow-inner" style="width: 64px; height: 64px; font-size: 1.8rem;">
+                            <i class="bi bi-eye-fill text-success"></i>
                         </div>
+                        <span class="badge bg-success rounded-pill px-3 py-1 small fw-semibold mb-2">
+                            ফটো উন্মুক্ত
+                        </span>
                         <h6 class="fw-bold text-dark mb-1">ছবি উন্মুক্ত রয়েছে</h6>
-                        <p class="small text-muted mb-3">
-                            ভেরিফাইড মেম্বাররা আপনার ছবি দেখতে পাচ্ছেন।
+                        <p class="small text-muted mb-3 lh-base">
+                            ভেরিফাইড মেম্বাররা আপনার বায়োডাটা ও ছবি দেখতে পাচ্ছেন। চাইলে যেকোনো সময় Discreet Mode অন করতে পারেন।
                         </p>
                     @endif
 
                     <form action="{{ route('member.biodata.toggle-discreet') }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn {{ $candidateProfile->is_discreet ? 'btn-outline-dark' : 'btn-outline-danger' }} btn-sm rounded-pill px-4">
+                        <button type="submit" class="btn {{ $candidateProfile->is_discreet ? 'btn-outline-dark' : 'btn-outline-danger' }} btn-sm rounded-pill px-4 fw-semibold">
                             <i class="bi bi-arrow-repeat me-1"></i>
                             {{ $candidateProfile->is_discreet ? 'ছবি আনব্লার করুন' : 'ছবি ব্লার/গোপন করুন' }}
                         </button>
@@ -303,48 +385,150 @@
         </div>
 
         <!-- Membership Details Card -->
-        <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
-            <div class="card-header bg-white py-3 border-bottom">
-                <h6 class="fw-bold text-dark mb-0 font-serif">
-                    <i class="bi bi-award-fill text-gold me-2"></i>মেম্বারশিপ ও কোটা স্ট্যাটাস
+        <div class="card border-0 shadow-sm rounded-4 bg-white mb-4 overflow-hidden">
+            <div class="card-header bg-white py-3.5 px-4 border-bottom">
+                <h6 class="fw-bold text-dark mb-0 font-serif d-flex align-items-center gap-2">
+                    <i class="bi bi-award-fill text-warning"></i> মেম্বারশিপ ও কোটা স্ট্যাটাস
                 </h6>
             </div>
             <div class="card-body p-4">
-                <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
                     <div>
-                        <span class="small text-muted d-block">বর্তমান প্যাকেজ:</span>
-                        <h6 class="fw-bold text-dark mb-0">{{ $activeSubscription?->package_name ?? 'Complimentary Plan' }}</h6>
+                        <span class="small text-muted d-block" style="font-size: 0.78rem;">বর্তমান প্যাকেজ:</span>
+                        <h6 class="fw-bold text-dark mb-0 font-serif">{{ $activeSubscription?->package_name ?? 'Complimentary Plan' }}</h6>
                     </div>
-                    <span class="badge bg-success text-white">সক্রিয়</span>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2.5 py-1 small fw-semibold">
+                        <i class="bi bi-check-circle-fill me-1"></i>সক্রিয়
+                    </span>
                 </div>
-                <div class="small text-muted mb-2">
-                    মোট প্রপোজাল কোটা: <strong>{{ $activeSubscription?->proposals_quota ?? 5 }}</strong> টি
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center small mb-1">
+                        <span class="text-muted">প্রপোজাল ব্যবহার:</span>
+                        <strong class="text-dark">
+                            {{ $activeSubscription?->proposals_used ?? 0 }} / {{ $activeSubscription?->proposals_quota ?? 5 }}
+                        </strong>
+                    </div>
+                    @php
+                        $quotaTotal = max(1, $activeSubscription?->proposals_quota ?? 5);
+                        $quotaUsed = $activeSubscription?->proposals_used ?? 0;
+                        $quotaPercent = min(100, round(($quotaUsed / $quotaTotal) * 100));
+                    @endphp
+                    <div class="progress" style="height: 7px; border-radius: 10px; background-color: #f1f3f5;">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $quotaPercent }}%;" aria-valuenow="{{ $quotaPercent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
-                <div class="small text-muted mb-2">
-                    ব্যবহৃত হয়েছে: <strong>{{ $activeSubscription?->proposals_used ?? 0 }}</strong> টি
+
+                <div class="small text-muted mb-3 d-flex justify-content-between align-items-center">
+                    <span>মেয়াদ সমাপ্তি:</span>
+                    <strong class="text-dark">{{ $activeSubscription?->expires_at ? $activeSubscription->expires_at->format('d M Y') : '৬ মাস' }}</strong>
                 </div>
-                <div class="small text-muted mb-3">
-                    মেয়াদ: <strong>{{ $activeSubscription?->expires_at ? $activeSubscription->expires_at->format('d M Y') : '৬ মাস' }}</strong>
-                </div>
-                <a href="{{ route('packages') }}" target="_blank" class="btn btn-outline-dark btn-sm rounded-pill w-100 py-2">
-                    <i class="bi bi-arrow-up-circle me-1"></i> প্যাকেজ আপগ্রেড দেখুন
+
+                <a href="{{ route('packages') }}" target="_blank" class="btn btn-outline-dark btn-sm rounded-pill w-100 py-2 fw-semibold">
+                    <i class="bi bi-arrow-up-circle me-1 text-warning"></i> প্যাকেজ আপগ্রেড দেখুন &rarr;
                 </a>
+            </div>
+        </div>
+
+        <!-- Account Security Card -->
+        <div class="card border-0 shadow-sm rounded-4 bg-white overflow-hidden">
+            <div class="card-header bg-white py-3.5 px-4 border-bottom">
+                <h6 class="fw-bold text-dark mb-0 font-serif d-flex align-items-center gap-2">
+                    <i class="bi bi-shield-check text-primary"></i> অ্যাকাউন্ট নিরাপত্তা
+                </h6>
+            </div>
+            <div class="card-body p-4 text-center">
+                <div class="rounded-circle bg-primary-subtle text-primary mx-auto d-flex align-items-center justify-content-center mb-3" style="width: 54px; height: 54px; font-size: 1.5rem;">
+                    <i class="bi bi-key-fill"></i>
+                </div>
+                <h6 class="fw-bold text-dark mb-1">পাসওয়ার্ড ম্যানেজমেন্ট</h6>
+                <p class="small text-muted mb-3 lh-base">
+                    আপনার অ্যাকাউন্টের গোপনীয়তা নিশ্চিত করতে একটি নিজস্ব পাসওয়ার্ড নির্ধারণ করে রাখুন।
+                </p>
+                <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-4 fw-semibold w-100 py-2" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                    <i class="bi bi-lock-fill me-1"></i> পাসওয়ার্ড পরিবর্তন করুন
+                </button>
             </div>
         </div>
     </div>
 </div>
 
 <style>
+/* Discreet Blur Styling */
 .blur-discreet {
     filter: blur(6px);
     transition: filter 0.3s ease;
 }
-.hover-shadow {
-    transition: all 0.2s ease;
+
+/* Stat Cards Luxury Lift */
+.stat-card-luxury {
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid rgba(201, 151, 56, 0.22);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+    transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
-.hover-shadow:hover {
-    box-shadow: 0 8px 24px rgba(133, 24, 41, 0.08) !important;
-    border-color: rgba(133, 24, 41, 0.25) !important;
+
+.stat-card-luxury:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(133, 24, 41, 0.08);
+    border-color: rgba(201, 151, 56, 0.5);
+}
+
+.stat-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+}
+
+/* Concierge Card */
+.concierge-card {
+    border: 1px solid rgba(201, 151, 56, 0.35) !important;
+    background: linear-gradient(135deg, #ffffff 0%, #fffdfa 100%);
+}
+
+.rm-avatar-ring {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, var(--theme-secondary) 0%, var(--theme-primary) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.rm-avatar-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--theme-primary);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+}
+
+/* Match Card Royal */
+.match-card-royal {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    transition: all 0.25s ease;
+}
+
+.match-card-royal:hover {
+    transform: translateY(-3px);
+    border-color: rgba(201, 151, 56, 0.55);
+    box-shadow: 0 8px 24px rgba(133, 24, 41, 0.07);
 }
 </style>
 @endsection

@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\CandidateProfile;
 use App\Models\Proposal;
 use App\Models\Shortlist;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -171,5 +174,31 @@ class DashboardController extends Controller
         }
 
         return back()->with('success', $message);
+    }
+
+    /**
+     * Update client account password.
+     */
+    public function updatePassword(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'current_password' => ['nullable', 'string'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        if ($request->filled('current_password')) {
+            if (! Hash::check($request->current_password, $user->password)) {
+                return back()->withErrors(['current_password' => 'বর্তমান পাসওয়ার্ডটি সঠিক নয়।']);
+            }
+        }
+
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        return back()->with('success', 'আপনার পাসওয়ার্ড সফলভাবে আপডেট করা হয়েছে। এখন থেকে নতুন পাসওয়ার্ড দিয়ে লগইন করতে পারবেন।');
     }
 }
