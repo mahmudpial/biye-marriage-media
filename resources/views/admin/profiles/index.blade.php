@@ -174,6 +174,60 @@
         gap: 0.25rem;
     }
 
+    /* Modal Badges 2-Column Grid System */
+    .modal-badges-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+        width: 100%;
+        margin-top: 0.35rem;
+    }
+    .modal-badge-col {
+        width: 100%;
+        min-width: 0;
+    }
+    .modal-badge-pill {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.35rem !important;
+        padding: 0.45rem 0.4rem !important;
+        font-size: 0.72rem !important;
+        font-weight: 600 !important;
+        border-radius: 8px !important;
+        width: 100% !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+    }
+    .modal-badge-pill:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    }
+    .modal-badge-pill span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .modal-badge-pill.badge-public {
+        background: rgba(34, 197, 94, 0.15) !important;
+        color: #86efac !important;
+        border: 1px solid rgba(34, 197, 94, 0.4) !important;
+    }
+    .modal-badge-pill.badge-modal-active {
+        background: rgba(34, 197, 94, 0.2) !important;
+        color: #86efac !important;
+        border: 1px solid rgba(34, 197, 94, 0.45) !important;
+    }
+    .modal-badge-pill.badge-modal-inactive {
+        background: rgba(239, 68, 68, 0.2) !important;
+        color: #fca5a5 !important;
+        border: 1px solid rgba(239, 68, 68, 0.45) !important;
+    }
+
     /* Status Toggle Pills - Bright Green vs Bright Red */
     .btn-status-toggle {
         border-radius: 20px;
@@ -518,23 +572,54 @@
                                             <div class="row g-4">
                                                 <div class="col-md-4 text-center">
                                                     <img src="{{ $profile->resolved_image }}" alt="{{ $profile->profile_code }}" class="img-fluid rounded-3 border border-warning border-opacity-25 shadow-sm mb-3" style="max-height: 220px; object-fit: cover; width: 100%;">
-                                                    <div class="mb-2">
-                                                        @if($profile->gender === 'female')
-                                                            <span class="badge badge-bride px-2.5 py-1.5"><i class="bi bi-gender-female"></i> Bride Profile</span>
-                                                        @else
-                                                            <span class="badge badge-groom px-2.5 py-1.5"><i class="bi bi-gender-male"></i> Groom Profile</span>
-                                                        @endif
-                                                    </div>
-                                                    <div class="d-flex flex-wrap gap-1.5 justify-content-center">
-                                                        <span class="badge badge-tier">{{ $profile->category }}</span>
-                                                        @if($profile->is_discreet)
-                                                            <span class="badge badge-discreet"><i class="bi bi-shield-lock-fill"></i> Discreet</span>
-                                                        @else
-                                                            <span class="badge bg-dark border border-secondary border-opacity-50 text-silver"><i class="bi bi-eye-fill text-success"></i> Public</span>
-                                                        @endif
-                                                        <span class="badge {{ $profile->is_active ? 'bg-success' : 'bg-danger' }}">
-                                                            {{ $profile->is_active ? 'Active' : 'Inactive' }}
-                                                        </span>
+                                                    
+                                                    <!-- 2-Column Grid System for Candidate Profile Badges -->
+                                                    <div class="modal-badges-grid">
+                                                        <!-- 1. Gender: Groom / Bride Profile -->
+                                                        <div class="modal-badge-col">
+                                                            @if($profile->gender === 'female')
+                                                                <span class="modal-badge-pill badge-bride" title="Bride Profile">
+                                                                    <i class="bi bi-gender-female"></i> <span>Bride Profile</span>
+                                                                </span>
+                                                            @else
+                                                                <span class="modal-badge-pill badge-groom" title="Groom Profile">
+                                                                    <i class="bi bi-gender-male"></i> <span>Groom Profile</span>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+
+                                                        <!-- 2. Category: e.g. Elite Professional -->
+                                                        <div class="modal-badge-col">
+                                                            <span class="modal-badge-pill badge-tier" title="{{ $profile->category }}">
+                                                                <i class="bi bi-gem text-gold"></i> <span>{{ $profile->category }}</span>
+                                                            </span>
+                                                        </div>
+
+                                                        <!-- 3. Visibility: Discreet / Public -->
+                                                        <div class="modal-badge-col">
+                                                            @if($profile->is_discreet)
+                                                                <span class="modal-badge-pill badge-discreet" title="Discreet Profile">
+                                                                    <i class="bi bi-shield-lock-fill"></i> <span>Discreet</span>
+                                                                </span>
+                                                            @else
+                                                                <span class="modal-badge-pill badge-public" title="Public Profile">
+                                                                    <i class="bi bi-eye-fill text-success"></i> <span>Public</span>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+
+                                                        <!-- 4. Status: Active / Inactive -->
+                                                        <div class="modal-badge-col">
+                                                            @if($profile->is_active)
+                                                                <span class="modal-badge-pill badge-modal-active" title="Status: Active">
+                                                                    <i class="bi bi-check-circle-fill text-success"></i> <span>Active</span>
+                                                                </span>
+                                                            @else
+                                                                <span class="modal-badge-pill badge-modal-inactive" title="Status: Inactive">
+                                                                    <i class="bi bi-slash-circle-fill text-danger"></i> <span>Inactive</span>
+                                                                </span>
+                                                            @endif
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">

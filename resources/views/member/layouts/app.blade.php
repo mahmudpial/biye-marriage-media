@@ -76,6 +76,43 @@
             background: #ffffff;
             border-bottom: 1px solid rgba(201, 151, 56, 0.2);
             box-shadow: 0 4px 20px rgba(133, 24, 41, 0.04);
+            z-index: 1040 !important;
+        }
+
+        .member-navbar .dropdown {
+            position: relative;
+        }
+
+        /* Fixed Anchored Dropdown directly under Profile Pill */
+        .member-navbar .dropdown-menu {
+            top: 100% !important;
+            right: 0 !important;
+            left: auto !important;
+            margin-top: 8px !important;
+            transform: none !important;
+            max-height: calc(100vh - 90px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 1050 !important;
+            box-shadow: 0 16px 40px rgba(133, 24, 41, 0.16), 0 4px 12px rgba(0, 0, 0, 0.06) !important;
+        }
+
+        .member-navbar .dropdown-menu::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .member-navbar .dropdown-menu::-webkit-scrollbar-track {
+            background: #faf8f5;
+            border-radius: 10px;
+        }
+
+        .member-navbar .dropdown-menu::-webkit-scrollbar-thumb {
+            background: rgba(201, 151, 56, 0.4);
+            border-radius: 10px;
+        }
+
+        .member-navbar .dropdown-menu::-webkit-scrollbar-thumb:hover {
+            background: var(--theme-secondary);
         }
 
         /* Brand Logo Frame */
@@ -178,7 +215,7 @@
             transform: translateY(-1px);
         }
 
-        /* User Menu Avatar */
+        /* User Menu Avatar & Profile Pill */
         .avatar-initials {
             width: 34px;
             height: 34px;
@@ -191,6 +228,67 @@
             align-items: center;
             justify-content: center;
             font-size: 0.88rem;
+        }
+
+        .member-profile-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #fdfbf7 100%);
+            border: 1.5px solid rgba(201, 151, 56, 0.45) !important;
+            border-radius: 40px;
+            padding: 0.35rem 0.95rem 0.35rem 0.4rem;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(201, 151, 56, 0.12);
+        }
+        .member-profile-btn:hover, .member-profile-btn[aria-expanded="true"] {
+            background: #ffffff;
+            border-color: var(--theme-secondary) !important;
+            box-shadow: 0 4px 16px rgba(201, 151, 56, 0.25);
+            transform: translateY(-1px);
+        }
+        .member-profile-btn .chevron-icon {
+            font-size: 0.72rem;
+            color: var(--theme-secondary);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .member-profile-btn[aria-expanded="true"] .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Language Switcher Pill Button */
+        .member-lang-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #fdfbf7 100%);
+            border: 1.5px solid rgba(201, 151, 56, 0.4) !important;
+            border-radius: 40px;
+            padding: 0.38rem 0.8rem;
+            color: #1f2937;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(201, 151, 56, 0.1);
+        }
+        .member-lang-btn:hover, .member-lang-btn[aria-expanded="true"] {
+            background: #ffffff;
+            border-color: var(--theme-secondary) !important;
+            box-shadow: 0 4px 14px rgba(201, 151, 56, 0.22);
+            transform: translateY(-1px);
+        }
+        .member-lang-dropdown .dropdown-item {
+            font-size: 0.82rem;
+            color: #374151;
+            transition: all 0.15s ease;
+        }
+        .member-lang-dropdown .dropdown-item:hover {
+            background: rgba(201, 151, 56, 0.08);
+            color: var(--theme-primary);
+        }
+        .member-lang-dropdown .dropdown-item.active-lang {
+            background: rgba(133, 24, 41, 0.06);
+            color: var(--theme-primary);
+            font-weight: 700;
         }
 
         /* Mobile Bottom App Bar */
@@ -230,6 +328,148 @@
                 padding-bottom: 70px;
             }
         }
+
+        /* Floating Luxury Member Toast Notifications */
+        .member-toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 420px;
+            width: calc(100vw - 48px);
+            pointer-events: none;
+        }
+
+        .member-toast {
+            pointer-events: auto;
+            background: #ffffff;
+            border: 1px solid rgba(201, 151, 56, 0.35);
+            border-radius: 16px;
+            box-shadow: 0 16px 40px rgba(133, 24, 41, 0.14), 0 4px 12px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            position: relative;
+            animation: memberToastSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .member-toast.toast-success {
+            border-left: 4px solid #198754;
+        }
+
+        .member-toast.toast-error {
+            border-left: 4px solid #dc3545;
+        }
+
+        .member-toast.toast-info {
+            border-left: 4px solid #0d6efd;
+        }
+
+        .member-toast-body {
+            display: flex;
+            align-items: flex-start;
+            padding: 14px 16px;
+            gap: 12px;
+        }
+
+        .member-toast-icon {
+            font-size: 1.25rem;
+            line-height: 1;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .toast-success .member-toast-icon {
+            color: #198754;
+        }
+
+        .toast-error .member-toast-icon {
+            color: #dc3545;
+        }
+
+        .toast-info .member-toast-icon {
+            color: #0d6efd;
+        }
+
+        .member-toast-content {
+            flex-grow: 1;
+            min-width: 0;
+        }
+
+        .member-toast-title {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 2px;
+        }
+
+        .member-toast-message {
+            font-size: 0.82rem;
+            color: #4b5563;
+            margin: 0;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .member-toast-close {
+            background: transparent;
+            border: none;
+            color: #9ca3af;
+            font-size: 0.85rem;
+            padding: 4px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .member-toast-close:hover {
+            color: #1f2937;
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .member-toast-progress-track {
+            width: 100%;
+            height: 3px;
+            background: rgba(201, 151, 56, 0.15);
+            overflow: hidden;
+        }
+
+        .member-toast-progress-bar {
+            height: 100%;
+            width: 100%;
+            animation: memberToastCountdown 5s linear forwards;
+        }
+
+        .toast-success .member-toast-progress-bar {
+            background: linear-gradient(90deg, #198754, #20c997);
+        }
+
+        .toast-error .member-toast-progress-bar {
+            background: linear-gradient(90deg, #dc3545, #e63946);
+        }
+
+        .toast-info .member-toast-progress-bar {
+            background: linear-gradient(90deg, #c99738, #851829);
+        }
+
+        @keyframes memberToastCountdown {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        @keyframes memberToastSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px) scale(0.92);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
     </style>
     @stack('styles')
 </head>
@@ -250,9 +490,9 @@
     <div class="member-topbar d-none d-md-block">
         <div class="container-xl d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center gap-2">
-                <span><i class="bi bi-shield-check text-warning me-1"></i> ১০০% গোপনীয় ও ব্যক্তিগত ম্যাচমেকিং পোর্টাল</span>
+                <span><i class="bi bi-shield-check text-warning me-1"></i> {{ __('১০০% গোপনীয় ও ব্যক্তিগত ম্যাচমেকিং পোর্টাল') }}</span>
                 <span class="topbar-divider">|</span>
-                <span class="text-warning-subtle"><i class="bi bi-heart-fill text-warning me-1"></i> {{ site_setting('site_tagline', 'বিশ্বাসের বন্ধনে, সুন্দর আগামী') }}</span>
+                <span class="text-warning-subtle"><i class="bi bi-heart-fill text-warning me-1"></i> {{ site_setting('site_tagline', __('বিশ্বাসের বন্ধনে, সুন্দর আগামী')) }}</span>
             </div>
             <div class="d-flex align-items-center gap-3">
                 <a href="tel:{{ preg_replace('/[^0-9+]/', '', site_setting('contact_phone', '+8801577723404')) }}">
@@ -264,10 +504,73 @@
                 </a>
                 <span class="topbar-divider">|</span>
                 <a href="{{ route('home') }}" target="_blank">
-                    <i class="bi bi-box-arrow-up-right me-1"></i> মূল ওয়েবসাইট
+                    <i class="bi bi-box-arrow-up-right me-1"></i> {{ __('মূল ওয়েবসাইট') }}
                 </a>
             </div>
         </div>
+    </div>
+
+    <!-- Floating Luxury Member Toast Notifications -->
+    <div class="member-toast-container" id="memberToastContainer">
+        @if(session('success'))
+            <div class="member-toast toast-success" role="alert" aria-live="polite">
+                <div class="member-toast-body">
+                    <div class="member-toast-icon">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+                    <div class="member-toast-content">
+                        <div class="member-toast-title">সফল হয়েছে</div>
+                        <p class="member-toast-message">{{ session('success') }}</p>
+                    </div>
+                    <button type="button" class="member-toast-close" data-dismiss="member-toast" aria-label="Close">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="member-toast-progress-track">
+                    <div class="member-toast-progress-bar"></div>
+                </div>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="member-toast toast-error" role="alert" aria-live="polite">
+                <div class="member-toast-body">
+                    <div class="member-toast-icon">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
+                    <div class="member-toast-content">
+                        <div class="member-toast-title">সতর্কবার্তা</div>
+                        <p class="member-toast-message">{{ session('error') }}</p>
+                    </div>
+                    <button type="button" class="member-toast-close" data-dismiss="member-toast" aria-label="Close">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="member-toast-progress-track">
+                    <div class="member-toast-progress-bar"></div>
+                </div>
+            </div>
+        @endif
+
+        @if(session('info'))
+            <div class="member-toast toast-info" role="alert" aria-live="polite">
+                <div class="member-toast-body">
+                    <div class="member-toast-icon">
+                        <i class="bi bi-info-circle-fill"></i>
+                    </div>
+                    <div class="member-toast-content">
+                        <div class="member-toast-title">তথ্য</div>
+                        <p class="member-toast-message">{{ session('info') }}</p>
+                    </div>
+                    <button type="button" class="member-toast-close" data-dismiss="member-toast" aria-label="Close">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="member-toast-progress-track">
+                    <div class="member-toast-progress-bar"></div>
+                </div>
+            </div>
+        @endif
     </div>
 
     <!-- Member Navigation Bar -->
@@ -290,47 +593,86 @@
                 <nav class="d-none d-lg-flex align-items-center gap-2">
                     <a href="{{ route('member.dashboard') }}" class="member-nav-link {{ request()->routeIs('member.dashboard') ? 'active' : '' }}">
                         <i class="bi bi-grid-1x2-fill"></i>
-                        <span>ড্যাশবোর্ড</span>
+                        <span>{{ __('ড্যাশবোর্ড') }}</span>
                     </a>
                     <a href="{{ route('member.biodata.show') }}" class="member-nav-link {{ request()->routeIs('member.biodata.*') ? 'active' : '' }}">
                         <i class="bi bi-person-vcard-fill"></i>
-                        <span>আমার বায়োডাটা</span>
+                        <span>{{ __('আমার বায়োডাটা') }}</span>
                     </a>
                     <a href="{{ route('member.matches') }}" class="member-nav-link {{ request()->routeIs('member.matches') ? 'active' : '' }}">
                         <i class="bi bi-stars text-warning"></i>
-                        <span>ডেইলি ম্যাচ</span>
+                        <span>{{ __('ডেইলি ম্যাচ') }}</span>
                     </a>
                     <a href="{{ route('member.shortlists') }}" class="member-nav-link {{ request()->routeIs('member.shortlists') ? 'active' : '' }}">
                         <i class="bi bi-bookmark-heart-fill"></i>
-                        <span>শর্টলিস্ট</span>
+                        <span>{{ __('শর্টলিস্ট') }}</span>
                     </a>
                 </nav>
 
                 <!-- User Profile & Dropdown (With Quota & Proposals Inside) -->
-                <div class="d-flex align-items-center gap-2.5">
+                <div class="d-flex align-items-center gap-2">
                     @php
                         $user = Auth::user();
                         $sub = $user->activeSubscription;
                         $myProfile = $user->candidateProfile;
                         $pendingIn = $myProfile ? $myProfile->receivedProposals()->where('status', 'pending')->count() : 0;
+                        $activeLocale = app()->getLocale();
                     @endphp
+
+                    <!-- Language Switcher Pill Button -->
+                    <div class="dropdown">
+                        <button class="member-lang-btn border-0 d-flex align-items-center gap-1.5" 
+                                type="button" 
+                                data-bs-toggle="dropdown" 
+                                data-bs-display="static" 
+                                aria-expanded="false" 
+                                title="{{ __('Switch Language') }}">
+                            <i class="bi bi-translate text-warning"></i>
+                            <span class="fw-bold small">{{ $activeLocale === 'bn' ? 'বাং' : 'EN' }}</span>
+                            <i class="bi bi-chevron-down text-muted" style="font-size: 0.65rem;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3 py-1.5 member-lang-dropdown" style="min-width: 140px; border: 1px solid rgba(201, 151, 56, 0.25) !important;">
+                            <li>
+                                <a class="dropdown-item py-1.5 px-3 small d-flex align-items-center justify-content-between {{ $activeLocale === 'bn' ? 'active-lang' : '' }}" 
+                                   href="{{ route('locale.switch', 'bn') }}">
+                                    <span class="d-flex align-items-center gap-2">
+                                        <span style="font-size: 1rem;">🇧🇩</span> বাংলা
+                                    </span>
+                                    @if($activeLocale === 'bn')
+                                        <i class="bi bi-check2 text-warning fw-bold"></i>
+                                    @endif
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item py-1.5 px-3 small d-flex align-items-center justify-content-between {{ $activeLocale === 'en' ? 'active-lang' : '' }}" 
+                                   href="{{ route('locale.switch', 'en') }}">
+                                    <span class="d-flex align-items-center gap-2">
+                                        <span style="font-size: 1rem;">🇬🇧</span> English
+                                    </span>
+                                    @if($activeLocale === 'en')
+                                        <i class="bi bi-check2 text-warning fw-bold"></i>
+                                    @endif
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
                     <!-- User Profile Dropdown Button -->
                     <div class="dropdown">
-                        <button class="btn btn-light border rounded-pill d-flex align-items-center gap-2 py-1 px-2.5 shadow-sm position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="member-profile-btn border-0 position-relative" type="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                             <div class="avatar-initials position-relative">
                                 {{ strtoupper(substr($user->name, 0, 1)) }}
                                 @if($pendingIn > 0)
-                                    <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" title="{{ $pendingIn }} নতুন প্রস্তাব">
+                                    <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" title="{{ $pendingIn }} {{ __('নতুন প্রস্তাব') }}">
                                         <span class="visually-hidden">New proposals</span>
                                     </span>
                                 @endif
                             </div>
                             <div class="d-none d-md-block text-start lh-1">
                                 <span class="fw-semibold small text-dark d-block">{{ \Illuminate\Support\Str::limit($user->name, 16) }}</span>
-                                <span class="text-muted" style="font-size: 0.68rem;">ক্লায়েন্ট অ্যাকাউন্ট</span>
+                                <span class="text-muted" style="font-size: 0.68rem;">{{ __('ক্লায়েন্ট অ্যাকাউন্ট') }}</span>
                             </div>
-                            <i class="bi bi-chevron-down text-muted" style="font-size: 0.75rem;"></i>
+                            <i class="bi bi-chevron-down chevron-icon ms-1"></i>
                         </button>
                         
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4 mt-2 py-2" style="min-width: 270px; border: 1px solid rgba(201, 151, 56, 0.2) !important;">
@@ -342,11 +684,11 @@
                                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-1 mt-1.5">
                                     @if($user->isVerified())
                                         <span class="badge bg-success-subtle text-success border border-success-subtle small" style="font-size: 0.72rem;">
-                                            <i class="bi bi-patch-check-fill me-1"></i>ভেরিফাইড মেম্বার
+                                            <i class="bi bi-patch-check-fill me-1"></i>{{ __('ভেরিফাইড মেম্বার') }}
                                         </span>
                                     @else
-                                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle small" style="font-size: 0.72rem;">
-                                            <i class="bi bi-clock-history me-1"></i>ভেরিফিকেশন অপেক্ষমাণ
+                                        <span class="badge bg-danger-subtle text-danger border border-danger-subtle small fw-semibold" style="font-size: 0.72rem;">
+                                            <i class="bi bi-clock-history me-1"></i>{{ __('ভেরিফিকেশন অপেক্ষমাণ') }}
                                         </span>
                                     @endif
                                 </div>
@@ -355,10 +697,10 @@
                                 @if($sub)
                                     <div class="d-flex align-items-center justify-content-between p-2 mt-2 rounded-3 bg-white border border-warning-subtle shadow-xs">
                                         <span class="small text-muted d-flex align-items-center gap-1.5" style="font-size: 0.78rem;">
-                                            <i class="bi bi-send-fill text-warning"></i> প্রপোজাল কোটা:
+                                            <i class="bi bi-send-fill text-warning"></i> {{ __('প্রপোজাল কোটা:') }}
                                         </span>
                                         <span class="badge bg-warning text-dark px-2 py-0.5 rounded-pill fw-bold" style="font-size: 0.76rem;">
-                                            {{ $sub->remainingProposals() }} / {{ $sub->proposals_quota }} বাকি
+                                            {{ $sub->remainingProposals() }} / {{ $sub->proposals_quota }} {{ __('বাকি') }}
                                         </span>
                                     </div>
                                 @endif
@@ -367,36 +709,36 @@
                             <!-- Dropdown Menu Links -->
                             <li>
                                 <a class="dropdown-item py-2 small" href="{{ route('member.dashboard') }}">
-                                    <i class="bi bi-speedometer2 text-maroon me-2"></i> ওভারভিউ ড্যাশবোর্ড
+                                    <i class="bi bi-speedometer2 text-maroon me-2"></i> {{ __('ওভারভিউ ড্যাশবোর্ড') }}
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item py-2 small" href="{{ route('member.biodata.show') }}">
-                                    <i class="bi bi-file-earmark-person-fill text-primary me-2"></i> আমার বায়োডাটা (সিভি)
+                                    <i class="bi bi-file-earmark-person-fill text-primary me-2"></i> {{ __('আমার বায়োডাটা (সিভি)') }}
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item py-2 small" href="{{ route('member.biodata.edit') }}">
-                                    <i class="bi bi-pencil-square text-secondary me-2"></i> বায়োডাটা এডিট করুন
+                                    <i class="bi bi-pencil-square text-secondary me-2"></i> {{ __('বায়োডাটা এডিট করুন') }}
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item py-2 small" href="{{ route('member.matches') }}">
-                                    <i class="bi bi-search-heart text-warning me-2"></i> পাত্র-পাত্রী খুঁজুন
+                                    <i class="bi bi-search-heart text-warning me-2"></i> {{ __('পাত্র-পাত্রী খুঁজুন') }}
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item py-2 small" href="{{ route('member.shortlists') }}">
-                                    <i class="bi bi-bookmark-heart text-danger me-2"></i> পছন্দের তালিকা (Shortlist)
+                                    <i class="bi bi-bookmark-heart text-danger me-2"></i> {{ __('পছন্দের তালিকা (Shortlist)') }}
                                 </a>
                             </li>
 
                             <!-- Proposals with Pending Badge inside Dropdown -->
                             <li>
                                 <a class="dropdown-item py-2 small d-flex align-items-center justify-content-between {{ request()->routeIs('member.proposals') ? 'active text-white' : '' }}" href="{{ route('member.proposals') }}">
-                                    <span><i class="bi bi-envelope-heart-fill text-success me-2"></i>প্রস্তাবনা (Proposals)</span>
+                                    <span><i class="bi bi-envelope-heart-fill text-success me-2"></i>{{ __('প্রস্তাবনা (Proposals)') }}</span>
                                     @if($pendingIn > 0)
-                                        <span class="badge rounded-pill bg-danger" style="font-size: 0.68rem;">{{ $pendingIn }} নতুন</span>
+                                        <span class="badge rounded-pill bg-danger" style="font-size: 0.68rem;">{{ $pendingIn }} {{ __('নতুন') }}</span>
                                     @endif
                                 </a>
                             </li>
@@ -405,18 +747,18 @@
 
                             <li>
                                 <button type="button" class="dropdown-item py-2 small text-dark" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-                                    <i class="bi bi-key-fill text-warning me-2"></i> পাসওয়ার্ড পরিবর্তন করুন
+                                    <i class="bi bi-key-fill text-warning me-2"></i> {{ __('পাসওয়ার্ড পরিবর্তন করুন') }}
                                 </button>
                             </li>
                             <li>
                                 <a class="dropdown-item py-2 small" href="{{ route('home') }}" target="_blank">
-                                    <i class="bi bi-globe me-2 text-secondary"></i> মূল ওয়েবসাইট দেখুন
+                                    <i class="bi bi-globe me-2 text-secondary"></i> {{ __('মূল ওয়েবসাইট দেখুন') }}
                                 </a>
                             </li>
                             @if(Auth::user()->isStaff())
                                 <li>
                                     <a class="dropdown-item py-2 small text-danger fw-semibold" href="{{ route('admin.dashboard') }}">
-                                        <i class="bi bi-shield-lock-fill me-2"></i> অ্যাডমিন কনসোল
+                                        <i class="bi bi-shield-lock-fill me-2"></i> {{ __('অ্যাডমিন কনসোল') }}
                                     </a>
                                 </li>
                             @endif
@@ -424,7 +766,7 @@
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <button type="submit" class="dropdown-item py-2 small text-danger fw-medium">
-                                        <i class="bi bi-box-arrow-right me-2"></i> লগআউট
+                                        <i class="bi bi-box-arrow-right me-2"></i> {{ __('লগআউট') }}
                                     </button>
                                 </form>
                             </li>
@@ -438,31 +780,6 @@
     <!-- Main Content Container -->
     <main class="flex-grow-1 py-4">
         <div class="container-xl">
-            <!-- Flash Notifications -->
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show d-flex align-items-center gap-2 rounded-3 shadow-sm mb-4 border-success-subtle" role="alert">
-                    <i class="bi bi-check-circle-fill fs-5 text-success"></i>
-                    <div>{{ session('success') }}</div>
-                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-
-            @if(session('info'))
-                <div class="alert alert-info alert-dismissible fade show d-flex align-items-center gap-2 rounded-3 shadow-sm mb-4 border-info-subtle" role="alert">
-                    <i class="bi bi-info-circle-fill fs-5 text-info"></i>
-                    <div>{{ session('info') }}</div>
-                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-
-            @if(session('error'))
-                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-2 rounded-3 shadow-sm mb-4 border-danger-subtle" role="alert">
-                    <i class="bi bi-exclamation-octagon-fill fs-5 text-danger"></i>
-                    <div>{{ session('error') }}</div>
-                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-
             @if($errors->any())
                 <div class="alert alert-danger alert-dismissible fade show rounded-3 shadow-sm mb-4 border-danger-subtle" role="alert">
                     <div class="fw-bold mb-1"><i class="bi bi-exclamation-triangle-fill me-1"></i> কিছু তথ্যে সমস্যা রয়েছে:</div>
@@ -569,6 +886,112 @@
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Auto-dismiss Member Toast Notifications after exactly 5 seconds
+        document.addEventListener('DOMContentLoaded', function () {
+            const toastElements = document.querySelectorAll('.member-toast');
+            toastElements.forEach(function (toastEl) {
+                setTimeout(function () {
+                    dismissMemberToast(toastEl);
+                }, 5000);
+            });
+
+            document.addEventListener('click', function (e) {
+                const closeBtn = e.target.closest('[data-dismiss="member-toast"]');
+                if (closeBtn) {
+                    const toastEl = closeBtn.closest('.member-toast');
+                    if (toastEl) {
+                        dismissMemberToast(toastEl);
+                    }
+                }
+            });
+
+            function dismissMemberToast(el) {
+                if (!el || el.dataset.dismissed) return;
+                el.dataset.dismissed = 'true';
+                el.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+                el.style.opacity = '0';
+                el.style.transform = 'translateX(30px) scale(0.95)';
+                setTimeout(function () {
+                    el.remove();
+                }, 350);
+            }
+
+            // Auto-dismiss standard alerts after 5 seconds
+            const alerts = document.querySelectorAll('.alert.alert-dismissible');
+            alerts.forEach(function (alertEl) {
+                setTimeout(function () {
+                    try {
+                        const bsAlert = bootstrap.Alert.getInstance(alertEl) || new bootstrap.Alert(alertEl);
+                        if (bsAlert) {
+                            bsAlert.close();
+                        }
+                    } catch (err) {
+                        alertEl.remove();
+                    }
+                }, 5000);
+            });
+        });
+
+        // Universal Action Button Loading / Spinner System for Member Portal
+        document.addEventListener('submit', function (e) {
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]:not([data-no-loading])');
+            if (!submitBtn || submitBtn.dataset.submitted) return;
+
+            // Preserve width & height to prevent layout shift or button jumping
+            const rect = submitBtn.getBoundingClientRect();
+            if (rect.width > 0 && rect.height > 0) {
+                submitBtn.style.minWidth = `${rect.width}px`;
+                submitBtn.style.minHeight = `${rect.height}px`;
+            }
+
+            submitBtn.dataset.submitted = 'true';
+
+            // Context-sensitive spinner animations
+            if (submitBtn.classList.contains('filter-btn-luxury') || submitBtn.id === 'filterSubmitBtn') {
+                // Filter search: elegant warning spinner matching luxury gold
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm text-warning" role="status" aria-hidden="true" style="width: 1.15rem; height: 1.15rem; border-width: 2.2px;"></span>';
+            } else if (submitBtn.querySelector('.bi-heart') || submitBtn.querySelector('.bi-heart-fill')) {
+                // Shortlist heart button
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm text-danger" role="status" style="width: 1rem; height: 1rem; border-width: 2px;"></span>';
+            } else if (submitBtn.classList.contains('proposal-withdraw-btn') || form.action.includes('/cancel')) {
+                // Proposal cancellation / withdrawal
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm text-danger me-1" role="status" style="width: 0.85rem; height: 0.85rem; border-width: 1.8px;"></span><span>প্রত্যাহার হচ্ছে...</span>';
+            } else if (form.action.includes('/respond')) {
+                // Proposal respond (accept/decline)
+                const isAccept = form.querySelector('input[name="status"][value="accepted"]');
+                submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-1" role="status" style="width: 0.85rem; height: 0.85rem; border-width: 1.8px;"></span><span>${isAccept ? 'গ্রহণ করা হচ্ছে...' : 'বাতিল হচ্ছে...'}</span>`;
+            } else if (form.action.includes('/proposals')) {
+                // Send proposal modal submit
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm text-warning me-1.5" role="status" style="width: 0.95rem; height: 0.95rem; border-width: 2px;"></span><span>প্রস্তাব পাঠানো হচ্ছে...</span>';
+            } else if (form.action.includes('/biodata') && !form.action.includes('/toggle-discreet')) {
+                // Biodata edit & update
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm text-warning me-1.5" role="status" style="width: 0.95rem; height: 0.95rem; border-width: 2px;"></span><span>তথ্য সংরক্ষণ হচ্ছে...</span>';
+            } else if (form.action.includes('/toggle-discreet')) {
+                // Discreet photo toggle
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm text-warning me-1.5" role="status" style="width: 0.95rem; height: 0.95rem; border-width: 2px;"></span><span>আপডেট হচ্ছে...</span>';
+            } else if (form.action.includes('/password')) {
+                // Password update
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm text-warning me-1.5" role="status" style="width: 0.95rem; height: 0.95rem; border-width: 2px;"></span><span>আপডেট হচ্ছে...</span>';
+            } else {
+                // General submit: replace icon or prepend spinner
+                const icon = submitBtn.querySelector('i');
+                if (icon) {
+                    icon.className = 'spinner-border spinner-border-sm me-1.5';
+                    icon.style.width = '0.9rem';
+                    icon.style.height = '0.9rem';
+                    icon.style.borderWidth = '1.8px';
+                } else {
+                    submitBtn.insertAdjacentHTML('afterbegin', '<span class="spinner-border spinner-border-sm me-1.5" role="status" style="width: 0.9rem; height: 0.9rem; border-width: 1.8px;"></span>');
+                }
+            }
+
+            submitBtn.style.pointerEvents = 'none';
+            submitBtn.style.opacity = '0.85';
+        });
+    </script>
     @stack('scripts')
 </body>
 </html>

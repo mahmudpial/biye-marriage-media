@@ -28,14 +28,43 @@ class AdminClientManagementTest extends TestCase
 
         $admin = User::factory()->admin()->create();
         $client = User::factory()->client()->create(['name' => 'Tanjina Sultana']);
-        CandidateProfile::factory()->create(['user_id' => $client->id]);
+        $profile = CandidateProfile::factory()->create([
+            'user_id' => $client->id,
+            'profile_code' => 'BD-ELT-80901',
+        ]);
 
         $response = $this->actingAs($admin)->get(route('admin.clients.index'));
 
         $response->assertStatus(200);
         $response->assertSee('Registered Matrimony Clients');
         $response->assertSee('Tanjina Sultana');
+        $response->assertDontSee('BD-ELT-80901');
+        $response->assertSee('Assigned RM');
+        $response->assertSee('Package &amp; Quota', false);
+        $response->assertSee('stat-pill');
+        $response->assertSee('table-container');
+        $response->assertSee('table-clients');
         $response->assertSee('Elite Professional (৳60,000 / 6 Months)');
+    }
+
+    public function test_client_avatar_initials_and_relation_text(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $client = User::factory()->client()->create([
+            'name' => 'Pial Mahmud',
+            'profile_for' => 'daughter',
+        ]);
+
+        $this->assertEquals('PM', $client->initials);
+
+        $response = $this->actingAs($admin)->get(route('admin.clients.index'));
+
+        $response->assertStatus(200);
+        $response->assertSee('client-avatar-circle');
+        $response->assertSee('PM');
+        $response->assertSee('Pial Mahmud');
+        $response->assertSee('For Daughter');
+        $response->assertSee('client-relation-text');
     }
 
     public function test_admin_can_filter_clients_by_verification_status(): void

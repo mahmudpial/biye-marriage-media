@@ -78,7 +78,7 @@
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
     }
     .table-stories {
-        min-width: 1050px;
+        min-width: 880px;
         width: 100%;
         margin-bottom: 0;
         border-collapse: collapse;
@@ -145,37 +145,6 @@
         font-size: 0.8rem;
     }
 
-    /* Clean Testimonial Quote Card */
-    .story-quote-card {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        background: #0f141d;
-        border: 1px solid rgba(255, 255, 255, 0.07);
-        border-left: 3px solid var(--theme-secondary, #d4af37);
-        padding: 0.45rem 0.7rem;
-        border-radius: 8px;
-        color: #cbd5e1;
-        font-size: 0.8rem;
-        line-height: 1.45;
-        font-style: italic;
-        max-width: 280px;
-        transition: all 0.2s ease;
-        cursor: default;
-    }
-    .story-quote-card:hover {
-        background: #141b27;
-        border-color: rgba(212, 175, 55, 0.35);
-        border-left-color: var(--theme-secondary, #d4af37);
-        color: #ffffff;
-    }
-    .story-quote-icon {
-        font-size: 0.9rem;
-        color: var(--theme-secondary, #d4af37);
-        margin-right: 0.25rem;
-        vertical-align: -1px;
-    }
 
     /* Status Toggle Buttons */
     .btn-status-toggle {
@@ -427,8 +396,6 @@
                         <th style="width: 80px;" class="text-center">Photo</th>
                         <th class="text-center">Couple &amp; Pedigree Titles</th>
                         <th class="text-center">Locations</th>
-                        <th class="text-center">Wedding Date &amp; Venue</th>
-                        <th class="text-center">Testimonial Quote</th>
                         <th class="text-center" style="width: 120px;">Featured</th>
                         <th class="text-center" style="width: 120px;">Status</th>
                         <th class="text-center" style="width: 130px;">Actions</th>
@@ -459,22 +426,6 @@
                             <td class="text-center">
                                 <div class="story-location-tag mx-auto">
                                     <span>{{ $story->locations }}</span>
-                                </div>
-                            </td>
-
-                            <!-- Wedding Date & Venue -->
-                            <td class="text-center">
-                                <div class="small text-white fw-semibold d-flex align-items-center justify-content-center gap-1">
-                                    <i class="bi bi-calendar-heart text-gold"></i>
-                                    <span>{{ $story->year }}</span>
-                                </div>
-                            </td>
-
-                            <!-- Testimonial Quote -->
-                            <td class="text-center" style="max-width: 280px;">
-                                <div class="story-quote-card mx-auto text-center" title="{{ $story->quote }}">
-                                    <i class="bi bi-quote story-quote-icon"></i>
-                                    <span>{{ $story->quote }}</span>
                                 </div>
                             </td>
 
@@ -600,7 +551,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="text-center py-5">
+                            <td colspan="7" class="text-center py-5">
                                 <div class="py-4">
                                     <i class="bi bi-heartbreak fs-1 text-gold opacity-50 d-block mb-3"></i>
                                     <h5 class="text-white fw-bold mb-2">No Success Stories Found</h5>

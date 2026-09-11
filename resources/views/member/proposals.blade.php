@@ -182,13 +182,33 @@
                                                         <i class="bi bi-check-circle-fill me-1"></i> অপর পরিবার গ্রহণ করেছে
                                                     </span>
                                                 @elseif($sent->status === 'declined')
-                                                    <span class="badge bg-secondary px-3 py-1.5 rounded-pill">
-                                                        <i class="bi bi-x-circle me-1"></i> বিনীতভাবে নাকচ
-                                                    </span>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <span class="badge bg-secondary px-3 py-1.5 rounded-pill">
+                                                            <i class="bi bi-x-circle me-1"></i> বিনীতভাবে নাকচ
+                                                        </span>
+                                                        <form action="{{ route('member.proposals.cancel', $sent) }}" method="POST" onsubmit="return confirm('এই নাকচ হওয়া প্রস্তাবনা রেকর্ডটি কি তালিকা থেকে মুছে ফেলতে চান?');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-outline-secondary btn-sm rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1 shadow-2xs" style="font-size: 0.76rem;" title="রেকর্ড মুছে ফেলুন">
+                                                                <i class="bi bi-trash3"></i>
+                                                                <span>মুছে ফেলুন</span>
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 @else
-                                                    <span class="badge bg-warning text-dark px-3 py-1.5 rounded-pill">
-                                                        <i class="bi bi-hourglass-split me-1"></i> পর্যালোচনায় রয়েছে (Pending)
-                                                    </span>
+                                                    <div class="d-flex flex-column flex-sm-row align-items-end align-items-sm-center gap-2">
+                                                        <span class="badge bg-warning text-dark px-3 py-1.5 rounded-pill small">
+                                                            <i class="bi bi-hourglass-split me-1"></i> পর্যালোচনায় রয়েছে (Pending)
+                                                        </span>
+                                                        <form action="{{ route('member.proposals.cancel', $sent) }}" method="POST" onsubmit="return confirm('আপনি কি নিশ্চিত যে এই প্রস্তাবনাটি প্রত্যাহার করতে চান? প্রত্যাহার করলে আপনার ১টি প্রপোজাল কোটা ফেরত পাবেন।');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1 d-inline-flex align-items-center gap-1.5 shadow-2xs proposal-withdraw-btn" style="font-size: 0.78rem; font-weight: 500;" title="প্রস্তাবনা প্রত্যাহার করুন">
+                                                                <i class="bi bi-x-circle-fill text-danger"></i>
+                                                                <span>প্রত্যাহার / বাতিল</span>
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 @endif
                                             </div>
                                         </div>
@@ -212,6 +232,24 @@
 <style>
 .blur-discreet {
     filter: blur(6px);
+}
+
+.proposal-withdraw-btn {
+    border-color: rgba(220, 53, 69, 0.4) !important;
+    color: #dc3545 !important;
+    background-color: rgba(220, 53, 69, 0.04) !important;
+    transition: all 0.2s ease;
+}
+
+.proposal-withdraw-btn:hover {
+    background-color: #dc3545 !important;
+    color: #ffffff !important;
+    border-color: #dc3545 !important;
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.25) !important;
+}
+
+.proposal-withdraw-btn:hover i {
+    color: #ffffff !important;
 }
 </style>
 @endsection

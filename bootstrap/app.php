@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -21,6 +22,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->trustProxies(at: '*');
+        $middleware->web(append: [
+            SetLocale::class,
+        ]);
         $middleware->redirectTo(
             guests: fn (Request $request) => $request->is('admin*') ? route('admin.login') : route('login'),
             users: fn (Request $request) => $request->user()?->is_admin ? route('admin.dashboard') : route('home'),

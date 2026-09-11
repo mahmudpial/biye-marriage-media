@@ -322,4 +322,145 @@ class ClientPortalFeatureTest extends TestCase
         $response->assertSessionHasErrors(['current_password']);
         $this->assertFalse(Hash::check('newpassword456', $client->fresh()->password));
     }
+
+    public function test_client_can_view_matches_page_with_religion_filter(): void
+    {
+        $client = User::factory()->client()->create();
+        CandidateProfile::factory()->create([
+            'user_id' => $client->id,
+            'gender' => 'female',
+        ]);
+
+        $matchProfile = CandidateProfile::factory()->create([
+            'gender' => 'male',
+            'religion' => 'Islam (Sunni)',
+            'profession' => 'Chartered Accountant',
+        ]);
+
+        $response = $this->actingAs($client)->get(route('member.matches', ['religion' => 'Islam (Sunni)']));
+
+        $response->assertStatus(200);
+        $response->assertSee('প্রস্তাবিত বায়োডাটা তালিকা');
+        $response->assertSee('custom-filter-dropdown');
+        $response->assertSee('Islam (Sunni)');
+        $response->assertSee('Chartered Accountant');
+    }
+
+    public function test_client_can_cancel_pending_sent_proposal_and_quota_is_refunded(): void
+    {
+        $client = User::factory()->client()->create();
+        $subscription = UserSubscription::create([
+            'user_id' => $client->id,
+            'plan_name' => 'Gold Package',
+            'proposals_quota' => 5,
+            'proposals_used' => 1,
+            'contact_views_quota' => 10,
+            'contact_views_used' => 0,
+            'price_paid' => 3000,
+            'is_active' => true,
+        ]);
+
+        $senderProfile = CandidateProfile::factory()->create(['user_id' => $client->id]);
+        $targetProfile = CandidateProfile::factory()->create();
+
+        $proposal = Proposal::create([
+            'sender_user_id' => $client->id,
+            'sender_profile_id' => $senderProfile->id,
+            'receiver_profile_id' => $targetProfile->id,
+            'status' => Proposal::STATUS_PENDING,
+            'sender_message' => 'Test proposal message',
+        ]);
+
+        $response = $this->actingAs($client)->delete(route('member.proposals.cancel', $proposal));
+
+        $response->assertSessionHas('success');
+        $this->assertDatabaseMissing('proposals', ['id' => $proposal->id]);
+        $this->assertEquals(0, $subscription->fresh()->proposals_used);
+    }
+
+    public function test_client_cannot_cancel_proposal_of_another_user(): void
+    {
+        $clientA = User::factory()->client()->create();
+        $clientB = User::factory()->client()->create();
+
+        $senderProfile = CandidateProfile::factory()->create(['user_id' => $clientA->id]);
+        $targetProfile = CandidateProfile::factory()->create();
+
+        $proposal = Proposal::create([
+            'sender_user_id' => $clientA->id,
+            'sender_profile_id' => $senderProfile->id,
+            'receiver_profile_id' => $targetProfile->id,
+            'status' => Proposal::STATUS_PENDING,
+        ]);
+
+        $response = $this->actingAs($clientB)->delete(route('member.proposals.cancel', $proposal));
+
+        $response->assertStatus(403);
+        $this->assertDatabaseHas('proposals', ['id' => $proposal->id]);
+    }
+
+    public function test_client_cannot_cancel_accepted_proposal(): void
+    {
+        $client = User::factory()->client()->create();
+        $senderProfile = CandidateProfile::factory()->create(['user_id' => $client->id]);
+        $targetProfile = CandidateProfile::factory()->create();
+
+        $proposal = Proposal::create([
+            'sender_user_id' => $client->id,
+            'sender_profile_id' => $senderProfile->id,
+            'receiver_profile_id' => $targetProfile->id,
+            'status' => Proposal::STATUS_ACCEPTED,
+        ]);
+
+        $response = $this->actingAs($client)->delete(route('member.proposals.cancel', $proposal));
+
+        $response->assertSessionHas('error');
+        $this->assertDatabaseHas('proposals', ['id' => $proposal->id]);
+    }
+
+    public function test_client_can_delete_declined_proposal_without_quota_refund(): void
+    {
+        $client = User::factory()->client()->create();
+        $subscription = UserSubscription::create([
+            'user_id' => $client->id,
+            'plan_name' => 'Gold Package',
+            'proposals_quota' => 5,
+            'proposals_used' => 1,
+            'contact_views_quota' => 10,
+            'contact_views_used' => 0,
+            'price_paid' => 3000,
+            'is_active' => true,
+        ]);
+
+        $senderProfile = CandidateProfile::factory()->create(['user_id' => $client->id]);
+        $targetProfile = CandidateProfile::factory()->create();
+
+        $proposal = Proposal::create([
+            'sender_user_id' => $client->id,
+            'sender_profile_id' => $senderProfile->id,
+            'receiver_profile_id' => $targetProfile->id,
+            'status' => Proposal::STATUS_DECLINED,
+        ]);
+
+        $response = $this->actingAs($client)->delete(route('member.proposals.cancel', $proposal));
+
+        $response->assertSessionHas('success');
+        $this->assertDatabaseMissing('proposals', ['id' => $proposal->id]);
+        $this->assertEquals(1, $subscription->fresh()->proposals_used);
+    }
+
+    public function test_member_portal_renders_toast_notifications(): void
+    {
+        $client = User::factory()->client()->create();
+        CandidateProfile::factory()->create(['user_id' => $client->id]);
+
+        $response = $this->actingAs($client)
+            ->withSession(['success' => 'অপারেশন সফল হয়েছে'])
+            ->get(route('member.dashboard'));
+
+        $response->assertStatus(200);
+        $response->assertSee('member-toast-container');
+        $response->assertSee('member-toast');
+        $response->assertSee('অপারেশন সফল হয়েছে');
+    }
 }

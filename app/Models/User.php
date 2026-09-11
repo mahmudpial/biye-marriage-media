@@ -136,6 +136,20 @@ class User extends Authenticatable
     }
 
     /**
+     * Get user initials (e.g. 'PM' for 'Pial Mahmud').
+     */
+    public function getInitialsAttribute(): string
+    {
+        $words = preg_split('/\s+/', trim($this->name ?? ''));
+        $initials = '';
+        foreach (array_slice($words, 0, 2) as $w) {
+            $initials .= mb_strtoupper(mb_substr($w, 0, 1));
+        }
+
+        return $initials ?: 'CL';
+    }
+
+    /**
      * The candidate profile owned by this client.
      */
     public function candidateProfile()

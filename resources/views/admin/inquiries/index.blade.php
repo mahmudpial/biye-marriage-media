@@ -152,6 +152,7 @@
         display: inline-flex;
         align-items: center;
         gap: 0.35rem;
+        white-space: nowrap !important;
     }
 
     /* Status Dropdown Component */
@@ -386,34 +387,41 @@
         transform: translateY(-2px);
         box-shadow: 0 4px 14px rgba(220, 38, 38, 0.55);
     }
+    .btn-action-icon.call {
+        background: rgba(245, 158, 11, 0.16);
+        border: 1px solid rgba(245, 158, 11, 0.45);
+        color: #fbbf24 !important;
+    }
+    .btn-action-icon.call:hover {
+        background: #f59e0b;
+        color: #0b0f17 !important;
+        border-color: #fbbf24 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(245, 158, 11, 0.55);
+    }
+    .btn-action-icon.whatsapp {
+        background: rgba(34, 197, 94, 0.16);
+        border: 1px solid rgba(34, 197, 94, 0.45);
+        color: #4ade80 !important;
+    }
+    .btn-action-icon.whatsapp:hover {
+        background: #22c55e;
+        color: #ffffff !important;
+        border-color: #4ade80 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(34, 197, 94, 0.55);
+    }
 
-    .btn-contact-chip {
-        padding: 0.25rem 0.55rem;
-        border-radius: 8px;
-        font-size: 0.78rem;
-        text-decoration: none;
+    .client-relation-text {
+        font-size: 0.76rem;
+        color: #94a3b8;
         display: inline-flex;
         align-items: center;
-        gap: 0.3rem;
-        transition: all 0.2s ease;
-    }
-    .btn-contact-chip.phone {
-        background: rgba(245, 158, 11, 0.15);
-        color: #fde68a;
-        border: 1px solid rgba(245, 158, 11, 0.35);
-    }
-    .btn-contact-chip.phone:hover {
-        background: #f59e0b;
-        color: #000;
-    }
-    .btn-contact-chip.whatsapp {
-        background: rgba(34, 197, 94, 0.15);
-        color: #86efac;
-        border: 1px solid rgba(34, 197, 94, 0.35);
-    }
-    .btn-contact-chip.whatsapp:hover {
-        background: #22c55e;
-        color: #fff;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        line-height: 1.3;
+        white-space: nowrap !important;
     }
 
     /* Modal Form Controls */
@@ -566,8 +574,8 @@
             <table class="table table-inquiries align-middle">
                 <thead>
                     <tr>
-                        <th class="text-center" style="min-width: 170px;">Client / Guardian</th>
-                        <th class="text-center" style="min-width: 170px;">Phone &amp; Direct Contact</th>
+                        <th class="text-center" style="min-width: 200px; white-space: nowrap !important;">Client / Guardian</th>
+                        <th class="text-center" style="min-width: 140px; width: 140px;">Phone &amp; Direct Contact</th>
                         <th class="text-center" style="min-width: 180px;">Seeking Match For</th>
                         <th class="text-center" style="min-width: 170px;">Location &amp; Desher Bari</th>
                         <th class="text-center" style="min-width: 140px;">Target Tier</th>
@@ -580,29 +588,46 @@
                     @forelse($inquiries as $inq)
                         <tr>
                             <!-- Client Name & Relation -->
-                            <td class="text-center">
-                                <div>
-                                    <span class="client-name-highlight">
-                                        <i class="bi bi-person-fill text-gold"></i> {{ $inq->full_name }}
+                            <td class="text-center text-nowrap" style="white-space: nowrap !important;">
+                                @php
+                                    $rawRelation = trim($inq->profile_for ?? 'Self');
+                                    $cleanedRelation = preg_replace('/^for\s+/i', '', $rawRelation);
+                                    $relationLabel = 'For ' . ucfirst($cleanedRelation ?: 'Self');
+                                @endphp
+                                <div class="text-nowrap" style="white-space: nowrap !important;">
+                                    <span class="client-name-highlight text-nowrap" style="white-space: nowrap !important;">
+                                        <i class="bi bi-person-fill text-gold flex-shrink-0"></i><span class="text-nowrap" style="white-space: nowrap !important;">{{ $inq->full_name }}</span>
                                     </span>
                                 </div>
-                                <div class="mt-1">
-                                    <span class="badge rounded-pill bg-dark border border-secondary border-opacity-50 text-silver" style="font-size: 0.72rem;">
-                                        For: <strong class="text-white">{{ $inq->profile_for }}</strong>
+                                <div class="mt-0.5 text-nowrap" style="white-space: nowrap !important;">
+                                    <span class="client-relation-text text-nowrap" style="white-space: nowrap !important;">
+                                        <i class="bi bi-people me-1 text-gold flex-shrink-0"></i>{{ $relationLabel }}
                                     </span>
                                 </div>
                             </td>
 
-                            <!-- Phone & WhatsApp -->
+                            <!-- Phone & Direct Contact (Call & WhatsApp Direct Action Buttons) -->
                             <td class="text-center">
-                                <div class="d-flex flex-column align-items-center justify-content-center gap-1">
-                                    <a href="tel:{{ $inq->phone }}" class="btn-contact-chip phone" title="Call Client">
-                                        <i class="bi bi-telephone-fill"></i> {{ $inq->phone }}
-                                    </a>
-                                    @if($inq->clean_phone)
-                                        <a href="https://wa.me/{{ $inq->clean_phone }}" target="_blank" class="btn-contact-chip whatsapp" title="Chat on WhatsApp">
-                                            <i class="bi bi-whatsapp"></i> Chat WhatsApp
+                                <div class="d-inline-flex align-items-center justify-content-center gap-2">
+                                    @if($inq->phone)
+                                        <a href="tel:{{ preg_replace('/[^\+0-9]/', '', $inq->phone) }}" 
+                                           class="btn-action-icon call" 
+                                           title="Direct Call: {{ $inq->phone }}" 
+                                           aria-label="Direct Call: {{ $inq->phone }}">
+                                            <i class="bi bi-telephone-fill"></i>
                                         </a>
+                                        @if($inq->clean_phone)
+                                            <a href="https://wa.me/{{ $inq->clean_phone }}" 
+                                               target="_blank" 
+                                               rel="noopener noreferrer" 
+                                               class="btn-action-icon whatsapp" 
+                                               title="Direct WhatsApp Chat: {{ $inq->phone }}" 
+                                               aria-label="Direct WhatsApp Chat: {{ $inq->phone }}">
+                                                <i class="bi bi-whatsapp"></i>
+                                            </a>
+                                        @endif
+                                    @else
+                                        <span class="text-muted small">—</span>
                                     @endif
                                 </div>
                             </td>

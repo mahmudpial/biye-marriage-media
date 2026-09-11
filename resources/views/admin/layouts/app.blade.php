@@ -255,18 +255,19 @@
             box-shadow: 0 0 16px rgba(var(--theme-secondary-rgb), 0.5);
         }
 
-        /* Profile Dropdown Button */
+        /* Profile Dropdown Button (Light Luxury Pill Box) */
         .admin-profile-btn {
-            background: #141820;
-            border: 1px solid var(--border-card);
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1.5px solid rgba(212, 175, 55, 0.55) !important;
             border-radius: 40px;
-            padding: 0.35rem 0.9rem 0.35rem 0.4rem;
-            color: #f8fafc;
+            padding: 0.35rem 0.95rem 0.35rem 0.4rem;
+            color: #0f172a;
             display: flex;
             align-items: center;
             gap: 0.65rem;
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22), 0 0 10px rgba(212, 175, 55, 0.18);
         }
 
         /* Eliminate Bootstrap default duplicate caret */
@@ -275,14 +276,16 @@
         }
 
         .admin-profile-btn:hover, .admin-profile-btn[aria-expanded="true"] {
-            background: #171c26;
-            border-color: var(--border-gold);
-            color: #ffffff;
+            background: #ffffff;
+            border-color: var(--accent-gold) !important;
+            color: #0f172a;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+            transform: translateY(-1px);
         }
 
         .admin-profile-btn .chevron-icon {
             font-size: 0.72rem;
-            color: var(--accent-gold);
+            color: #b45309;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -309,13 +312,15 @@
 
         .user-name-text {
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 700;
+            color: #0f172a;
             line-height: 1.2;
         }
 
         .user-status-text {
             font-size: 0.72rem;
-            color: var(--accent-gold);
+            color: #b45309;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 0.35rem;

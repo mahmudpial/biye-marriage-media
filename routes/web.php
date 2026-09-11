@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ClientController as AdminClientController;
 use App\Http\Controllers\ClientAuthController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\Member\BiodataController;
 use App\Http\Controllers\Member\DashboardController;
 use App\Http\Controllers\Member\ProposalController;
@@ -48,6 +49,10 @@ Route::middleware(['auth', EnsureUserIsClient::class])->prefix('member')->name('
     Route::get('/proposals', [ProposalController::class, 'index'])->name('proposals');
     Route::post('/proposals/{candidateProfile}', [ProposalController::class, 'send'])->name('proposals.send');
     Route::post('/proposals/{proposal}/respond', [ProposalController::class, 'respond'])->name('proposals.respond');
+    Route::match(['POST', 'DELETE'], '/proposals/{proposal}/cancel', [ProposalController::class, 'cancel'])->name('proposals.cancel');
 
     Route::post('/password', [DashboardController::class, 'updatePassword'])->name('password.update');
 });
+
+// Language / Locale Switcher
+Route::get('/locale/{lang}', [LocaleController::class, 'switch'])->name('locale.switch');

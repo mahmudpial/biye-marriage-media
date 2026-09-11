@@ -43,6 +43,7 @@ class AdminProfileTest extends TestCase
         $response->assertSee('Candidate Profiles Management');
         $response->assertSee('BD-TEST-0001');
         $response->assertSee('Senior Test Architect');
+        $response->assertSee('modal-badges-grid');
     }
 
     public function test_admin_can_view_create_profile_form(): void

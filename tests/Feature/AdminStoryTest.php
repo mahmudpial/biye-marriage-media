@@ -304,4 +304,34 @@ class AdminStoryTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Fariha &amp; Mehdi Hasan', false);
     }
+
+    public function test_admin_stories_catalog_table_has_streamlined_columns(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $story = SuccessStory::factory()->create([
+            'names' => 'Nusrat & Shahriar Kabir',
+            'year' => 'Winter 2025 • Dhaka Club',
+            'quote' => 'Biye Marriage Media facilitated our royal union with discretion and care.',
+        ]);
+
+        $response = $this->actingAs($admin)->get(route('admin.stories.index'));
+
+        $response->assertStatus(200);
+        // Table columns in thead
+        $response->assertSee('Couple &amp; Pedigree Titles', false);
+        $response->assertSee('Locations');
+        $response->assertSee('Featured');
+        $response->assertSee('Status');
+        $response->assertSee('Actions');
+
+        // Removed columns must not be in table headers
+        $response->assertDontSee('Wedding Date &amp; Venue', false);
+        $response->assertDontSee('Wedding Date & Venue');
+        $response->assertDontSee('Testimonial Quote</th>', false);
+
+        // Details remain accessible in the view modal
+        $response->assertSee('viewStoryModal'.$story->id);
+        $response->assertSee('Winter 2025 • Dhaka Club');
+        $response->assertSee('Biye Marriage Media facilitated our royal union with discretion and care.');
+    }
 }

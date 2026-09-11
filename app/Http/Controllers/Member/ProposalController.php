@@ -122,4 +122,36 @@ class ProposalController extends Controller
 
         return back()->with('success', $msg);
     }
+
+    /**
+     * Cancel / withdraw a sent proposal.
+     */
+    public function cancel(Request $request, Proposal $proposal): RedirectResponse
+    {
+        $user = Auth::user();
+
+        if ($proposal->sender_user_id !== $user->id) {
+            abort(403, 'Unauthorized action on proposal.');
+        }
+
+        if ($proposal->status === Proposal::STATUS_PENDING) {
+            // Refund 1 proposal quota to active subscription
+            $subscription = $user->activeSubscription;
+            if ($subscription && $subscription->proposals_used > 0) {
+                $subscription->decrement('proposals_used');
+            }
+
+            $proposal->delete();
+
+            return back()->with('success', 'প্রস্তাবনাটি সফলভাবে প্রত্যাহার করা হয়েছে এবং ১টি প্রপোজাল কোটা ফেরত দেওয়া হয়েছে।');
+        }
+
+        if ($proposal->status === Proposal::STATUS_DECLINED) {
+            $proposal->delete();
+
+            return back()->with('success', 'নাকচ হওয়া প্রস্তাবনা রেকর্ডটি তালিকা থেকে মুছে ফেলা হয়েছে।');
+        }
+
+        return back()->with('error', 'গৃহীত প্রস্তাবনা সরাসরি মোছা সম্ভব নয়। আলোচনার সমাপ্তির জন্য আপনার দায়িত্বপ্রাপ্ত ম্যাচমেকারের সাথে যোগাযোগ করুন।');
+    }
 }

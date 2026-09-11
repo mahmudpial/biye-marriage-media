@@ -202,4 +202,31 @@ class AdminInquiryTest extends TestCase
         $response->assertSee('INQ-7702');
         $response->assertSee('Dr. Rubana Huq');
     }
+
+    public function test_admin_inquiry_client_column_and_direct_contact_buttons(): void
+    {
+        $admin = User::factory()->admin()->create();
+
+        $inquiry = ConsultationInquiry::factory()->create([
+            'full_name' => 'Engineer Rafiqul Islam',
+            'profile_for' => 'Son',
+            'phone' => '01712-345678',
+        ]);
+
+        $response = $this->actingAs($admin)->get(route('admin.inquiries.index'));
+
+        $response->assertStatus(200);
+
+        // Client / Guardian column: inline icon + name and borderless "For Son"
+        $response->assertSee('client-name-highlight');
+        $response->assertSee('Engineer Rafiqul Islam');
+        $response->assertSee('client-relation-text');
+        $response->assertSee('For Son');
+
+        // Phone & Direct Contact column: call and whatsapp action buttons
+        $response->assertSee('btn-action-icon call', false);
+        $response->assertSee('tel:01712345678', false);
+        $response->assertSee('btn-action-icon whatsapp', false);
+        $response->assertSee('https://wa.me/8801712345678', false);
+    }
 }
