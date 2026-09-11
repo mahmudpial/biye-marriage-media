@@ -71,6 +71,10 @@ class AdminClientManagementTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Saif Chowdhury');
         $response->assertSee('BBA from IBA, Dhaka University');
+        $response->assertSee('Account Audit Data');
+        $response->assertSee('Audit &amp; Verification Decision', false);
+        $response->assertSee('Candidate Biodata Credentials');
+        $response->assertSee('Partner Preferences &amp; Criteria', false);
     }
 
     public function test_admin_can_toggle_client_account_status(): void
