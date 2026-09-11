@@ -17,11 +17,6 @@
                 <div class="row align-items-center g-4">
                     <!-- Left Column (7 Cols): Greetings & Frosted Glass Completion Progress -->
                     <div class="col-12 col-lg-7">
-                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-black bg-opacity-25 text-white small mb-3 border border-warning-subtle" style="font-size: 0.82rem;">
-                            <i class="bi bi-patch-check-fill text-warning"></i>
-                            <span class="fw-semibold">এলিট মেম্বার পোর্টাল &bull; ১০০% সুরক্ষিত ও ব্যক্তিগত ম্যাচমেকিং</span>
-                        </div>
-
                         <h2 class="font-serif fw-bold mb-2 display-6" style="letter-spacing: -0.5px;">
                             আসসালামু আলাইকুম, {{ $user->name }}!
                         </h2>
@@ -31,23 +26,24 @@
 
                         <!-- Refined Frosted Glass Completion Meter Card -->
                         <div class="completion-meter-card p-4 rounded-4 shadow-sm" style="max-width: 580px;">
-                            <div class="d-flex justify-content-between align-items-center mb-2.5 flex-wrap gap-2">
-                                <div class="d-flex align-items-center gap-2.5">
+                            <!-- Perfectly Aligned Title & Completion Badge on One Line -->
+                            <div class="d-flex justify-content-between align-items-center mb-1 flex-nowrap gap-3">
+                                <div class="d-flex align-items-center gap-2">
                                     <div class="meter-icon-box">
                                         <i class="bi bi-award-fill text-warning"></i>
                                     </div>
-                                    <div>
-                                        <span class="fw-semibold text-white small d-block">বায়োডাটা সম্পূর্ণতা সূচক</span>
-                                        <span class="text-white-50" style="font-size: 0.72rem;">তথ্য যত সমৃদ্ধ হবে, ম্যাচমেকিং তত দ্রুত ও কার্যকর হবে</span>
-                                    </div>
+                                    <span class="fw-bold text-white fs-6 mb-0">বায়োডাটা সম্পূর্ণতা সূচক</span>
                                 </div>
-                                <span class="badge badge-gold-glow px-3 py-1.5 rounded-pill font-monospace fw-bold">
+                                <span class="badge badge-gold-glow px-3 py-1.5 rounded-pill font-monospace fw-bold text-nowrap">
                                     {{ $candidateProfile->completion_score }}% সম্পন্ন
                                 </span>
                             </div>
+                            <div class="text-white-50 small mb-3" style="font-size: 0.76rem; padding-left: 46px;">
+                                তথ্য যত সমৃদ্ধ হবে, ম্যাচমেকিং তত দ্রুত ও কার্যকর হবে
+                            </div>
 
                             <!-- Shimmer Gold Progress Bar -->
-                            <div class="progress progress-royal-gold mb-3.5">
+                            <div class="progress progress-royal-gold mb-3">
                                 <div class="progress-bar progress-bar-gold progress-bar-striped progress-bar-animated" 
                                      role="progressbar" 
                                      style="width: {{ $candidateProfile->completion_score }}%;" 
@@ -56,18 +52,18 @@
                                      aria-valuemax="100"></div>
                             </div>
                             
-                            <!-- Action Buttons with Generous Spacing -->
-                            <div class="d-flex gap-2.5 flex-wrap align-items-center pt-1">
-                                <a href="{{ route('member.biodata.edit') }}" class="btn btn-warning btn-sm rounded-pill px-4 py-2 fw-bold text-dark shadow-sm d-inline-flex align-items-center gap-1.5">
+                            <!-- Action Buttons with Perfect Spacing -->
+                            <div class="meter-btn-group pt-1">
+                                <a href="{{ route('member.biodata.edit') }}" class="btn btn-warning btn-sm rounded-pill px-3.5 py-2 fw-bold text-dark shadow-sm d-inline-flex align-items-center gap-2">
                                     <i class="bi bi-pencil-square"></i>
                                     <span>বায়োডাটা আপডেট করুন</span>
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
-                                <a href="{{ route('member.matches') }}" class="btn btn-outline-light btn-sm rounded-pill px-3.5 py-2 fw-semibold d-inline-flex align-items-center gap-1.5">
+                                <a href="{{ route('member.matches') }}" class="btn btn-outline-light btn-sm rounded-pill px-3.5 py-2 fw-semibold d-inline-flex align-items-center gap-2">
                                     <i class="bi bi-stars text-warning"></i>
                                     <span>ডেইলি ম্যাচ দেখুন</span>
                                 </a>
-                                <button type="button" class="btn btn-outline-light btn-sm rounded-pill px-3.5 py-2 fw-semibold d-inline-flex align-items-center gap-1.5" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                <button type="button" class="btn btn-outline-light btn-sm rounded-pill px-3.5 py-2 fw-semibold d-inline-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
                                     <i class="bi bi-key-fill text-warning"></i>
                                     <span>পাসওয়ার্ড পরিবর্তন</span>
                                 </button>
@@ -97,16 +93,16 @@
                                 {{ $candidateProfile->profile_code }}
                             </h4>
 
-                            <!-- Demographic Chips -->
-                            <div class="d-flex justify-content-center gap-1.5 flex-wrap mb-2">
-                                <span class="badge bg-white text-maroon rounded-pill px-3 py-1 fw-bold shadow-xs">
+                            <!-- Demographic Chips with Perfect Gap -->
+                            <div class="profile-chip-group mb-2.5">
+                                <span class="badge bg-white text-maroon rounded-pill px-3 py-1.5 fw-bold shadow-xs">
                                     {{ $candidateProfile->gender === 'female' ? 'পাত্রী' : 'পাত্র' }}, {{ $candidateProfile->age }} বছর
                                 </span>
-                                <span class="badge bg-black bg-opacity-35 text-white border border-white border-opacity-20 rounded-pill px-2.5 py-1 small">
+                                <span class="badge bg-black bg-opacity-35 text-white border border-white border-opacity-20 rounded-pill px-3 py-1.5 small">
                                     {{ $candidateProfile->height }}
                                 </span>
                                 @if($candidateProfile->category)
-                                    <span class="badge bg-black bg-opacity-35 text-warning border border-warning-subtle rounded-pill px-2.5 py-1 small">
+                                    <span class="badge bg-black bg-opacity-35 text-warning border border-warning-subtle rounded-pill px-3 py-1.5 small">
                                         {{ $candidateProfile->category }}
                                     </span>
                                 @endif
@@ -544,6 +540,13 @@
     transition: width 0.6s ease;
 }
 
+.meter-btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
 /* Dedicated Executive Candidate Dossier Card */
 .hero-profile-dossier-card {
     background: rgba(18, 3, 7, 0.52);
@@ -579,6 +582,14 @@
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #ffffff;
+}
+
+.profile-chip-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 /* Stat Cards Luxury Lift */
