@@ -287,12 +287,12 @@
                 </a>
 
                 <!-- Desktop Navigation Links -->
-                <nav class="d-none d-lg-flex align-items-center gap-1.5">
+                <nav class="d-none d-lg-flex align-items-center gap-2">
                     <a href="{{ route('member.dashboard') }}" class="member-nav-link {{ request()->routeIs('member.dashboard') ? 'active' : '' }}">
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>ড্যাশবোর্ড</span>
                     </a>
-                    <a href="{{ route('member.biodata.edit') }}" class="member-nav-link {{ request()->routeIs('member.biodata.*') ? 'active' : '' }}">
+                    <a href="{{ route('member.biodata.show') }}" class="member-nav-link {{ request()->routeIs('member.biodata.*') ? 'active' : '' }}">
                         <i class="bi bi-person-vcard-fill"></i>
                         <span>আমার বায়োডাটা</span>
                     </a>
@@ -304,68 +304,80 @@
                         <i class="bi bi-bookmark-heart-fill"></i>
                         <span>শর্টলিস্ট</span>
                     </a>
-                    <a href="{{ route('member.proposals') }}" class="member-nav-link {{ request()->routeIs('member.proposals') ? 'active' : '' }}">
-                        <i class="bi bi-send-check-fill"></i>
-                        <span>প্রস্তাবনা</span>
-                        @php
-                            $user = Auth::user();
-                            $myProfile = $user->candidateProfile;
-                            $pendingIn = $myProfile ? $myProfile->receivedProposals()->where('status', 'pending')->count() : 0;
-                        @endphp
-                        @if($pendingIn > 0)
-                            <span class="badge rounded-pill bg-danger ms-1" style="font-size: 0.65rem;">{{ $pendingIn }}</span>
-                        @endif
-                    </a>
                 </nav>
 
-                <!-- User Profile & Quota Pill -->
+                <!-- User Profile & Dropdown (With Quota & Proposals Inside) -->
                 <div class="d-flex align-items-center gap-2.5">
                     @php
-                        $sub = Auth::user()->activeSubscription;
+                        $user = Auth::user();
+                        $sub = $user->activeSubscription;
+                        $myProfile = $user->candidateProfile;
+                        $pendingIn = $myProfile ? $myProfile->receivedProposals()->where('status', 'pending')->count() : 0;
                     @endphp
-                    @if($sub)
-                        <div class="d-none d-sm-flex align-items-center badge-quota-pill" title="অবশিষ্ট প্রপোজাল কোটা">
-                            <i class="bi bi-send-fill text-warning"></i>
-                            <span>কোটা: <strong>{{ $sub->remainingProposals() }}</strong>/{{ $sub->proposals_quota }}</span>
-                        </div>
-                    @endif
 
-                    <!-- User Profile Dropdown -->
+                    <!-- User Profile Dropdown Button -->
                     <div class="dropdown">
-                        <button class="btn btn-light border rounded-pill d-flex align-items-center gap-2 py-1 px-2.5 shadow-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="avatar-initials">
-                                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        <button class="btn btn-light border rounded-pill d-flex align-items-center gap-2 py-1 px-2.5 shadow-sm position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="avatar-initials position-relative">
+                                {{ strtoupper(substr($user->name, 0, 1)) }}
+                                @if($pendingIn > 0)
+                                    <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" title="{{ $pendingIn }} নতুন প্রস্তাব">
+                                        <span class="visually-hidden">New proposals</span>
+                                    </span>
+                                @endif
                             </div>
                             <div class="d-none d-md-block text-start lh-1">
-                                <span class="fw-semibold small text-dark d-block">{{ \Illuminate\Support\Str::limit(Auth::user()->name, 16) }}</span>
+                                <span class="fw-semibold small text-dark d-block">{{ \Illuminate\Support\Str::limit($user->name, 16) }}</span>
                                 <span class="text-muted" style="font-size: 0.68rem;">ক্লায়েন্ট অ্যাকাউন্ট</span>
                             </div>
                             <i class="bi bi-chevron-down text-muted" style="font-size: 0.75rem;"></i>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4 mt-2 py-2" style="min-width: 250px; border: 1px solid rgba(201, 151, 56, 0.2) !important;">
-                            <li class="px-3 py-2 bg-light rounded-top-4 mb-2">
-                                <div class="fw-bold text-dark font-serif">{{ Auth::user()->name }}</div>
-                                <div class="small text-muted text-truncate">{{ Auth::user()->email }}</div>
-                                <div class="mt-1.5">
-                                    @if(Auth::user()->isVerified())
-                                        <span class="badge bg-success-subtle text-success border border-success-subtle small">
-                                            <i class="bi bi-patch-check-fill me-1"></i>অফিসিয়ালি ভেরিফাইড মেম্বার
+                        
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4 mt-2 py-2" style="min-width: 270px; border: 1px solid rgba(201, 151, 56, 0.2) !important;">
+                            <!-- Dropdown Header with Profile Details & Quota Pill -->
+                            <li class="px-3 py-2.5 bg-light rounded-top-4 mb-2 border-bottom">
+                                <div class="fw-bold text-dark font-serif fs-6">{{ $user->name }}</div>
+                                <div class="small text-muted text-truncate" style="font-size: 0.78rem;">{{ $user->email }}</div>
+                                
+                                <div class="d-flex align-items-center justify-content-between flex-wrap gap-1 mt-1.5">
+                                    @if($user->isVerified())
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle small" style="font-size: 0.72rem;">
+                                            <i class="bi bi-patch-check-fill me-1"></i>ভেরিফাইড মেম্বার
                                         </span>
                                     @else
-                                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle small">
+                                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle small" style="font-size: 0.72rem;">
                                             <i class="bi bi-clock-history me-1"></i>ভেরিফিকেশন অপেক্ষমাণ
                                         </span>
                                     @endif
                                 </div>
+
+                                <!-- Proposal Quota Pill inside Dropdown Header -->
+                                @if($sub)
+                                    <div class="d-flex align-items-center justify-content-between p-2 mt-2 rounded-3 bg-white border border-warning-subtle shadow-xs">
+                                        <span class="small text-muted d-flex align-items-center gap-1.5" style="font-size: 0.78rem;">
+                                            <i class="bi bi-send-fill text-warning"></i> প্রপোজাল কোটা:
+                                        </span>
+                                        <span class="badge bg-warning text-dark px-2 py-0.5 rounded-pill fw-bold" style="font-size: 0.76rem;">
+                                            {{ $sub->remainingProposals() }} / {{ $sub->proposals_quota }} বাকি
+                                        </span>
+                                    </div>
+                                @endif
                             </li>
+
+                            <!-- Dropdown Menu Links -->
                             <li>
                                 <a class="dropdown-item py-2 small" href="{{ route('member.dashboard') }}">
                                     <i class="bi bi-speedometer2 text-maroon me-2"></i> ওভারভিউ ড্যাশবোর্ড
                                 </a>
                             </li>
                             <li>
+                                <a class="dropdown-item py-2 small" href="{{ route('member.biodata.show') }}">
+                                    <i class="bi bi-file-earmark-person-fill text-primary me-2"></i> আমার বায়োডাটা (সিভি)
+                                </a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item py-2 small" href="{{ route('member.biodata.edit') }}">
-                                    <i class="bi bi-pencil-square text-primary me-2"></i> বায়োডাটা এডিট করুন
+                                    <i class="bi bi-pencil-square text-secondary me-2"></i> বায়োডাটা এডিট করুন
                                 </a>
                             </li>
                             <li>
@@ -374,16 +386,28 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item py-2 small" href="{{ route('member.proposals') }}">
-                                    <i class="bi bi-inbox text-success me-2"></i> প্রস্তাবনা হিস্ট্রি
+                                <a class="dropdown-item py-2 small" href="{{ route('member.shortlists') }}">
+                                    <i class="bi bi-bookmark-heart text-danger me-2"></i> পছন্দের তালিকা (Shortlist)
                                 </a>
                             </li>
+
+                            <!-- Proposals with Pending Badge inside Dropdown -->
+                            <li>
+                                <a class="dropdown-item py-2 small d-flex align-items-center justify-content-between {{ request()->routeIs('member.proposals') ? 'active text-white' : '' }}" href="{{ route('member.proposals') }}">
+                                    <span><i class="bi bi-envelope-heart-fill text-success me-2"></i>প্রস্তাবনা (Proposals)</span>
+                                    @if($pendingIn > 0)
+                                        <span class="badge rounded-pill bg-danger" style="font-size: 0.68rem;">{{ $pendingIn }} নতুন</span>
+                                    @endif
+                                </a>
+                            </li>
+
+                            <li><hr class="dropdown-divider my-1.5"></li>
+
                             <li>
                                 <button type="button" class="dropdown-item py-2 small text-dark" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
                                     <i class="bi bi-key-fill text-warning me-2"></i> পাসওয়ার্ড পরিবর্তন করুন
                                 </button>
                             </li>
-                            <li><hr class="dropdown-divider"></li>
                             <li>
                                 <a class="dropdown-item py-2 small" href="{{ route('home') }}" target="_blank">
                                     <i class="bi bi-globe me-2 text-secondary"></i> মূল ওয়েবসাইট দেখুন

@@ -13,35 +13,25 @@ use Illuminate\View\View;
 class BiodataController extends Controller
 {
     /**
+     * Display the member CV style biodata showcase page.
+     */
+    public function show(): View
+    {
+        $user = Auth::user();
+        $candidateProfile = $this->ensureCandidateProfile($user);
+
+        return view('member.biodata.show', compact('user', 'candidateProfile'));
+    }
+
+    /**
      * Show the member biodata editor.
      */
     public function edit(): View
     {
         $user = Auth::user();
-        $candidateProfile = $user->candidateProfile;
+        $candidateProfile = $this->ensureCandidateProfile($user);
 
-        if (! $candidateProfile) {
-            $candidateProfile = CandidateProfile::create([
-                'user_id' => $user->id,
-                'full_name' => $user->name,
-                'profile_code' => 'BD-ELT-'.random_int(20000, 99999),
-                'gender' => 'female',
-                'age' => 26,
-                'height' => "5'4\"",
-                'religion' => 'Islam (Sunni)',
-                'desher_bari' => 'Dhaka',
-                'education' => 'Bachelor / Masters',
-                'profession' => 'Executive',
-                'location' => 'Dhaka, Bangladesh',
-                'income' => 'Confidential',
-                'family' => 'Reputed family details will be provided.',
-                'approval_status' => 'draft',
-                'completion_score' => 40,
-                'is_active' => true,
-            ]);
-        }
-
-        return view('member.biodata', compact('user', 'candidateProfile'));
+        return view('member.biodata.edit', compact('user', 'candidateProfile'));
     }
 
     /**
@@ -120,7 +110,7 @@ class BiodataController extends Controller
 
         $profile->update($validated);
 
-        return back()->with('success', 'আপনার বায়োডাটা সফলভাবে সংরক্ষণ করা হয়েছে। ম্যাচমেকার টিম প্রয়োজনীয় তথ্য অডিট করে সার্বিক সহায়তা করবে।');
+        return redirect()->route('member.biodata.show')->with('success', 'আপনার বায়োডাটা সফলভাবে সংরক্ষণ করা হয়েছে। আপনার হালনাগাদ সিভি নিচে প্রদর্শিত হচ্ছে।');
     }
 
     /**
@@ -141,5 +131,36 @@ class BiodataController extends Controller
         }
 
         return back();
+    }
+
+    /**
+     * Ensure candidate profile exists for user.
+     */
+    private function ensureCandidateProfile($user): CandidateProfile
+    {
+        $candidateProfile = $user->candidateProfile;
+
+        if (! $candidateProfile) {
+            $candidateProfile = CandidateProfile::create([
+                'user_id' => $user->id,
+                'full_name' => $user->name,
+                'profile_code' => 'BD-ELT-'.random_int(20000, 99999),
+                'gender' => 'female',
+                'age' => 26,
+                'height' => "5'4\"",
+                'religion' => 'Islam (Sunni)',
+                'desher_bari' => 'Dhaka',
+                'education' => 'Bachelor / Masters',
+                'profession' => 'Executive',
+                'location' => 'Dhaka, Bangladesh',
+                'income' => 'Confidential',
+                'family' => 'Reputed family details will be provided.',
+                'approval_status' => 'draft',
+                'completion_score' => 40,
+                'is_active' => true,
+            ]);
+        }
+
+        return $candidateProfile;
     }
 }

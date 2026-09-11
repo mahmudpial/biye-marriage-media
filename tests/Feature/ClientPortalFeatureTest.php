@@ -118,6 +118,41 @@ class ClientPortalFeatureTest extends TestCase
         $response->assertSee('65% সম্পন্ন');
     }
 
+    public function test_client_can_view_cv_style_biodata_showcase(): void
+    {
+        $client = User::factory()->client()->create();
+        $profile = CandidateProfile::factory()->create([
+            'user_id' => $client->id,
+            'profession' => 'Senior Strategic Consultant',
+            'desher_bari' => 'Sylhet',
+        ]);
+
+        $response = $this->actingAs($client)->get(route('member.biodata.show'));
+
+        $response->assertStatus(200);
+        $response->assertSee('আমার পূর্ণাঙ্গ বায়োডাটা (Marriage CV)');
+        $response->assertSee($profile->profile_code);
+        $response->assertSee('Senior Strategic Consultant');
+        $response->assertSee('Sylhet');
+        $response->assertSee('বায়োডাটা এডিট করুন');
+    }
+
+    public function test_client_can_access_biodata_edit_form(): void
+    {
+        $client = User::factory()->client()->create();
+        $profile = CandidateProfile::factory()->create([
+            'user_id' => $client->id,
+            'profession' => 'Lead Software Architect',
+        ]);
+
+        $response = $this->actingAs($client)->get(route('member.biodata.edit'));
+
+        $response->assertStatus(200);
+        $response->assertSee('বায়োডাটা তথ্য আপডেট করুন');
+        $response->assertSee('Lead Software Architect');
+        $response->assertSee('বায়োডাটা সংরক্ষণ করুন');
+    }
+
     public function test_client_can_update_biodata(): void
     {
         $client = User::factory()->client()->create();

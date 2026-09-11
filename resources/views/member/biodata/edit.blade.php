@@ -1,28 +1,38 @@
 @extends('member.layouts.app')
 
-@section('title', 'আমার বায়োডাটা এডিটর - Biye Marriage Media')
+@section('title', 'বায়োডাটা এডিট করুন - ' . site_setting('site_name', 'Biye Marriage Media'))
 
 @section('content')
 <div class="row justify-content-center">
     <div class="col-12 col-xl-10">
-        <!-- Header Ribbon -->
+        <!-- Header Ribbon with Breadcrumb & Link to CV -->
         <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
             <div class="card-body p-4 d-flex flex-wrap justify-content-between align-items-center gap-3">
                 <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-1 small">
+                            <li class="breadcrumb-item"><a href="{{ route('member.dashboard') }}" class="text-maroon text-decoration-none">ড্যাশবোর্ড</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('member.biodata.show') }}" class="text-maroon text-decoration-none">আমার বায়োডাটা সিভি</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">এডিট করুন</li>
+                        </ol>
+                    </nav>
                     <h4 class="font-serif fw-bold text-dark mb-1">
-                        <i class="bi bi-file-earmark-person-fill text-maroon me-2"></i>আমার বায়োডাটা ও পারিবারিক পরিচয়
+                        <i class="bi bi-pencil-square text-maroon me-2"></i>বায়োডাটা তথ্য আপডেট করুন
                     </h4>
                     <p class="small text-muted mb-0">
-                        সঠিক ও মার্জিত তথ্য প্রদান করে আপনার বায়োডাটা সমৃদ্ধ করুন।
+                        সঠিক ও মার্জিত তথ্য প্রদান করে আপনার বায়োডাটা হালনাগাদ রাখুন।
                     </p>
                 </div>
-                <div class="d-flex align-items-center gap-2">
+                <div class="d-flex align-items-center gap-2 flex-wrap">
                     <span class="badge bg-light text-dark border px-3 py-2">
                         কোড: <strong class="text-maroon">{{ $candidateProfile->profile_code }}</strong>
                     </span>
                     <span class="badge bg-warning-subtle text-dark border px-3 py-2">
                         সম্পন্ন: <strong>{{ $candidateProfile->completion_score }}%</strong>
                     </span>
+                    <a href="{{ route('member.biodata.show') }}" class="btn btn-outline-dark btn-sm rounded-pill px-3 py-1.5 fw-semibold ms-1">
+                        <i class="bi bi-file-earmark-person me-1"></i> সিভি দেখুন &rarr;
+                    </a>
                 </div>
             </div>
         </div>
@@ -32,7 +42,7 @@
 
             <!-- Section 1: Basic & Physical Info -->
             <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
-                <div class="card-header bg-white py-3 border-bottom">
+                <div class="card-header bg-white py-3.5 px-4 border-bottom">
                     <h5 class="fw-bold text-dark mb-0 font-serif">
                         <i class="bi bi-person-lines-fill text-maroon me-2"></i>১. প্রাথমিক ও ব্যক্তিগত বিবরণ
                     </h5>
@@ -93,7 +103,7 @@
 
             <!-- Section 2: Education & Career -->
             <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
-                <div class="card-header bg-white py-3 border-bottom">
+                <div class="card-header bg-white py-3.5 px-4 border-bottom">
                     <h5 class="fw-bold text-dark mb-0 font-serif">
                         <i class="bi bi-mortarboard-fill text-maroon me-2"></i>২. শিক্ষাগত যোগ্যতা ও পেশাগত অর্জন
                     </h5>
@@ -120,7 +130,7 @@
 
             <!-- Section 3: Family Lineage -->
             <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
-                <div class="card-header bg-white py-3 border-bottom">
+                <div class="card-header bg-white py-3.5 px-4 border-bottom">
                     <h5 class="fw-bold text-dark mb-0 font-serif">
                         <i class="bi bi-house-heart-fill text-maroon me-2"></i>৩. পারিবারিক পরিচয় ও পারিবারিক ঐতিহ্য
                     </h5>
@@ -135,7 +145,7 @@
 
             <!-- Section 4: Photo & Discreet Blur -->
             <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
-                <div class="card-header bg-white py-3 border-bottom">
+                <div class="card-header bg-white py-3.5 px-4 border-bottom">
                     <h5 class="fw-bold text-dark mb-0 font-serif">
                         <i class="bi bi-camera-fill text-maroon me-2"></i>৪. ছবি ও গোপনীয়তা নিয়ন্ত্রণ (Photo Vault)
                     </h5>
@@ -143,7 +153,7 @@
                 <div class="card-body p-4">
                     <div class="row align-items-center g-4">
                         <div class="col-12 col-md-3 text-center">
-                            <img src="{{ $candidateProfile->resolved_image }}" alt="Candidate Preview" class="rounded-circle shadow object-fit-cover mb-2 border border-2 border-maroon" style="width: 100px; height: 100px;">
+                            <img src="{{ $candidateProfile->resolved_image }}" alt="Candidate Preview" class="rounded-circle shadow object-fit-cover mb-2 border border-2 border-maroon {{ $candidateProfile->is_discreet ? 'blur-discreet' : '' }}" style="width: 105px; height: 105px;">
                             <div class="small text-muted">বর্তমান ছবি</div>
                         </div>
                         <div class="col-12 col-md-9">
@@ -168,7 +178,7 @@
 
             <!-- Section 5: Partner Preferences -->
             <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
-                <div class="card-header bg-white py-3 border-bottom">
+                <div class="card-header bg-white py-3.5 px-4 border-bottom">
                     <h5 class="fw-bold text-dark mb-0 font-serif">
                         <i class="bi bi-heart-pulse-fill text-danger me-2"></i>৫. কাঙ্ক্ষিত জীবনসঙ্গীর প্রত্যাশা (Partner Preferences)
                     </h5>
@@ -201,9 +211,9 @@
 
             <!-- Submit Button Card -->
             <div class="card border-0 shadow-sm rounded-4 bg-white mb-5">
-                <div class="card-body p-4 d-flex justify-content-between align-items-center">
+                <div class="card-body p-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <div class="small text-muted">
-                        <i class="bi bi-shield-check text-success me-1"></i> তথ্য সংরক্ষণ শেষে ম্যাচমেকার রিভিউ সম্পূর্ণ করা হবে।
+                        <i class="bi bi-shield-check text-success me-1"></i> তথ্য সংরক্ষণ করার পর তাৎক্ষণিকভাবে আপনার সিভি আপডেট হবে।
                     </div>
                     <button type="submit" class="btn btn-elite-primary px-5 py-2.5 rounded-pill fw-semibold fs-6">
                         <i class="bi bi-check2-circle me-1.5"></i> বায়োডাটা সংরক্ষণ করুন
@@ -213,4 +223,10 @@
         </form>
     </div>
 </div>
+
+<style>
+.blur-discreet {
+    filter: blur(8px);
+}
+</style>
 @endsection

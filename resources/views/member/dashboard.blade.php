@@ -85,8 +85,13 @@
                             <div class="badge bg-white text-maroon rounded-pill px-3 py-1 small fw-bold mb-2 shadow-sm">
                                 {{ ucfirst($candidateProfile->gender) }}, {{ $candidateProfile->age }} বছর
                             </div>
-                            <div class="small text-white-50 text-truncate" style="max-width: 220px;">
+                            <div class="small text-white-50 text-truncate mb-2" style="max-width: 220px;">
                                 <i class="bi bi-geo-alt-fill text-warning me-1"></i>{{ $candidateProfile->desher_bari ?? 'বাংলাদেশ' }}
+                            </div>
+                            <div>
+                                <a href="{{ route('member.biodata.show') }}" class="btn btn-outline-light btn-sm rounded-pill px-3 py-1" style="font-size: 0.78rem;">
+                                    <i class="bi bi-file-earmark-person me-1 text-warning"></i>আমার সিভি দেখুন &rarr;
+                                </a>
                             </div>
                         </div>
                     </div>

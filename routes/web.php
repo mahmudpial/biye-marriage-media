@@ -36,7 +36,8 @@ Route::get('/impersonate/stop', [AdminClientController::class, 'stopImpersonate'
 // Authenticated Client Member Portal Routes
 Route::middleware(['auth', EnsureUserIsClient::class])->prefix('member')->name('member.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/biodata', [BiodataController::class, 'edit'])->name('biodata.edit');
+    Route::get('/biodata', [BiodataController::class, 'show'])->name('biodata.show');
+    Route::get('/biodata/edit', [BiodataController::class, 'edit'])->name('biodata.edit');
     Route::post('/biodata', [BiodataController::class, 'update'])->name('biodata.update');
     Route::post('/biodata/toggle-discreet', [BiodataController::class, 'toggleDiscreet'])->name('biodata.toggle-discreet');
 
